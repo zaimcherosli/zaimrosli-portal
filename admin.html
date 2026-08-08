@@ -234,30 +234,45 @@
       justify-content: flex-end;
     }
 
-    /* Floating Save Bar */
+    /* Fixed Bottom Save Bar */
     .save-bar {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 100;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 12px 24px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid #334155;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
       display: flex;
-      gap: 12px;
+      justify-content: flex-end;
+      align-items: center;
+      box-sizing: border-box;
     }
 
     .btn-save-all {
-      background: #10b981;
-      color: white;
+      background: #d97706;
+      color: #ffffff;
       border: none;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 800;
       font-size: 0.95rem;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4);
       transition: all 0.2s ease;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
+    }
+
+    .btn-save-all:hover {
+      background: #b45309;
+      transform: translateY(-1px);
     }
 
     .btn-save-all:hover {
