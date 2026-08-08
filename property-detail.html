@@ -288,8 +288,9 @@
         document.getElementById('d-lotType').textContent = prop.lotType;
         document.getElementById('d-desc').textContent = prop.description;
 
-        // WhatsApp link
-        const waMsg = encodeURIComponent(`Hi Zaim, I am interested in inquiring about "${prop.title}" (${prop.priceStr}) located in ${prop.location}.`);
+        // WhatsApp link with live page URL included
+        const currentUrl = window.location.href;
+        const waMsg = encodeURIComponent(`Hi Zaim, I am interested in inquiring about "${prop.title}" (${prop.priceStr}) located in ${prop.location}.\n\nListing Link: ${currentUrl}`);
         document.getElementById('d-whatsapp-btn').href = `https://wa.me/60108118559?text=${waMsg}`;
 
         // Calculate Statutory Legal Fees Breakdown
