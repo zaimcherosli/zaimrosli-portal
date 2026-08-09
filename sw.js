@@ -1,46 +1,19 @@
-const CACHE_NAME = 'zaimrosli-pwa-v7';
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/properties.html',
-  '/property-detail.html',
-  '/services.html',
-  '/calculator.html',
-  '/about.html',
-  '/blog.html',
-  '/testimonials.html',
-  '/faq.html',
-  '/contact.html',
-  '/login.html',
-  '/admin.html',
-  '/styles.css',
-  '/app.js',
-  '/properties-data.js',
-  '/manifest.json'
-];
+const CACHE_NAME = 'zaimrosli-pwa-v8';
 
-// Install Event — Pre-cache static shell
+// Install Event
 self.addEventListener('install', (event) => {
   self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[PWA SW] Pre-caching static app shell');
-      return cache.addAll(STATIC_ASSETS).catch(err => {
-        console.warn('[PWA SW] Cache addAll warning:', err);
-      });
-    })
-  );
 });
 
-// Activate Event — Clean up stale caches
+// Activate Event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log('[PWA SW] Clearing old cache:', cache);
-            return caches.delete(cache);
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('[PWA SW] Removing old cache:', key);
+            return caches.delete(key);
           }
         })
       );
@@ -48,40 +21,37 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event — Network-first for APIs, Cache-first for Static Shell
+// Fetch Event — Network-First Strategy to prevent ERR_FAILED
 self.addEventListener('fetch', (event) => {
-  const requestUrl = new URL(event.request.url);
+  if (event.request.method !== 'GET') return;
 
-  // API Requests -> Network-first with cache fallback
-  if (requestUrl.pathname.startsWith('/api/')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          if (response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-          }
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
+  const url = new URL(event.request.url);
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-  // HTML & Static Assets -> Cache-first, update in background (Stale-While-Revalidate)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
-          }
-          return networkResponse;
-        })
-        .catch(() => cachedResponse);
-
-      return cachedResponse || fetchPromise;
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+        }
+        return networkResponse;
+      })
+      .catch(async () => {
+        // Fallback to cache if network fails / offline
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        if (event.request.mode === 'navigate') {
+          const fallback = await caches.match('/index.html') || await caches.match('/');
+          if (fallback) return fallback;
+        }
+        return new Response('Aplikasi dalam mod luar talian (offline). Sila sambung semula internet.', {
+          status: 503,
+          statusText: 'Service Unavailable',
+          headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
+        });
+      })
   );
 });
