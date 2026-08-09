@@ -1,0 +1,49 @@
+{
+  "name": "Zaim Rosli — Ejen Hartanah REN39575",
+  "short_name": "Zaim Rosli",
+  "description": "Portal Hartanah Rasmi Zaim Rosli (REN39575). Cari, beli, jual & sewa rumah di Kuala Lumpur & Selangor.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "ms",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cari Hartanah",
+      "short_name": "Hartanah",
+      "description": "Lihat senarai rumah untuk dijual & disewa",
+      "url": "/properties.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Kalkulator Kelayakan",
+      "short_name": "Kalkulator",
+      "description": "Kira anggaran kos guaman & bayaran bulanan",
+      "url": "/calculator.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Hubungi Zaim",
+      "short_name": "Contact",
+      "description": "Temujanji & konsultasi hartanah direct",
+      "url": "/contact.html",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
