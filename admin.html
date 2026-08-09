@@ -744,11 +744,15 @@
       uploadedImageUrls = [];
       rebuildImageThumbsGrid();
       document.getElementById('property-modal').style.display = 'flex';
+      const saveBar = document.querySelector('.save-bar');
+      if (saveBar) saveBar.style.display = 'none';
       setTimeout(autoResizeDescription, 50);
     }
 
     function closeModal() {
       document.getElementById('property-modal').style.display = 'none';
+      const saveBar = document.querySelector('.save-bar');
+      if (saveBar) saveBar.style.display = 'flex';
     }
 
     function editProperty(idx) {
@@ -772,6 +776,8 @@
 
       document.getElementById('modal-title').textContent = 'Edit Hartanah';
       document.getElementById('property-modal').style.display = 'flex';
+      const saveBar = document.querySelector('.save-bar');
+      if (saveBar) saveBar.style.display = 'none';
       setTimeout(autoResizeDescription, 50);
     }
 
