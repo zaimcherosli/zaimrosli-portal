@@ -339,7 +339,7 @@
     @media (max-width: 768px) {
       .admin-wrapper {
         padding-top: 85px !important;
-        padding-bottom: 110px !important;
+        padding-bottom: 40px !important;
       }
       .admin-container {
         padding: 0 12px !important;
@@ -506,12 +506,7 @@
     </div>
   </div>
 
-  <!-- Floating Save Button -->
-  <div class="save-bar">
-    <button onclick="forceSyncCloudflare()" class="btn-save-all">
-      💾 Simpan ke Cloudflare R2
-    </button>
-  </div>
+
 
   <!-- Modal Add/Edit Property -->
   <div id="property-modal" class="modal-overlay">
@@ -789,8 +784,13 @@
       }
     }
 
-    function saveProperty(e) {
+    async function saveProperty(e) {
       e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '⌛ Menyimpan ke Cloudflare R2...';
+      submitBtn.disabled = true;
+
       const idx = document.getElementById('form-id').value;
       const title = document.getElementById('form-title').value.trim();
       const price = parseFloat(document.getElementById('form-price').value);
@@ -843,9 +843,15 @@
         currentProperties.unshift(propData);
       }
 
-      saveToStorage();
+      await saveToStorage();
       renderListingsGrid();
-      closeModal();
+      
+      submitBtn.innerHTML = '✅ Berjaya Disimpan ke R2!';
+      setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        closeModal();
+      }, 600);
     }
 
     async function forceSyncCloudflare() {
