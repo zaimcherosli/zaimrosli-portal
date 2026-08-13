@@ -651,14 +651,19 @@ footer.site-footer {
 
 .footer-bottom {
   padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.85rem;
-  color: #64748b;
+  font-size: 0.88rem;
+  color: #cbd5e1 !important;
   flex-wrap: wrap;
   gap: 16px;
+  font-weight: 500;
+}
+
+.footer-bottom div {
+  color: #cbd5e1 !important;
 }
 
 /* ==========================================================================
