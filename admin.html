@@ -651,14 +651,26 @@
           </select>
         </div>
 
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK</label>
-          <input type="number" id="form-beds" class="form-input" value="3" required>
+        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+          <div class="form-group" style="flex: 1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK TIDUR</label>
+            <input type="number" id="form-beds" class="form-input" value="3" required>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK (+) EKSTRA</label>
+            <input type="number" id="form-beds-plus" class="form-input" placeholder="0">
+          </div>
         </div>
 
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">B.AIR</label>
-          <input type="number" id="form-baths" class="form-input" value="2" required>
+        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+          <div class="form-group" style="flex: 1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK AIR</label>
+            <input type="number" id="form-baths" class="form-input" value="2" required>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">B.AIR (+) EKSTRA</label>
+            <input type="number" id="form-baths-plus" class="form-input" placeholder="0">
+          </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
@@ -717,9 +729,9 @@
           <textarea id="form-description" class="form-textarea" style="min-height: 180px; height: auto; overflow: hidden; resize: vertical;" oninput="autoResizeDescription(this)" required></textarea>
         </div>
 
-        <div style="display: flex; gap: 10px; justify-content: flex-end;">
-          <button type="button" onclick="closeModal()" class="btn btn-outline btn-sm">Batal</button>
-          <button type="submit" class="btn btn-accent btn-sm">Simpan Hartanah</button>
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+          <button type="button" onclick="closeModal()" class="btn btn-outline" style="flex: 1;">Batal</button>
+          <button type="submit" class="btn btn-accent" style="flex: 2; height: 46px; font-weight: 700; text-align: center; justify-content: center;">Simpan Hartanah</button>
         </div>
       </form>
 
@@ -805,8 +817,10 @@
         const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Pautan Rujukan (PropMall)</a>` : '';
 
         const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(p.type);
-        const bedsChip = (!isCommercial && p.beds > 0) ? `<span class="meta-chip">🛏️ ${p.beds} Bilik</span>` : '';
-        const bathsChip = (p.baths > 0) ? `<span class="meta-chip">🚿 ${p.baths} B.Air</span>` : '';
+        const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
+        const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
+        const bedsChip = (!isCommercial && p.beds > 0) ? `<span class="meta-chip">🛏️ ${bedsVal} Bilik</span>` : '';
+        const bathsChip = (p.baths > 0) ? `<span class="meta-chip">🚿 ${bathsVal} B.Air</span>` : '';
 
         return `
           <div class="listing-item">
@@ -895,8 +909,10 @@
       document.getElementById('form-location').value = p.location;
       document.getElementById('form-region').value = p.region;
       document.getElementById('form-type').value = p.type;
-      document.getElementById('form-beds').value = p.beds;
-      document.getElementById('form-baths').value = p.baths;
+      document.getElementById('form-beds').value = p.beds || '';
+      document.getElementById('form-beds-plus').value = p.bedsPlus || '';
+      document.getElementById('form-baths').value = p.baths || '';
+      document.getElementById('form-baths-plus').value = p.bathsPlus || '';
       document.getElementById('form-landSize').value = p.landSize || '';
       document.getElementById('form-size').value = p.size;
       document.getElementById('form-tenure').value = p.tenure || '-';
@@ -951,8 +967,10 @@
       const location = document.getElementById('form-location').value.trim();
       const region = document.getElementById('form-region').value;
       const type = document.getElementById('form-type').value;
-      const beds = parseInt(document.getElementById('form-beds').value);
-      const baths = parseInt(document.getElementById('form-baths').value);
+      const beds = parseInt(document.getElementById('form-beds').value) || 0;
+      const bedsPlus = parseInt(document.getElementById('form-beds-plus').value) || 0;
+      const baths = parseInt(document.getElementById('form-baths').value) || 0;
+      const bathsPlus = parseInt(document.getElementById('form-baths-plus').value) || 0;
       const landSize = document.getElementById('form-landSize').value.trim() || '-';
       const size = parseInt(document.getElementById('form-size').value);
       const tenure = document.getElementById('form-tenure').value;
@@ -982,7 +1000,9 @@
         type: type,
         status: status,
         beds: beds,
+        bedsPlus: bedsPlus,
         baths: baths,
+        bathsPlus: bathsPlus,
         parking: 2,
         size: size,
         landSize: landSize,

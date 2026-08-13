@@ -60,9 +60,11 @@ function createPropertyCardHTML(item) {
     ? item.images[0] 
     : (typeof item.image === 'string' ? item.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80');
 
+  const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : item.beds;
+  const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
   const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(item.type);
-  const bedsSpec = (!isCommercial && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${item.beds} Beds</span>` : '';
-  const bathsSpec = (item.baths > 0) ? `<span class="property-spec-item">🚿 ${item.baths} Baths</span>` : '';
+  const bedsSpec = (!isCommercial && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${bedsVal} Beds</span>` : '';
+  const bathsSpec = (item.baths > 0) ? `<span class="property-spec-item">🚿 ${bathsVal} Baths</span>` : '';
   const sizeSpec = item.size ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
 
   return `

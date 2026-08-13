@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "routePath": "/property-detail/:slug",
+      "mountPath": "/property-detail",
+      "method": "",
+      "module": [
+        "property-detail/[slug].js:onRequest"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}

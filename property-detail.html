@@ -333,7 +333,8 @@
             bedsBox.style.display = 'none';
           } else {
             bedsBox.style.display = 'block';
-            document.getElementById('d-beds').textContent = `${prop.beds} Beds`;
+            const bedsVal = prop.bedsPlus > 0 ? `${prop.beds}+${prop.bedsPlus}` : prop.beds;
+            document.getElementById('d-beds').textContent = `${bedsVal} Beds`;
           }
         }
 
@@ -344,7 +345,8 @@
             bathsBox.style.display = 'none';
           } else {
             bathsBox.style.display = 'block';
-            document.getElementById('d-baths').textContent = `${prop.baths} Baths`;
+            const bathsVal = prop.bathsPlus > 0 ? `${prop.baths}+${prop.bathsPlus}` : prop.baths;
+            document.getElementById('d-baths').textContent = `${bathsVal} Baths`;
           }
         }
 

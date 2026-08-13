@@ -1,0 +1,316 @@
+<table width="100%" height="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+	<tr>
+		<td align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+		<td align="center" valign="middle">
+			<table width="100%" height="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+				<tr>
+					<td height="150" align="center" valign="middle" bgcolor="#ECE9D8">
+						<br>
+						<b><font face="Arial, Helvetica, sans-serif" size="+1" color="#CC0000">Error</font></b>
+						<br>
+						<br> 
+						<font color="#CC0000"><b><font font="Arial, Helvetica, sans-serif" size="3" color="#FF0000">(goDatabase.Execute) Error Executing Query: 1054 
+											<p> Unknown column 'c.owner_ads_title' in 'WHERE' </p>
+											<p>SQL Statement:</p>
+											<table><tr><td align="left"><pre><font color="#9900FF">Line 1:</font>     select
+<font color="#9900FF">     2:</font>     a.id_listing,
+<font color="#9900FF">     3:</font>     a.reg_no as listing_reg_no,
+<font color="#9900FF">     4:</font>     if (
+<font color="#9900FF">     5:</font>     /* 'Apartment / Condo (Highrise)' */
+<font color="#9900FF">     6:</font>     a.id_category = 2010,
+<font color="#9900FF">     7:</font>     if (
+<font color="#9900FF">     8:</font>     a.id_objective = 2000,
+<font color="#9900FF">     9:</font>     concat(
+<font color="#9900FF">    10:</font>     ap42.itm_desc,
+<font color="#9900FF">    11:</font>     ', ',
+<font color="#9900FF">    12:</font>     if (
+<font color="#9900FF">    13:</font>     (
+<font color="#9900FF">    14:</font>     a.id_type = 2024	/* Penthouse */
+<font color="#9900FF">    15:</font>     or
+<font color="#9900FF">    16:</font>     a.id_type = 2021	/* Service Residence */
+<font color="#9900FF">    17:</font>     ),
+<font color="#9900FF">    18:</font>     concat (
+<font color="#9900FF">    19:</font>     ifnull( a.storey, '1' ),
+<font color="#9900FF">    20:</font>     '-storey, '
+<font color="#9900FF">    21:</font>     ),
+<font color="#9900FF">    22:</font>     ''
+<font color="#9900FF">    23:</font>     ),
+<font color="#9900FF">    24:</font>     a.holding,
+<font color="#9900FF">    25:</font>     ', ',
+<font color="#9900FF">    26:</font>     ap43.itm_desc,
+<font color="#9900FF">    27:</font>     ', ',
+<font color="#9900FF">    28:</font>     ifnull( a.position, '' )
+<font color="#9900FF">    29:</font>     ),
+<font color="#9900FF">    30:</font>     concat(
+<font color="#9900FF">    31:</font>     ap42.itm_desc,
+<font color="#9900FF">    32:</font>     ', ',
+<font color="#9900FF">    33:</font>     if (
+<font color="#9900FF">    34:</font>     (
+<font color="#9900FF">    35:</font>     a.id_type = 2024	/* Penthouse */
+<font color="#9900FF">    36:</font>     or
+<font color="#9900FF">    37:</font>     a.id_type = 2021	/* Service Residence */
+<font color="#9900FF">    38:</font>     ),
+<font color="#9900FF">    39:</font>     concat (
+<font color="#9900FF">    40:</font>     ifnull( a.storey, '1' ),
+<font color="#9900FF">    41:</font>     '-storey, '
+<font color="#9900FF">    42:</font>     ),
+<font color="#9900FF">    43:</font>     ''
+<font color="#9900FF">    44:</font>     ),
+<font color="#9900FF">    45:</font>     ifnull( a.position, '' )
+<font color="#9900FF">    46:</font>     )
+<font color="#9900FF">    47:</font>     ),
+<font color="#9900FF">    48:</font>     if (
+<font color="#9900FF">    49:</font>     /* 'House / Bungalow (Landed)' */
+<font color="#9900FF">    50:</font>     a.id_category = 2011,
+<font color="#9900FF">    51:</font>     if (
+<font color="#9900FF">    52:</font>     a.id_objective = 2000,
+<font color="#9900FF">    53:</font>     concat(
+<font color="#9900FF">    54:</font>     ap42.itm_desc,
+<font color="#9900FF">    55:</font>     ', ',
+<font color="#9900FF">    56:</font>     a.storey,
+<font color="#9900FF">    57:</font>     '-storey, ',
+<font color="#9900FF">    58:</font>     a.holding,
+<font color="#9900FF">    59:</font>     ', ',
+<font color="#9900FF">    60:</font>     ap43.itm_desc,
+<font color="#9900FF">    61:</font>     ', ',
+<font color="#9900FF">    62:</font>     ifnull( a.position, '' )
+<font color="#9900FF">    63:</font>     ),
+<font color="#9900FF">    64:</font>     concat(
+<font color="#9900FF">    65:</font>     ap42.itm_desc,
+<font color="#9900FF">    66:</font>     ', ',
+<font color="#9900FF">    67:</font>     a.storey,
+<font color="#9900FF">    68:</font>     '-storey, ',
+<font color="#9900FF">    69:</font>     ifnull( a.position, '' )
+<font color="#9900FF">    70:</font>     )
+<font color="#9900FF">    71:</font>     ),
+<font color="#9900FF">    72:</font>     if (
+<font color="#9900FF">    73:</font>     /* 'Commercial / Office / Industry / Building' */
+<font color="#9900FF">    74:</font>     a.id_category = 2012,
+<font color="#9900FF">    75:</font>     if (
+<font color="#9900FF">    76:</font>     a.id_objective = 2000,
+<font color="#9900FF">    77:</font>     concat(
+<font color="#9900FF">    78:</font>     ap42.itm_desc,
+<font color="#9900FF">    79:</font>     ', ',
+<font color="#9900FF">    80:</font>     if (
+<font color="#9900FF">    81:</font>     (
+<font color="#9900FF">    82:</font>     a.id_type = 2043 	/* Building */
+<font color="#9900FF">    83:</font>     or
+<font color="#9900FF">    84:</font>     a.id_type = 2045	/* Factory */
+<font color="#9900FF">    85:</font>     or
+<font color="#9900FF">    86:</font>     a.id_type = 2042 	/* Office Lot */
+<font color="#9900FF">    87:</font>     or
+<font color="#9900FF">    88:</font>     a.id_type = 2046 	/* Shop Lot */
+<font color="#9900FF">    89:</font>     or
+<font color="#9900FF">    90:</font>     a.id_type = 2044 	/* Warehouse */
+<font color="#9900FF">    91:</font>     ),
+<font color="#9900FF">    92:</font>     concat (
+<font color="#9900FF">    93:</font>     ifnull( a.storey, '1' ),
+<font color="#9900FF">    94:</font>     '-storey, '
+<font color="#9900FF">    95:</font>     ),
+<font color="#9900FF">    96:</font>     ''
+<font color="#9900FF">    97:</font>     ),
+<font color="#9900FF">    98:</font>     a.holding,
+<font color="#9900FF">    99:</font>     ', ',
+<font color="#9900FF">   100:</font>     ap43.itm_desc,
+<font color="#9900FF">   101:</font>     ', ',
+<font color="#9900FF">   102:</font>     ifnull( a.position, '' )
+<font color="#9900FF">   103:</font>     ),
+<font color="#9900FF">   104:</font>     concat(
+<font color="#9900FF">   105:</font>     ap42.itm_desc,
+<font color="#9900FF">   106:</font>     ', ',
+<font color="#9900FF">   107:</font>     a.storey,
+<font color="#9900FF">   108:</font>     '-storey, ',
+<font color="#9900FF">   109:</font>     ifnull( a.position, '' )
+<font color="#9900FF">   110:</font>     )
+<font color="#9900FF">   111:</font>     ),
+<font color="#9900FF">   112:</font>     if (
+<font color="#9900FF">   113:</font>     /* 'Land' */
+<font color="#9900FF">   114:</font>     a.id_category = 2013,
+<font color="#9900FF">   115:</font>     concat(
+<font color="#9900FF">   116:</font>     ap42.itm_desc,
+<font color="#9900FF">   117:</font>     ' ',
+<font color="#9900FF">   118:</font>     ap41.itm_desc,
+<font color="#9900FF">   119:</font>     ', ',
+<font color="#9900FF">   120:</font>     a.holding,
+<font color="#9900FF">   121:</font>     ', ',
+<font color="#9900FF">   122:</font>     ap43.itm_desc
+<font color="#9900FF">   123:</font>     ),
+<font color="#9900FF">   124:</font>     if (
+<font color="#9900FF">   125:</font>     /* 'Hotel / Resort / Homestay' */
+<font color="#9900FF">   126:</font>     a.id_category = 2014,
+<font color="#9900FF">   127:</font>     concat(
+<font color="#9900FF">   128:</font>     ap42.itm_desc,
+<font color="#9900FF">   129:</font>     ', ',
+<font color="#9900FF">   130:</font>     if (
+<font color="#9900FF">   131:</font>     a.id_type = 2049, 	/* Homestay */
+<font color="#9900FF">   132:</font>     concat (
+<font color="#9900FF">   133:</font>     ifnull( a.storey, '1' ),
+<font color="#9900FF">   134:</font>     '-storey, '
+<font color="#9900FF">   135:</font>     ),
+<font color="#9900FF">   136:</font>     if (
+<font color="#9900FF">   137:</font>     ifnull( a.floor, '0' ) > 0,
+<font color="#9900FF">   138:</font>     concat(
+<font color="#9900FF">   139:</font>     a.floor,
+<font color="#9900FF">   140:</font>     '-floor, '
+<font color="#9900FF">   141:</font>     ),
+<font color="#9900FF">   142:</font>     ''
+<font color="#9900FF">   143:</font>     )
+<font color="#9900FF">   144:</font>     ),
+<font color="#9900FF">   145:</font>     a.holding,
+<font color="#9900FF">   146:</font>     ', ',
+<font color="#9900FF">   147:</font>     ap43.itm_desc,
+<font color="#9900FF">   148:</font>     if (
+<font color="#9900FF">   149:</font>     a.id_type = 2049, 	/* Homestay */
+<font color="#9900FF">   150:</font>     concat(
+<font color="#9900FF">   151:</font>     ', ',
+<font color="#9900FF">   152:</font>     ifnull( a.position, '' )
+<font color="#9900FF">   153:</font>     ),
+<font color="#9900FF">   154:</font>     ''
+<font color="#9900FF">   155:</font>     )
+<font color="#9900FF">   156:</font>     ),
+<font color="#9900FF">   157:</font>     '-'
+<font color="#9900FF">   158:</font>     )
+<font color="#9900FF">   159:</font>     )
+<font color="#9900FF">   160:</font>     )
+<font color="#9900FF">   161:</font>     )
+<font color="#9900FF">   162:</font>     ) as category_type_title_holding_lottype_storey,
+<font color="#9900FF">   163:</font>     if (
+<font color="#9900FF">   164:</font>     a.id_objective = 2000,
+<font color="#9900FF">   165:</font>     'FOR SALE',
+<font color="#9900FF">   166:</font>     if (
+<font color="#9900FF">   167:</font>     a.id_objective = 2001,
+<font color="#9900FF">   168:</font>     'FOR RENT',
+<font color="#9900FF">   169:</font>     if (
+<font color="#9900FF">   170:</font>     a.id_objective = 2008,
+<font color="#9900FF">   171:</font>     'NEW PROJECT',
+<font color="#9900FF">   172:</font>     ''
+<font color="#9900FF">   173:</font>     )
+<font color="#9900FF">   174:</font>     )
+<font color="#9900FF">   175:</font>     ) as modus,
+<font color="#9900FF">   176:</font>     if (
+<font color="#9900FF">   177:</font>     (
+<font color="#9900FF">   178:</font>     a.status = 'SOLD' or a.status = 'SOLD_BY_OTHERS'
+<font color="#9900FF">   179:</font>     or
+<font color="#9900FF">   180:</font>     a.status = 'BOOKED'
+<font color="#9900FF">   181:</font>     or
+<font color="#9900FF">   182:</font>     a.status = 'AVAILABLE' and a.publish = 'N'
+<font color="#9900FF">   183:</font>     or
+<font color="#9900FF">   184:</font>     a.status = 'AVAILABLE' and a.publish = 'EXPIRED'
+<font color="#9900FF">   185:</font>     or
+<font color="#9900FF">   186:</font>     a.status = 'AVAILABLE' and a.publish = 'UNPUBLISHED'
+<font color="#9900FF">   187:</font>     or
+<font color="#9900FF">   188:</font>     a.status = 'CANCEL'
+<font color="#9900FF">   189:</font>     )
+<font color="#9900FF">   190:</font>     ,
+<font color="#9900FF">   191:</font>     'Y',
+<font color="#9900FF">   192:</font>     'N'
+<font color="#9900FF">   193:</font>     ) as status_unavailable,
+<font color="#9900FF">   194:</font>     a.status,
+<font color="#9900FF">   195:</font>     ifnull( a.publish_dt, '' ) as publish_dt,
+<font color="#9900FF">   196:</font>     /* a.asking_price,		a.asking_price_previous,
+<font color="#9900FF">   197:</font>     a.asking_rental,	a.asking_rental_previous,*/
+<font color="#9900FF">   198:</font>     if (
+<font color="#9900FF">   199:</font>     (
+<font color="#9900FF">   200:</font>     a.id_objective = 2000	/* For Sale (WTS) */
+<font color="#9900FF">   201:</font>     or
+<font color="#9900FF">   202:</font>     a.id_objective = 2008	/* New Project */
+<font color="#9900FF">   203:</font>     ),
+<font color="#9900FF">   204:</font>     a.asking_price,
+<font color="#9900FF">   205:</font>     a.asking_rental
+<font color="#9900FF">   206:</font>     ) as price,
+<font color="#9900FF">   207:</font>     if (
+<font color="#9900FF">   208:</font>     (
+<font color="#9900FF">   209:</font>     a.id_objective = 2000	/* For Sale (WTS) */
+<font color="#9900FF">   210:</font>     or
+<font color="#9900FF">   211:</font>     a.id_objective = 2008	/* New Project */
+<font color="#9900FF">   212:</font>     ),
+<font color="#9900FF">   213:</font>     a.asking_price_previous,
+<font color="#9900FF">   214:</font>     a.asking_rental_previous
+<font color="#9900FF">   215:</font>     ) as price_previous,
+<font color="#9900FF">   216:</font>     a.diff_market_value_vs_asking_price,
+<font color="#9900FF">   217:</font>     if (
+<font color="#9900FF">   218:</font>     trim( ifnull( a.diff_market_value_vs_asking_price, '' ) ) <> '',
+<font color="#9900FF">   219:</font>     if (
+<font color="#9900FF">   220:</font>     a.diff_market_value_vs_asking_price < 0,
+<font color="#9900FF">   221:</font>     'Y',
+<font color="#9900FF">   222:</font>     'N'
+<font color="#9900FF">   223:</font>     ),
+<font color="#9900FF">   224:</font>     'N'
+<font color="#9900FF">   225:</font>     ) as below_market,
+<font color="#9900FF">   226:</font>     a.ownership,		a.comarket,
+<font color="#9900FF">   227:</font>     a.id_category,		a.id_type,			a.floor,
+<font color="#9900FF">   228:</font>     a.room,				a.bathroom,			a.exclusive,
+<font color="#9900FF">   229:</font>     a.built_size,		a.built_size_unit,
+<font color="#9900FF">   230:</font>     a.land_size,		a.land_size_unit,
+<font color="#9900FF">   231:</font>     a.owner_ads_title as ads_title,
+<font color="#9900FF">   232:</font>     unix_timestamp( ifnull(a.inf_mod_dt, a.inf_cre_dt) ) as listing_info_timestamp,
+<font color="#9900FF">   233:</font>     unix_timestamp( ifnull(b.inf_mod_dt, b.inf_cre_dt) ) as listing_photo_timestamp,
+<font color="#9900FF">   234:</font>     b.file_path as listing_photo,
+<font color="#9900FF">   235:</font>     (
+<font color="#9900FF">   236:</font>     select count(*) as kira1 from lis_listing_file a1 where a1.id_listing = a.id_listing
+<font color="#9900FF">   237:</font>     ) as listing_photo_count,
+<font color="#9900FF">   238:</font>     a.id_ren as agent_id,
+<font color="#9900FF">   239:</font>     if (
+<font color="#9900FF">   240:</font>     trim( ifnull( d.nickname, '' ) ) <> '',
+<font color="#9900FF">   241:</font>     d.nickname,
+<font color="#9900FF">   242:</font>     d.name
+<font color="#9900FF">   243:</font>     ) agent_name,
+<font color="#9900FF">   244:</font>     d.ren_level as agent_ren_level,		d.reg_no as agent_reg_no,
+<font color="#9900FF">   245:</font>     d.have_reg_tag as agent_have_reg_tag,
+<font color="#9900FF">   246:</font>     d.photo as agent_photo,				d.mobile as agent_mobile,
+<font color="#9900FF">   247:</font>     d.user_name as agent_user_name,
+<font color="#9900FF">   248:</font>     unix_timestamp( ifnull(d.inf_mod_dt, d.inf_cre_dt) ) as agent_timestamp,
+<font color="#9900FF">   249:</font>     ap1.itm_desc as state,
+<font color="#9900FF">   250:</font>     ap2.itm_desc as area
+<font color="#9900FF">   251:</font>     from lis_listing a
+<font color="#9900FF">   252:</font>     left outer join lis_listing_file b on b.id_listing = a.id_listing and b.file_name = 'FilePhoto01'
+<font color="#9900FF">   253:</font>     left outer join lis_list c on c.id_listing = a.id_listing and c.type = 'OWN'
+<font color="#9900FF">   254:</font>     left outer join neg_agent d on d.id_ren = a.id_ren
+<font color="#9900FF">   255:</font>     left outer join sys_param ap1 on ap1.itm_id = a.addr_id_state
+<font color="#9900FF">   256:</font>     left outer join sys_param ap2 on ap2.itm_id = a.addr_id_area
+<font color="#9900FF">   257:</font>     left outer join sys_param ap41 on ap41.itm_id = a.id_category
+<font color="#9900FF">   258:</font>     left outer join sys_param ap42 on ap42.itm_id = a.id_type
+<font color="#9900FF">   259:</font>     left outer join sys_param ap43 on ap43.itm_id = a.id_lot_type
+<font color="#9900FF">   260:</font>     where a.inf_data_status > 100
+<font color="#9900FF">   261:</font>     and a.addr_id_country = 100 /* Malaysia */
+<font color="#9900FF">   262:</font>     and d.inf_data_status > 100
+<font color="#9900FF">   263:</font>     and a.publish = 'Y'
+<font color="#9900FF">   264:</font>     and ifnull(a.id_project, '') = ''
+<font color="#9900FF">   265:</font>     and a.status = 'AVAILABLE'
+<font color="#9900FF">   266:</font>     and c.type = 'OWN'
+<font color="#9900FF">   267:</font>     and ifnull( a.id_objective, '' ) <> 2008 /* exclude New Project */
+<font color="#9900FF">   268:</font>     and ifnull(a.id_objective_sub, '') <> '2008' /* exclude New Project */
+<font color="#9900FF">   269:</font>     and ifnull(a.publish_expired_dt, '') <> ''
+<font color="#9900FF">   270:</font>     and a.publish_expired_dt >= ?
+<font color="#9900FF">   271:</font>     and (	c.owner_ads_title like ?			or
+<font color="#9900FF">   272:</font>     c.ads_description like ?	or
+<font color="#9900FF">   273:</font>     ap1.itm_desc like ?
+<font color="#9900FF">   274:</font>     )
+<font color="#9900FF">   275:</font>     order by publish_dt desc
+<font color="#9900FF">   276:</font>     limit 0, 24</pre></td></tr></table> 
+											
+											<p>Input Array:<p>
+											<table><tr><td align="left"><font color="#0000FF"><pre>Array
+(
+    [0] => 2026-08-13 00:00:00
+    [1] => %LR2608000528%
+    [2] => %LR2608000528%
+    [3] => %LR2608000528%
+)
+</font></pre></td></tr></table>
+											</font></b></font>						<br>
+						<br>
+						Please contact your System Administrator for further information.
+						<br>&nbsp;</td>
+				</tr>
+			</table>
+		
+		</td>
+	</tr>
+	<tr>
+		<td><font face="Arial, Helvetica, sans-serif" size="1" color="#999999">/</font></td>
+	</tr>
+</table>
+			
