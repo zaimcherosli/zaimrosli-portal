@@ -107,7 +107,7 @@
         align-items: center;
         gap: 0.4rem;
     `;
-    badge.innerHTML = \`<span>✨</span><span>Kemaskini sistem digunakan...</span>\`;
+    badge.innerHTML = '<span>✨</span><span>Kemaskini sistem digunakan...</span>';
     document.body.appendChild(badge);
     requestAnimationFrame(() => {
         badge.style.opacity = '1';

@@ -22,9 +22,60 @@
     .result-row {
       display: flex;
       justify-content: space-between;
-      padding: 12px 0;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border-color);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .result-row span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-row strong {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .result-row-total {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
       font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+    .result-row-total span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-row-total strong {
+      white-space: nowrap;
+      flex-shrink: 0;
+      color: var(--accent-gold);
+      font-size: 1.15rem;
+    }
+    @media (max-width: 480px) {
+      .calc-card {
+        padding: 20px 14px !important;
+      }
+      .result-row {
+        font-size: 0.78rem !important;
+        padding: 8px 0 !important;
+      }
+      .result-row-total {
+        font-size: 0.84rem !important;
+      }
+      .result-row-total strong {
+        font-size: 0.95rem !important;
+      }
     }
   </style>
   <link rel="manifest" href="/manifest.json">
@@ -147,15 +198,15 @@
         <div class="calc-card" style="background: var(--bg-alt);">
           <h3 style="font-size: 1.3rem; margin-bottom: 20px;">Estimated Cost Breakdown</h3>
           
-          <div style="background: #ffffff; padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center;">
-            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">ESTIMATED MONTHLY INSTALLMENT</div>
-            <div id="res-monthly" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--accent-gold); margin-top: 4px;">
+          <div style="background: #ffffff; padding: 20px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">ESTIMATED MONTHLY INSTALLMENT</div>
+            <div id="res-monthly" style="font-family: var(--font-heading); font-size: clamp(1.3rem, 5.5vw, 2.1rem); font-weight: 800; color: var(--accent-gold); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
               RM 0 / mo
             </div>
           </div>
 
           <div class="result-row">
-            <span>Loan Financing Amount (90%):</span>
+            <span>Loan Amount (90%):</span>
             <strong id="res-loan">RM 0</strong>
           </div>
           <div class="result-row">
@@ -167,21 +218,21 @@
             <strong id="res-mot">RM 0</strong>
           </div>
           <div class="result-row">
-            <span>Loan Facility Legal Fees:</span>
+            <span>Loan Legal Fee:</span>
             <strong id="res-loan-fee">RM 0</strong>
           </div>
           <div class="result-row">
-            <span>Loan Facility Stamp Duty:</span>
+            <span>Loan Stamp Duty:</span>
             <strong id="res-loan-duty">RM 0</strong>
           </div>
           <div class="result-row">
-            <span>Est. Property Valuation Fee:</span>
+            <span>Property Valuation Fee:</span>
             <strong id="res-valuation">RM 0</strong>
           </div>
 
-          <div style="margin-top: 20px; padding-top: 14px; border-top: 2px solid var(--border-color); display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; color: var(--text-main);">
-            <span>TOTAL ESTIMATED CASH REQUIRED:</span>
-            <span id="res-total-cash" style="color: var(--accent-gold);">RM 0</span>
+          <div class="result-row-total">
+            <span>Est. Total Cash Required:</span>
+            <strong id="res-total-cash">RM 0</strong>
           </div>
 
           <div style="margin-top: 20px;">

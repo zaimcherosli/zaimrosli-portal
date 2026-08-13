@@ -145,3 +145,40 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
 function formatCurrency(val) {
   return new Intl.NumberFormat('en-MY', { style: 'currency', currency: 'MYR', maximumFractionDigits: 0 }).format(val);
 }
+
+// 5. Real Estate Financial & Legal Calculation Utilities
+function calcSPALegalFee(price) {
+  if (!price || price <= 0) return 0;
+  if (price <= 500000) return Math.max(500, price * 0.0125);
+  if (price <= 7000000) return 500000 * 0.0125 + (price - 500000) * 0.01;
+  return 500000 * 0.0125 + 6500000 * 0.01 + (price - 7000000) * 0.0075;
+}
+
+function calcMOTStampDuty(price) {
+  if (!price || price <= 0) return 0;
+  if (price <= 100000) return price * 0.01;
+  if (price <= 500000) return 1000 + (price - 100000) * 0.02;
+  if (price <= 1000000) return 1000 + 8000 + (price - 500000) * 0.03;
+  return 1000 + 8000 + 15000 + (price - 1000000) * 0.04;
+}
+
+function calcLoanLegalFee(loanAmount) {
+  return calcSPALegalFee(loanAmount);
+}
+
+function calcLoanStampDuty(loanAmount) {
+  return loanAmount * 0.005;
+}
+
+function calcValuationFee(price) {
+  if (!price || price <= 0) return 0;
+  if (price <= 100000) return Math.max(300, price * 0.0025);
+  if (price <= 2000000) return 100000 * 0.0025 + (price - 100000) * 0.002;
+  return 100000 * 0.0025 + 1900000 * 0.002 + (price - 2000000) * 0.001;
+}
+
+window.calcSPALegalFee = calcSPALegalFee;
+window.calcMOTStampDuty = calcMOTStampDuty;
+window.calcLoanLegalFee = calcLoanLegalFee;
+window.calcLoanStampDuty = calcLoanStampDuty;
+window.calcValuationFee = calcValuationFee;
