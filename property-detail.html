@@ -358,6 +358,48 @@
         if (mainImg) {
           mainImg.referrerPolicy = 'no-referrer';
           mainImg.src = allImages[0];
+          mainImg.style.transition = 'opacity 0.3s ease';
+        }
+
+        let currentImgIndex = 0;
+        let slideTimer = null;
+
+        function setActiveImage(index) {
+          if (!allImages || allImages.length === 0) return;
+          currentImgIndex = (index + allImages.length) % allImages.length;
+          if (mainImg) {
+            mainImg.src = allImages[currentImgIndex];
+          }
+          const thumbsContainer = document.getElementById('d-gallery-thumbs');
+          if (thumbsContainer && thumbsContainer.children.length > 0) {
+            Array.from(thumbsContainer.children).forEach((child, i) => {
+              if (i === currentImgIndex) {
+                child.style.borderColor = 'var(--accent-gold)';
+                child.style.opacity = '1';
+                child.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+              } else {
+                child.style.borderColor = '#e2e8f0';
+                child.style.opacity = '0.65';
+              }
+            });
+          }
+        }
+
+        function startAutoSlide() {
+          stopAutoSlide();
+          if (allImages.length > 1) {
+            slideTimer = setInterval(() => {
+              currentImgIndex = (currentImgIndex + 1) % allImages.length;
+              setActiveImage(currentImgIndex);
+            }, 3500);
+          }
+        }
+
+        function stopAutoSlide() {
+          if (slideTimer) {
+            clearInterval(slideTimer);
+            slideTimer = null;
+          }
         }
 
         // Render Photo Gallery Thumbnails if multiple images exist
@@ -369,16 +411,35 @@
               const thumb = document.createElement('img');
               thumb.src = imgUrl;
               thumb.referrerPolicy = 'no-referrer';
-              thumb.style.cssText = `width: 90px; height: 65px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--accent-gold)' : '#e2e8f0'}; transition: all 0.2s; flex-shrink: 0;`;
+              thumb.style.cssText = `width: 90px; height: 65px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--accent-gold)' : '#e2e8f0'}; opacity: ${idx === 0 ? '1' : '0.65'}; transition: all 0.25s ease; flex-shrink: 0;`;
               thumb.addEventListener('click', () => {
-                if (mainImg) mainImg.src = imgUrl;
-                Array.from(thumbsContainer.children).forEach(child => child.style.borderColor = '#e2e8f0');
-                thumb.style.borderColor = 'var(--accent-gold)';
+                setActiveImage(idx);
+                startAutoSlide();
               });
               thumbsContainer.appendChild(thumb);
             });
           }
         }
+
+        if (mainImg && allImages.length > 1) {
+          mainImg.style.cursor = 'pointer';
+          mainImg.addEventListener('click', () => {
+            setActiveImage(currentImgIndex + 1);
+            startAutoSlide();
+          });
+        }
+
+        const heroWrap = document.querySelector('.detail-hero-wrap');
+        if (heroWrap) {
+          heroWrap.addEventListener('mouseenter', stopAutoSlide);
+          heroWrap.addEventListener('mouseleave', startAutoSlide);
+        }
+        if (thumbsContainer) {
+          thumbsContainer.addEventListener('mouseenter', stopAutoSlide);
+          thumbsContainer.addEventListener('mouseleave', startAutoSlide);
+        }
+
+        startAutoSlide();
 
         const badge = document.getElementById('d-badge-status');
         badge.textContent = prop.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
