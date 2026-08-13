@@ -282,25 +282,25 @@
       const url = window.location.href;
 
       const shareText = 
-`📊 ANGGARAN YURAN & ANSURAN HARTANAH
-───────────────────────────
-🏠 Harga Hartanah: RM ${numPrice.toLocaleString('en-US')}
-💰 Deposit (${down}%): RM ${depositVal}
-🏦 Jumlah Pinjaman (${100 - numDown}%): ${loan}
-📈 Kadar Faedah: ${rate}% (${tenure} Tahun)
+`📊 *ANGGARAN YURAN & ANSURAN HARTANAH*
+═════════════════
+🏠 *Harga Hartanah:* RM ${numPrice.toLocaleString('en-US')}
+💰 *Deposit (${down}%):* RM ${depositVal}
+🏦 *Pinjaman (${100 - numDown}%):* ${loan}
+📈 *Kadar Faedah:* ${rate}% (${tenure} Tahun)
 
-💵 Ansuran Bulanan: ${monthly}
+💵 *Ansuran Bulanan:* ${monthly}
 
-📋 PECAHAN YURAN GUAMAN & STAMP DUTY:
+📋 *PECAHAN YURAN GUAMAN & STAMP DUTY:*
 • Yuran Guaman SPA: ${spa}
 • Duti Setem MOT: ${mot}
 • Yuran Guaman Pinjaman: ${loanFee}
 • Duti Setem Pinjaman: ${loanDuty}
 • Yuran Penilaian Hartanah: ${valuation}
 
-✨ JUMLAH TUNAI DIPERLUKAN: ${totalCash}
-───────────────────────────
-Zaim Rosli Real Estate`;
+✨ *JUMLAH TUNAI DIPERLUKAN:* ${totalCash}
+═════════════════
+_Zaim Rosli Real Estate_`;
 
       const fullCopyText = shareText + '\n' + url;
 
