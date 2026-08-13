@@ -544,11 +544,18 @@
 
   <!-- Admin Main Wrapper -->
   <div class="admin-wrapper">
-    <div class="admin-container">
-      
-      <!-- Panel Card -->
-      <div class="panel" style="display: block;">
-        
+      <!-- Admin Tab Switcher -->
+      <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button id="tab-btn-active" onclick="switchAdminTab('active')" class="btn" style="background: var(--primary-navy, #0f172a); color: #ffffff; border-radius: 12px; font-weight: 700; padding: 10px 20px; border: none; cursor: pointer; transition: all 0.2s;">
+          🏢 Active Listings
+        </button>
+        <button id="tab-btn-past" onclick="switchAdminTab('past')" class="btn" style="background: #ffffff; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 700; padding: 10px 20px; cursor: pointer; transition: all 0.2s;">
+          🤝 Past Deals (Terjual / Disewakan)
+        </button>
+      </div>
+
+      <!-- Active Listings Panel -->
+      <div id="tab-panel-active" class="panel" style="display: block;">
         <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <h2>Urus Listings Hartanah</h2>
           <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
@@ -561,13 +568,75 @@
         <div id="admin-listings-grid" class="listings-grid">
           <!-- Rendered dynamically -->
         </div>
+      </div>
 
+      <!-- Past Deals Panel -->
+      <div id="tab-panel-past" class="panel" style="display: none;">
+        <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <h2>Rekod Transaksi Lalu (Past Deals)</h2>
+          <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
+            <button onclick="loadPastDealsAdmin()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Past Deals">🔄 Refresh Past Deals</button>
+            <button onclick="openPastDealModal()" class="btn-add" style="background: #d97706;">+ Tambah Past Deal</button>
+          </div>
+        </div>
+
+        <div id="admin-past-deals-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px;">
+          <!-- Rendered dynamically -->
+        </div>
       </div>
 
     </div>
   </div>
 
 
+
+  <!-- Modal Add/Edit Past Deal -->
+  <div id="past-deal-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h3 id="past-modal-title" style="font-size: 1.3rem; font-weight: 800;">Tambah Rekod Past Deal</h3>
+        <button onclick="closePastDealModal()" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b;">&times;</button>
+      </div>
+
+      <form id="past-form" onsubmit="savePastDeal(event)">
+        <input type="hidden" id="past-form-id">
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">NAMA HARTANAH</label>
+          <input type="text" id="past-form-title" class="form-input" placeholder="Contoh: Double Storey Terrace House Bandar Seri Putra" required>
+        </div>
+
+        <div class="form-row" style="display:flex; gap:12px; margin-bottom:16px;">
+          <div style="flex:1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">JENIS HARTANAH</label>
+            <input type="text" id="past-form-type" class="form-input" placeholder="Contoh: Rumah Teres / Kondominium" required>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">STATUS TRANSAKSI</label>
+            <select id="past-form-category" class="form-select" required>
+              <option value="DISEWAKAN">DISEWAKAN (RENTED)</option>
+              <option value="TERJUAL">TERJUAL (SOLD)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">LOKASI</label>
+          <input type="text" id="past-form-location" class="form-input" placeholder="Contoh: Bangi, Selangor / Cyberjaya" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 24px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">HARGA / KADAR SEWA</label>
+          <input type="text" id="past-form-price" class="form-input" placeholder="Contoh: RM 2,100 / bln ATAU RM 1,450,000" required>
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <button type="button" onclick="closePastDealModal()" class="btn-cancel" style="flex: 1;">Batal</button>
+          <button type="submit" id="past-save-btn" class="btn-submit" style="flex: 2; background: #d97706;">Simpan Past Deal</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Modal Add/Edit Property -->
   <div id="property-modal" class="modal-overlay">
@@ -1224,6 +1293,168 @@
     }
 
     document.getElementById('form-status').addEventListener('change', toggleTenureLotFields);
+
+    // ==========================================
+    // PAST DEALS MANAGEMENT LOGIC (ADMIN)
+    // ==========================================
+    let pastDealsList = [];
+
+    function switchAdminTab(tab) {
+      const activeBtn = document.getElementById('tab-btn-active');
+      const pastBtn = document.getElementById('tab-btn-past');
+      const activePanel = document.getElementById('tab-panel-active');
+      const pastPanel = document.getElementById('tab-panel-past');
+
+      if (tab === 'active') {
+        activeBtn.style.background = '#0f172a';
+        activeBtn.style.color = '#ffffff';
+        activeBtn.style.border = 'none';
+        pastBtn.style.background = '#ffffff';
+        pastBtn.style.color = '#475569';
+        pastBtn.style.border = '1px solid #cbd5e1';
+        activePanel.style.display = 'block';
+        pastPanel.style.display = 'none';
+      } else {
+        pastBtn.style.background = '#d97706';
+        pastBtn.style.color = '#ffffff';
+        pastBtn.style.border = 'none';
+        activeBtn.style.background = '#ffffff';
+        activeBtn.style.color = '#475569';
+        activeBtn.style.border = '1px solid #cbd5e1';
+        activePanel.style.display = 'none';
+        pastPanel.style.display = 'block';
+        loadPastDealsAdmin();
+      }
+    }
+
+    async function loadPastDealsAdmin() {
+      try {
+        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/past-deals?t=' + Date.now());
+        if (res.ok) {
+          let data = await res.json();
+          if (typeof data === 'string') try { data = JSON.parse(data); } catch(e) {}
+          if (Array.isArray(data) && data.length > 0) pastDealsList = data;
+        }
+      } catch(e) {}
+
+      if (pastDealsList.length === 0) {
+        const stored = localStorage.getItem('ZAIM_ROSLI_PAST_DEALS');
+        if (stored) {
+          try { pastDealsList = JSON.parse(stored); } catch(e) {}
+        }
+      }
+      if (!pastDealsList || pastDealsList.length === 0) {
+        pastDealsList = [
+          { id: 'p1', title: 'Double Storey Terrace House', type: 'Rumah Teres', location: 'Bandar Seri Putra, Bangi', category: 'DISEWAKAN', price: 'RM 2,100 / bln' },
+          { id: 'p2', title: 'The Domain 4 - Neo Cyber', type: 'Kondominium', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 1,200 / bln' },
+          { id: 'p3', title: '3-Storey Semi-D Villa Symphony Hills', type: 'Semi-D', location: 'Cyberjaya, Selangor', category: 'TERJUAL', price: 'RM 1,450,000' },
+          { id: 'p4', title: 'Partially Fitted Office Prima 10', type: 'Kedai / Pejabat', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 35,000 / bln' }
+        ];
+      }
+
+      renderPastDealsAdmin();
+    }
+
+    function renderPastDealsAdmin() {
+      const container = document.getElementById('admin-past-deals-list');
+      if (!container) return;
+
+      container.innerHTML = pastDealsList.map(item => {
+        const isSold = (item.category || '').toUpperCase().includes('JUAL') || (item.category || '').toUpperCase().includes('SOLD');
+        const badgeBg = isSold ? '#fef3c7' : '#e0f2fe';
+        const badgeColor = isSold ? '#b45309' : '#0369a1';
+        const labelText = isSold ? '🔥 TERJUAL' : '🔑 DISEWAKAN';
+
+        return `
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:16px; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="background:${badgeBg}; color:${badgeColor}; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:6px;">${labelText}</span>
+                <span style="font-size:0.78rem; color:#64748b; font-weight:600;">${item.type}</span>
+              </div>
+              <h4 style="font-size:0.98rem; font-weight:800; color:#0f172a; margin-bottom:4px;">${item.title}</h4>
+              <p style="font-size:0.82rem; color:#64748b; margin-bottom:10px;">📍 ${item.location}</p>
+              <div style="font-size:1.05rem; font-weight:800; color:#d97706;">${item.price}</div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:14px; padding-top:10px; border-top:1px solid #f1f5f9;">
+              <button onclick="editPastDeal('${item.id}')" style="flex:1; padding:6px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">✏️ Edit</button>
+              <button onclick="deletePastDeal('${item.id}')" style="flex:1; padding:6px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">🗑️ Padam</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openPastDealModal() {
+      document.getElementById('past-form-id').value = '';
+      document.getElementById('past-form').reset();
+      document.getElementById('past-modal-title').textContent = 'Tambah Rekod Past Deal';
+      document.getElementById('past-deal-modal').style.display = 'flex';
+    }
+
+    function closePastDealModal() {
+      document.getElementById('past-deal-modal').style.display = 'none';
+    }
+
+    function editPastDeal(id) {
+      const item = pastDealsList.find(d => d.id === id);
+      if (!item) return;
+      document.getElementById('past-form-id').value = item.id;
+      document.getElementById('past-form-title').value = item.title;
+      document.getElementById('past-form-type').value = item.type;
+      document.getElementById('past-form-category').value = item.category;
+      document.getElementById('past-form-location').value = item.location;
+      document.getElementById('past-form-price').value = item.price;
+      document.getElementById('past-modal-title').textContent = 'Kemaskini Past Deal';
+      document.getElementById('past-deal-modal').style.display = 'flex';
+    }
+
+    async function savePastDeal(e) {
+      e.preventDefault();
+      const id = document.getElementById('past-form-id').value || ('p_' + Date.now());
+      const newDeal = {
+        id: id,
+        title: document.getElementById('past-form-title').value,
+        type: document.getElementById('past-form-type').value,
+        category: document.getElementById('past-form-category').value,
+        location: document.getElementById('past-form-location').value,
+        price: document.getElementById('past-form-price').value
+      };
+
+      const existingIdx = pastDealsList.findIndex(d => d.id === id);
+      if (existingIdx >= 0) {
+        pastDealsList[existingIdx] = newDeal;
+      } else {
+        pastDealsList.unshift(newDeal);
+      }
+
+      localStorage.setItem('ZAIM_ROSLI_PAST_DEALS', JSON.stringify(pastDealsList));
+      renderPastDealsAdmin();
+      closePastDealModal();
+
+      try {
+        await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/past-deals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pastDealsList)
+        });
+      } catch(e) {}
+    }
+
+    async function deletePastDeal(id) {
+      if (!confirm('Adakah anda pasti ingin memadam rekod past deal ini?')) return;
+      pastDealsList = pastDealsList.filter(d => d.id !== id);
+      localStorage.setItem('ZAIM_ROSLI_PAST_DEALS', JSON.stringify(pastDealsList));
+      renderPastDealsAdmin();
+
+      try {
+        await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/past-deals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pastDealsList)
+        });
+      } catch(e) {}
+    }
   </script>
   <script src="/pwa.js"></script>
 </body>
