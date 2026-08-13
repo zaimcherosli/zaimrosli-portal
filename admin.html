@@ -85,6 +85,32 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     }
 
+    .modal-action-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      width: 100%;
+    }
+    .modal-action-row button {
+      height: 48px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md, 10px);
+    }
+    @media (max-width: 600px) {
+      .modal-action-row {
+        flex-direction: column-reverse;
+        gap: 10px;
+      }
+      .modal-action-row button {
+        width: 100% !important;
+        flex: none !important;
+        height: 48px !important;
+      }
+    }
+
     .listings-header {
       display: flex;
       justify-content: space-between;
@@ -635,7 +661,7 @@
           <input type="text" id="past-form-image" class="form-input" placeholder="Contoh: https://images.unsplash.com/... atau pautan gambar">
         </div>
 
-        <div style="display: flex; gap: 12px;">
+        <div class="modal-action-row">
           <button type="button" onclick="closePastDealModal()" class="btn-cancel" style="flex: 1;">Batal</button>
           <button type="submit" id="past-save-btn" class="btn-submit" style="flex: 2; background: #d97706;">Simpan Past Deal</button>
         </div>
@@ -803,9 +829,9 @@
           <textarea id="form-description" class="form-textarea" style="min-height: 180px; height: auto; overflow: hidden; resize: vertical;" oninput="autoResizeDescription(this)" required></textarea>
         </div>
 
-        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+        <div class="modal-action-row">
           <button type="button" onclick="closeModal()" class="btn btn-outline" style="flex: 1;">Batal</button>
-          <button type="submit" class="btn btn-accent" style="flex: 2; height: 46px; font-weight: 700; text-align: center; justify-content: center;">Simpan Hartanah</button>
+          <button type="submit" id="prop-submit-btn" class="btn btn-accent" style="flex: 2;">Simpan Hartanah</button>
         </div>
       </form>
 
