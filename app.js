@@ -109,9 +109,12 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
     e.stopPropagation();
   }
   const url = window.location.origin + '/property-detail/' + slugOrId;
+  const shareText = title + ' — Zaim Rosli Real Estate';
+  const fullCopyText = shareText + '\n' + url;
+
   const shareData = {
     title: title,
-    text: title + ' — Zaim Rosli Real Estate\n' + url,
+    text: shareText,
     url: url
   };
 
@@ -133,10 +136,10 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
   if (navigator.share) {
     navigator.share(shareData).catch(err => console.log('Share dismissed or failed:', err));
   } else {
-    navigator.clipboard.writeText(url).then(() => {
-      alert('Link copied to clipboard!');
+    navigator.clipboard.writeText(fullCopyText).then(() => {
+      alert('📋 Pautan hartanah telah disalin!');
     }).catch(() => {
-      prompt('Copy this link:', url);
+      prompt('Salin pautan ini:', fullCopyText);
     });
   }
 };
