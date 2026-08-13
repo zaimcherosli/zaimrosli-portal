@@ -471,9 +471,12 @@
   <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-wrapper" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
-      <a href="index.html" class="logo">
-        <span class="logo-main">ZAIM<span>ROSLI</span></span>
-        <span class="logo-sub">PORTAL EJEN (ADMIN)</span>
+      <a href="index.html" class="logo" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <div>
+          <span class="logo-main">ZAIM<span>ROSLI</span></span>
+          <span class="logo-sub">PORTAL EJEN (ADMIN)</span>
+        </div>
+        <span style="background:#0f172a; color:#fbbf24; padding:3px 10px; border-radius:12px; font-size:0.72rem; font-weight:800; border:1px solid #d97706; white-space:nowrap; letter-spacing:0.5px;">v2.5.0 • Live KV</span>
       </a>
 
       <div class="user-badge">
@@ -491,9 +494,12 @@
       <!-- Panel Card -->
       <div class="panel" style="display: block;">
         
-        <div class="listings-header">
+        <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <h2>Urus Listings Hartanah</h2>
-          <button onclick="openModal()" class="btn-add">+ Tambah Hartanah</button>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button onclick="loadPropertiesList()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Dari Cloudflare KV">🔄 Refresh Live List</button>
+            <button onclick="openModal()" class="btn-add">+ Tambah Hartanah</button>
+          </div>
         </div>
 
         <!-- Listings Grid Container -->
@@ -530,7 +536,16 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">STATUS</label>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">KATEGORI TRANSAKSI</label>
+          <select id="form-category" class="form-select" required>
+            <option value="Subsales">Subsales / Rumah Second-hand</option>
+            <option value="New Project">Projek Baharu (New Project)</option>
+            <option value="Rental">Sewa (Rental / WTL)</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">STATUS PENAMPILAN</label>
           <select id="form-status" class="form-select" required>
             <option value="sale">FOR SALE</option>
             <option value="rent">FOR RENT</option>
@@ -539,7 +554,7 @@
 
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">ALAMAT / LOKASI PENUH</label>
-          <input type="text" id="form-location" class="form-input" placeholder="KLCC, Kuala Lumpur" required>
+          <input type="text" id="form-location" class="form-input" placeholder="Contoh: KLCC, Kuala Lumpur" required>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
@@ -547,19 +562,37 @@
           <select id="form-region" class="form-select" required>
             <option value="Kuala Lumpur">Kuala Lumpur</option>
             <option value="Selangor">Selangor</option>
-            <option value="Penang">Penang</option>
+            <option value="Johor">Johor</option>
+            <option value="Kedah">Kedah</option>
+            <option value="Kelantan">Kelantan</option>
+            <option value="Melaka">Melaka</option>
+            <option value="Negeri Sembilan">Negeri Sembilan</option>
+            <option value="Pahang">Pahang</option>
+            <option value="Perak">Perak</option>
+            <option value="Perlis">Perlis</option>
+            <option value="Pulau Pinang">Pulau Pinang</option>
+            <option value="Sabah">Sabah</option>
+            <option value="Sarawak">Sarawak</option>
+            <option value="Terengganu">Terengganu</option>
+            <option value="W.P. Labuan">W.P. Labuan</option>
+            <option value="W.P. Putrajaya">W.P. Putrajaya</option>
           </select>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">JENIS HARTANAH</label>
           <select id="form-type" class="form-select" required>
-            <option value="Kondominium">Kondominium</option>
-            <option value="Teres">Teres</option>
-            <option value="Banglo">Banglo</option>
-            <option value="Semi-D">Semi-D</option>
-            <option value="Studio">Studio</option>
+            <option value="Kondominium">Kondominium / Serviced Apt</option>
+            <option value="Teres">Rumah Teres / Link House</option>
+            <option value="Semi-D">Semi-D / Semi-Detached</option>
+            <option value="Banglo">Banglo / Villa</option>
+            <option value="Apartment">Apartment / Flat</option>
             <option value="Townhouse">Townhouse</option>
+            <option value="Studio">Studio / SOHO / SOFO</option>
+            <option value="Kilang">Kilang / Gudang (Industrial)</option>
+            <option value="Tanah Industri">Tanah Industri / Commercial Land</option>
+            <option value="Kedai / Pejabat">Kedai / Pejabat (Shoplot / Office)</option>
+            <option value="Ruang Komersial">Ruang Komersial / Retail Space</option>
           </select>
         </div>
 
@@ -574,8 +607,13 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ (SQFT)</label>
-          <input type="number" id="form-size" class="form-input" placeholder="1200" required>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ TANAH (LAND AREA)</label>
+          <input type="text" id="form-landSize" class="form-input" placeholder="Contoh: 2.11 acre atau 4500 sqft">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ BINA-AN (BUILT-UP SQFT)</label>
+          <input type="number" id="form-size" class="form-input" placeholder="Contoh: 50407" required>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
@@ -664,15 +702,19 @@
 
     async function loadPropertiesList() {
       try {
-        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties');
-        const remoteData = await res.json();
-        if (Array.isArray(remoteData) && remoteData.length > 0) {
-          currentProperties = remoteData;
-          localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(remoteData));
-          renderListingsGrid();
-          return;
+        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
+        if (res.ok) {
+          const remoteData = await res.json();
+          if (Array.isArray(remoteData) && remoteData.length > 0) {
+            currentProperties = remoteData;
+            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(remoteData));
+            renderListingsGrid();
+            return;
+          }
         }
-      } catch(e) {}
+      } catch(e) {
+        console.error('Live fetch error:', e);
+      }
 
       const stored = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
       if (stored) {
@@ -695,6 +737,7 @@
         const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
         const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
         const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / bln`;
+        const categoryBadge = p.category ? `<span style="background:#e2e8f0; color:#334155; padding:2px 8px; border-radius:4px; font-size:0.7rem; font-weight:700; margin-left:6px;">${p.category}</span>` : '';
         const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:4px; background:#f1f5f9; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:6px;">🔗 Pautan Rujukan (PropMall)</a>` : '';
 
         return `
@@ -703,7 +746,10 @@
             <div class="listing-info">
               <div class="listing-title-row">
                 <h3 class="listing-title">${p.title}</h3>
-                <span class="badge-status ${badgeClass}">${badgeText}</span>
+                <div>
+                  <span class="badge-status ${badgeClass}">${badgeText}</span>
+                  ${categoryBadge}
+                </div>
               </div>
               <p class="listing-sub">
                 <span class="listing-price">${priceDisplay}</span>
@@ -712,7 +758,7 @@
                 <span style="margin: 0 4px;">•</span>
                 ${p.type}
                 <span style="margin: 0 4px;">•</span>
-                ${p.beds} Bilik / ${p.baths} B.Air / ${p.size} sqft
+                ${p.beds} Bilik / ${p.baths} B.Air / Built-up ${p.size} sqft
               </p>
               ${refLinkHtml}
             </div>
@@ -742,6 +788,8 @@
     function openModal() {
       document.getElementById('prop-form').reset();
       document.getElementById('form-id').value = '';
+      document.getElementById('form-category').value = 'Subsales';
+      document.getElementById('form-landSize').value = '';
       document.getElementById('form-ref-url').value = '';
       document.getElementById('modal-title').textContent = 'Tambah Hartanah';
       uploadedImageUrls = [];
@@ -763,12 +811,14 @@
       document.getElementById('form-id').value = idx;
       document.getElementById('form-title').value = p.title;
       document.getElementById('form-price').value = p.price;
+      document.getElementById('form-category').value = p.category || (p.status === 'rent' ? 'Rental' : 'Subsales');
       document.getElementById('form-status').value = p.status;
       document.getElementById('form-location').value = p.location;
       document.getElementById('form-region').value = p.region;
       document.getElementById('form-type').value = p.type;
       document.getElementById('form-beds').value = p.beds;
       document.getElementById('form-baths').value = p.baths;
+      document.getElementById('form-landSize').value = p.landSize || '';
       document.getElementById('form-size').value = p.size;
       document.getElementById('form-tenure').value = p.tenure;
       document.getElementById('form-lotType').value = p.lotType;
@@ -803,12 +853,14 @@
       const idx = document.getElementById('form-id').value;
       const title = document.getElementById('form-title').value.trim();
       const price = parseFloat(document.getElementById('form-price').value);
+      const category = document.getElementById('form-category').value;
       const status = document.getElementById('form-status').value;
       const location = document.getElementById('form-location').value.trim();
       const region = document.getElementById('form-region').value;
       const type = document.getElementById('form-type').value;
       const beds = parseInt(document.getElementById('form-beds').value);
       const baths = parseInt(document.getElementById('form-baths').value);
+      const landSize = document.getElementById('form-landSize').value.trim() || '-';
       const size = parseInt(document.getElementById('form-size').value);
       const tenure = document.getElementById('form-tenure').value;
       const lotType = document.getElementById('form-lotType').value;
@@ -831,6 +883,7 @@
         title: title,
         price: price,
         priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / bln`,
+        category: category,
         location: location,
         region: region,
         type: type,
@@ -839,13 +892,13 @@
         baths: baths,
         parking: 2,
         size: size,
-        landSize: "-",
+        landSize: landSize,
         tenure: tenure,
         lotType: lotType,
-        refUrl: refUrl,
         image: mainImg,
         images: imagesArr,
-        description: description
+        description: description,
+        refUrl: refUrl
       };
 
       if (idx !== '') {
