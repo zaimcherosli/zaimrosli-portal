@@ -9,12 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 1. Highlight Active Nav Link based on Current Page URL
 function highlightActiveNavLink() {
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const path = window.location.pathname.toLowerCase();
+  let currentFile = (path.split('/').pop() || 'index.html').replace(/\.html$/, '');
+  if (!currentFile) currentFile = 'index';
   const navLinks = document.querySelectorAll('.nav-link, .mobile-drawer-link');
   
   navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+    const rawHref = link.getAttribute('href') || '';
+    let href = rawHref.toLowerCase().replace(/^\//, '').replace(/\.html$/, '');
+    if (!href) href = 'index';
+    
+    if (href === currentFile || (currentFile === 'index' && href === 'index')) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');

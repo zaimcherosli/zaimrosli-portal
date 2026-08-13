@@ -183,6 +183,13 @@
             <span>TOTAL ESTIMATED CASH REQUIRED:</span>
             <span id="res-total-cash" style="color: var(--accent-gold);">RM 0</span>
           </div>
+
+          <div style="margin-top: 20px;">
+            <button id="calc-share-btn" onclick="shareCalculatorResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+              Share Calculator Result
+            </button>
+          </div>
         </div>
 
       </div>
@@ -203,6 +210,24 @@
   <script src="/properties-data.js"></script>
   <script src="/app.js"></script>
   <script>
+    function shareCalculatorResults() {
+      const price = document.getElementById('calc-price').value || '0';
+      const monthly = document.getElementById('res-monthly').textContent || '';
+      const totalCash = document.getElementById('res-total-cash').textContent || '';
+      const url = window.location.href;
+      const text = `Anggaran Pinjaman & Yuran Guaman Hartanah (Harga: RM ${parseInt(price).toLocaleString()}):\n• Anggaran Ansuran Bulanan: ${monthly}\n• Jumlah Tunai Diperlukan: ${totalCash}\n\nKira yuran hartanah anda di sini: ${url}`;
+      
+      if (navigator.share) {
+        navigator.share({ title: 'Kalkulator Yuran Hartanah — Zaim Rosli', text: text, url: url }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('📋 Hasil kalkulator telah disalin! Boleh paste untuk berkongsi.');
+        }).catch(() => {
+          prompt('Salin maklumat kalkulator ini:', text);
+        });
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const priceIn = document.getElementById('calc-price');
       const downIn = document.getElementById('calc-down');
