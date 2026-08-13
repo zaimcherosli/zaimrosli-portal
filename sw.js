@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zaimrosli-pwa-v14';
+const CACHE_NAME = 'zaimrosli-pwa-v15';
 
 // Install Event
 self.addEventListener('install', (event) => {
@@ -21,15 +21,30 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event — Network-First Strategy to prevent ERR_FAILED
+// Fetch Event — Network-First Strategy
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
+  // For API endpoints, fetch live network without SW cache
+  if (url.pathname.startsWith('/api/') || url.hostname.includes('workers.dev')) {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+        return new Response(JSON.stringify({ error: 'offline' }), {
+          status: 503,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      })
+    );
+    return;
+  }
+
   event.respondWith(
-    fetch(event.request, { cache: 'no-store' })
+    fetch(event.request)
       .then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
@@ -38,7 +53,6 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       })
       .catch(async () => {
-        // Fallback to cache if network fails / offline
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) {
           return cachedResponse;

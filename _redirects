@@ -1,1 +1,2 @@
+/api/* https://zaimrosli-worker.huzaimrosli.workers.dev/api/:splat 200
 /property-detail/* /property-detail.html 200

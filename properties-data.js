@@ -1,67 +1,580 @@
-const bangiPhotos = [
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-01-6a631783b1fff3.43559391.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-02-6a631783b200b1.37824749.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-03-6a631783b200d0.48268283.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-04-6a631783b200f0.99549873.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-05-6a631783b20107.93122438.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-06-6a631783b20117.72403872.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-07-6a631783b20125.75879529.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-08-6a631783b20135.62711527.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-09-6a631783b20140.30902410.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-10-6a631783b20156.15346964.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-11-6a631783b20167.01595962.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-12-6a631783b20186.98519182.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-13-6a631783b20193.77843587.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-14-6a631783b201a2.38777950.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-15-6a631783b201b1.78808807.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-16-6a631783b201c4.28673750.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-17-6a631783b201d4.21597875.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-18-6a631783b201e4.73301592.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-19-6a631783b201f3.48610393.jpg',
-  'https://cdn.propmall.net/media/img-property/list-156678/list-156678-20-6a631783b20201.34096384.jpg'
-];
-
-const bangiDesc = `WTL / FOR RENTAL
-
-🔥 NEWLY PAINTED 🔥
-🔥 EXTENDED UNIT 🔥
-‼️ MOVE IN CONDITION ‼️
-
-Partially Furnished Double Storey Semi-D House Taman Kajang Impian @ Bandar Baru Bangi, Bangi, Selangor
-
-DETAILS:
-================
-- Type: Semi-Detached House
-- Built-up size: 2700 square feet
-- Land size: 3000 square feet
-- 4 bedrooms
-- 4 bathrooms
-- Prefer Malay & Muslim Tenant
-- Newly Painted`;
-
+// Auto-generated properties data with 17 live listings
 const PROPERTIES_DATA = [
   {
-    "id": "prop-156678",
-    "slug": "partially-furnished-double-storey-semi-d-house-taman-kajang-impian-bandar-baru-bangi-bangi-selangor",
-    "title": "Partially Furnished Double Storey Semi-D House Taman Kajang Impian @ Bandar Baru Bangi, Bangi, Selangor",
-    "price": 2500,
-    "priceStr": "RM 2,500 / bln",
-    "location": "Taman Kajang Impian, Bandar Baru Bangi, Selangor",
+    "id": "prop-1786608166979",
+    "slug": "cristal-serin-4-storey-villa-cyberjaya-for-rent-superb-partial-furnished-unit-rm6000-only-include-wifi",
+    "title": "Cristal Serin 4 Storey Villa @ Cyberjaya for Rent -  (Superb Partial Furnished Unit) - RM6,000 only - Include wifi",
+    "price": 6000,
+    "priceStr": "RM 6,000 / bln",
+    "category": "Rental",
+    "location": "Cyberjaya",
+    "region": "Selangor",
+    "type": "Teres",
+    "status": "rent",
+    "beds": 4,
+    "bedsPlus": 1,
+    "baths": 6,
+    "bathsPlus": 0,
+    "parking": 2,
+    "size": 3698,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn5.telesco.pe/file/fXOnLixd1-wLzR-0im3Hy8dIdwHthsjc2kBHqoOaC5cO335c0e6BnkGpdVf37AOHzoTfDRpuLxRXxYTj5ecgW0Dv6NzTjh4phIPIEJc6sDa29x6c4bPU5IYS4bpit2cqMeLEqwbCJ331z3sj6pSXpI-0J856QexUuL3dHRC3w3LHvIBZaN1lRZjohb_QsLAiNBKHQekYyROIdrVVtHETKTz8EXpI-BtTHE42ACVZnfTgcROduGTnQaF1gG1G9l1X9pk87adp_JJk6-vB3Tj5XnRmtbSFnWx9Xl5-nQ1FOtX5Ng0DKUUgtBZDEkXaMFVCDxmNYKFwluyDEPKto1-v1w.jpg",
+    "images": [
+      "https://cdn5.telesco.pe/file/fXOnLixd1-wLzR-0im3Hy8dIdwHthsjc2kBHqoOaC5cO335c0e6BnkGpdVf37AOHzoTfDRpuLxRXxYTj5ecgW0Dv6NzTjh4phIPIEJc6sDa29x6c4bPU5IYS4bpit2cqMeLEqwbCJ331z3sj6pSXpI-0J856QexUuL3dHRC3w3LHvIBZaN1lRZjohb_QsLAiNBKHQekYyROIdrVVtHETKTz8EXpI-BtTHE42ACVZnfTgcROduGTnQaF1gG1G9l1X9pk87adp_JJk6-vB3Tj5XnRmtbSFnWx9Xl5-nQ1FOtX5Ng0DKUUgtBZDEkXaMFVCDxmNYKFwluyDEPKto1-v1w.jpg",
+      "https://cdn5.telesco.pe/file/XcfDmTCjmSWrPRj43LPFbvTukBaWOU4_Uua4SfMuY6huc6p_WoMeB33xTYA26f1v_ShNVwi3PVRasR3HCVm2KTOICOLlt1ZkknrzL3KW4-lLGqDXTPZ_DxQApOh0a4W_sPC3_uplW4YiWKHxnUVeHq-IamCAQUflNUIqHYE4crxV6i34kz0xpNbUl-0hNf5YZe1aMM9BhXqlABkHbJhp58L99G0GOVmyPeYpE6lOuZiL5x-Fr8rvxKCB8o1Zjlljk47tLyjxcs9oOYO0Ix0JKHdDE-bb2FNGLr7fB0o06APOPgguoaTM9jrDzDuTeA1IA6THFvYXOGZX7ltLw4A-dw.jpg",
+      "https://cdn5.telesco.pe/file/Q2xlzLXxhR9D-Lu8B7D2FyR2J7yZlJVqIk4NbY-4Y372L8AOMWLHm1j97Pl_OV0HixgufqFOYZwy3wPIfQpbebQesgOD7qy8_5zIAeuxz7frt8tZP3f6DKTu_RhYLuHtrEJ74hnE-xY22Vo2hNqnpfvP1Fab0Z8JFcffGtrknXI0p7ahhTAIkpubgKdg5iHoxCH4ZDuJyGw9SbhobLDPJyMA2LGShZN8_k_WQvmNkpRK32ewDDxyRgICAQXchmytNdVbo9cfWBQgehWht8vtnIxqI3Eqto6gwRMofiL46nAjzrrxBlSsHsKdsI4_N7Z5jHkhMd-d7cq_L-nVEd7IuQ.jpg",
+      "https://cdn5.telesco.pe/file/A77Iw0s1PnkGvsncOLvB_DsEB0Xpew0HfUBqyVFNlBLwfHumwqYgQAfdNUJ2qUH98ROTPBAB2yWk044t_dMArHnX6qEAmbYK7Yv3JeqiQdrutf3znmkcrMq87K6CtrM6w62N16OBEj-Saao4UbZXKMdIGRqZz1Ao_L9FcQuR-kzYQtBPIxBZwTEKsZ9fxFffa4gZerCSUdqH9agODhbJ80rg4lXqBqZFDsq8HvilH7-PpVp1_e_-HG_L1tbqw5XsN1_Z-J0bPJXgD0jvbrp_uNNNi3wXkrQADRM38t0MsiGm7S4bAthj6yC2k2o2UbnfaqCM7Wd0oyRLCThtkmAbWw.jpg",
+      "https://cdn5.telesco.pe/file/DGogoBzTVs44D3ofmYQrR_CDbaN4ZLVvAQZvDe4tTQL7LaLBL7qAHuXlQeSJGnjDuq7bUEZrMtNewGUPaO6mNf6q7buxt5TmylHX0CTky7rzAQcUwfX7bnDKw1_KEfezJFhWTZyKeZLRRd9_ZH3bfDyjbsb0nsyV9i2z5S6QfAo4EgsiCOUkNvX9EiOiaU5tOeAnUeH7DBZpuzU6WZMqETh6EVxHp0tysbqMuBhIHyetwYXBWYT3WDc4qVz7a4vBJLSFZTqhTEtqo8ZB8x6100z7_L1emuBK8xFDpX6K5FgCy_XZXXkJwPFzcUmBqH4vYAcfaqmDc4OlyfxjfRidCg.jpg",
+      "https://cdn5.telesco.pe/file/YGPWEyvDQBCjiNLOtBaeWwK2__ODbZBHl06SbN_IrjNW6C--ZlIj3ZnS2M3olkg-hSwIgzCEGo0ZyPQOkHOy3nGfu-0i0FJd2iHcB9b8x_eA4i7WAmNSMHSGbusirOXVD7kGbOCicWRzQt_DFRzeDBC-rS1_eqZE5_h9JpZUb3KVQekxQN0IJ7p-U98K0xD6Jh7mc4Pd9DVrhjefkYbRWAdiNfvwLgDx4m4kNYO8bU_-OM-41FI1boKLH2vwO_t1HRgzGvyPIsAAsgDZz622WftJxnofLxFBZNh6h4zAIK6_-bkYTgr90LDu-Zk1AFjlICUXiy80lMhny4mJcf4wjA.jpg",
+      "https://cdn5.telesco.pe/file/KoOePF11YJ7aQZKvczhxXn2bLKWBOgLzhb2cmWqrhjsNS97hR0W0uNN5qkMKjJ-bJ_iJqA64IrCJtWwy9wZxVC7NZruP4OIl35UmsRCdzAVjT4ZG8CqEUYTPtq2u-h6FLK1S-FDg-5dhr5jc8_rHD7lcD7-Eq1xnqjy9vscZRCzaMyMZHeo0nQe5QyH8pjD_f498cONXAm8ZhbXwS-HNRZ3rkbDgNgpQQtDAVREtQ8i2H15vyuSFqW67BbkqSsghjn3VqgISpxh5gEPvsVR5fb8xVPgnm4-fAyEIJiR55Q0yF5kusfcODbcs6TEKObQsrkiaVbieryqk4vuBI3rGGw.jpg",
+      "https://cdn5.telesco.pe/file/uEXDySKQ5t9rlF7iDcDxsO4b4Wp6imx9v51bOlqAfpQVdCvLIV2GREroEgRxTCUlnqQEtvyZdSEVJ5iFqjHVxiQqZA5Bx8cqlAWPUnRDhIQVIyNqGImvQGFVCWN-xLiWOibJ2puU68ylggSp0x5W0WKzdvE8jMK0FcMe60WOlYmS-7i3HrS9YRwjw1ACUPAyPPvhuJr1qgI-7J7JngKzQgYW0oc-ERBbI4WBwlg5kBd_UdfAjbkrjHcFp6fujhBfscH4yrchrLkc2nj7HJTrYMeADzLN_eaTKE2RkcruQbE44SC0tsqLOTQW-l-NCzc3lUVKwqz1hjMrU8cFZnUjXQ.jpg",
+      "https://cdn5.telesco.pe/file/aBWsgwqqE3g6MJeJTO6XW8UKkVWZV6h4yucCwSItf6lUUd-2ZX9zzIVfbKyuGjMRLzpof3tcAIlRavbEj9W4FHZ2ok9I0bkBsl_SrtletyNL5EqiJgSIEnmrOepq0qAM953QftnRL2EkVdyJmfy5QweDyeLLnZBTqZA4y9DmDNLxQwz-ZmSLk9acUpHICkNNtBwp0UWUkY_tfx6egYuRespIn4Douha8ZFelEVHlvNBsi6pJ9U3YZlePMGeK80VdWwDR_L5DJdzrDLGOobyArkRL2Nhytly4vSFavvNng1LyCdbZAbYvQLpWf6OQ-vQMKlIi-xdicmsbmDUXK5ZgAw.jpg",
+      "https://cdn5.telesco.pe/file/W84x51VVucpFyBiZ0s2OKtsCLgLmh2dsgCmlFtYi4QB_1LFglOf-MJVbqzuU08OdPRf4x3Skd1Y_uaT7ArcPL9nZRt8yy5eHvj_7Azh4gE6fx0rjsKaRGW-L7blSJPaCga4xbDBcuUhBdQtOjVCRXVk9mS7NFa_mTBFd08QZeepEBNgGyLuzTMdLdc5YtF6n6g19-3S_OwmuzHZZYj3TtGP5FFsA7bt_ulzPkFoRG3z1rWXpf9h3iSNqVPJcoEm3GoSGnc4WJuiggOgFrMl_oPpThQOyLEtXuext3PQi79rbQNat6bRju5nHJUd43SgUHRqz7S39NSODQQFRNn-Yjg.jpg",
+      "https://cdn5.telesco.pe/file/Slm-Tc7jZX9_Pn4Z3e-PgwfH67k2wbuBl6VPLYM2fEvpEAADvbttEXtX4biXCwlCq2OuqdMiQlgqJ4reRH8EqPLCp9At59_Eg5EvDnT30Ny99aGKVC_tz93ssG9AKw96GgBSqk93Q6SGDWvXfIwwDLrMxnIiupXJS4GyqD00RpZO40QRv1Qe0atW5MRi5eJguuIjlWKTopPVviH-jnEoFi7SsSQRw81SG85XY6j_2IzjUSjsKWlIg9w9dEndjmYcMxkKnwjJH68SrKjrWpT9c7pKQVUMRL2Lxbk0eN9fLRNbJ4v0Iz0hj0vOnqrflRjkJtC_goiLwvbJPT7U_WzUwg.jpg",
+      "https://cdn5.telesco.pe/file/MElgu_XOnqyarHxAlUeFQoh7WaZQLRHeRggvcV8my20n-pwDvSW3MJxQDzYC-JWEv8SCTi18Iwiny1fmcCGOJckTJG35YeO2WxRmUfvbAMHXEv87j1MapPP0Q0B0Em4imPV-3j-vACdoRHqZgiPSALu1mhtI4vzUxz3zxDptS0grMJ1HOSdI8BGghPaI_LLsP9e_Z2Jt-K3NZzrnHvxhjd8hYqgRxdhWSjjfzhcXDE-93GdF5wDrqKA87azNrdrlWrTO4ETknUYoKjPeTUL1ijcox1bQvVvid1IGHDEFxYQ3kE8V46x2Ek1N_PkSfDv8z7Oi8qi1xnV5a1PmlionVA.jpg",
+      "https://cdn5.telesco.pe/file/NZF1FcYrhnVZypHFrOOM3EIbgVflDwB8WQSEzuRKXtgJlCBXgvuiJP0cQ0GX3otxCr_XpzLWd1fFoto7N8F-NF0EH9LcZ5bWgwUwmZb6k1mhXW16JnKiRRFZCwap9QXjtWlTTmcyBO66X_7lpwhn5lryd5tWv8hTE2dd6d68qF_y91wnUlpB4IjzgvK5WmPE47c8utm22ZDPiX-PPQsOn1bfD8TfhJzs2eyI_ayu0DhvI2w7_SO_bHCYDblJjrp96aP_BW99byVKDtDFJzcAzNb0SPnHfPgsfder9d0e66MzewRsv4a0Vzg3CbMPNJPCMdPXNcDIIU7fZT0QFUoSeA.jpg",
+      "https://cdn5.telesco.pe/file/LMiAKznUA9vjltGxzXrd5tdNSOwbdlp3yvRwo_aUo2zo0Xd_CkVClzIFXuryAaUSoSq3ixNTjZeJhiWWXfpE8VuigzDqwRjf7rgatQ-AegQ_iP3pGuE3Oi3LzXBY1DY-AqoX_ifOEdAqRhscjTVZHeT37d-2bqdYxMu7yBXe564zrz_1EjQ9_7wYjaOq7obwNYZuPgdlj1CsUre5C6sprB3tX6BPi4Zre2vgUGfUbDGMZdS5NfAq1EVnm1tz5Arq6U1KZaQQ4zt0VF1lc-xqT5RWQ1FP5nssOgMP4NfPNn-dH9XxNB4FpUxJ76sEcqFBW55qlPwQ6ZfsqzRnMFSj1A.jpg",
+      "https://cdn5.telesco.pe/file/CNkf2TweP9pI4k1RmRbxQ_GOtyCJLLtHjZZuqBHEjoersoEupZMb3Th7xKKJ9yKsxAhB-_r2Vi1ghwwUODOoLFX0W1yXzbgvU8OIS4nJnW-PA5MejXXs6fn5qnWqGkHbAzjUN-m4qV-6YlCmu8X6_fU7yiCfZiwmx4vhCIvzpjgVCLRCJlzu-fih6kxCGmH-38U3Fas3XInUu8cIccoLEwPzXs4XVZVlDwFSBccVpSrTYtiI4xZRt-8cd8eR-zrCNRRPMpPPlugqPzpNslFbdVFvDooii-Yp2mhrqxwtQQ8lAWT5i1f0_OFsrKbKlgo-Jqy3d5rxdPpXo4RasGlfdA.jpg",
+      "https://cdn5.telesco.pe/file/kCGqaWj5X3xnK2PtfILLpelrYWjr9cifwnJOJw6olom9iddrS4ChmA1mBZTcq7lprYb89a3zcUaGvmgibF5qJdsf7vz3-XWF0vJ-puFSaCh1q_lvuZtHSEHUN2opXLEM86ggJle_ZAObp8o5DavK66YRqPGZEKfVAf7ixL-9MzG-5VRtQ0Cf4uCFtHw-4V2vTf81dI2STWQrawqui3wzyjFtJCYnasjfhSPc45rfsp6xahNuOMLC4Kqz4An2Wt7iJRaCvVo9CvozxhILX8kkmATmmFPrH45Houx-tPJW9dgU324NRK2ysR--51KMp4DnqOlopZWYp_FrceDcg9ClnA.jpg",
+      "https://cdn5.telesco.pe/file/qdZkIKmen5HdAzc_8nCULaJhQoaHr0ZbM1ty9OuQ7H1cFhcqrFtACz3Yosrv73Qe5zKEKoD2X0Um-ERqWqZYEEMLNWo1qlH-LF9CO0_rLWPX6cF8jMKp4nTF4HB7s9eU5WeRSHQ312V1ZeeAuhJtGb7CDlihUWxInEy0kljDZNfRhIGHL8Cye5x0rvtG_TZZr1LZLVqvD5BcQGq_HdptAbypuwGPtxTKZByV6nFAXgXkh1riHPxV8q0HkS6tnsIWQPv6bY0B4lzNIhqfR85ZAcIqlJDJVa8MKkJepqVITITbjfdnc_Xi_wsD934rG_wnxA2A0S29l4XLUtUxU8NfTA.jpg",
+      "https://cdn5.telesco.pe/file/oTU0EzJUbMVnFTvGZxmVQU4U2KYRllOHSQ9IL_kLi-xUbwmtPzibrcUZEBuIrS7qsJj_oCl347d8oybDzOS2ORFBI_gqZ97Pmvn8Vsrm2PuzSad2dptLIgdwME0-g3plWmCFdGd0QinVK2bNkxGnRNu79Ss4eD-hDlaCt6QNexECM68kh8TjjyqXhX5hwcU5D-TmoehDtwJFQPUA9-vqCWponGCo1Joe8tbqA2UCKhY2sI0apjMuMQ5386B25o_plCBrT0RbWGApGdbseKq-TymuHcS7j_QKMgGakMoi7T1NTRcmQFZ3e-epCTD7O7IliCNnvN-tPZll_bm26JrNcg.jpg",
+      "https://cdn5.telesco.pe/file/nvzOT98-Iiq3HKBUQK7UhkIELZaR_6L_BQVr8J7-JLvhNJoqlrwPYy9NhuVc0vTmks0VgovSZUzrcbU0roboFsCny1zmnAtq_Dmt-WvHX1pTQPdLHUOjBNjnsL0dxNLzPO-4QH1pf6tgMZ62rJ9f3fcbN3uWTkdebtkBIYguMi48pMXVNTprZX40wK2HHsXc3LzuOyjVQMs0BlPWsiqs7OL8PWlhbJjhCfrko-wcPaL0qDw76axex7dcY0cQzcpmbRquUV78RG9Hd2Tx5Gh8Iv-i8mOvuzCKOq30Hm2fF-Miyy2x6LrIXJssxgWpq9bycMHsFdZ63n3U1_uOx6d3yQ.jpg",
+      "https://cdn5.telesco.pe/file/JO6a_HLCN0ufODD-wet8GR9DmctqlFORGbOQkdPRjDX80YLG44gYJIPQsNRP7yBW1t5xEjkcqhJy1MLdfc5Vc5yKUgts76gfA3FNOd5CGukJwstv99teeUlmsG9k_iHC6lvzRQU9nQiYnid_CS5yeVZA-0HCjPizVNIE351PbNrvIjy0kQJG2YZRjWl6_KUU-7zpsh4DYq9g_go4Bl3MhLP5ctbuDKRrzt4687SZJqSapUh_q17SoGztXWJXbMPKh1itcH5L3Hp3ZNK_7tQ5aPphi3NDu8g5BL8jkVHmrsjriFhoqL0e7Km7iHi83hJtV0Cxj_kswt6bFrDX0fBNjQ.jpg",
+      "https://cdn5.telesco.pe/file/TnrxeC4JxDr1QVbp3NgoLkEzm-sAS1zVeLMc97czjMDa_cSl4PVaR0v7oa-LJIu0eW9myqRYfhjqPY5XZbt8LqYfI1CelrUuT4-C9MBVKmYE9flFDZxxqFDaJcONVj2AVpWTIlnemXc812nfibre0tu7c37RAAh1h8Ze48KQhLGuXaf40qX7I8s0bNcC8QYLpunKIhMgHXt4WaY2Cbqrr_hVhuGXrx3ZmYcdNPs0Dk2m6yytC8fg--ttZ0eBxBcr0r5a0QP9xyvKE_Fw-v2MQtJr_rRAmt1YWI1lX6QxkOcUSpdtfDOcewBhRIuDgAnwTavlZBX2PjkX9O6U1QXbDg.jpg",
+      "https://cdn5.telesco.pe/file/jTdnANgTelqEJw8bu-f2l70bKZlqn8yrXIaJb442H9UDKc_A1kLxbPpxzqCFNhZV7J9aIhofOpS7xRSG94l74OOVp72n-l0PYTcfKg6T-43-NULwIOdjWDnLdd91mCikk7acQzoiDJ6w4UjzdcI2ekoCEKAPedHYgWqQyr_xbbhzwqa0ftTte9Ftfg0jwz4T9WTb1uaCI7VSvh8emLgxYJYE_AGe50aYHoqR2ERH_UoN5hAfSGfVN0DiQ7sl2CHaCZWszX2pWbU2zX6eBEL6A7uvmJBze-YcOPTWlmk7EOi2Y554p5bQ3UPwAzwI-Wg_d-GaGmB6KJCjhRAMAAxN8A.jpg",
+      "https://cdn5.telesco.pe/file/qCZDT65gwipOI2J2iSu1eoEFKoEiSoFPtEQSYgg-8AJSrm6qV4Wl0EUeR0u1r1SHRZSbH6dpjA5pyoMgI8V1pznxq87bKzeQ6R49uCPCT24UiwS-iBY8QS_lCOyBBqi1m76xRE3in5BBEUnq4bfCV8M_t3WBv81eMVK1yxWfzNOb8SkpiQ08DAeBeZpJj9nHsp_uofIp5NoUuAPKtwEKoC0Cut-WO58yX_cNZnjm-0OmfeXDwGyRP4l6gssFJpemiki45UBn2eE9hxKY2FHaf7Orq4NCb1f_367UjV4oiHEN-TN27OS26PC6i_Mkp_n-XrbXvelGYXFY6Tzpy2jXDw.jpg",
+      "https://cdn5.telesco.pe/file/faLb44LWf1hlXiKkRLnytmxOLBXAMc8lDx8nJM-ownytANJWwoZzSWGrZrEpFC-1IPNf_WH-sd8C8b9olOv6AmygUMkNS_Ycaxqxtrtn8T9-NOdhZ95M9KMzRIsuhMs8b0tveGWzbqa6vbJ1m3-4hV0DOotGDd1Ra-trlvX3kQkp4YjKrXnO0RZ6ZAN-7HqbXk60No7Z9BdISxy0e7DhL--KizxJGc54_6IZNFjByLqcYNosZLS7GdKZdNmRu_ZURssCxLyOozSJ_cDbllvrLrQCu_OcY0zOmElKbnvhiW5TmfmDqoYm3cD3kMyy-0hTSkrke54WcuY5UG7tnSc3Yw.jpg",
+      "https://cdn5.telesco.pe/file/YsS4mfJ77onDAlITKUD10JuzbHSclFV9EJJYiqna-WVKAU_s9FEMfeM1FLPi7RGI04BgELZQduyoO7ypZrO1F-5BzkHl58JPiVOPspCO2biXP2QnYaSQUZ1xmhIqqPYp8cxfT028_aUaYwK5RegIiuV4GHiWfeLjNLbWD7aqy3hROxNPWvr_Qn-XGCRmS97DEktMenvtVOeuD03uja3AeKIrzeL0XdTkGInetvH8iPVYNWmWXg5QuqJjVOYklJEdUoQRY2LMo9Nvfe9gmD0wYuNO3_D4jqmtn_Q8iXbOEB2IZGmcFCyAStzonOQNMuaTm6FLZSuQ48OIrFCjgnoTXg.jpg",
+      "https://cdn5.telesco.pe/file/rDHdCFdGtwcrdhGAySe6aWYS9byBjWMgOFaMyDXvaqxWYizogDrCwZbpZb6Ei6IIFIcrDD26kexcd1yHHe3DoEQe-gNUr9o_Wf68TgarqOrbiSNzlfQV_qgaFV-ZRDxQSDoFaX7NOiPD6h5KIjxkjHkGUF8FZ7lBWZQJfZF5TUXRrLSUqoPMUKy5RiKXTPbmf5oaesht9ShsF1iXKIUtWXMu3AQi_Ys1HKBjInllEXgAHYEBUHJVcJAVbpBCLRLY-iHg6PHip78XkTdYkCKOS64Vucmymtr10b5I1xVGwuNKmjmd1UZJzQ0i1auYRT-56G5doropjLGnfpfegTwi2A.jpg",
+      "https://cdn5.telesco.pe/file/qvEAWO1cucfM5-2q7ZVVxLrEAlgO5yDFGo9VzGOFnUIBCBZcikUQoLYnKbvrE7YuuzuKzPLaZu8LUZST7HJa7DIzlacDbyoyk1MqPf2mFaJe-fVVfwWW0Gvn4z0adbElljiRzuRRvTNe_fjs_-MJh0FsbGbCNTlfstO5GIQW5XXS_0umUhJKlHq5Gx-Rr3rj0ONC9ruh7FPNu9bTH3QTpibbJw6bqgFA9FJEsBiYGE4DB0MXvfnA-59J31UvFfv7C1dTa6z8TaEHcJTmQDDhLw3fd4Y-L4VwF_Dwni7XRnJuJUoyF4lPG8bf2AzcUZi_qHQTiGU8smQoLNGQtYbiOg.jpg"
+    ],
+    "description": "WTL / FOR RENT\n\nCristal Serin 4 Storey Villa @ Cyberjaya for Rent -  (Superb Partial Furnished Unit) - RM6,000 only - Include wifi\n\nPROPERTY DETAILS\n- Type : Teres\n- Build Up : 3698 sqft\n- Bedroom : 4 + 1\n- Bathroom : 6\n- Parking : 2\n\n=========================\nAsking Rental : RM 6,000 / bln\n=========================\n\n\n--- MAKLUMAT ASAL ---\nLANDED\nCristal Serin 4 Storey Villa @ Cyberjaya for Rent -  (Superb Partial Furnished Unit) - RM6,000 only - Include wifi\n\nA) Property Name:\nCristal Serin 4 Storey Villa @ Cyberjaya\n\nB) Availability: Anytime\nC) Rental price: RM6,000 only Nego\nD) Deposit: 2.5 Month\n\nE) Description:\n* 4+1 Bed 6 Bath\n* 3,698sqft\n* 2 living hall\n* 1 Private outdoor Jacuzzi\n* Kitchen cabinet with kitchen hood and hob with dishwasher \n* Washing machine\n* Double sided Refrigerator\n* Water heater\n* Air conditioner (7 of them) and fan for every room\n* wardrobe in every room\n* Bed frame &amp; mattress in every room. ( 3 queen 1 king) \n* L shape Sofa\n* Dining table 4 chairs with bench \n* can park 4 cars outside the car port\n\nG) Facilities:\n- Full clubhouse facilities\n\nH) How to contact:\nwasap.my/601160606765/cristalserinlandedfully3127\n\nFitri MF\n01160606765\nDivision Head Polygon Properties\n\nFollow Rumah Sewa Cyberjaya at Telegram",
+    "refUrl": "https://t.me/rumahsewacyberjaya/26025"
+  },
+  {
+    "id": "prop-1786607489818",
+    "slug": "mozart-symphony-hills-cyberjaya-3-storey-linked-garden-terracecyberjaya",
+    "title": "Mozart @ Symphony Hills Cyberjaya - 3 Storey linked Garden TerraceCyberjaya",
+    "price": 5200,
+    "priceStr": "RM 5,200 / bln",
+    "category": "Rental",
+    "location": "Symphony Hills Cyberjaya",
+    "region": "Selangor",
+    "type": "Teres",
+    "status": "rent",
+    "beds": 5,
+    "baths": 5,
+    "parking": 2,
+    "size": 3193,
+    "landSize": "20 x 60 sf",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn5.telesco.pe/file/TWgE3dWJY4GwFbueMu9bilbiEEOWcyxBFsaOnEHWo6MztL3pjc3dYZPhu36JILjY5KltxP4uOHgMkpIe7vhvOHX_922_gvnXaxVBwe495jyfbwahsRqzsEKCAOmdvJ6Gi9YubrQ6gGosajH-nbkh72EAx_0lLjcIHtPKfv95hPI2ix8FdarXRfN3ULioPIjxHLrWcfsIS8WrCmdEVCk2ZK2cH6G_HFW5jgMkOmSYd9_rAwJhLzw_Wtb_WtQSWKPoegI04dLFoaF4U_XhTUzOfqDjvomQUqZsoX3MhXJz9QrF5a1JyH0RtdYbYR5rjhcnlNyQxgJR34tQ-35o1b6E_g.jpg",
+    "images": [
+      "https://cdn5.telesco.pe/file/TWgE3dWJY4GwFbueMu9bilbiEEOWcyxBFsaOnEHWo6MztL3pjc3dYZPhu36JILjY5KltxP4uOHgMkpIe7vhvOHX_922_gvnXaxVBwe495jyfbwahsRqzsEKCAOmdvJ6Gi9YubrQ6gGosajH-nbkh72EAx_0lLjcIHtPKfv95hPI2ix8FdarXRfN3ULioPIjxHLrWcfsIS8WrCmdEVCk2ZK2cH6G_HFW5jgMkOmSYd9_rAwJhLzw_Wtb_WtQSWKPoegI04dLFoaF4U_XhTUzOfqDjvomQUqZsoX3MhXJz9QrF5a1JyH0RtdYbYR5rjhcnlNyQxgJR34tQ-35o1b6E_g.jpg",
+      "https://cdn5.telesco.pe/file/ojbz1dDMjWc0e_1aD4vgQxn6eAiM6q07mGS1fultd4LNi-ftbZIaXWFuBBomj4Ywr7wiKvsqtKa58V211v61ZQLw6N89rfLPdDScLhyNVoTtIPXgNPlCURsatO2OvzKFVMwD0cpakyDV0PvdenmJyq_eJEpxXB-2XH2AHvOOQyliY2R58rXinAhGHUqrYynJwTmgvEE-5WrLKp37w8mUwWiXoyGXjCEXGfXuXGmtzahpMNPaG72otvIA-uO3v4Pz0HrEbdrCaUEm7fBvTx6O3C8vEkf8TNGyiHNKS8rLbltQf3zN3n6eX8kYdZjGxfGBT25247YJx7o1cDjzBqrX1A.jpg",
+      "https://cdn5.telesco.pe/file/MOVEKNpHA1cvd1revbjuFNbVym8V88dIKeAUdHXaStjn5Qmv9SCJBdcplqbYRXqmkkx0pREoESeDORxiX22xVh_xXKE5gcuspuaZpdrMW_yzQ81_H77qnTf87BBoPpXSTKEZ9QsZwP-tHdAaj-m34PWmeWzkiCo5QWzBUuKywKWihkl9C3k7AQ8uLeve7eCTGRAy-0ETd6K-GWq6bTVLASPqd0fGAY6U4uTTxSihFgcJf5vavfjSt9vmRmeENBQkdortQRYgUgw2yRR-AU2SB1uhyfIK76MgyMiRQ-Qu5FI5enxw3XeDobl9TyzmKgznb633Xbwuq3ZI3rlq4KiOKw.jpg",
+      "https://cdn5.telesco.pe/file/Rb9QR5dAyG6ocTuFL8HgfWbadtwTxkLadcO4C2sYLZKANWKmDtReVmEyiqXjne2_Rx05M-6Dxqaxv0inbUiotMeC_l2H5KzfMW6__fbGf2NNObMhjzJ0fChilZiigOA-Q5OHFgiJ5k41vtHUNrygNXZOsmwdmzBPX6Fj65qKtLCFpNgLKQ3Ra-24hWxoMjTKexzrGbDa2K81fTxCpajB81S8R1n3iGvWj4uJFyiHTJ6dHYgF9TqVymThjP1V64FIXcAoveyHqCZvFnCS1UJIsw6Rg1l6rUrjiVCQEGseoy9YDYq02Oomlmpye25ElegT1pSFMeRma7ZCPgwqf0eXyg.jpg",
+      "https://cdn5.telesco.pe/file/i2K-I738lKjlTwPSV53v6fOh74wqxOq9jBlcyERnJJnONICim2qUtbNVjtKR6NnqemHhT1_hAKbTSCUnkItm1EbA_EUBhXcE7xxieDU3fr5fO4Pmdh8KRKzDESe2iR4X_wALKFG26pwTNLemOKFA8YmrRCRsvxbvSn0l4U_d5falq1GGoP2IY7nxLNDfs9HQAAusR6WdbFuobl602AZNB0pJ3HwwDzo3y960mLo56WGf4EIgmExxi1N7FrA2eUCbw43l88MFfq9Engkx9sxYR_acjCOBXCNSlLUOLaPItaRiEMTCA-jg9XcCea_ogWMXxkaPToKNh6oHR-v73KFLHw.jpg",
+      "https://cdn5.telesco.pe/file/KQot_ngdrDVTDtsLfOdiCMxYbmibPagsTKOrem6fNhvEGKCvzDhg8eZcs85OZV28BUT0WIaPwTARioJNP4i_kIyOuy_E9vZ1HQuk8ILDrT0FQc77kpyMIfQmdf5YpwYBEWGmTyrZMGVszKCQgZJPSF-4yFaWvN2KorG8vPo6DrmcIovBOxzQwemfnciotsZOmhni2u1nw0Ny1UEPG0atNAPyzgyx6FyoOqitHA6e-VDBKs5nQqDROS9RaQgmbLtJhu6VHGPrbMjWFRguxn7uu5OHXsOufrky6v6wAzmfB6Djz0NY4YHtG7UcPbalHPn_T1o3o84N0ETzB4iMugCl8A.jpg",
+      "https://cdn5.telesco.pe/file/cJHneCMj99p3G4fe-0ZYxbHvTB51TUXaDGN5TXz6z1ZNdsreb44rfVyM1Q9gIbon604e80zoHYVXyF9Y3V3QBosikWWytcq9Ka1mng3bK3X3RaO4XcTY8kcP_49esgz7CVpzzjWO7roiReVvLgsFoj3EO42XAW1ykH2d_LmkRYhQUjblYqEGbZzrvAr3NMygEUx1iyxQEaaazBYU1eiDukFuaqjjrDSrj3314eiPaHdB5JloCYTLGSd9oF_uXXNFhLJ3yd_4AJw7lMzRAEvoR5uu_JPOu5OWMwrR-cFC0TtbpmdzJg6m48vyxyG5_i_xfWolfCK9yY7nN7vAeeJdXw.jpg",
+      "https://cdn5.telesco.pe/file/hMI9xZSSQSo35Q-OpQSJPpAkuf3PqjrSwwIbPhO5ugMnJ0hPfruKxFXVFU4c_K6Tw-KmqZE4lDajB9Gw03NcEUx6avodGihJqIsaUsKaNh2_dhGHfANxfZaW5fmR1wHBc47zcGoyfL-6bvi4OBcwP30mwSiXuk55WWrQCDxHZulDyWL84VF0jl29o68Q2EKK9c8Qx7oDuqR1RrzX8I2-taq7EwRwtQU-jqqq_yCGoXq2jhMb6Qnmqu_3mqjECthQEsUMz9FxuQWELJLjIYuF1BMs3d_-jl-Ghtz-cdiAKTHii7mBCMciusTs7HATFHqdYVEPh2IYXhQ3frnXu26SRA.jpg",
+      "https://cdn5.telesco.pe/file/kSb5ETbgiLkvC-oT3gPTsq8f6S5KJ4OuApUWNcB6Mal0oEb2KRPUpPgpfKQvavT959yDZQ2EpKBddlhMIf29YMQepDSahuM9cmo4tl6q1AD_DrRDEIGmVmFbs6PTJxkZkdURPJdPujV6u6aD1u2gmawbR5oybBTYhDuDPTsJSQwBVNIqz9OOvdZSVGzQsW8fVML4yfvek4lDRgdOZZDPPjUyuL1ywmZFVCAb1SPPehPy3BBZSspJgWZisLzyEEt-fQOf-CsUchYhpuH4GeWnej6vZtPdXqIffaQDKvlTkJsQDsLdK4gharl-hTEjAaE9Oz4_v2Bw77AQM9Et3GsS1w.jpg",
+      "https://cdn5.telesco.pe/file/WstvwptMwWPMMjp_32VZ0a3AM3xqoJL49bXD0Ez2C7CDMSur09jHho71FiZbiPTdjgc36U_IMpvtZBE5UcuCkmg38nVNkvvkWXU0KF6RJ1bGSI8kZqw3OcMd8rZbdXJW3OeKTMkndYH5KcZYgPUYH5hcgy3tulyOb_MuB55-EPYgXL9uKz-stkUYohnzfN5rVDMGuKq-s__VGkY3WUSvq-fNQvCSD_5hnz1uuRJzalhgGWVahVCm8jpzTjoPoZCTZxloHtBgdp1lHvSCc3CjnP59AmZzFfEorfqPtaV4N-nJq8fOPKoHDeNijtE_EEn-JS8SZc6ibqs090B-Qb6hSQ.jpg",
+      "https://cdn5.telesco.pe/file/sCaQkp4k__EgmmGdk5qboE-567pL0elucvs-SIDxoa2wO_lYATgk_zgeGh1AdDBhHBLFjc_eBNKsaLpadBS7-yasUlUrPYyUrIf67Ka1NmvZO5yMJQyW5F0LwFjmU7eHzLbXuBN3o12TgMOz8kGjc_KIit4BZp0lbGeTJg4230svQuh_5u-hMDRsu-pMAn66jkp1ZCa777uNrPxV---GOlyLEGGfIvlfKfceEiPLNZv_mpjp2W_hbkCpcgxyVEj8vweYlhzw5XAV7Na6PpcUXWVoRe1-VJIMgEVm4SlK6sO2Y_NZr3eTrZH6CxQiPNE8rzB6ZWcVP1V_cC41OF49bg.jpg",
+      "https://cdn5.telesco.pe/file/YhArkZuCWHSIouz_vobb0Ly5r2kBlZzVDZZqACjlChx4odI5kQBgkj1-zAEbXiBId2vU6ke8QQ0o-hEUxnm3Hizdu3wcV7HIr-JoLtHD2WoUdoB6LwM6pIhc_yINsze0_td5PMLnUxjy733PG_-1h2XUwvlidTUjiDoVLimCPlSdzuh825lBtDW7MeoZMkb41P1qA8jNs-1DZrVbiu5ov4VAUN9gb5O7GBSE36gIqUTER2SXkN-8FWodj5g3sX1EO2eUC5g1yCpIE_QDz4v8csb_QtdFqPBzMWzcpUly53PQD3cTHnHsmGW-CA5ZuGyLG5TstLEE847ZCVLB-9NYeQ.jpg",
+      "https://cdn5.telesco.pe/file/Ot9wnnDy1AupcbB5s-mXBC6AEEkCe16UjlGq2Ja4csMWIETSr8xo3okteNRCZJrhGRQ5hTefq7rrd2l9sBfnUBvcM7mGxV-8-6zY1qQJF5iiRP9HAF91gRrY4XpViH4jtmvc2UfgdoiWzTQMykqCUVM0l6YcyCZuHNQhfXMr3SUBdM9fOjTJ6w5KVlQEKfDNPlM1OuTyXjGwPHN70wBhpQOhIng9yd9NDQb3TQa01DNppfpPxUtEsNBv1anCZbQgmBuu2tI8U_VcvApeEW7q3NiaNb9uu8QPJlljlHwcWEEzPdYoYWCgoMpOMAVk1GyyPKt-FXyAtqRcddm2q1b6Wg.jpg",
+      "https://cdn5.telesco.pe/file/ESZOONrWe_QkyDiSKZn0wJAP1Nl3nGKREBb-ib6A1oZAWqWhncohgyL0OWgv26pafzn_ZwF_jBpjpP7XJr3YSGEA40DvSbOqYa_Cvs6Rydp1MDSe2gfwZVvliB2meP4PU_tfQ47QsIzZbzoY39JvV5HoHCJwatx9i4VnWEwnwelmWqHSesdph1Ug-xZrugln8rcktFErdrl1BQpaqUGeTPf4ybq3s4_WFkFYcwwpnnUDxtkCcpIdO2VWvTzxzU4oQZ-YTH4YFUZvtDMNAB7u-0aF58uytHf2GUz0zQCx1qX0yF1L9eHuYjfMAzNbg0YndiYeMLJFQlUnI5KKB6y_Iw.jpg",
+      "https://cdn5.telesco.pe/file/MfWmo9q5V86GtZjCSVoJZHkAK3S8y7rWLrbrt0ab7v4yJ1LMweppI-KVdSTaAjBnnPcXt1nLzn4zPq0s9xh91uKvvrKT4Bz7u_2rYJblCH1Iv7y4XUgvbdpddsOWLXw-TYYc3CjzaR-Bpj3PLphvUaDWoZ9NipZ7c3KsUBgouAVlBaPV2-KczymnEsRja3T22osdnMplpOb_X6EgqjSeE12qK6AGY7J9IsqDckxl2pTWwHH3pC30goWr6HrDtKW13dyPlJn4Hm-TsMZyH8g26vasa3OvTHFvHERUTwFdL1-sd-i73vOmKwCFEFOBu61EMQikJjxzeTBJvDx_KNPeFw.jpg",
+      "https://cdn5.telesco.pe/file/h_rb08lxpxqGnbuQweRaqhoC1J3juKiBcIYwjCZIBcTsUC9bUQ5F47tikQ1KAZTkjutOzNHWHQjaEr4Ftzifj2ZMHe5OLmDljbV0Yc7hmfqE_4uI2v33Q17XMqPwgl9lmtSef_JQL3AsyuQOYM2rP1wfB3mmEAiXgUdOJxg_u-2ZgYhN6EQyIqXqdu2ImYf6_NngGU5AqRk2NJHkreXAqpvUlfAlWsjYIrh_FHnGdY7y4vvyCwp320lqG5CpbWmIUQWyCR7Np2O1ykYLt-DBa07VSAIiDBQTgFHYoJrGIW2WJP7VesE3nb76vY531UleKCK_PEPYV300aaYqX7U6Lg.jpg",
+      "https://cdn5.telesco.pe/file/nlbOtWr3RF_QwWN94qTRvvFFEuWVijKknkhiK_1BWstqsm0GjnGjDsCL4SYFsDofoEMSQgNqhnwRaFMCp0cI0udBQPuxGeYTVQ4vp_gP4shK9vmjtYesfZYL62J_Dx7Vtf9tC0GMhCU-0l2cVCsrWoRUOrGcDPq-F-oYlF26I18CmldnNBuwy2afdQ-WpXuWm0mrVGWvqZyrffdRcWGFGPAuy2a7vIk_G37JDzP9GnUS65Skf66LbAtyogyH-FDfSNP2nBh5UKf2JmZt8qB-RBlYOGqFyulWL7hzH6f7ztXpaU307Am7GuM-K-yD6zm2ceSkHaYsf_Nlx0ZvQH8HGw.jpg",
+      "https://cdn5.telesco.pe/file/ghODiFCF7qvp0pnCD_sLJwRngAVsG-HEA6-F_HcS-tyel37TB9iQRKsV5t86-pcvra_HUIT-LvoPgzOWjTbunn_Rmasa9rIopIDksclsiwAQ1iwymTSR_SLmXNTwfL2VP6FyNX-eHSPuBDNzvsHNjMzd1gd_8Bnv6MNExS0lEnSR1XZOHjyk57NxJ2mnpO_SZ_NwohIXdsYoaOot81m8COgVnSdyE-GRZl6Qu3bncvc48094hAKEfvHeaA_SRomlCcqj_ZZ5zNMHR2HOWFDYka11-LR8hVNM5Y76vE9sLM7plKV_8_wxeCT2sLH_DWC3ZoEpKlm_RdsZl9-IqLLIzQ.jpg",
+      "https://cdn5.telesco.pe/file/MhPdYa4Bhww6VPx9RALN3_ERTXNOMTRtKb_MYXMa1EURpc3xqR_d4ubl7pQJ8IiU9mpxcMa8sdywXN9eR8kusQmy8lpbkG2M-57ioi32lSUnoEDBeR9dJkrYtQ7tycdNCBFVHlMvwR7nVayqwZWH8rtFQ29nm7fbujPwqnVj58od4y_8hoLL_cQYVzQVl6iqq6NcqrB-owzYHlk9D1hlQz9jpQxTXlGK4ckKAnD7CilLI9ee5bdxu21ehjZfS9GGLcPwBHcB9sM86lJWLM5QVeqAK5kc2D3rUKnnoIv1uhihoS6KUMX_f9fm2DdesjEYulnttPWjzIxwyBxcgeH65w.jpg",
+      "https://cdn5.telesco.pe/file/FpUQ4WHfqKykpksHCI__n2dlzWXK74F91yFO20sKzB9odRFNQbUNLODaAku7hgqq-OOgXPZT6xTjNThacgM-GDWcAKIB11C_WKCLSSRZklgfNIiogkbY9azSMr3UNHawv1kpNBzCUNPlPv20KhaSJeBdYFViC39kYqYnmsvbhp4K2w2IuwI8e6Oc0L8xGbYOCrorH6Z413VPSNy48rnk84RSfOR3LuUwfPpyPOjVVVJSvQ99mkPt8RXk6x4rsUvLOfowhNdO73VsKuEHo9KMm2zPqe06fZN5fwmlMqZTXhqGR-9Goer5DrZFohX4MQAYB1nVkLKEZFLNHK6UoyXYlg.jpg"
+    ],
+    "description": "WTL / FOR RENT\n\nMozart @ Symphony Hills Cyberjaya Fully Renovated Unit\n\nPROPERTY DETAILS\n- Type : Teres\n- Build Up : 3,193 sqft\n- Land Area : 20 x 60 sf\n- Bedroom : 1\n- Bathroom : 4\n- Parking : 2\n\n=========================\nAsking Rental : RM 5,200 / bln\n=========================\n\n\n--- MAKLUMAT ASAL ---\nMozart @ Symphony Hills Cyberjaya – For Rent (RM5,200) - Fully Renovated Unit\n\nA) Property name:\nMozart @ Symphony Hills Cyberjaya - 3 Storey linked Garden Terrace\n\nB) Availability: Anytime\nC) Rental price: RM5,200 per month Nego\nD) Deposit: 2.5 Month\n\nE) Description:\nType: 3 storey link (type: mozart)\nBuilt up: 3193 sf\nLand area: 20 x 60 sf\n4+1 bedrooms, 4 bathrooms + 1 powder room \n\nG) Facilities:\nResort-style clubhouse\n\nH) How to contact:\nwasap.my/601160606765/mozartsymphonyhillsnorazmi\n\nFitri MF\n011-60606765\nDivision Head Polygon Properties\n\nFollow Rumah Sewa Cyberjaya at Telegram",
+    "refUrl": "https://t.me/rumahsewacyberjaya/26104"
+  },
+  {
+    "id": "prop-1786607327540",
+    "slug": "big-land-big-house-extra-land-semi-d-double-storey-shah-alam-seksyen-7",
+    "title": "Big Land Big House Extra Land Semi-D Double Storey Shah Alam Seksyen 7",
+    "price": 1470000,
+    "priceStr": "RM 1,470,000",
+    "category": "Subsales",
+    "location": "Shah Alam Seksyen 7.",
     "region": "Selangor",
     "type": "Semi-D",
-    "status": "rent",
-    "category": "Rental",
+    "status": "sale",
     "beds": 4,
     "baths": 4,
     "parking": 2,
-    "size": 2700,
-    "landSize": "3,000 sqft",
+    "size": 2800,
+    "landSize": "3,600 sqft",
+    "tenure": "Freehold",
+    "lotType": "Non-Bumi Lot",
+    "image": "https://cdn.propmall.net/media/img-property/list-73758/list-73758-01-67da6477e5a089.07249559.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-01-67da6477e5a089.07249559.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-02-67da647871c712.19412440.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-03-67da64790f2994.92960796.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-04-67da64798978c7.76604912.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-05-67da647a0d0462.94080786.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-06-67da647a9ca780.41812460.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-07-67da647b1f0c52.03528025.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-08-67da647bb06459.36688803.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-09-67da647c32db15.24073496.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-10-67da647cbc2fd6.66294039.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-11-67da647d43df77.99343951.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-12-67da647dc1d073.64881707.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-13-67da647e68ce87.48895802.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-14-67da647edebff9.17290446.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-15-67da647f821ea7.54205117.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-16-67da64800678d5.53431017.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-17-67da64808f78a0.16688146.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-18-67da64810edff9.23711589.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-19-67da64818ca374.03630243.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-20-67da64820e6b02.92784490.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-21-67da6482927475.00190709.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-22-67da64832437c2.91018175.jpg",
+      "https://cdn.propmall.net/media/img-property/list-73758/list-73758-23-67da648397ab10.93490544.jpg"
+    ],
+    "description": "WTS / FOR SALE\n\nBig Land Big House Extra Land Semi-D Double Storey Shah Alam Seksyen 7\n\nPROPERTY DETAILS\n- Type : Semi-D\n- Tenure : Freehold (Non-Bumi Lot)\n- Build Up : 2800 sqft\n- Land Area : 3,600 sqft\n- Bedroom : 4\n- Bathroom : 4\n- Parking : 2\n\n=========================\nAsking Price : RM 1,470,000\n=========================\n\n\n--- MAKLUMAT ASAL ---\nBig Land Big House. Extra Land Semi-D Double Storey. Shah Alam Seksyen 7.\n\nAsking RM 1,470,000\n\n+ Shah Alam, Selangor\n+ Semi-D (Landed), Two Storeys, Leasehold, Bumi Lot, Intermediate, Individual Title\n+ Built-up Size : 2,800 sqft\n+ Land Area : 3,600 sqft\n+ 4 Rooms and 4 Bathrooms\n\nBig Land Big House. Extra Land Semi-D Double Storey. Shah Alam Seksyen 7.\n\nPropMall, Built By Agents, For Agents",
+    "refUrl": "https://propmall.co/share/en9y15pyd5"
+  },
+  {
+    "id": "prop-1786606797134",
+    "slug": "premium-office-space-pavilion-embassy-corporate-suites-jalan-ampang-klcc",
+    "title": "Premium Office Space Pavilion Embassy Corporate Suites Jalan Ampang KLCC",
+    "price": 8700,
+    "priceStr": "RM 8,700 / bln",
+    "category": "Rental",
+    "location": "Jalan Ampang KLCC",
+    "region": "Selangor",
+    "type": "Kedai / Pejabat",
+    "status": "rent",
+    "beds": 0,
+    "baths": 0,
+    "parking": 2,
+    "size": 1149,
+    "landSize": "-",
     "tenure": "-",
     "lotType": "-",
-    "refUrl": "https://propmall.co/share/egd0t9u5nw",
-    "image": bangiPhotos[0],
-    "images": bangiPhotos,
-    "description": bangiDesc
+    "image": "https://cdn.propmall.net/media/img-property/list-143758/list-143758-01-69d731b25428f7.54721654.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-143758/list-143758-01-69d731b25428f7.54721654.jpg",
+      "https://cdn.propmall.net/media/img-property/list-143758/list-143758-02-69d731b2ca24e5.45639619.jpg",
+      "https://cdn.propmall.net/media/img-property/list-143758/list-143758-03-69d731b3629612.13103770.jpg",
+      "https://cdn.propmall.net/media/img-property/list-143758/list-143758-04-69d731b3d8cc59.23192383.jpg",
+      "https://cdn.propmall.net/media/img-property/list-143758/list-143758-05-69d731b4750603.71684970.jpg"
+    ],
+    "description": "WTL / FOR RENT\n\nPremium Office Space Pavilion Embassy Corporate Suites Jalan Ampang KLCC\n\nPROPERTY DETAILS\n- Type : Kedai / Pejabat\n- Build Up : 1149 sqft\n\n=========================\nAsking Rental : RM 8,700 / bln\n=========================\n\n\n--- MAKLUMAT ASAL ---\nPremium Office Space Pavilion Embassy Corporate Suites Jalan Ampang KLCC\n\nRM 8,700 Monthly\n\n+ Jalan Ampang, Kuala Lumpur\n+ Office Space\n+ Built-up Size : 1,149 sqft\n\nPremium Office Space Pavilion Embassy Corporate Suites Jalan Ampang KLCC\n\nPropMall, Built By Agents, For Agents",
+    "refUrl": "https://propmall.co/share/en2lzcv43b"
+  },
+  {
+    "id": "prop-1786606294536",
+    "slug": "corner-unit-double-storey-terrace-house-bandar-seri-putra-bangi-selangor",
+    "title": "Corner Unit Double Storey Terrace House Bandar Seri Putra, Bangi, Selangor",
+    "price": 2100,
+    "priceStr": "RM 2,100 / bln",
+    "category": "Rental",
+    "location": "Seri Putra, Bangi, Selangor",
+    "region": "Selangor",
+    "type": "Teres",
+    "status": "rent",
+    "beds": 4,
+    "baths": 3,
+    "parking": 2,
+    "size": 1680,
+    "landSize": "4,036 sqft",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn.propmall.net/media/img-property/list-158294/list-158294-01-6a426306f130e1.23092618.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-01-6a426306f130e1.23092618.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-02-6a426307768b27.73777771.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-03-6a4263080e7598.32921103.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-04-6a426308845542.61371967.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-05-6a426309069480.83991228.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-06-6a42630986c001.95441173.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-07-6a426309f0f4f2.67677497.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-08-6a42630a7f9c19.91479753.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-09-6a42630af09c58.64052066.jpg",
+      "https://cdn.propmall.net/media/img-property/list-158294/list-158294-10-6a42630b7d90a9.02165786.jpg"
+    ],
+    "description": "WTL / FOR RENT\n\nCorner Unit Double Storey Terrace House Bandar Seri Putra, Bangi, Selangor\n\nPROPERTY DETAILS\n- Type : Teres 2 Tingkat Corner Unit\n- Build Up : 1680 sqft\n- Land Area : 4,036 sqft\n- Bedroom : 4\n- Bathroom : 3\n- Parking : 2\n\n=========================\nAsking Rental : RM 2,100 / month\n=========================\n\n\n--- MAKLUMAT ASAL ---\nCorner Unit Double Storey Terrace House Bandar Seri Putra, Bangi, Selangor\n\nRM 2,100 Monthly\n\n+ Bangi, Selangor\n+ Terrace (Landed), Two Storeys, Corner\n+ Built-up Size : 1,680 sqft\n+ Land Area : 4,036 sqft\n+ 4 Rooms and 3 Bathrooms",
+    "refUrl": "https://propmall.co/share/emws1sfc6k"
+  },
+  {
+    "id": "prop-1786605811509",
+    "slug": "partially-fitted-office-prima-10-cyberjaya",
+    "title": "Partially Fitted Office Prima 10 Cyberjaya",
+    "price": 35000,
+    "priceStr": "RM 35,000 / bln",
+    "category": "Rental",
+    "location": "Cyberjaya",
+    "region": "Selangor",
+    "type": "Kedai / Pejabat",
+    "status": "rent",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 7958,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn.propmall.net/media/img-property/list-146597/list-146597-01-69eed371f3b825.19131009.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-146597/list-146597-01-69eed371f3b825.19131009.jpg",
+      "https://cdn.propmall.net/media/img-property/list-146597/list-146597-02-69eed3727df358.39390138.jpg",
+      "https://cdn.propmall.net/media/img-property/list-146597/list-146597-03-69eed3730ed977.17024359.jpg",
+      "https://cdn.propmall.net/media/img-property/list-146597/list-146597-04-69eed3737ff373.69190585.jpg"
+    ],
+    "description": "Partially Fitted Office Prima 10 Cyberjaya\n\nWTL / FOR RENT\nRM 35,000 Monthly\n\n+ Cyberjaya, Selangor\n+ Office Space\n+ Built-up Size : 7,958 sqft",
+    "refUrl": "https://propmall.co/share/emqmu97uty"
+  },
+  {
+    "id": "prop-1786604381056",
+    "slug": "exclusive-corner-unit-liu-li-garden-2-storey-link-villa-setia-eco-glades-cyberjaya",
+    "title": "EXCLUSIVE - Corner Unit Liu Li Garden 2 Storey Link Villa @ Setia Eco Glades Cyberjaya",
+    "price": 4700,
+    "priceStr": "RM 4,700 / bln",
+    "category": "Rental",
+    "location": "Setia Eco Glades Cyberjaya",
+    "region": "Selangor",
+    "type": "Teres",
+    "status": "rent",
+    "beds": 4,
+    "baths": 4,
+    "parking": 2,
+    "size": 3540,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn5.telesco.pe/file/oL142uu44M9u0hRYMH_SbyPtc6qDs2VmH0YAXrsuCSNOFKCsoo4E_xdllZGbNDRwpcLdK2NUmWI8zB00qXRpFJOtfnzDST_SJRVeY4uBRra0gW06JYPH-L6OfCbbtn1C99Q-B9TgTRDKZFp8q6wxDwdlAhfaKkdEhnNgI2GH3ZZbs5xHAitmV7ovZ5dP0SbwTpTi44V8NEtSAtUut1Fu9kymBesRtgqd4IqTaVQ8s0mk63kqyYW9875ZGNpl6OGHcegGxCIO3_61byGwgvHdtbpGKa-2KxUIGQcTnmL9UQzfj0JZxrErKckk0ApPCsL_s6erbf_yG2BLWGK06iPmBA.jpg",
+    "images": [
+      "https://cdn5.telesco.pe/file/oL142uu44M9u0hRYMH_SbyPtc6qDs2VmH0YAXrsuCSNOFKCsoo4E_xdllZGbNDRwpcLdK2NUmWI8zB00qXRpFJOtfnzDST_SJRVeY4uBRra0gW06JYPH-L6OfCbbtn1C99Q-B9TgTRDKZFp8q6wxDwdlAhfaKkdEhnNgI2GH3ZZbs5xHAitmV7ovZ5dP0SbwTpTi44V8NEtSAtUut1Fu9kymBesRtgqd4IqTaVQ8s0mk63kqyYW9875ZGNpl6OGHcegGxCIO3_61byGwgvHdtbpGKa-2KxUIGQcTnmL9UQzfj0JZxrErKckk0ApPCsL_s6erbf_yG2BLWGK06iPmBA.jpg",
+      "https://cdn5.telesco.pe/file/IhxzqIrrhBnN38__GMlhseFKwus13Bok5tfSzh_c0pW4j0Fdff4FSDyayHdjwhEv2eUCnTcQLNdw9uON_r3wayMQcGJmLQDBBQWR6l2vMWTd57kDrKMOjqEQeEvznVKMU9U3MM6YC7iFBDxgdMIne1m_a6lnWBDdyxOeodlUBqPjXGpBXspkjwwdSMoY-CH-dS439s5cgZte76u6915LGtbsVBhhMxqr4aIaobuC4sgpEl-41c06o7qHfcFma-l-QpWHBW6oNuCMCKoA9Si-HEgPx6_QLCCdZfUUSaOXZUe43PdjBEqtenAt-1-KDwFTGgv4kNxmkq2O0Kd24mYjQQ.jpg",
+      "https://cdn5.telesco.pe/file/VJ_CM2IrxBud6wF30ko0mTwldhHGMxwyFDtT6Q4AY56jXbQevBGgqSv9EF6-UStPl7M0eAPw5dC2nXZXZ4Gthh_FfD5c7dVhVVkgx3jsSGovJuKXCP_eQtkqo7pR56c1nxFT1SglK5U22-pHdaxPRSp6PW_lHLNY1E2jPlvTOgHYaQZQF84JkBZrGXikZyGmPX9oJAEf5s251VxxQjtnJqXcORpmNzBUHLwBmDsmrT4hkruKGvwTp0L6krSog4x2EQef2mSQ2wQhhwmu3Dykk2lFaRWn-Y9sN57fLsbT-A2seuult3pIX89jCd0XuCScqREfdYgh0LuuaOuSVYoMjA.jpg",
+      "https://cdn5.telesco.pe/file/QeL_BkZHXhWV8_9TUuhnBrUn4Kcu6AmLr4zvaXiLeA4YETqeprzT4v7ff3wurvlHzXG6GQ8b5WgVKFfZ_nsI94-OKcgEsddbChBR8JE7Rgi-IxWti3DoANgOpikdFg6Zmrbve7JAtmo91wgPGJFZgXv9AoeoatjUrtUvBHaD41LGYzsb1wlrK716UtP53KdIwrz72TX1v6dfu2csFRuTLXSV-pod-43mlToxrQ8dbMS9B0PuVDoeIl67dmQMnkpfRI39huD6o_g3GF4c-LXOgWm5dH1olTXsK_eFgHcIeV65R-d89Z0wKdHBreCddvzugsBPp_PHJ-2VMPH7MBs6Ow.jpg",
+      "https://cdn5.telesco.pe/file/B-m6XQFG-_YD-B4K_0egyas4CJ87pXoy6rHg7xObn6tInOpFuexiKQ5Wn2XKutSEvSs9RYyZXXutQONFOxpoDFP7icA_n7026ViZY6Qmq83WjJZsamFvDybLiehnqhQQOhFNO4BxnwGzEruUXi4M-903ML8VGlGTOrthxsgy-KgzQhtRH_DEos3ER74rTbXpyaB33VdhnKuzWqkzcHpvqY34ToyZAFMZSH9fcm0KvQwsLDflwhi1BoovlWZBSXbr7XoazRCr7vtM_bOcThaQFoE9exrGZe1tSd8_0Y6vYX3FNQ5_XG5Bc0Sew6siELrsa1qWaNQOUcCt-JMIMB5Mzg.jpg",
+      "https://cdn5.telesco.pe/file/skvPObJjh3J_74ueV46TWNzIXjOu3D86dmvJWOibp5fENjxxETdthw1twFW4zgyyvBWZEFw0k3YJJDhncLDVQSDaas3DLHSW0GJ88lIdPwtPf4cxQ9_0-JbpMJH6r0LOvDTQak4W59deh_1ACZb7ebAfrUCniXOxQI-sfqHDfZ6wsXZVbpzg6kNzOdjDtNxcqTuLADCcWM2TbdQXnA68e66XKhP0tGBaq-VoNDEhUsBhxxfOGaeBXNJosEXeymv55DYoas6P7BDZr4nb9Lqj4uRNa71HlkmRNmqIOFZsnKZ9bU-XeO810DcOU8dywCJt7RPm2-6ZVgnNCuJOYH1aFg.jpg",
+      "https://cdn5.telesco.pe/file/j_DlyYGNY-T-EC_XY9TIx4mrAb-MgKT_rrlq-M7D7ujD7Zsm7IuleqYsf_rgSI7DmWc4ZH1c73a8ZprX6N3FzSE_xNYqopbIzf0dwBvKMNmUkKhD97YyvRySQkRwk6cVJtcHIMR8n4DY7p9lSLYEshM2965wNwZmtHLcSV_LpOY97eP1rAKRRn_4kfhpSbXcZQOzDMg-q_rxHPzlpg65KVxTsYni6Dl81HMfqvfrC4eLhyyX0z0cYpneQXsxWraMCmKcx-iXhKqoEVnoFkQPymd55SORirUMjy6A1fPTPFsfWwB4-o_XElJF9-5qwY_oT7qClmc6NisWWovCKmXCkw.jpg",
+      "https://cdn5.telesco.pe/file/LyXnBRSt7IXDELxKitqRq9ROmpsn9v6H261OMB7tTKpkGfVLYSHxE0HjGpVDiFU5bo8uZPG0IYZwWknx7JkuHeEimoOhUhInMMON0wP2yBqk2r-ZLlVfTFpNsPzaUPxYeH6m-t-JrAQzblB_6AD1dU4Ai9AUubZNGRTWnTPOXR7UyGTttYdB8UdU9mAL9oYXkKcE3_hYxbFrhnfcVsXtQLy0dlT27s8RCcmIqgStZ9IuUt-jWMskjwFZz3UemEb6TEoFpZJ6s-HkFqSTVmGp-zYfLpQMzrdTnvc7lYQY94evlyv7hhHHWkQijt5L4wDuPjof6b6W35a9sEBzLeExbg.jpg",
+      "https://cdn5.telesco.pe/file/m07QkyzTfCbUtreeAVybKFZbKaPZC1MFA8EZzKqbj6yCC-JzWVkgANjzKi-f2Y6-8l0cAI_YPiKByyPEpNVs-IjGA1RgsjQ25RzNPTldI0-UrYnyIAU60aPNONzkk773oFoxz7JCkfBPRljIAMelzXCkPRYzqmCX-U21b6dknUZc_8yaQuVw_icyl3EUjbSm39Z_I5a4Oqv3kvijXBdaUiooTZyqyfHVrZeFb9aoKM8YoKGR1FrNWZ-1S4YGhBFg6AUbYSM4i53QYkVFrunU0eg5ol_sdQX6MomL9Ht0IqcyCk2iVoHzOu0Ff8kOLr5e7XM6_L69z6Ln-mqrnAHCcw.jpg",
+      "https://cdn5.telesco.pe/file/gFqv6l5_qZZWaH_YYjguQSGosvtFaQCI7RIoLsFVfBealXUjfkRBSbYzYrlczcuYHny-1selOdcwCZe9o03AS3mOhjD8ckXXZ12xHlxWxkC5D3hwd2cpVvG57jkJYu4-eOzkSdJm_VMJ9r5Nakc7YsnJ80JYJWF1oYLKxtxhVDk_Fp6eW9eAaetnA0cf2ONHLfadMMF9OAF59Uqp59wGGhtglKfKMBhriMw31Q_yEdMEsk-NnXpOCKcSygHt6qByvQBxC5SfAHvbIN8HseF2w_nC42lx0akBatQQ4_M8WC8ZjgKbZlc-WROs1pGSoiarPD-CQOB4ueZsAfE3i6AS7w.jpg",
+      "https://cdn5.telesco.pe/file/tHjOPuF8_Xw7xpFFgP-zNjQaMnO4VqCCVDVn3uRN-Iasm3rwcQlmI4v7x2HNl_ZWeZy_bFQgYjmm9GgBcU-ab421fQasEWIZ6tKhGOTqdNv8YbRd0Kp6c6aDhD2kIqNwaXh0nq0MiYSvQLGqhtOFjkhxnnnP_dupKxAHeElT7J4amrfwHu7BltGu3IzrqAFM6IqgimUawlaCZvo6H2CBMWlprmkrMAt18i3uQAuUp4taaO1A8YRUgvSEmye2bxG2q80UfBO6JBE5HmDWoMK82dUEafq3O_TJ9DkPBIKupsTPTWq8BsTVbxzSdZSp6jvchfb7j_P9BQmEen6n-K8k6Q.jpg",
+      "https://cdn5.telesco.pe/file/TNRXBWlCuO297y5DzPmrDs2NXBUqdn6OgLGNci5PmJCLppusmghdZsyX2VaM7T8h4mnAPYtOPrmGcPTZB2SDzY8yg2p5pWE60pWZnA0U5ahFXWFL_-dYdCe_t5I2UXXKuob7-S4HVfHdJUk3GLP792ju4JeabyqeHTgkGSJfQkJca2r1OZ4yDTjUb51Re6sRRd-JhI8tgGvl3XKXbn3Q2OmYVS8rzEws9FOXJhGOHBUp6Z6qwsnRhQrX4KUViqhC2fFy6dPjr8g6tCvhrGRJp4jXHbxuh73KHrc3bXmhZMR1ASy_Og_Es3oZOdsq3HQlZC0jkAuZFSjO4XxJCN3lPw.jpg",
+      "https://cdn5.telesco.pe/file/kT6cDXwvwzYBXIJpOLThzm5zjdhpZFocWUCvOUBSO1cCidtCjPrtQ5zbMl-I0UshbhAUzrd5XbtPqaK7mIMtdTf9iIb6V-9B5zP2vlgcBw8-foHaDwHPVyK-boxEFxWQ-M4_dCaqaP1KhWJoLeh5fxVYHMmebn0G8YaNhT89TNz0S3d6VXW_LXCRf1KLFBEQZa25h4YbqTSY2UI4DRim-E2aAS8n43fK2yb-eswin_vQnM_5_FvCc7vXYyLX-RQI53G6KDzoCKzkfcWYD4EDffUstWlgFCUhUHB3WdCiETlxIqLACY1S3PvXctsaNvRO9j1uDANLw7KL7hpgLSkXqw.jpg",
+      "https://cdn5.telesco.pe/file/pfR5iWw1qTacjcenoZe_sTDGQ3Nb5xKJtBgwT5rHO8XPok-Amkel4wfWcd5e6Umq6PLYcZ7lwWPLGDMZwkuyoT_N_1qQ7ViSXyYoBnOqw1FkgRzXANTwBYnMj3a9GlfzBWGyPi0cyJcv_C2_OqLs-srBTfrtyT-sRawtGkUAwaVhOdD1CzH2MdSmRVXqQN5QkoNMrGVpOe_0kIjSeoZN2JIS9zlALjq5S7_9Jp0P3YL_Iuj4-BzhPpa3SyOBp-vdkS0jk4yLAgncvuDXJLRU21Wx6xRoY2RV6wfrfgzKTXeuVRrPYnB7t8msVsvCWJ_Ac4xNtV6PRM6lB3f2rkQMzg.jpg",
+      "https://cdn5.telesco.pe/file/TjdtxnlJg7bsa2jMYPHF60IMWikxu7g_F2mQKq2PeumlQr_j76tvD_cb8X6McRTF2xumIVNhKWIKHauu48SvfTdMsQq5_EJj-My9oXho3Bm57tmByRC_bS6g9luKE2EjKAEbePjsnDVUSV4OkLQ6Lu31uZPFcdTt6aR5Osi0g7AwicDAzVhdlzyLPuwmhBuj5QUlB6xZCXpKALzrOxdgUqfinHlLaRwm4fPHxvEgafrMPO-4d5lehJ7TA6otIPAlXeTj8GoP33bkFibU70GHo1mCwVvRXKrqbFs1JU7lxxKdIhRXQd7BPg0vKm6jYmTuYikH7jp_dzI8lE_DU7G2jQ.jpg",
+      "https://cdn5.telesco.pe/file/SctDP4XpGVPbG_eSMMGgI86vF4f7H8mFlgaL0xuiHxcxMjLOoShZSFmyRCTgIWzZLSXY5fHsmepNw11Ko2qLvICreGcl3wfb20NKQvcMRjogCD8ng2I5twC4RhSHUk3f4YhTqSdPjKwBMv6_2qUoD1AP34jQkyprnyMM1w25ZZcjL4AsEHmDmP6Nr5pj5Wc4KQRGzlwMbHvckVgKYUoJ0R_TIMM_CwFxSzbIwX7JRZhryynyN4KQ_MhX6UeHq1j8c5GVLhbaLxl2kzb7w3OCsNL3LshhDEfBnESbE-GeCMoanQFxGWDHxRGc9qlo9UFtdoL16rKVy1EuZY8nNna9Jw.jpg",
+      "https://cdn5.telesco.pe/file/T8-TBVPHV65Nxav1lrONsH66InwblQ-BwiqqQBRqnvEy3Y8doJQEytTQR7tdkTX7b1a2wVooSywVhPo2gYjSjDLfDAJ5Ejh4Hw-DL5UULCxhHmNP4lokQUOzyZeK2_RjCSGuwWq2QjvxRdvqLjeKLyFGeQklbzQa3NHSNA7eUXmz87FexFN1FjqK441E1Ud-yztQvrsBH0nwXVI6scjPxiJkGdttw3Q2NZ2EGR1jxjuHX0f7rh37faKEHY5ZkgwOuTFqDEOEyEoZ6y_e8yz20fhHIHzuqtIVgbT0afU-9_B34fF-M6MHPkOFuTIe8xaNuD8q4F6Wo7Q0iaIOAVI_9Q.jpg",
+      "https://cdn5.telesco.pe/file/AsYTo1h3EmloRceq2jBFok8f16D9cth1pGz1-P8DVdIIRxAS36bjIxvbXEUpp969qn806tQszwFbnirJJHyeXckAabYVBNAdvGgGjuBhLwNl4zdxTJGWV80QDLSwTlZyjYINetPRoKWTG3Q99yhMWyyy-n99aF0pQYfzKibTNUfWjBpzKZDM-5Bq42CXgJwVMpnj1yP_hlmAgXY477LZNjIyspmhctKJIDzdo6zhGfWTozo7QoOSIQWNNqxxqPhZiuYraXiqDTIr9rpgEWAnNK9gqwUznU_S3Sq8AB_RQ0kmOwEJixcES5lwC1bbvWAGcx6ViNBalppInc8WmLmm7g.jpg",
+      "https://cdn5.telesco.pe/file/YHqk68UhUl-kuw6GmujCfdCdt-8Se-mucIxk0f9z4go72A3twyMLir5kJpdk1hKLv4BlmNUK3aNGmAg5muWxeUD7w7Yf8wHEFmEW3jX7mqfkbfJmsJZq9VC_gg2K57_gvHPeAWI7PbAriu1RHcYWzONd4CkfZt1OJ8yw7vfmwqTmV9IGnZ5O-ig2GM3xmnJ_AlkBHZT56o6VuFXNNSaLZ2M60pjVbxtXrtXXaqsh03S-l6QkYNUZkCkWG3CWml7XdFuh04v2RWrtae33QLu5IFKYTqW9ZUzuLxXJKMdvfw6U-kVJY0VPPMPCrz6yStSfYVKqIreT7nKxGhAyvYWV4g.jpg",
+      "https://cdn5.telesco.pe/file/CdzPcXyKdI8FCnc8bZ454tI0qMehIxQwb4dx-oFnm5nrboku7h90s3yy_6KJs98OM8kAYuVMC0A6ryvuG1NOc_hqakET1spnI1s4BMlEtu37zPWtd8ASOFoWDljSmT0kXmxc2YfeM5yBKZcUmhMUbRr4BlW9vZpKhioiSeXx1J41kzfobhRXkD15fASNUt0PoClJNb9uOh3VJ-Dj68XbvOMwtlk1S__z6YXz1mzCkotdcC2SLQZTyqwZZU1r9B9X9gnWqozFVcTtoakr3O2gqD93QVIjes4AlnEuyHL4ZlsoNQLFs73EyeV1i5hGyRG5nK755vZnEHgpg05mUs0c2g.jpg",
+      "https://cdn5.telesco.pe/file/Ly1U8UmhVGhZcBBfOf9zKw3FSLmhXkMl2NJFrqPkAiUB_psDUfrXhFiNLEKETCRSceI4r_d9Z4tdQWCyA135FJ0URQGe9hHOG1vO6ooVH1fwCC806145EB3yDNzBSxrOkz5j3ifgKWZK7CKoPqdTCZWuh8zxpYeiABx8kZFzFR3wLdj4mYrkJ3xTE3hKWLQNxEd4qXhbw3qONrlSKSK3hU9zE-X1w1WOEH5b8XesrS2eE-SkZ8V-XfWFrx8BKuFHs9bmn_FaatJBVdKBmQa52JeRFLmAgy3PvifYPkiMu1HgAqpOoAvQqwRbuy0-5EAIVhENu_kx8WEfDqeutejifg.jpg",
+      "https://cdn5.telesco.pe/file/JDEo2CboxMeonaPoCu4nTrSoiUXd_KsGqxfQP8UIq7h6LPOV9Kh0Vq152J4IUI_-mHr_wtqWEC8np2kQzNwtcFKHYHAXojDfQEfG5F9Ukzv-25DRsPtbznrwRU-kT6UFId3pB7zEJjAZ6wikK85RnfBz_qksKCngN0W2_EoM_6lRN8e2didOC9e5ZYg6UlPeusNqOMBwNrcboa-lq6lHCKKJHtyI_p0MVe4zW5satRY2Ls03YBJZh61J4lKXopgw0VTyFsOm4Tc_ZkZk5u7rN-C56BkTY9uojrT0S0b4fknEIA5Lcp1-fOxaohrATnuO8a9PzdTds9RdGnS9rmlf0A.jpg",
+      "https://cdn5.telesco.pe/file/bPUnyLGBBfXOOrnddfgEiebKdxrzrVzt8zp1BaDtLHiR6JCd-Ic4euCQdpsgGh9RB6lGxWa2jgeW_Skvp4JffChxX2OakaFV9jck3DAmW1QvjM7XyyoXEwqV6zgQrycD8T3ASQssMij5Fra0ZdAjOoYPMn0teKHDwrkuzTijykZuveXFw4hV02N9pxybuwvsyeNfNzzerLY_E3oJFGLvSc-kH1TzX-QxVwEChUql31jJrJPvbvFHT9hU2QpixQBvRvfNyyXGKb_sxuWzx__4aJGNTBUU60hHRvvHRpH8F-_WmwPv13EaHct2wf0-WvwfOtNotKewjOWtulUXx-SaWA.jpg",
+      "https://cdn5.telesco.pe/file/ib0JkSVC2MA975UsJVhwIPNlYYFFaYR4Wsx_CXDjuH7BduL28SBWxNxMv-RcBQr8bKKx1AeSkGRMYyD4660CxqXVJK9eyfiie49-3JrWRo1wEhoHpcvoFWqEr9-hxs0LKLOlopb32f9l2BeKyAMnBznCGAW0ZUoh30PuL6QcMoqxh3_1WOHidGMXDF0V3d9w0W3m-4r76he5WMVEemmiQy9NKmVn1MjvmG4J1QLBwKl_ydwy5uiyKpJFsu7gOsAg5SDaqINOsKyJq_KoBhS-MDIVydOeanDlY4s6kJ6OAHl8Z0wXwDl69Nbj9mqQFrMvGa69bZy0AihBqqyMy27PIg.jpg",
+      "https://cdn5.telesco.pe/file/Olp6JTY6iD8oaOBSwv64n2yiNNRJxVsETxcMiMTXGMkBBBT8Tz676jjf6u0g-quLw_koHNUYH64Rtu1JY1w8WC5ymPh6V38nl91caEwayUn2S954vHI88icU34TRSeNX5l7fKrz5FITuvDuDRDxvYrJA8YFEVo9CpQIeXwHeuJNhVDaVpsX2fg263WJExvr_ZHaYebVX9y1x9L3Y_mLxMSNmW_VG-VFyD5v1G9LY2AH2ALS9gFaMizW00ne2YK06On4ucLjfEDLz9LmQhi4isjCukbJMT0te0Icrph1L3fYNKySrEPKL4iRjxQN6Ei90q9BfbIMA5b-pxK0jZAZocw.jpg",
+      "https://cdn5.telesco.pe/file/a7hQan3Ce21RlzL7zUkDBYiqGAz_nlNY6SGCVI3WGnv--ogZEFh2indqp6DrRLUe_d2vTAd45uY51XW3KkAS8ezgGfnOE2_I7-kYRPNhkhpa6movHajKG_yxVgD_TFJCHGlm0qlqXcqjYR0VAzXzoI5EYtpjdzPknRpc9K5K1ClLNpM71V-KYHns2PYhp6x30LoksL6PGTPlJ0wn2VVvOoqKYFie-utoHTg-6HW1RBYVz86zznkMHuc0RTPjdYmvkRDlStrdYrFj1YJPy6OwtyooUhbSEN-1xyhCHxr7JgaqVRYqAuYQK6clu7sZYA4GOHhKx_IdMnpO-NwHxfZtWQ.jpg",
+      "https://cdn5.telesco.pe/file/QGYYDXc0iNgPAlsUA01k_wDr-nVel2y5ez8NqveBV94LwBpPK9c_B1cqsrQ7dlKkDh-WLoUBDneCJmbLiNOjEHkiGTt2NZu8WH0YChWm-Li0LmtbxuBGPi6Zew2A606HWbMqKI6o_GEDODpYuuki4BMlzcGe0eDRIbueioiM2t5CdOLcCca0LRD499CJJh4iq_VM8paENGU4-9N0ez1sAq_d8NhJ_8c5BXe7tglfRcTIzCVY5wand0p2cF7OVQQAV-oxLBrQXgbuSCW9D-mXjYJoip9HVhDoabAJ2N7HHRhZeOSGumS_LRqeetERnZta0wtZFQ2SmZZlC2awZkVAaA.jpg",
+      "https://cdn5.telesco.pe/file/uFDePfU7xMt5HMaeNPz-2fiCrH5wsszqvg2JRwu8ci8eNwi3I47H5sT6Hk7HtEaaM2-JNS4rObgH1COct6ZuCaVJcH3Luow7wy7Y1PKfq7zJ2KKaVZZJszD3nryR49fhRLbIAmaU6LhgrMoJx9M6FAvk6QtbZTe2Mazee3CsRnoFVYeaWOYQ2LsceeE-OgwEc-eeaU2qQnGXam3Ysr8TBcyK2O1RK7LHVq4j0ZcFJM5T4UZSX1uZ2AeY9WsUGWJb3nNIapytsrf6PkeGasHJvMauyY8P_t9ODRdwRIsj_jj__tZOr3HRwYq9p8Ws0T2rnpl86UNqybljSntOcnoNZg.jpg",
+      "https://cdn5.telesco.pe/file/dmb_bSMVn6BfuGiu2DyIGYKTPkraU9KtUPXcbKsxnXMlVjiM67Efow5JmZNzKaCsgtFWt3qMymx2p2EkNGbpKzmZAY7dV0Vaz81Q78XOI0qW_2fAIEepj-HhFg6uRipXkyngOzUFWpLI59XFzV95lngqReddTklo8rNG3MX4IiS9ykgMU7iMy6syb2fZYjeotHg-AT2DCUcQAxxb_t-zOB1CPKpcUGsWubYXqGpUVDP5J3nsKpZUSKimL73cX4YNU20T3P6vmleaCIRGIgT7Aho36wnCGkRxjm7rV5FZRXyYdVqOVbXiQw565Pkl1NNj4tKAq-0g2QUvRVEdv0Dyrg.jpg",
+      "https://cdn5.telesco.pe/file/mXupNuS2tKwGaJ-8XtrdiQf7r-bgpJ2dneLzOfwMMEziGXf4bpe2i_Lnp3yJ7XbaPp2XQlH-FbCGhF3Gu_lc_6TqAMgPR_BqbRvPpAjYshAvXVGPO4232fzxT0jGZS3HyXZdMvpnO3hGur5YM6kJmPZJbwoTzIrQxQR03NW6ZJZG-Ogsd8tvI3t-XOcqpd9MKtgrCPlawTncPXivIza24ijmKh7CWaGBLCF-NH-ngvezxo5jXcOQf6O4f8hGnCdYfnQdceTy3HSqFLo6vGzyAz4Gf39-x72OWPZrNQ4lR2dXt4FF-64S3LiGr9kr1iw-9DizQ16CmDvC0_WtjdT3hQ.jpg",
+      "https://cdn5.telesco.pe/file/HFGnu5GJ7AUw8VLvfcZdzTJBY3iMeGriO_5bfydjv38Jvl06Dwgjb0q5dKMgLur0DWBBeGctxk35AzsXC6F6hU2xCgkSNGFDtmTLWGfSz6-ew5c4WfO1MR-cp7NPacCAFVtJjjVANCbM2ulxNonWY2XmHvG7y4yJ6u3__azk3fG7goObC_IKkc3hYytdPFwRrOXMOkfbz-4Jpq4dS0ajzmAdsxul-WkHdzcfPYM9r9iCibMBZrK0QZnfrUR9_x3NJvPiaixy1z2z5y7X6VX_-rL1bmAl_UHwLCWp2CwtsGUl1iE0eHjj9i3iRUktD-QP2d2xduGbVobVYnW37SwyLQ.jpg",
+      "https://cdn5.telesco.pe/file/klSuC0BW4enC1kzOd8MthYc3k-5q-vAVoaPmtI-jO9IDySBTp1bVCOJMOYRzjASYNGQFTsvFfJY4sAIF2mtkfN3Q5AZHOBuQfdvL4kI3n-NofGNVG3J4iBTm4gXJVYzpw9Taq9KhpDe1BjfKM1ER7iop_t-rMZNHW_T5HizvvKF00abVUlPHQpLdTPAI4UT9YUSMeMyn5OahQ8bJxfUg-o3hIvR43YyniP8iRwMQZefcrBwLDbgTYjO-IYn8-mKAqRWdgDiTOMHdQWGvK74CDqnt2wFxTytISj_dNh5NwS94ja5RDqES69gxhNoFckm82Rr9OH3htsPDlB2Ck4Elxg.jpg",
+      "https://cdn5.telesco.pe/file/G7LofeioKoW96wnUD5Hk0UOPn6TrpMwnNWcors4IIy08G7iSTmvFhK0Ao_ryv17BHIbuG8rns8j1LhQZAcAxxIOM-tLfyoXQH0TOusuNBj4SN2P4_ks-9LsGBiaFNMYRjSdP7F2XEtavbpyxT6_zShRUmibw4Euo3_QD94ajAPO5xScQr1TDgoJSKrZPbeMEFlv-JXGgDdVRR9ggdnX14Fcky-UsXYTImDI0Qv0O7PsB4Y0YCYDIt2wB6ootmtDjJS4Qhvzfi_DcCeyzDgi6Yn7YnOg51ik-tdel2kEDvgA1CDiK4xTQU6e6cYCY292eLD6pGujDwaq_K8GxXMDbPQ.jpg",
+      "https://cdn5.telesco.pe/file/u5-sA4vEBEBL9qyU7PR27B2DxqeXNL0t2JXzzJiw0LxOqPgMM3_28eN3SjYKp07ch_PRSKAcgSDOhIua69RwSdxWAiOOUBt1Q3iO3p1S1-Nj_CIbJJfMzhPjCEsjA5QTYoHiDZ-opN41DwVnfIRh2U6JfXoClFxFAhN6JgwZUxTzEoobY_83rO6ZungXTlnRZ1WZ4w1sovRplsoG60jUQ7MNK60DQUeMBEymbP4bndu0U0mO43aN8s8gBtKO8Nf8VeHEI0tWXrp9U_iZqt57I0SYIQVqxRKLOGaPD__GskdFgGZHIob7dWNeBaGgwMA0MJKlDi9PBx7eyJIteRaC7w.jpg",
+      "https://cdn5.telesco.pe/file/KuBZPF0eZx4cb3bfJHWrJ72qXW7twxa_ZQurL0Ehog7L2NS0kPsqi7Ym0ZXikBbt-NHO27qiLalyESBkcb7Wc_XuGk4apVy51PbKgAaoZgqN8Rqtk5uaZt5tEKDLr6vZZLSk7ay33eqH7IClyWryvSsRnsnos1WcWmuJxejjcBHUOPUX7TJIeGNo4xOE6m--8IEqZDY6YaWH30E1h2XHt7M-nbVzSzWRAEm7f7aKG875MSgFU5hURyhs7uTPwfMTLfwm2g-sy0sG6XqqDawMBjjJtrH-SY-gQu-mXTtW7swn8nZB97xrNCJZSP5P7bFpATVklyOQuPLzUtNXvTZt-Q.jpg",
+      "https://cdn5.telesco.pe/file/sMAAMFGRq7kyOAKIzJHAk2cjwADgXr8HJVlWU0v0ELuQNQ11dNKhNFr2vFgCO5mvd6TYB9vu7N-drWYjQfoMqD3SokDJs0HWLhCvFR_y1BIl4_zHTrpdHEzUA6wdpwVzPERNwnAOAZoaZx4XTYBrFdfYxBnaxJcRhXJnXhVTLT6ohlzAr8SzVcDAohGK3Ifj0vsX1icfG8cTta8VdMEwkQhaMLyXS-_28xJKwUAWndj49BQVVnYqwAjjIu2etwRgppgynyL7VjKvI4DbquMov3l1mTl6lN9HMfI3DMaQlWOQC4lGotWZZHEOkRZss6pOvmEFlqm8FnuTLAC_-G78wg.jpg",
+      "https://cdn5.telesco.pe/file/dsFNp3IZxOOjwvzI0t1VVNMd6rsBNddMgjozU9Ikg_2yagiDUWAAh7tw3Q9xL7dru45Lz65765xDCwTjgTTP2JQs1d9YZT9Ml9cr9jwrSA19Q4DQXYY7EWKiAxvXKpHGC9ULUfwz1cf4odE2roUVg4QTeUz_Gg2RmapVJ8o0C8zSUUz3ofOwe9xe8NE19c6YjdGJKSxLBIdGlT_jsBd9pjqi0IbQ3tMiZZupkvGbMj-NSyKvbvUV26IUs6fXzxJP-I5ya_Xhio5M6LH5MIBGvMfTd3oegeb5GTY2SSTcKBNJ9SdufVCjzG42ZrTxNm6os4P1KqRvDjsEE5mCjf8f9A.jpg",
+      "https://cdn5.telesco.pe/file/Hizo7Oifa_Kc-ETRdvLHGLJelNhxCbtiYfI1JcuAFq3PuA72aR3QX1qJpL4CpoWw5qjKM-zyBQiB_ly6qnzW1jLR0HNDEcFZ2yDmQaciDFYyqQj1ht7owhyftHmdGuZJGWiDRzGXn9Ga4Cssh4MbDEFr-oykB8BYPibnxBP4pXhoPf76bpO4lriGJMosWgl-bnFagcow1ynC1oZUV_KhG8HcPnrj8onq7S9u-awZFcWlSI--NPWB7UDWCR2GGMNpXq8RI8nQ-kLSUxV5Bzyc9KDjxCSnOgn7nSwCY7uTEkwVR9c98485Jm5uWCu-8i7Ef7B5vQbL518k76ms6cHDjQ.jpg",
+      "https://cdn5.telesco.pe/file/XScm4KMrnFz40yXqWoanRfUTt7g5jjBeDxsiM6nytoMpqIEd6bgOsyohDT3y51_GJAl-FnXfFhsKoyKo-Lkz7UrKh2mR9kBPbC41kBVmPEwxJ-ifScZeoYWQur6f5_Gsf9TGairAcDlVW-4ehLTH2Wjl3ap_JbnvRHDX43O7W4iDLXwSWmazCgVCqE5qcI79FmE1wmhHIUpOGQIUx1HPjMRG8pS7SO1hc51wJj3NStEOacUdSUrQwpHZUI-PE6UTrt5Rz5fU24ijmwNbAH4tWGlA1BclqVs8y_dIaRtHZhVE7m5v9XYldVBgLz_mHp2uRXECH6z1QKAOCs-1xCVixQ.jpg"
+    ],
+    "description": "EXCLUSIVE - Corner Unit Liu Li Garden 2 Storey Link Villa @ Setia Eco Glades Cyberjaya\n\nA) Property&#39;s name:\nLiu Li Garden 2 Storey Link Villa @ Setia Eco Glades Cyberjaya\n\nB) Availability: June/July\nC) Rental price: RM4,700 Nego\nD) Deposit: 2.5 Month\n\nE) Description:\n• 4 Bedrooms \n• 4 Bathrooms \n3,540 sqft\n\nF) Furnishing:\n• Superb Fully Furnished\n\nG) Facilities:\nClubhouse Facilities",
+    "refUrl": "https://t.me/rumahsewacyberjaya/26151"
+  },
+  {
+    "id": "prop-1786603884859",
+    "slug": "mio-spring-gamuda-cove-for-rent-intermediate-unit",
+    "title": "Mio Spring @ Gamuda Cove for Rent - Intermediate Unit",
+    "price": 3500,
+    "priceStr": "RM 3,500 / bln",
+    "category": "Rental",
+    "location": "Gamuda Cove",
+    "region": "Selangor",
+    "type": "Semi-D",
+    "status": "rent",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 2096,
+    "landSize": "20 x 65",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn5.telesco.pe/file/EqoirFH-rUtx2nCzf70QSkEfE4E0vNbs4Z-qEOTYiBe64GlvSaS7R_NTlaK95a7HBO7R4QqCFzaYexFLQ914M_34SjuscZF6tmYoMOO807UutdOLVGf7hxmAnY5VmHi-zJLSEVUQGddDP1tfR4ok1MqxZ6Br8ObzbrKAI_MbzZTxgdboza2WLYF47dziZ5IpqL3T-O0n-GY2QNSxFl5LHh1JMK9omvl_OeujznBZ8ia55YUx1xEiTrwB4a9tzMb4_6u5cO4T9qa087aQnzoaaoMYhEbB-MVgH2rrZ1QYjN-il3CKc7ITgd9qoDHQQn7PhdchcXthbkC7aLNv2baZSQ.jpg",
+    "images": [
+      "https://cdn5.telesco.pe/file/EqoirFH-rUtx2nCzf70QSkEfE4E0vNbs4Z-qEOTYiBe64GlvSaS7R_NTlaK95a7HBO7R4QqCFzaYexFLQ914M_34SjuscZF6tmYoMOO807UutdOLVGf7hxmAnY5VmHi-zJLSEVUQGddDP1tfR4ok1MqxZ6Br8ObzbrKAI_MbzZTxgdboza2WLYF47dziZ5IpqL3T-O0n-GY2QNSxFl5LHh1JMK9omvl_OeujznBZ8ia55YUx1xEiTrwB4a9tzMb4_6u5cO4T9qa087aQnzoaaoMYhEbB-MVgH2rrZ1QYjN-il3CKc7ITgd9qoDHQQn7PhdchcXthbkC7aLNv2baZSQ.jpg",
+      "https://cdn5.telesco.pe/file/khUs3h3q-ZH8SWIEYiaNgIxaDx5sX8SxyGM1mJ-FNWMx2Jbb_2SruGZsFHgoEWkfqSgcMGytsfnKS8WY3edXSLiaK5m_LQcp0jHmibe3J5IzW-3fVqgX-0qEFjtVAXpBg_DVaycVGxtzQfnuw82YwJJSUrnDg3E_qnrLNMRXaN7ADOdeK_mISXuRI5ir3cPUDKUS3K5naWl0V9_pIUyZhoG6oR6W5OQ8UQ5WVKNhBRR8gC-n_2Oxn3_Nea9YGXNq7y3RNzHHAvchTzoRJt2Rlq-UqwizxLaF6zT7Is3Aqg_nhj2KDVbamp-L9ROxx3PBrJPDMmEEQhjQs1tNnqg6Qw.jpg",
+      "https://cdn5.telesco.pe/file/L_td44vcDX_KJker7LycfJ0IHYJ2PZrogpRxYmaxe1jrVucUZphHMHAP19RGyoxFfGNAbIaF_CNBeUyGAhxOZECXbgkCoWbIGasAAHpTbQmZjNMG2FzwAQAbhYjJRTde38b04hia97jIklmEyAf7lQMXVhVBEDeHD6W8kApBUSOUdGA6DkhUQC0vz6NqMJ-uBJ_HTa3GTNz7ROfkiM0rDgW_0h8FMejx02PEIzyJHet9IqBJZybKk8Jxjfdp78TUbF0IDAiedybqj-BMFfn59qUuk8akCQU86oEOAwKOOgFXYzMuvnz7-xi8puSL7KKMEY188B4wJT1h0PqmKPqnlg.jpg",
+      "https://cdn5.telesco.pe/file/bRbQAGVttPLJe2K8IKPgthBsYhcVwc7P0P-P3qr4ALC1gh2RBHM0fRc_8HPkgtfSmmLKvVe0o9gzt1JIX2bAyd6vbyltDBr_cBarkz2ZHXWbDxmh9cU7-PAPsYjXiXthf-WgMccjvRga3CzzOBT-U2AFhCTvhcoP-OAETRrvJ0K8JoITJe-2DWXTplt-yZ7edgEP0s1L60tXLhqbYzvGzvTi863xr7A5WSnnPWIKAJhilB7CbjsfaDrwzT9TOveJ6ONsh9AKBzlOBhzwsQKeikP2PZR5bAsUW0ZKFXAwZRn-Xt59heMLG9RqVIChW4jqPv5hf-eaXJXmogKn2-oU9Q.jpg",
+      "https://cdn5.telesco.pe/file/LLsbIAIJh9DaUQyabFub8s-83FXjm5wZbzCARjMmfmhAGmdQ4qmqPlxqwmBzP_YNvtTB4tNT8fMm9sPJ_1gP2rpdsPOBM980RfimfiLEsZChGceGbYqnGb1jJZrgk9PR93aMiVf9CsmXAm0Y8YXzN3U_3Y2p2FqoraP3ZRyTlctXejNWrjHu_FvcF-3ldQbnmbc8-VL_0qUcrqC1Rg6z90Ajm1QPM8gOA2zkO_J-WSGPuSs2lvmxQsAMZEaCtHp5OS2jWeuPLhxrhq01v9N9ITGeJrWJm4AoicBCKb5XF0ewJ4YksfWZVNCTryFmVtSqrgqhLxWbCBqwLswLASw3VA.jpg",
+      "https://cdn5.telesco.pe/file/cIPQFun7TN-0mYPedvm-cKRd_l3p35PXk0xqAD_QaDbxWq8Yu63PmvFxWrYpa6TPrA5cjMJ80jySXGcNf70b47gMaa8pyuKSQLCVICs48m_fV2jOmmcROhe-krh1oG2tMbve6BD6N52Y65qz5cBDv23pcvZKWpsO62xwg3cgtdsLK9EaAXOKMIkmKEido0UlvAZ7cXVplN5b77kY3huqUT3HpqJaIHCKjgPzJaaXXk6fXox7ayJnfvAGW_DyeUL2g3i4AWjVYInQaePXz7J9QeXQj5DYvP_bp1u0C4xaOFNDHdduGULZjnhVI80-0xZQA4vPYqtFHNFbilFrYZ8FSQ.jpg",
+      "https://cdn5.telesco.pe/file/Brga7ghHgw-jcumajyvOEGltFpuFnsfdNoAu_tdpulF5FKDQ6BKFRXx1SYKTKPl8SfRADO6gAt0UeDFE87mzBMNIsD-5EZckUbODavkLKZOIKUwf1-A3vgi_uYG8uBZvaZ1hgSuiy0SEclPXJDDli4vRYmpRGcsxDVuWLHEJ87dJDGCOpWJs8HMKf2csu7LmVesWz0p9fp-v1xIT3LflNYa6ogy9yDeAYuOXZX5nWk0gU60UNuO0f7Z3jYFU8SxOeGlgI88v0WqPF7PaeYxvJ-T3B5xuzWTcDnVngBFPHgPeplPb6e5jHNEqAxqOLR8VFlgZ3SkmbZqjjFVJugnh2Q.jpg",
+      "https://cdn5.telesco.pe/file/vNohHQcGz7vSluLvemC4UoP8aMdWSM6H-mlNAn3r17A55lbkamMs3y7ROhXTNMUWuL1iy_h0Vi-O99rmQ7vFu6DwaKDagbx6Nt-mxkf4T6819NMNtIm8zGbSKgFV1-_dxHKR7a6VWfJMHp8pyJbFJNgyGM-DjAYWFTX0SEHnuv-St8ht-OG0F2EiBdSLjZNWA7tP7lQ8oo-ToLZi2x6wJepTHby_GCikrwAwLN-QPA09iNzRqcoyehglf89vyp2w1lkSqdqf9_I-4wiln7-6sxKZWroOaSSMx5oXXu2gfrwdfbrcuW5Q2Xy3V6KjQDagN-9pFbwyz-4zm-uizwlwow.jpg",
+      "https://cdn5.telesco.pe/file/V_NQ4Wq-qamh4PHMbQZEfDwzC-L5VXq6aZn8FYUqbfYC91d2LUWF3h9DJ1bOnhcATqGO6tzpIn4_Za3Pn1eWh94yaG4XPqpGke_rLhlAJTEAjdKO_jhOjIPbdd38PBRJMql8lne7iuMxAy5cpHuPjoCDpXxf2KvWLpNaxd79g0LF2sUQ8Dvesi2r7MK87usPKdl-W2DxbNuE4bfyuLVfXvJoDTV4g9wzswkbNW9nvJF4tW4A-QurIFdhqiuYCFSBzc2Ry-Gt7lr7JSjlasnP3d2vdpy6xSRvk6wnrPOVOw0Mur5EeXsetwjrSdtsLT3TLVRZCzpucVE6tqP68hZ46w.jpg",
+      "https://cdn5.telesco.pe/file/s2dqedtfRjcSG_vWboXsiEYmDggg1xOXpXLeGcGFdBgO8sWOKbGQc6Pq8WcmLWzxDfftub9gA4agI5rkzopfy_8HVx1-F8N3E6Z0m7ntFAt8WkSDlWSj-88blEMIlZTNcIZLEiYmPaO071wvchfVihep1N5V4P-K0gSl2lO8rEVhbPDArKEwllBamXaROT-q4lZH_GlgPG2qTmhK90FWjbO97zmNPWaeM521iQf-qXEnzHH6tF-9-kkmtrJwTjGjfMU58xOzaeVDnfE3acwaq49K2LCKaijBIftg7dJbQemxvQYiQRRDDyn78Ngux2nyPXoacevRx9Fx2sMCbUReYQ.jpg",
+      "https://cdn5.telesco.pe/file/ve5fDFxRJpNYD4EscOIuzu-RUZ01hFwdfj0uQNBEmGRTL2UTRWevS6wyJLye9ilKCfxFy2c1mh_W-LSlDffGeg2s2msf5LVuWc-xzvBaYRz8_mYqyqvgLx5j9QBCn_Aecj8GeXMfwjTmOL5FnHstyZsX401wiQsNIQLXGPzzD4P7x0CZ8Q3iW77rJmtT17xOi8WchDfkVIUq5bR2h0nSmWQNTJCUUym7Ie94YlAgBjxoNFTxJYKVYoJOlo_wdDOzCQRNTR2Oeauep9blWSsadcYvP7tzDyB0HZaoKxJcmLBif6GsXYLVP2512JQgl8Ky60wlPP18QYUicU7SygJGeA.jpg",
+      "https://cdn5.telesco.pe/file/LRDSNaHEbj_UFI0D8l22cT1kDuBbnet80ndi-WxlNuzdm317wjVdzsKSfMVihUgPwacK3VNB9brg8ILujcOxnfEsh1eEzKJb4H9xDEML0GZNxNJZJj2-zrStp56_fck8YBXwT2TOigiQTXcGgh0KZ4boI5zejMotCwBBywN2uzC93fjlstKaPPksGMi74wnwj9HumY1BX8um6KPUrqnM_yJ1Za2I0NpW7HyMAIGFyf5jI7bMlj3AuVYBGPsrOsjXjlncI99uDlyPvvBgqNhHxtFHH1S_XUqeQhJs9iP7fhNUA6vYKESKCBhQpKln5dcLh8lp61sw_7_ShGraaMR7Fg.jpg",
+      "https://cdn5.telesco.pe/file/GAwSBbpMvuIK5F_7y4Xvs_tWaXICgWGraukw7qWtCvcWzSAOpeSRHJDGJh8hJ73VIjJf0lI4NA-41MPgFBAzV1HNiphQ7OqSqNNfX0Xcqm53Vovcw05rlFalpHMshepLU9RverMld0CoYFVg5GP4CngWDCUv-mLdr6cOk_W4qWrvIKlZ51trpX7p9qfBYdvgIpqPMT0lStvPlRVlyuVTuBx-OB2vsb0-K_en2AbaPM5GIxxLXq7qsdOBXX4ISBq4IIZw67nAB4TC96bW0y3z6pwLsCb39cqHEaDvErN6AHBZdh7O25pQr14XcYAkKhX3j6z-W98zu4u6kLu1SkJdpA.jpg",
+      "https://cdn5.telesco.pe/file/IKP4uAidSsPHUwHn1sQG_IfkZoexs4Lsx6yIXyZeEZaWREgp82YRzX1PywflTw6AAwXz1LITdlFzV2X1UUToElZ6cdt1khaWxT4HZ5NqaG9r59DObminpSCelfg3esQWue0GZZEeje2kllhWN571t8Aq7YAmWpbJEuMQSclerXzHdLRheYSv6LiBLLwet4A6UbEXjRjPL6wHX1JLtfLN6SaOw69ABax2KZHw-UGDPw7l2qL8sxBVoFPafkp4nSJE9_5Ru9JxJMlDJrdDI-ifIk2RyLGEIqE-i_nocnCQUF7ZFl8VroSsEEFxzeIVaFFz3QPQ6OupCW7WLN0p_GPAmA.jpg",
+      "https://cdn5.telesco.pe/file/ct1_1MCmX1Dz2N1BgToOQZRZ8keFfMaP4ghkwhzswJvuaBU4AItCGfTWuPMnaIcJ8-C0DVtS0wdzb-EnXnvoX9Pxw5CXqg1nfFVTlSSIGBm0hG4GanI1048uHu_wN1BWKVQaLtYsqAoChOmAepZu4_ioWgbTyTLQtLbwkUybrQ0ltGhp6dtfAYGP6xzP6pwQyTQZFzvbtATvK24iY-IyaVosNukrwcgHs3yf5pMvb-Ickv7omKC7cnQkXsffhoio5lvwllyGaKWffxhHv_-7AVWGvvtc3Jx9mZQ4aKf-g4bvSP0WcDTeT_v_kT6siUH4nD_Rt7EHKToqjvGsIcenNg.jpg",
+      "https://cdn5.telesco.pe/file/pVpc4JR4pD2BBVS9A7AoR9-x5x4WYKS4YEhFQbpvTPqj-CvX8t4ymqdtHGgpYw3cF20b8yf1l5LKAGNHuszg5bqVPcXTeKvg_VcD-li4wkDPZ2s8sVtvL7_5wsoR0Ofn3IMA4Khp1-3pMj6OFPk9xsDaEy3FTPuJhYEYQqEzjBzRuUD_V0inoQdvkIRWLBbYFgwLXZa2EHVNRmiDpHEbVj-HHXe7jOG8wyMb9lzrwXAUZnefZugZTecdWl-hoItrl1PQRqda7OxLMpaS-3pGZEOiIhh4LPRx8pEMh8Le1ItE5rgbpttUJ98Pw_5alRunHCjIkjQG3NwrKHQEOnUXFQ.jpg",
+      "https://cdn5.telesco.pe/file/gmplH9qSEcHek_EeyZ1AK8oZ75GTcDD5WPklX--0j3Awy8-QCbCp8B7u0yQvLsMchDc8XQncmYHMSIcjaPClXu48dess8cbtTPRv5yR1FIawcz_9_teZ0ryw_gw1hA7wfapSuvRQ_uWJ82SN_b3RWR7wDCRQkd6oC4VIxiAU00pupbsnbO-XHDu1SZlDP-FjxnQPlQeWxGDfhcuz6PFcOkup8HroboXsgUqd3cZZiQNb8Gl8zXvTXOSUho6aC73ZzQZ1NkuPqjmPyM_V3HKE1POqVYv4YvAlP5bNPVULsQ5pU8hmNaJl_xVjZZOaIdQbpdHFf-mEVv3X0WT34Cgqew.jpg",
+      "https://cdn5.telesco.pe/file/N6wnCOxcszJa3Or7__URV1WRPL57fYYDMJkfWv-SdeX-ejqPYaBcJLLPho7nmMlA6N3SyBGJw40K4qK5_KeMX50nL53Ews6WU7xACCAUeGfHPTOZ14LarMgHqMYjL1Y39fCGC6IDj0RWQNIRatiSL0Umjpn2ftLzizpaqYN1QqpSRMsIj7rnZXMWevhdzsFMSjTfmz-5MYN3AG4YNq9mocTwgpUWP9B2Fvc-jFZdGfsZeHBGApzCE4FMX_mtosNetzKof5JidCePS0dx-Nmgkgy_HIHwu6VAgF-3xBVn4Nv1NcUVcUg7gnWaGwcw_5DnoGuKvygaHi9AQkhY1V1Iog.jpg",
+      "https://cdn5.telesco.pe/file/vh85v-RIjTgYf71vXN5_BVpkoEtHmamjMXnn15WWY-Z-fTm-fJyagyXCHcMlyAO-kWOqk8pKA70nXc-PhnBt5W8dCMCR0NNVGhSk3soXKOYYCyeitsg7YWQc3I6224H4m2Gs8M_K5UEMTQ1uRfiTetl9qSEGiLUjPSg0vjUooLCvVB3lMzDY1mf6G307X1XkXWvPHLJb3j7wgxwmP5u8ouyrX04GHNh2hy8iFezsVsOqJeUiKr6C0Ggl8bvao8CuQQhgYexpZwNoDa4BmmzCRUldeTstrpBODfvk852McFDUOEuik8lVmxQy5ESMcjuql6uZJS1Z_tGszTHhH0To9w.jpg",
+      "https://cdn5.telesco.pe/file/FCt09_1t_ieYVF6m0in9_ohoz6fvgnxEdd2H8zwcbF7pxeD7Hm84vtymYcRwyZS7tEtU9VypEfvpYrdzl9L-94QsjvVTb0k789T3jyJISRDSJZ0zIYAS6cggLKP0FgR7xU-RjYNsdT3u6uYbGViU6pFXHyuH4FCpaJAirNlqZPhhfuB243L1XPUB5tzG6w25YBjr2OQ-Nj2exJQFz3IaC-kmwHDC9YAhIY34MmFU011FgYbg7vrL7682Ge_C8ZPi0-DEBQjqZGRBa8MT4inZVlpLs-pz9L0mvDAHhMbC-TkFqQMsOnwxks_0I6yhDb6bNGuVBnKOhuN3pa41ngykIw.jpg"
+    ],
+    "description": "Mio Spring @ Gamuda Cove for Rent - Intermediate Unit\n\nA) Property name:\nMio Spring @ Gamuda Cove\n\nB) Availability: Anytime\nC) Rental price: RM3,500 Nego\nD) Deposit: 2.5 Month\n\nE) Description:\n📍 Property Type : 2 Storey Terrace @ Mio Spring\n📍 Land Size : 20 x 65\n📍 Build up area : 2,096\n\nF) Furnishing:\nPartial Furnished\n1. kitchen cabinet\n2. master bedroom wardrobe\n3. fans\n4. lighting\n5. water pump\n6. water heater all bathrooms\n7. hood and hub\n8. big kitchen sinks\n9. curtains\n\nAir-conditioning upon request. - Become 4k\n\nG) Facilities:\nFull Condo Facilities",
+    "refUrl": "https://t.me/rumahsewacyberjaya/26172"
+  },
+  {
+    "id": "prop-1786598553599",
+    "slug": "corner-townhouse-casa-bluebell-cybersouth",
+    "title": "[CORNER] Townhouse Casa Bluebell, Cybersouth",
+    "price": 1700,
+    "priceStr": "RM 1,700 / bln",
+    "category": "Rental",
+    "location": "Selangor",
+    "region": "Selangor",
+    "type": "Townhouse",
+    "status": "rent",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 1160,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602772356_seig9.jpg",
+    "images": [
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602772356_seig9.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602772886_jl7bn.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602773570_ss44d.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602774030_i6h8a.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602775400_iytrr.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602774492_eje63.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1786602775043_0w0or.jpg"
+    ],
+    "description": "WANT TO LET\n\n[CORNER] Townhouse Casa Bluebell, Cybersouth\n-----------------------------------------------\nAsking Rental : RM 1,700.00\n-----------------------------------------------\n\nDetails :-\n-----------\n- Townhouse\n- 1160 sq ft\n- 3 Bedrooms l 2 Bathrooms\n- 2 Carpark\n- Ground Floor\n\nFacilities :-\n---------------\n- 24 hours security\n- Swimming Pool\n- Playground\n- Club House\n- Badminton & Basketball Court\n- Multipurpose Hall\n\nNearby Amenities :-\n-------------------‐-------\n- Masjid Al- Ilmi\n- UITM Dengkil\n- SK & SMK Dengkil\n- Xiamen University Malaysia\n- Hospital Cyberjaya",
+    "refUrl": "https://propmall.co/share/ek5ybq35ax"
+  },
+  {
+    "id": "prop-1786598281728",
+    "slug": "lot-15-sjcc-fully-furnished-near-lrt",
+    "title": "Lot 15 SJCC (Fully furnished near LRT)",
+    "price": 3900,
+    "priceStr": "RM 3,900 / bln",
+    "category": "Rental",
+    "location": "Subang Jaya, Selangor",
+    "region": "Selangor",
+    "type": "Kondominium",
+    "status": "rent",
+    "beds": 2,
+    "baths": 2,
+    "parking": 2,
+    "size": 937,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn.propmall.net/media/img-property/list-165627/list-165627-01-6a7d4622562944.08309774.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-01-6a7d4622562944.08309774.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-02-6a7d4622dce018.38026401.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-03-6a7d46237bb270.96186798.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-04-6a7d4624081c41.24503428.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-05-6a7d46248ee8b7.45351292.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-06-6a7d46252674e3.51457773.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-07-6a7d4625a4dd78.59059537.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-08-6a7d462641a7e8.96813547.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-09-6a7d4626bed609.22670584.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-10-6a7d46275be0b0.69098422.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-11-6a7d4627d80971.95283346.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165627/list-165627-12-6a7d462870d110.39151988.jpg"
+    ],
+    "description": "WANT TO LET\n\n[CORNER] Townhouse Casa Bluebell, Cybersouth\n-----------------------------------------------\nAsking Rental : RM 1,700.00\n-----------------------------------------------\n\nDetails :-\n-----------\n- Townhouse\n- 1160 sq ft\n- 3 Bedrooms l 2 Bathrooms\n- 2 Carpark\n- Ground Floor\n\nFacilities :-\n---------------\n- 24 hours security\n- Swimming Pool\n- Playground\n- Club House\n- Badminton & Basketball Court\n- Multipurpose Hall\n\nNearby Amenities :-\n-------------------‐-------\n- Masjid Al- Ilmi\n- UITM Dengkil\n- SK & SMK Dengkil\n- Xiamen University Malaysia\n- Hospital Cyberjaya\n\nAccessibility :-\n------------------\n- MEX\n- LDP\n- SKVE",
+    "refUrl": "https://propmall.co/share/ek2k0t5w96"
+  },
+  {
+    "id": "prop-1786596712113",
+    "slug": "fully-furnished-prima-u1-condominium-seksyen-13-shah-alam",
+    "title": "Fully Furnished Prima U1 Condominium, Seksyen 13, Shah Alam",
+    "price": 1800,
+    "priceStr": "RM 1,800 / bln",
+    "category": "Rental",
+    "location": "Seksyen 13, Shah Alam",
+    "region": "Selangor",
+    "type": "Kondominium",
+    "status": "rent",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 980,
+    "landSize": "-",
+    "tenure": "-",
+    "lotType": "-",
+    "image": "https://cdn.propmall.net/media/img-property/list-165620/list-165620-01-6a7d412bacf1d9.16170261.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-01-6a7d412bacf1d9.16170261.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-02-6a7d412bf376f9.12475456.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-03-6a7d412c244b70.83584881.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-04-6a7d412c4c0628.75231776.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-05-6a7d412c759080.45781298.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-06-6a7d412c9bf1f9.87895312.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-07-6a7d412cc27b87.12349051.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-08-6a7d412ce8e001.98761234.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165620/list-165620-09-6a7d412d0e1234.56789012.jpg"
+    ],
+    "description": "WTL / FOR RENTAL :\n\nFully Furnished Prima U1 Condominium, Seksyen 13, Shah Alam\n\nRental price: RM 1,800/Monthly\n\nDetail Unit:\n- Condominium\n- Sqft: 980\n- Level: 20\n- Lift: Ada\n- Bilik: 3\n- Bilik air: 2\n- Parking: 1\n- Rental monthly: RM 1,800\n- Deposit: 2+1+Monthly Utility+Tenancy Agreement\n\nLokasi: Prima U1 Condominium, Seksyen 13, Shah Alam\nNota: Kalau student nk sewa, max 6 orang",
+    "refUrl": "https://propmall.co/share/ejihysbi2m"
+  },
+  {
+    "id": "prop-1786595753654",
+    "slug": "for-sale-sd-apartment-2-bandar-sri-damansara",
+    "title": "FOR SALE ‼️‼️‼️ SD Apartment 2, Bandar Sri Damansara",
+    "price": 330000,
+    "priceStr": "RM 330,000",
+    "category": "Subsales",
+    "location": "Sri Damansara, Selangor",
+    "region": "Selangor",
+    "type": "Kondominium / Pangsapuri",
+    "status": "sale",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 785,
+    "landSize": "-",
+    "tenure": "Freehold",
+    "lotType": "Non-Bumi Lot",
+    "image": "https://cdn.propmall.net/media/img-property/list-153586/list-153586-01-6a24f955c9acb3.20394568.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-153586/list-153586-01-6a24f955c9acb3.20394568.jpg"
+    ],
+    "description": "FOR SALE ‼️‼️‼️ SD Apartment 2, Bandar Sri Damansara\n\nWTS / FOR SALE\nAsking RM 330,000\n\n+ Bandar Sri Damansara, Selangor\n+ Apartment (Highrise), Freehold, Bumi Lot, Intermediate, Strata Title\n+ Built-up Size : 785 sqft\n+ 3 Rooms and 2 Bathrooms",
+    "refUrl": "https://propmall.co/share/ej6ap0vkcn"
+  },
+  {
+    "id": "prop-1786595256046",
+    "slug": "for-sale-fully-furnished-semi-detached-terrace-house-lavender-ville-bandar-puncak-alam",
+    "title": "FOR SALE ‼️‼️‼️Fully Furnished Semi Detached Terrace House Lavender Ville, Bandar Puncak Alam",
+    "price": 750000,
+    "priceStr": "RM 750,000",
+    "category": "Subsales",
+    "location": "Selangor",
+    "region": "Selangor",
+    "type": "Semi-D",
+    "status": "sale",
+    "beds": 4,
+    "baths": 3,
+    "parking": 2,
+    "size": 3200,
+    "landSize": "3,200 sqft",
+    "tenure": "Freehold",
+    "lotType": "Non-Bumi Lot",
+    "image": "https://cdn.propmall.net/media/img-property/list-148855/list-148855-01-6a00c04c274949.56614558.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-01-6a00c04c274949.56614558.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-02-6a00c04cbf6b81.01949298.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-03-6a00c04d53f010.56054499.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-04-6a00c04dc9a0a1.87985724.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-05-6a00c04e553188.01182899.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-06-6a00c04edb64f2.84670506.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-07-6a00c04f5ec198.36921342.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-08-6a00c04fe54594.28718044.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-09-6a00c05065e3d3.94477352.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-10-6a00c050eed291.30923006.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-11-6a00c05174c5b0.83408134.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-12-6a00c051ef36a1.03808947.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-13-6a00c05282ee06.58183812.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-14-6a00c0530959f4.21707898.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-15-6a00c0539e2da7.65844259.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-16-6a00c04426aeb9.89232330.jpg",
+      "https://cdn.propmall.net/media/img-property/list-148855/list-148855-17-6a00c054ad4905.41006195.jpg"
+    ],
+    "description": "FOR SALE ‼️‼️‼️Fully Furnished Semi Detached Terrace House Lavender Ville, Bandar Puncak Alam\n\nWTS / FOR SALE\nAsking RM 750,000\n\n+ Puncak Alam, Selangor\n+ Semi-D (Landed), Two Storeys, Leasehold, Bumi Lot, Intermediate, Individual Title\n+ Built-up Size : 3,200 sqft\n+ Land Area : 3,200 sqft\n+ 4 Rooms and 3 Bathrooms",
+    "refUrl": "https://propmall.co/share/eizxnx7okd"
+  },
+  {
+    "id": "prop-1786594651951",
+    "slug": "partially-furnished-double-storey-semi-d-house-taman-kajang-impian-bandar-baru-bangi-bangi-selangor",
+    "title": "Partially Furnished Double Storey Semi-D House Taman Kajang Impian @ Bandar Baru Bangi, Bangi, Selangor",
+    "price": 0,
+    "priceStr": "RM 0",
+    "category": "Subsales",
+    "location": "Bandar Baru Bangi, Bangi, Selangor",
+    "region": "Selangor",
+    "type": "Semi-D",
+    "status": "sale",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 1000,
+    "landSize": "-",
+    "tenure": "Freehold",
+    "lotType": "Non-Bumi Lot",
+    "image": "https://cdn.propmall.net/media/img-property/list-156678/list-156678-01-6a631783b1fff3.43559391.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-01-6a631783b1fff3.43559391.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-02-6a631783b200b1.37824749.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-03-6a631783b200d0.48268283.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-04-6a631783b200f0.99549873.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-05-6a631783b20107.93122438.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-06-6a631783b20117.72403872.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-07-6a631783b20125.75879529.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-08-6a631783b20135.62711527.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-09-6a631783b20140.30902410.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-10-6a631783b20156.15346964.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-11-6a631783b20167.01595962.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-12-6a631783b20186.98519182.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-13-6a631783b20193.77843587.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-14-6a631783b201a2.38777950.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-15-6a631783b201b1.78808807.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-16-6a631783b201c4.28673750.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-17-6a631783b201d4.21597875.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-18-6a631783b201e4.73301592.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-19-6a631783b201f3.48610393.jpg",
+      "https://cdn.propmall.net/media/img-property/list-156678/list-156678-20-6a631783b20201.34096384.jpg"
+    ],
+    "description": "",
+    "refUrl": "https://propmall.co/share/egd0t9u5nw"
+  },
+  {
+    "id": "prop-1786594002077",
+    "slug": "for-sale-end-lot-fully-furnished-double-storey-terrace-house-taman-sejati-ijok-selangor",
+    "title": "FOR SALE ‼️‼️‼️End Lot Fully Furnished Double Storey Terrace House Taman Sejati, Ijok, Selangor",
+    "price": 600000,
+    "priceStr": "RM 600,000",
+    "category": "Subsales",
+    "location": "Kuala Lumpur / Selangor",
+    "region": "Selangor",
+    "type": "Kediaman",
+    "status": "sale",
+    "beds": 3,
+    "baths": 2,
+    "parking": 2,
+    "size": 2260,
+    "landSize": "-",
+    "tenure": "Freehold",
+    "lotType": "Non-Bumi Lot",
+    "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "description": "FOR SALE ‼️‼️‼️End Lot Fully Furnished Double Storey Terrace House Taman Sejati, Ijok, Selangor\n\nWTS / FOR SALE\nRM 600,000\n\n+ Ijok, Selangor\n+ Terrace, Two Storeys, End Lot\n+ Built-up Size : 2,260 sqft\n+ Land Area : 1,400 sqft\n+ 4 Rooms and 3 Bathrooms"
   },
   {
     "id": "prop-163803",
@@ -117,26 +630,51 @@ const PROPERTIES_DATA = [
 
 // Auto-sync with Cloudflare Worker KV API on page load for all public pages & visitors
 (async function syncLiveProperties() {
+  // 1. Instant load from localStorage fallback if available
   try {
-    const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
-    if (res.ok) {
-      let data = await res.json();
-      if (typeof data === 'string') {
-        try { data = JSON.parse(data); } catch(e) {}
-      }
-      if (Array.isArray(data) && data.length > 0) {
-        window.PROPERTIES_DATA = data;
+    const cached = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+    if (cached) {
+      let parsed = JSON.parse(cached);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        window.PROPERTIES_DATA = parsed;
         if (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
           PROPERTIES_DATA.length = 0;
-          PROPERTIES_DATA.push(...data);
+          PROPERTIES_DATA.push(...parsed);
         }
-        try {
-          localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
-        } catch(e) {}
-        window.dispatchEvent(new CustomEvent('properties-updated', { detail: data }));
       }
     }
-  } catch (e) {
-    console.warn('Live KV sync warning:', e);
+  } catch(e) {}
+
+  // 2. Fetch fresh live data from same-domain /api/properties proxy or direct worker
+  let freshData = null;
+  const apiUrls = [
+    '/api/properties?t=' + Date.now(),
+    'https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now()
+  ];
+
+  for (const url of apiUrls) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        let d = await res.json();
+        if (typeof d === 'string') try { d = JSON.parse(d); } catch(e) {}
+        if (Array.isArray(d) && d.length > 0) {
+          freshData = d;
+          break;
+        }
+      }
+    } catch(e) {}
+  }
+
+  if (freshData) {
+    window.PROPERTIES_DATA = freshData;
+    if (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
+      PROPERTIES_DATA.length = 0;
+      PROPERTIES_DATA.push(...freshData);
+    }
+    try {
+      localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(freshData));
+    } catch(e) {}
+    window.dispatchEvent(new CustomEvent('properties-updated', { detail: freshData }));
   }
 })();
