@@ -227,6 +227,27 @@
       margin-top: 2px;
     }
 
+    .admin-specs-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 6px;
+    }
+
+    .spec-chip {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
     .meta-chip {
       display: inline-flex;
       align-items: center;
@@ -989,8 +1010,10 @@
         const isCommercial = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial'].includes(p.type);
         const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
         const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
-        const bedsChip = (!isCommercial && p.beds > 0) ? `<span class="meta-chip">🛏️ ${bedsVal} Beds</span>` : '';
-        const bathsChip = (p.baths > 0) ? `<span class="meta-chip">🚿 ${bathsVal} Baths</span>` : '';
+        const bedsChip = (!isCommercial && p.beds > 0) ? `<div class="spec-chip">🛏️ ${bedsVal} Beds</div>` : '';
+        const bathsChip = (p.baths > 0) ? `<div class="spec-chip">🚿 ${bathsVal} Baths</div>` : '';
+        const builtUpChip = p.size ? `<div class="spec-chip">📐 Built-up ${p.size} sqft</div>` : '';
+        const landChip = (p.landSize && p.landSize !== '-') ? `<div class="spec-chip">🌳 Land ${p.landSize}</div>` : '';
 
         return `
           <div class="listing-item">
@@ -1001,15 +1024,20 @@
                 ${categoryBadge}
                 ${typeBadge}
               </div>
-              <div style="font-size:1.1rem; font-weight:800; color:#d97706; margin-top:2px;">${priceDisplay}</div>
+              <div style="font-size:1.15rem; font-weight:800; color:#d97706; margin-top:4px;">${priceDisplay}</div>
               <h3 class="listing-title">${p.title}</h3>
-              <div class="listing-meta-row">
-                <span class="meta-chip">📍 ${p.location}</span>
+
+              <div style="font-size:0.8rem; font-weight:600; color:#64748b; margin: 4px 0 6px; display:flex; align-items:center; gap:4px;">
+                <span>📍</span> <span>${p.location}</span>
+              </div>
+
+              <div class="admin-specs-grid">
                 ${bedsChip}
                 ${bathsChip}
-                <span class="meta-chip">📐 Built-up ${p.size} sqft</span>
-                ${p.landSize && p.landSize !== '-' ? `<span class="meta-chip">🌳 Land ${p.landSize}</span>` : ''}
+                ${builtUpChip}
+                ${landChip}
               </div>
+
               ${refLinkHtml}
             </div>
             
