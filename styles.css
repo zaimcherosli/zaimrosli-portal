@@ -399,29 +399,50 @@ header.site-header {
   color: var(--accent-gold);
 }
 
-/* Page Header Hero Banner for Inner Pages */
+/* Page Header Hero Banner for Inner Pages — Executive Deep Obsidian & Warm Gold */
 .page-hero {
-  padding: 140px 0 60px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 130px 0 55px;
+  background: radial-gradient(circle at 50% 20%, #172540 0%, #0b1329 100%) !important;
   color: #ffffff;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, rgba(11, 19, 41, 0) 70%);
+  pointer-events: none;
 }
 
 .page-hero h1 {
   font-size: 2.5rem;
   color: #ffffff;
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .page-hero h1 span {
-  color: var(--accent-gold);
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .page-hero p {
-  color: #94a3b8;
-  font-size: 1.1rem;
-  max-width: 600px;
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  max-width: 620px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Grid Base Layouts (Desktop) */
@@ -573,12 +594,13 @@ header.site-header {
   gap: 5px;
 }
 
-/* Footer */
+/* Executive Deep Obsidian Footer */
 footer.site-footer {
-  background: var(--primary-navy);
+  background: #0b1329 !important;
   color: #ffffff;
-  padding: 80px 0 30px;
+  padding: 70px 0 30px;
   margin-top: auto;
+  border-top: 2px solid #d97706 !important;
 }
 
 .footer-grid {

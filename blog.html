@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real Estate Blog & Insights — Zaim Rosli (REN39575)</title>
-  <meta name="description" content="Expert Malaysian property guides, homebuyer tips, and real estate market analysis.">
+  <title>Blog & Panduan Pasaran Hartanah — Zaim Rosli (REN39575)</title>
+  <meta name="description" content="Panduan lengkap pembeli rumah pertama di Malaysia, analisis Freehold vs Leasehold, strategi TOD, subsale vs undercon, serta petua menjual & refinance rumah.">
   <link rel="stylesheet" href="/styles.css">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
@@ -14,6 +14,238 @@
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
   <link rel="shortcut icon" href="/favicon.ico">
+  <style>
+    /* Custom Styling for Interactive Blog Modal and Enhanced Cards */
+    .blog-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .blog-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+    }
+    .blog-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-thumb-wrap img {
+      transform: scale(1.05);
+    }
+    .blog-category-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--primary-navy);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+    .blog-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .blog-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .blog-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .blog-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .blog-excerpt {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .btn-read-article {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      background: var(--accent-gold-light);
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      width: fit-content;
+    }
+    .btn-read-article:hover {
+      background: var(--accent-gold);
+      color: #ffffff;
+      border-color: var(--accent-gold);
+    }
+
+    /* Modal Overlay Styles */
+    .blog-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+    }
+    .blog-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .blog-modal-card {
+      background: var(--bg-surface);
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .blog-modal-overlay.active .blog-modal-card {
+      transform: translateY(0) scale(1);
+    }
+    .blog-modal-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-primary);
+    }
+    .blog-modal-close-btn {
+      background: rgba(15, 23, 42, 0.06);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .blog-modal-close-btn:hover {
+      background: var(--accent-gold);
+      color: #ffffff;
+    }
+    .blog-modal-body {
+      padding: 32px 36px;
+      overflow-y: auto;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--text-main);
+    }
+    .blog-modal-body h2, .blog-modal-body h3 {
+      color: var(--primary-navy);
+      margin: 24px 0 12px 0;
+      font-weight: 700;
+    }
+    .blog-modal-body h2 {
+      font-size: 1.45rem;
+      border-bottom: 2px solid var(--accent-gold-light);
+      padding-bottom: 6px;
+    }
+    .blog-modal-body h3 {
+      font-size: 1.2rem;
+    }
+    .blog-modal-body p {
+      margin-bottom: 16px;
+      color: #334155;
+    }
+    .blog-modal-body ul, .blog-modal-body ol {
+      margin: 0 0 20px 24px;
+      color: #334155;
+    }
+    .blog-modal-body li {
+      margin-bottom: 8px;
+    }
+    .blog-highlight-box {
+      background: var(--accent-gold-light);
+      border-left: 4px solid var(--accent-gold);
+      padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      margin: 24px 0;
+      font-size: 0.98rem;
+    }
+    .blog-modal-cta {
+      background: var(--primary-navy);
+      color: #ffffff;
+      padding: 28px;
+      border-radius: var(--radius-md);
+      margin-top: 32px;
+      text-align: center;
+    }
+    .blog-modal-cta h4 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+    .blog-modal-cta p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .blog-modal-body {
+        padding: 20px;
+      }
+      .blog-modal-header {
+        padding: 16px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -22,24 +254,24 @@
     <div class="container nav-wrapper">
       <a href="index.html" class="logo">
         <span class="logo-main">ZAIM<span>ROSLI</span></span>
-        <span class="logo-sub">REGISTERED REAL ESTATE PORTAL</span>
+        <span class="logo-sub">PORTAL HARTANAH BERDAFTAR</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About Zaim</a></li>
-        <li><a href="properties.html" class="nav-link">Properties</a></li>
-        <li><a href="services.html" class="nav-link">Services</a></li>
-        <li><a href="calculator.html" class="nav-link">Calculators</a></li>
-        <li><a href="blog.html" class="nav-link active">Blog</a></li>
-        <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+        <li><a href="index.html" class="nav-link">Utama</a></li>
+        <li><a href="about.html" class="nav-link">Tentang Zaim</a></li>
+        <li><a href="properties.html" class="nav-link">Hartanah</a></li>
+        <li><a href="services.html" class="nav-link">Perkhidmatan</a></li>
+        <li><a href="calculator.html" class="nav-link">Kalkulator</a></li>
+        <li><a href="blog.html" class="nav-link active">Blog & Panduan</a></li>
+        <li><a href="testimonials.html" class="nav-link">Testimoni</a></li>
         <li><a href="faq.html" class="nav-link">FAQ</a></li>
-        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="contact.html" class="nav-link">Hubungi</a></li>
       </ul>
 
       <div class="nav-cta">
-        <a href="contact.html" class="btn btn-accent btn-sm">Appointment</a>
-        <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+        <a href="contact.html" class="btn btn-accent btn-sm">Temujanji</a>
+        <button class="mobile-nav-toggle" aria-label="Buka Menu Navigasi">
           <span></span>
           <span></span>
           <span></span>
@@ -56,19 +288,19 @@
           <span class="logo-main">ZAIM<span>ROSLI</span></span>
           <span class="logo-sub">REN39575</span>
         </div>
-        <button class="mobile-drawer-close">&times;</button>
+        <button class="mobile-drawer-close" aria-label="Tutup Menu">&times;</button>
       </div>
 
       <ul class="mobile-drawer-links">
-        <li><a href="index.html" class="mobile-drawer-link">Home</a></li>
-        <li><a href="about.html" class="mobile-drawer-link">About Zaim</a></li>
-        <li><a href="properties.html" class="mobile-drawer-link">Properties</a></li>
-        <li><a href="services.html" class="mobile-drawer-link">Services</a></li>
-        <li><a href="calculator.html" class="mobile-drawer-link">Calculators</a></li>
-        <li><a href="blog.html" class="mobile-drawer-link active">Blog</a></li>
-        <li><a href="testimonials.html" class="mobile-drawer-link">Testimonials</a></li>
+        <li><a href="index.html" class="mobile-drawer-link">Utama</a></li>
+        <li><a href="about.html" class="mobile-drawer-link">Tentang Zaim</a></li>
+        <li><a href="properties.html" class="mobile-drawer-link">Hartanah</a></li>
+        <li><a href="services.html" class="mobile-drawer-link">Perkhidmatan</a></li>
+        <li><a href="calculator.html" class="mobile-drawer-link">Kalkulator</a></li>
+        <li><a href="blog.html" class="mobile-drawer-link active">Blog & Panduan</a></li>
+        <li><a href="testimonials.html" class="mobile-drawer-link">Testimoni</a></li>
         <li><a href="faq.html" class="mobile-drawer-link">FAQ</a></li>
-        <li><a href="contact.html" class="mobile-drawer-link">Contact</a></li>
+        <li><a href="contact.html" class="mobile-drawer-link">Hubungi</a></li>
       </ul>
     </div>
   </div>
@@ -76,8 +308,9 @@
   <!-- Page Hero Banner -->
   <section class="page-hero">
     <div class="container">
-      <h1>Real Estate <span>Blog & Market Guides</span></h1>
-      <p>In-depth insights, property buying guides, and market analysis for smart Malaysian real estate decisions.</p>
+      <span class="section-subtitle">PANDUAN & ANALISIS PASARAN HARTANAH</span>
+      <h1 style="margin-top: 10px;">Blog Hartanah <span>& Panduan Pasaran</span></h1>
+      <p>Koleksi panduan mendalam, analisis pasaran, dan strategi hartanah Malaysia untuk pembeli rumah pertama, pelabur, dan pemilik rumah.</p>
     </div>
   </section>
 
@@ -85,41 +318,125 @@
   <section class="section">
     <div class="container">
       
-      <div class="blog-grid">
+      <div class="blog-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;">
         
-        <article style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm);">
-          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" style="width: 100%; height: 200px; object-fit: cover;" alt="First Time Homebuyer">
-          <div style="padding: 24px;">
-            <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 8px;">HOMEBUYER GUIDE</div>
-            <h3 style="font-size: 1.15rem; margin-bottom: 10px;">Essential 2026 Guide for First-Time Homebuyers in Malaysia</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
-              Understanding DSR debt ratios, hidden legal fees, stamp duty exemptions, and bank loan approvals before signing your booking agreement.
+        <!-- Artikel 1 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="Panduan Pembeli Rumah Pertama 2026">
+            <span class="blog-category-badge">Panduan Pembeli</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 10 Ogos 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 8 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Panduan Lengkap Pembeli Rumah Pertama Di Malaysia 2026 (DSR, Loan Bank, Yuran Guaman & MOT)</h3>
+            <p class="blog-excerpt">
+              Segala yang anda perlu tahu sebelum menandatangani surat tawaran membeli rumah — nisbah DSR, kelayakan pinjaman bank, kos tersembunyi (MOT, guaman, penilaian) dan rebat pengecualian cukai.
             </p>
-            <a href="#" style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Read Article →</a>
+            <button class="btn-read-article" onclick="openBlogModal(0)">Baca Artikel Penuh →</button>
           </div>
         </article>
 
-        <article style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm);">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" style="width: 100%; height: 200px; object-fit: cover;" alt="Freehold vs Leasehold">
-          <div style="padding: 24px;">
-            <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 8px;">MARKET COMPARISON</div>
-            <h3 style="font-size: 1.15rem; margin-bottom: 10px;">Freehold vs Leasehold: Which Tenure Fits Your Capital Goals?</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
-              Comprehensive breakdown of title extensions, state consent approvals, and capital appreciation velocity in Klang Valley.
+        <!-- Artikel 2 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Freehold vs Leasehold Malaysia">
+            <span class="blog-category-badge">Analisis Hak Milik</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 5 Ogos 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 6 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Freehold vs Leasehold: Mana Satu Pilihan Terbaik Untuk Pelaburan Hartanah?</h3>
+            <p class="blog-excerpt">
+              Perbandingan mendalam tenure Pegangan Bebas (Freehold) berbanding Pegangan Pajakan (Leasehold), kelulusan Consent Negeri, nilai jualan semula, dan pulangan modal.
             </p>
-            <a href="#" style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Read Article →</a>
+            <button class="btn-read-article" onclick="openBlogModal(1)">Baca Artikel Penuh →</button>
           </div>
         </article>
 
-        <article style="background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-sm);">
-          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" style="width: 100%; height: 200px; object-fit: cover;" alt="Investment Yields">
-          <div style="padding: 24px;">
-            <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 8px;">INVESTMENT STRATEGY</div>
-            <h3 style="font-size: 1.15rem; margin-bottom: 10px;">Maximizing Rental Yields Near Transit-Oriented Developments (TOD)</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
-              Why properties adjacent to MRT3 and LRT stations generate consistent tenant demand and capital growth.
+        <!-- Artikel 3 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Pembangunan Berasaskan Transit TOD MRT LRT">
+            <span class="blog-category-badge">Strategi Pelaburan</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 28 Julai 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 7 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Pembangunan Berasaskan Transit (TOD): Strategi Pulangan Sewa Tinggi Berhampiran MRT/LRT</h3>
+            <p class="blog-excerpt">
+              Mengapa projek hartanah bersebelahan stesen MRT Line 3, MRT Laluan Putrajaya & LRT3 menjadi sasaran utama penyewa profesional dan pelabur bijak.
             </p>
-            <a href="#" style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Read Article →</a>
+            <button class="btn-read-article" onclick="openBlogModal(2)">Baca Artikel Penuh →</button>
+          </div>
+        </article>
+
+        <!-- Artikel 4 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Subsale vs Undercon Pemaju">
+            <span class="blog-category-badge">Perbandingan Hartanah</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 20 Julai 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 7 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Rumah Subsale vs Rumah Baru Pemaju (Undercon): Mana Lagi Berbaloi?</h3>
+            <p class="blog-excerpt">
+              Analisis pro dan kontra membeli rumah pasaran kedua (subsale) berbanding projek dalam pembinaan (under-construction) dari sudut modal permulaan, risiko, dan kualiti.
+            </p>
+            <button class="btn-read-article" onclick="openBlogModal(3)">Baca Artikel Penuh →</button>
+          </div>
+        </article>
+
+        <!-- Artikel 5 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=800&q=80" alt="Panduan Menjual Rumah Malaysia">
+            <span class="blog-category-badge">Panduan Penjual</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 12 Julai 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 6 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Panduan Menjual Rumah: 5 Langkah Supaya Rumah Cepat Terjual Pada Harga Pasaran Tertinggi</h3>
+            <p class="blog-excerpt">
+              Strategi komprehensif bagi pemilik rumah untuk menentukan harga jualan tepat, staging hartanah, semakan cukai RPGT, dan pemasaran agresif melalui REN Berdaftar.
+            </p>
+            <button class="btn-read-article" onclick="openBlogModal(4)">Baca Artikel Penuh →</button>
+          </div>
+        </article>
+
+        <!-- Artikel 6 -->
+        <article class="blog-card">
+          <div class="blog-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="Refinance Rumah Cash Out">
+            <span class="blog-category-badge">Kewangan & Refinance</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-meta-row">
+              <span class="blog-meta-item">📅 1 Julai 2026</span>
+              <span>•</span>
+              <span class="blog-meta-item">⏱️ 5 Minit Bacaan</span>
+            </div>
+            <h3 class="blog-title">Refinance Rumah: Cara Dapatkan Cash Out & Kurangkan Ansuran Bulanan</h3>
+            <p class="blog-excerpt">
+              Bagaimana teknik penyusunan semula pinjaman perumahan (Refinancing) boleh melepaskan ekuiti tunai, menstruktur hutang kad kredit, dan menurunkan kadar faedah bank.
+            </p>
+            <button class="btn-read-article" onclick="openBlogModal(5)">Baca Artikel Penuh →</button>
           </div>
         </article>
 
@@ -128,17 +445,332 @@
     </div>
   </section>
 
+  <!-- Interactive Article Modal -->
+  <div id="blog-modal" class="blog-modal-overlay" aria-hidden="true" role="dialog">
+    <div class="blog-modal-card">
+      <div class="blog-modal-header">
+        <div>
+          <span id="modal-category" class="section-subtitle" style="font-size: 0.72rem; padding: 4px 10px; margin-bottom: 0;">KATEGORI</span>
+          <span id="modal-meta" style="font-size: 0.8rem; color: var(--text-muted); margin-left: 10px;">📅 Tarikh • ⏱️ Masa Bacaan</span>
+        </div>
+        <button class="blog-modal-close-btn" onclick="closeBlogModal()" aria-label="Tutup Modal">&times;</button>
+      </div>
+      <div id="modal-body-content" class="blog-modal-body">
+        <!-- Content dynamically injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
   <!-- Site Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-bottom">
-        <div>&copy; 2026 Zaim Rosli Real Estate. All Rights Reserved.</div>
-        <div>LPPEH Registered Real Estate Negotiator REN39575</div>
+        <div>&copy; 2026 Zaim Rosli Real Estate. Hak Cipta Terelihara.</div>
+        <div>Perunding Hartanah Berdaftar LPPEH REN39575</div>
       </div>
     </div>
   </footer>
 
-  <script src="/app.js"></script>
+  <script src="/properties-data.js?v=15"></script>
+  <script src="/app.js?v=15"></script>
+
+  <script>
+    // Data Lengkap 6 Artikel Hartanah Berkualiti Tinggi
+    const BLOG_ARTICLES = [
+      {
+        id: 1,
+        category: "Panduan Pembeli",
+        date: "10 Ogos 2026",
+        readTime: "8 Minit Bacaan",
+        title: "Panduan Lengkap Pembeli Rumah Pertama Di Malaysia 2026 (DSR, Loan Bank, Yuran Guaman & MOT)",
+        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Panduan Pembeli Rumah">
+          
+          <p>Membeli rumah pertama di Malaysia pada tahun 2026 merupakan salah satu langkah kewangan terbesar dalam hidup anda. Namun begitu, ramai pembeli terkejut apabila menyedari bahawa deposit 10% sahaja tidak mencukupi. Terdapat pelbagai kos sampingan dan syarat kelayakan bank yang perlu dipatuhi.</p>
+
+          <h2>1. Pengiraan Nisbah Khidmat Hutang (Debt Service Ratio - DSR)</h2>
+          <p>Sebelum mula mencari rumah, pastikan anda menyemak kelayakan DSR anda. DSR ialah formula utama yang digunakan oleh bank seperti Maybank, CIMB, RHB, dan Public Bank untuk menentukan keupayaan anda membayar ansuran bulanan.</p>
+
+          <div class="blog-highlight-box">
+            <strong>Formula DSR:</strong><br>
+            <code>DSR = (Jumlah Komitmen Hutang Bulanan / Pendapatan Bersih Selepas Cukai & KWSP) x 100%</code>
+          </div>
+
+          <p>Kebanyakan bank tempatan menetapkan had DSR maksimum antara <strong>60% hingga 70%</strong>. Sebagai contoh, jika pendapatan bersih anda ialah RM5,000 dan komitmen hutang sedia ada (kereta + personal loan) ialah RM1,500, baki kelayakan ansuran perumahan anda adalah maksimum RM1,500 - RM2,000 seminit.</p>
+
+          <h2>2. Pecahan Kos Tersembunyi (Hidden Transaction Costs)</h2>
+          <p>Bila membeli rumah, pastikan anda menyediakan sekurang-kurangnya <strong>12% hingga 15% tunai tambahan</strong> daripada harga rumah untuk menampung kos berikut:</p>
+          <ul>
+            <li><strong>Yuran Guaman Perjanjian Jual Beli (SPA Legal Fees):</strong> Mengikut Perintah Saraan Peguam (SCO), kadar yuran guaman ialah 1.25% untuk RM500,000 pertama harga rumah.</li>
+            <li><strong>Duti Setem MOT (Memorandum of Transfer):</strong> Duti setem atas pindah milik dikira secara berperingkat (1% untuk RM100k pertama, 2% untuk RM100k-RM500k, 3% untuk RM500k-RM1mil).</li>
+            <li><strong>Inisiatif Pengecualian Cukai Pembeli Rumah Pertama 2026:</strong> Berita baik bagi pembeli rumah pertama! Kerajaan meneruskan insentif pengecualian 100% duti setem MOT dan pinjaman bagi hartanah berharga RM500,000 ke bawah.</li>
+            <li><strong>Yuran Penilaian Bank (Valuation Fee):</strong> Anggaran 0.25% daripada harga hartanah untuk melantik jurupenilai rasmi bank.</li>
+          </ul>
+
+          <h2>3. Pemilihan Insurans Perumahan: MRTT vs MLTT</h2>
+          <p>Bank akan mewajibkan peminjam mengambil insurans perlindungan perumahan:</p>
+          <ul>
+            <li><strong>MRTT (Mortgage Reducing Term Takaful):</strong> Caruman dibayar sekali gus dan dimasukkan dalam margin pinjaman. Perlindungan berkurangan seiring dengan baki pinjaman yang semakin merosot.</li>
+            <li><strong>MLTT (Mortgage Level Term Takaful):</strong> Perlindungan kekal sama sepanjang tempoh pinjaman dan bayaran dibuat secara bulanan/tahunan. MLTT boleh dipindahkan ke hartanah baharu pada masa hadapan.</li>
+          </ul>
+
+          <div class="blog-modal-cta">
+            <h4>Ingin Semak Kelayakan DSR & Loan Anda Secara Percuma?</h4>
+            <p>Saya sedia membantu anda membuat semakan profil kewangan dan memilih projek perumahan terbaik mengikut bajet anda.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20semak%20kelayakan%20loan%20rumah%20pertama." target="_blank" class="btn btn-accent">Hubungi Zaim Rosli via WhatsApp</a>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        category: "Analisis Hak Milik",
+        date: "5 Ogos 2026",
+        readTime: "6 Minit Bacaan",
+        title: "Freehold vs Leasehold: Mana Satu Pilihan Terbaik Untuk Pelaburan Hartanah?",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Freehold vs Leasehold">
+          
+          <p>Persoalan paling kerap ditanya oleh pembeli dan pelabur hartanah di Lembah Klang: <em>"Adakah wajar saya membeli rumah status Leasehold, atau haruskah saya hanya fokus kepada Freehold sahaja?"</em> Mari kita bedah perbezaannya secara terperinci.</p>
+
+          <h2>1. Hak Milik Freehold (Pegangan Bebas)</h2>
+          <p>Hartanah Freehold memberi anda hak milik kekal selama-lamanya tanpa tempoh luput. Ia mempunyai kelebihan dari sudut warisan dan proses transaksi yang lebih pantas.</p>
+          <ul>
+            <li><strong>Transaksi Cepat:</strong> Pindah milik subsale bukan Bumiputera tidak memerlukan <em>State Consent</em> (Kebenaran Pihak Berkuasa Negeri), membolehkan transaksi selesai dalam masa 3 bulan.</li>
+            <li><strong>Pertumbuhan Nilai Kerap Stabil:</strong> Nilai pasaran Freehold cenderung bertahan lebih baik pada jangka panjang.</li>
+          </ul>
+
+          <h2>2. Hak Milik Leasehold (Pegangan Pajakan)</h2>
+          <p>Leasehold bermaksud tanah dimiliki oleh Pihak Berkuasa Negeri dan dipajakkan kepada pemilik (biasanya untuk tempoh 99 tahun).</p>
+          <ul>
+            <li><strong>Harga Belian Lebih Rendah:</strong> Hartanah Leasehold lazimnya berharga <strong>15% hingga 20% lebih murah</strong> berbanding Freehold di lokasi yang sebanding.</li>
+            <li><strong>Pulangan Sewa (Rental Yield) Lebih Tinggi:</strong> Disebabkan harga belian lebih murah tetapi kadar sewa pasaran di lokasi strategik adalah sama, Leasehold sering memberikan ROI sewaan yang lebih menguntungkan pelabur!</li>
+            <li><strong>Isu Baki Pajakan:</strong> Apabila baki pajakan berkurangan di bawah 50 tahun, bank mula bersikap berhati-hati untuk meluluskan pinjaman 90%. Pemilik perlu membayar <em>Lease Extension Premium</em> kepada kerajaan negeri untuk memanjangkan tempoh pajakan.</li>
+          </ul>
+
+          <div class="blog-highlight-box">
+            <strong>Rumusan Strategi Pelaburan:</strong><br>
+            • Jika matlamat anda ialah <strong>Cash Flow & Pulangan Sewa Bulanan</strong>: Leasehold berhampiran stesen transit/universiti adalah pilihan bernilai tinggi.<br>
+            • Jika matlamat anda ialah <strong>Kekayaan Jangka Panjang & Warisan Anak Cucu</strong>: Freehold kekal sebagai pilihan utama.
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Perlukan Nasihat Portfolio Pelaburan Hartanah?</h4>
+            <p>Dapatkan pandangan pakar pasaran sebelum membuat pelaburan bernilai ratusan ribu ringgit.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20dapatkan%20nasihat%20Freehold%20vs%20Leasehold." target="_blank" class="btn btn-accent">Bincang Bersama Zaim Rosli</a>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        category: "Strategi Pelaburan",
+        date: "28 Julai 2026",
+        readTime: "7 Minit Bacaan",
+        title: "Pembangunan Berasaskan Transit (TOD): Strategi Pulangan Sewa Tinggi Berhampiran MRT/LRT",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Transit Oriented Development TOD">
+          
+          <p>Pembangunan Berasaskan Transit atau <strong>Transit-Oriented Development (TOD)</strong> merupakan trend hartanah paling pesat di Kuala Lumpur dan Selangor. Projek TOD menggabungkan kediaman, pejabat, dan kedai runcit yang dihubungkan secara terus (*direct covered walkway*) ke stesen MRT atau LRT.</p>
+
+          <h2>1. Mengapa Projek TOD Mempunyai Kadar Okupansi 90%+</h2>
+          <p>Penyewa bandar moden mengutamakan kemudahan pengangkutan tanpa tekanan kesesakan lalu lintas dan kos perkhidmatan kenderaan peribadi.</p>
+          <ul>
+            <li><strong>Demografik Penyewa Berkualiti:</strong> Golongan profesional muda, ekspatriat, dan pekerja sektor kewangan di TRX, KLCC, serta Bangsar South gemar menyewa di bangunan bersebelahan MRT.</li>
+            <li><strong>Kadar Kekosongan Rendah:</strong> Unit TOD sentiasa menjadi pilihan utama berbanding kondominium yang memerlukan pemanduan jauh ke stesen tren.</li>
+          </ul>
+
+          <h2>2. Kriteria Utama Memilih Projek TOD Berpotensi Tinggi</h2>
+          <ol>
+            <li><strong>Jarak Walkway Berbumbung:</strong> Pastikan jarak ke stesen MRT/LRT tidak melebihi 300 meter (di bawah 5 minit berjalan kaki) dan berbumbung sepenuhnya demi keselamatan penyewa.</li>
+            <li><strong>Tata Hias Unit (Layout):</strong> Unit bersaiz 1 hingga 2 bilik tidur (500 - 750 sqft) paling mudah disewakan kepada penyewa bujang atau pasangan berkahwin.</li>
+            <li><strong>Jaringan Laluan Utama Tren:</strong> Projek berhampiran stesen pertukaran (*Interchange Station*) seperti TRX, KL Sentral, dan Bandar Malaysia mempunyai potensi kenaikan nilai terpantas.</li>
+          </ol>
+
+          <div class="blog-highlight-box">
+            <strong>Anggaran Pulangan Sewa (Rental Yield):</strong><br>
+            Projek TOD berkualiti di Lembah Klang puratanya menjana <strong>Rental Yield 5.5% hingga 7.0% setahun</strong>, jauh mengatasi purata pasaran biasa (3.8% - 4.2%).
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Berminat Mencari Projek TOD Berpotensi Tinggi?</h4>
+            <p>Saya mempunyai senarai projek TOD subsale & undercon eksklusif di Kuala Lumpur & Selangor.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20berminat%20dengan%20senarai%20projek%20TOD." target="_blank" class="btn btn-accent">Dapatkan Senarai Projek TOD</a>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        category: "Perbandingan Hartanah",
+        date: "20 Julai 2026",
+        readTime: "7 Minit Bacaan",
+        title: "Rumah Subsale vs Rumah Baru Pemaju (Undercon): Mana Lagi Berbaloi?",
+        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Subsale vs Undercon">
+          
+          <p>Setiap pembeli hartanah akan berhadapan dengan keputusan kritikal: <em>Adakah lebih baik membeli rumah subsale (pasaran kedua) yang sedia ada, atau rumah dalam pembinaan (Undercon) secara terus daripada pemaju?</em></p>
+
+          <h2>1. Rumah Baru Pemaju (Undercon)</h2>
+          <p>Rumah undercon diminati pembeli yang mahukan modal pendahuluan yang minimum dan reka bentuk fasiliti yang terkini.</p>
+          <ul>
+            <li><strong>Kelebihan:</strong> Pakej tawaran pemaju biasanya merangkumi <em>Zero Downpayment</em>, rebat tunai, serta percuma yuran guaman SPA & Loan Agreement. Selain itu, anda mendapat waranti kecacatan (*Defect Liability Period*) selama 24 bulan.</li>
+            <li><strong>Kekurangan:</strong> Risiko kelewatan projek atau pemaju bermasalah. Pembeli juga perlu menanggung bayaran faedah pembinaan (*Progressive Interest*) sementara menunggu rumah siap.</li>
+          </ul>
+
+          <h2>2. Rumah Subsale (Pasaran Kedua)</h2>
+          <p>Rumah subsale sesuai untuk pembeli yang mengutamakan lokasi terbukti dan mahukan kepastian fizikal rumah.</p>
+          <ul>
+            <li><strong>Kelebihan:</strong> "What you see is what you get". Anda boleh memeriksa struktur rumah, kejiranan, serta pemandangan sebenar. Rumah boleh terus diduduki atau disewakan sebaik selesai urusan tukar nama.</li>
+            <li><strong>Kekurangan:</strong> Memerlukan deposit tunai (10%) serta kos guaman & MOT pendahuluan. Rumah lama mungkin memerlukan kos pengubahsuaian dan perbaikan tambahan.</li>
+          </ul>
+
+          <div class="blog-highlight-box">
+            <strong>Jadual Ringkas Pemilihan:</strong><br>
+            • Pilih <strong>Undercon</strong> jika tunai simpanan terhad dan anda bersedia menunggu 3 tahun pembinaan.<br>
+            • Pilih <strong>Subsale</strong> jika anda ada tunai deposit dan mahu terus mendiami/menyewakan rumah serta-merta.
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Bandingkan Unit Subsale & Undercon Bersama Zaim</h4>
+            <p>Dapatkan pandangan telus mengenai perbandingan nilai pasaran kawasan sasaran anda.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20tolong%20bantu%20saya%20bandingkan%20subsale%20dan%20undercon." target="_blank" class="btn btn-accent">Konsultasi Percuma Hari Ini</a>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        category: "Panduan Penjual",
+        date: "12 Julai 2026",
+        readTime: "6 Minit Bacaan",
+        title: "Panduan Menjual Rumah: 5 Langkah Supaya Rumah Cepat Terjual Pada Harga Pasaran Tertinggi",
+        image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Panduan Menjual Rumah">
+          
+          <p>Menjual rumah merupakan satu proses perniagaan hartanah yang memerlukan strategi berasaskan data pasaran. Rumah yang diletakkan pada harga yang salah atau tanpa persediaan imej akan terbiar lama di pasaran.</p>
+
+          <h2>Langkah 1: Semak Nilai Pasaran Semasa (Bank Valuation)</h2>
+          <p>Jangan sesekali meletakkan harga jualan berdasarkan emosi semata-mata. Melalui bantuan REN berdaftar, dapatkan semakan penilaian daripada sekurang-kurangnya 3 buah bank utama. Pembeli bergantung kepada pinjaman bank 90%; jika harga rumah melebihi nilai valuation, pembeli terpaksa menambah wang tunai yang tinggi dan cenderung membatalkan hasrat membeli.</p>
+
+          <h2>Langkah 2: Lakukan Pembaikan & Touch-Up (Home Staging)</h2>
+          <p>First impression pembeli ditentukan dalam 10 saat pertama mereka melangkah ke dalam rumah.</p>
+          <ul>
+            <li>Cat semula dinding utama dengan warna terang/neutral.</li>
+            <li>Baiki kebocoran paip, suis rosak, atau bumbung yang tiris.</li>
+            <li>Pastikan kebersihan rumah optimum dan pencahayaan lampu berfungsi baik.</li>
+          </ul>
+
+          <h2>Langkah 3: Semakan Cukai Keuntungan Harta Tanah (RPGT)</h2>
+          <p>Sebagai penjual, fahami kadar RPGT yang dikenakan oleh LHDN berasaskan tempoh pemilikan:</p>
+          <ul>
+            <li>Tahun ke-1 hingga ke-3: 30% atas keuntungan bersih.</li>
+            <li>Tahun ke-4: 20% | Tahun ke-5: 15%.</li>
+            <li>Tahun ke-6 dan ke atas: <strong>0% (Pengecualian Cukai untuk Warganegara Malaysia)</strong>.</li>
+          </ul>
+
+          <h2>Langkah 4: Pemasaran Digital Berimpak Tinggi</h2>
+          <p>Iklankan rumah dengan gambar profesional, video *walkthrough*, dan liputan meluas di portal hartanah utama seperti Mudah, PropertyGuru, IProperty, TikTok, dan Facebook Ads.</p>
+
+          <h2>Langkah 5: Melantik Perunding Hartanah Berdaftar (REN)</h2>
+          <p>Ejen hartanah profesional akan menapis bakal pembeli (*pre-qualify buyer*) bagi memastikan mereka mempunyai kelayakan kewangan yang sah sebelum sesi lawatan rumah (*viewing*), seterusnya melindungi keselamatan dan masa anda.</p>
+
+          <div class="blog-modal-cta">
+            <h4>Hasrat Menjual Rumah Anda Pada Harga Pasaran Terbaik?</h4>
+            <p>Saya menyediakan perkhidmatan semakan valuation percuma dan pelan pemasaran hartanah lengkap.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20jual%20rumah%20saya.%20Boleh%20bantu%20semak%20valuation?" target="_blank" class="btn btn-accent">Semak Valuation Rumah Percuma</a>
+          </div>
+        `
+      },
+      {
+        id: 6,
+        category: "Kewangan & Refinance",
+        date: "1 Julai 2026",
+        readTime: "5 Minit Bacaan",
+        title: "Refinance Rumah: Cara Dapatkan Cash Out & Kurangkan Ansuran Bulanan",
+        image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+        content: `
+          <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Refinance Rumah Cash Out">
+          
+          <p>Jika anda telah memiliki rumah selama beberapa tahun, nilai hartanah tersebut berkemungkinan besar telah meningkat. <strong>Refinancing (Pembiayaan Semula Rumah)</strong> ialah kaedah menggantikan pinjaman sedia ada dengan pakej pinjaman perumahan baharu yang lebih menguntungkan.</p>
+
+          <h2>1. Dua Objektif Utama Refinancing Hartanah</h2>
+          <ul>
+            <li><strong>Penyatuan Hutang (Debt Consolidation):</strong> Menggabungkan hutang berfaedah tinggi seperti Kad Kredit (18% p.a.) atau Pinjaman Peribadi (8%-10% p.a.) ke dalam pinjaman rumah yang kadar faedahnya jauh lebih rendah (~3.8% - 4.2% p.a.). Ini membolehkan ansuran bulanan anda berkurang secara mendadak!</li>
+            <li><strong>Pengeluaran Tunai (Cash Out):</strong> Mengeluarkan ekuiti lebihan nilai rumah untuk modal perniagaan, dana pendidikan anak, atau renovasi hartanah.</li>
+          </ul>
+
+          <h2>2. Formula Pengiraan Anggaran Tunai Cash Out</h2>
+          <div class="blog-highlight-box">
+            <strong>Formula Cash Out:</strong><br>
+            <code>Baki Cash Out = (Nilai Pasaran Semasa Rumah x 90%) - Baki Pinjaman Bank Lama - Kos Guaman & Valuation</code>
+          </div>
+
+          <p><strong>Contoh Situasi:</strong><br>
+          Rumah anda dibeli 7 tahun lalu pada harga RM300,000. Kini nilai pasaran semasa telah meningkat kepada RM500,000. Baki loan bank lama anda tinggal RM240,000.<br>
+          • 90% daripada Nilai Semasa (RM500,000) = RM450,000.<br>
+          • Baki Cash Out = RM450,000 - RM240,000 = <strong>RM210,000 (sebelum kos transaksi)</strong>.</p>
+
+          <h2>3. Langkah Persediaan Sebelum Memohon Refinance</h2>
+          <ol>
+            <li><strong>Semak Lock-in Period Bank Lama:</strong> Pastikan tempoh penalti (biasanya 3 tahun pertama) telah tamat untuk mengelakkan caj denda 2% - 3%.</li>
+            <li><strong>Kekalkan Rekod CCRIS & CTOS Bersih:</strong> Pastikan tiada tunggakan bayaran komitmen sekurang-kurangnya dalam tempoh 6 bulan terkini.</li>
+          </ol>
+
+          <div class="blog-modal-cta">
+            <h4>Berminat Untuk Mengira Potensi Cash Out Refinance Anda?</h4>
+            <p>Dapatkan bantuan analisis pembiayaan semula hartanah secara khusus dan profesional.</p>
+            <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20kira%20potensi%20Refinance%20rumah%20saya." target="_blank" class="btn btn-accent">Kira Potensi Cash Out Refinance</a>
+          </div>
+        `
+      }
+    ];
+
+    // Fungsi Membuka Modal Artikel
+    function openBlogModal(index) {
+      const article = BLOG_ARTICLES[index];
+      if (!article) return;
+
+      document.getElementById('modal-category').innerText = article.category.toUpperCase();
+      document.getElementById('modal-meta').innerText = `📅 ${article.date} • ⏱️ ${article.readTime}`;
+      document.getElementById('modal-body-content').innerHTML = `
+        <h1 style="font-size: 1.6rem; color: var(--primary-navy); margin-bottom: 20px; line-height: 1.35;">${article.title}</h1>
+        ${article.content}
+      `;
+
+      const modal = document.getElementById('blog-modal');
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fungsi Tutup Modal Artikel
+    function closeBlogModal() {
+      const modal = document.getElementById('blog-modal');
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Event Listener Tutup Modal Apabila Klik Di Luar Card Atau Tekan Kunci ESC
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('blog-modal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeBlogModal();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeBlogModal();
+        }
+      });
+    });
+  </script>
   <script src="/pwa.js"></script>
 </body>
 </html>
