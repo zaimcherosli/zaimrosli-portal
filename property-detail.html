@@ -376,7 +376,8 @@
               if (i === currentImgIndex) {
                 child.style.borderColor = 'var(--accent-gold)';
                 child.style.opacity = '1';
-                child.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                const targetLeft = child.offsetLeft - (thumbsContainer.clientWidth / 2) + (child.clientWidth / 2);
+                thumbsContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
               } else {
                 child.style.borderColor = '#e2e8f0';
                 child.style.opacity = '0.65';
