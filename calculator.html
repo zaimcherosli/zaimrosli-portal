@@ -263,18 +263,58 @@
   <script>
     function shareCalculatorResults() {
       const price = document.getElementById('calc-price').value || '0';
-      const monthly = document.getElementById('res-monthly').textContent || '';
-      const totalCash = document.getElementById('res-total-cash').textContent || '';
-      const url = window.location.href;
-      const text = `Anggaran Pinjaman & Yuran Guaman Hartanah (Harga: RM ${parseInt(price).toLocaleString()}):\n• Anggaran Ansuran Bulanan: ${monthly}\n• Jumlah Tunai Diperlukan: ${totalCash}\n\nKira yuran hartanah anda di sini: ${url}`;
+      const down = document.getElementById('calc-down').value || '10';
+      const rate = document.getElementById('calc-rate').value || '4.2';
+      const tenure = document.getElementById('calc-tenure').value || '35';
+
+      const monthly = document.getElementById('res-monthly').textContent.trim();
+      const loan = document.getElementById('res-loan').textContent.trim();
+      const spa = document.getElementById('res-spa').textContent.trim();
+      const mot = document.getElementById('res-mot').textContent.trim();
+      const loanFee = document.getElementById('res-loan-fee').textContent.trim();
+      const loanDuty = document.getElementById('res-loan-duty').textContent.trim();
+      const valuation = document.getElementById('res-valuation').textContent.trim();
+      const totalCash = document.getElementById('res-total-cash').textContent.trim();
       
+      const numPrice = parseFloat(price) || 0;
+      const numDown = parseFloat(down) || 0;
+      const depositVal = (numPrice * (numDown / 100)).toLocaleString('en-US');
+      const url = window.location.href;
+
+      const shareText = 
+`📊 ANGGARAN YURAN & ANSURAN HARTANAH
+───────────────────────────
+🏠 Harga Hartanah: RM ${numPrice.toLocaleString('en-US')}
+💰 Deposit (${down}%): RM ${depositVal}
+🏦 Jumlah Pinjaman (${100 - numDown}%): ${loan}
+📈 Kadar Faedah: ${rate}% (${tenure} Tahun)
+
+💵 Ansuran Bulanan: ${monthly}
+
+📋 PECAHAN YURAN GUAMAN & STAMP DUTY:
+• Yuran Guaman SPA: ${spa}
+• Duti Setem MOT: ${mot}
+• Yuran Guaman Pinjaman: ${loanFee}
+• Duti Setem Pinjaman: ${loanDuty}
+• Yuran Penilaian Hartanah: ${valuation}
+
+✨ JUMLAH TUNAI DIPERLUKAN: ${totalCash}
+───────────────────────────
+Zaim Rosli Real Estate`;
+
+      const fullCopyText = shareText + '\n' + url;
+
       if (navigator.share) {
-        navigator.share({ title: 'Kalkulator Yuran Hartanah — Zaim Rosli', text: text, url: url }).catch(() => {});
+        navigator.share({
+          title: 'Kalkulator Yuran Hartanah — Zaim Rosli',
+          text: shareText,
+          url: url
+        }).catch(err => console.log('Share dismissed:', err));
       } else {
-        navigator.clipboard.writeText(text).then(() => {
-          alert('📋 Hasil kalkulator telah disalin! Boleh paste untuk berkongsi.');
+        navigator.clipboard.writeText(fullCopyText).then(() => {
+          alert('📋 Hasil lengkap kalkulator telah disalin! Boleh paste untuk berkongsi.');
         }).catch(() => {
-          prompt('Salin maklumat kalkulator ini:', text);
+          prompt('Salin maklumat kalkulator ini:', fullCopyText);
         });
       }
     }
