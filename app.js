@@ -60,6 +60,11 @@ function createPropertyCardHTML(item) {
     ? item.images[0] 
     : (typeof item.image === 'string' ? item.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80');
 
+  const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(item.type);
+  const bedsSpec = (!isCommercial && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${item.beds} Beds</span>` : '';
+  const bathsSpec = (item.baths > 0) ? `<span class="property-spec-item">🚿 ${item.baths} Baths</span>` : '';
+  const sizeSpec = item.size ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
+
   return `
     <div class="property-card">
       <div class="property-thumb-wrap">
@@ -75,9 +80,9 @@ function createPropertyCardHTML(item) {
           ${item.location}
         </div>
         <div class="property-specs-row">
-          <span class="property-spec-item">🛏️ ${item.beds} Beds</span>
-          <span class="property-spec-item">🚿 ${item.baths} Baths</span>
-          <span class="property-spec-item">📐 ${item.size} sqft</span>
+          ${bedsSpec}
+          ${bathsSpec}
+          ${sizeSpec}
         </div>
         <a href="/property-detail/${item.slug || item.id}" class="btn btn-outline btn-sm" style="margin-top: 16px; width: 100%;">View Details</a>
       </div>
