@@ -190,6 +190,27 @@
       color: #64748b;
       white-space: nowrap;
     }
+    .btn-lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+    .btn-lang-toggle:hover {
+      background: var(--accent-gold-light);
+      color: #d97706;
+      border-color: var(--accent-gold);
+    }
     .blog-modal-close-btn {
       background: #f1f5f9;
       border: none;
@@ -518,6 +539,7 @@
           <span id="modal-category" class="blog-modal-badge">PANDUAN PEMBELI</span>
           <span id="modal-meta" class="blog-modal-meta-text">📅 10 Ogos 2026 • ⏱️ 8 Minit Bacaan</span>
         </div>
+        <button id="modal-lang-toggle" class="btn-lang-toggle" onclick="toggleBlogModalLang()">🌐 Read in English</button>
         <button class="blog-modal-close-btn" onclick="closeBlogModal()" aria-label="Tutup Modal">&times;</button>
       </div>
       <div id="modal-body-content" class="blog-modal-body">
@@ -540,15 +562,19 @@
   <script src="/app.js?v=15"></script>
 
   <script>
-    // Data Lengkap 6 Artikel Hartanah Berkualiti Tinggi
+    // Data Lengkap 6 Artikel Hartanah Berkualiti Tinggi (Sokongan Dwi-Bahasa BM & EN)
     const BLOG_ARTICLES = [
       {
         id: 1,
         slug: "panduan-lengkap-pembeli-rumah-pertama-2026",
         category: "Panduan Pembeli",
+        categoryEn: "HOMEBUYER GUIDE",
         date: "10 Ogos 2026",
+        dateEn: "10 August 2026",
         readTime: "8 Minit Bacaan",
+        readTimeEn: "8 Min Read",
         title: "Panduan Lengkap Pembeli Rumah Pertama Di Malaysia 2026 (DSR, Loan Bank, Yuran Guaman & MOT)",
+        titleEn: "Comprehensive Guide for First-Time Homebuyers in Malaysia 2026 (DSR, Bank Loans, Legal Fees & MOT)",
         image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Panduan Pembeli Rumah">
@@ -586,15 +612,56 @@
             <p>Saya sedia membantu anda membuat semakan profil kewangan dan memilih projek perumahan terbaik mengikut bajet anda.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20semak%20kelayakan%20loan%20rumah%20pertama." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Hubungi Zaim Rosli via WhatsApp</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="First-Time Homebuyer Guide">
+
+          <p>Buying your first property in Malaysia in 2026 is one of the most significant financial milestones in your life. However, many first-time buyers are surprised to discover that saving a 10% downpayment alone is not enough. There are various hidden transaction costs and strict bank eligibility criteria that must be satisfied.</p>
+
+          <h2>1. Calculating Your Debt Service Ratio (DSR)</h2>
+          <p>Before you start house hunting, ensure you check your DSR eligibility. DSR is the primary formula used by major banks such as Maybank, CIMB, RHB, and Public Bank to assess your capacity to fulfill monthly loan repayments.</p>
+
+          <div class="blog-highlight-box">
+            <strong>DSR Formula:</strong><br>
+            <code>DSR = (Total Monthly Debt Commitments / Net Monthly Income After Tax & EPF) x 100%</code>
+          </div>
+
+          <p>Most local commercial banks set a maximum DSR threshold between <strong>60% to 70%</strong>. For instance, if your net monthly salary is RM5,000 and your existing monthly debt commitments (car loan + personal loan) total RM1,500, your maximum allowable monthly home loan installment is capped at RM1,500 - RM2,000.</p>
+
+          <h2>2. Breakdown of Hidden Transaction Costs</h2>
+          <p>When purchasing a property, ensure you prepare an additional <strong>12% to 15% in cash</strong> over the property purchase price to cover the following expenses:</p>
+          <ul>
+            <li><strong>Sale and Purchase Agreement (SPA) Legal Fees:</strong> Based on the Solicitors' Remuneration Order (SRO), the legal fee is calculated at 1.25% for the first RM500,000 of the property purchase price.</li>
+            <li><strong>Stamp Duty on Memorandum of Transfer (MOT):</strong> Stamp duty is calculated on a tiered basis (1% for the first RM100k, 2% for RM100k-RM500k, 3% for RM500k-RM1mil).</li>
+            <li><strong>2026 First-Time Homebuyer Stamp Duty Exemption:</strong> Great news for first-time buyers! The government has extended the 100% stamp duty exemption on both MOT and loan agreements for residential properties priced up to RM500,000.</li>
+            <li><strong>Bank Valuation Fee:</strong> Estimated at 0.25% of the property value to engage an official bank panel valuer.</li>
+          </ul>
+
+          <h2>3. Choosing Housing Insurance: MRTT vs MLTT</h2>
+          <p>Banks mandate borrowers to secure mortgage protection insurance:</p>
+          <ul>
+            <li><strong>MRTT (Mortgage Reducing Term Takaful):</strong> Premium paid upfront and capitalized into the loan amount. Protection coverage reduces in tandem with your outstanding loan balance.</li>
+            <li><strong>MLTT (Mortgage Level Term Takaful):</strong> Coverage remains constant throughout the loan tenure with monthly or annual premium payments. MLTT is portable to a new property in the future.</li>
+          </ul>
+
+          <div class="blog-modal-cta">
+            <h4>Want a Free DSR & Loan Eligibility Assessment?</h4>
+            <p>I am ready to help you analyze your financial profile and recommend the best residential developments tailored to your budget.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20I%20would%20like%20a%20free%20loan%20eligibility%20check%20for%20my%20first%20home." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Contact Zaim Rosli via WhatsApp</a>
+          </div>
         `
       },
       {
         id: 2,
         slug: "freehold-vs-leasehold-pelaburan-hartanah-malaysia",
         category: "Analisis Hak Milik",
+        categoryEn: "TENURE ANALYSIS",
         date: "5 Ogos 2026",
+        dateEn: "5 August 2026",
         readTime: "6 Minit Bacaan",
+        readTimeEn: "6 Min Read",
         title: "Freehold vs Leasehold: Mana Satu Pilihan Terbaik Untuk Pelaburan Hartanah?",
+        titleEn: "Freehold vs Leasehold: Which is the Best Choice for Property Investment in Malaysia?",
         image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Freehold vs Leasehold">
@@ -627,15 +694,51 @@
             <p>Dapatkan pandangan pakar pasaran sebelum membuat pelaburan bernilai ratusan ribu ringgit.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20dapatkan%20nasihat%20Freehold%20vs%20Leasehold." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Bincang Bersama Zaim Rosli</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Freehold vs Leasehold">
+
+          <p>The most frequently asked question by homebuyers and property investors in the Klang Valley is: <em>"Is it wise to buy a Leasehold property, or should I exclusively focus on Freehold?"</em> Let us examine the fundamental differences in detail.</p>
+
+          <h2>1. Freehold Tenure</h2>
+          <p>Freehold properties grant perpetual ownership of the land without an expiration date. It holds distinct advantages in terms of legacy planning and faster transaction timelines.</p>
+          <ul>
+            <li><strong>Speedy Transactions:</strong> Non-Bumiputera subsale transfers do not require <em>State Consent</em>, allowing transactions to complete smoothly within 3 months.</li>
+            <li><strong>Stable Long-Term Capital Growth:</strong> Freehold market values tend to hold strong performance over extended horizons.</li>
+          </ul>
+
+          <h2>2. Leasehold Tenure</h2>
+          <p>Leasehold means the land belongs to the State Authority and is leased to the owner (typically for a 99-year duration).</p>
+          <ul>
+            <li><strong>Lower Entry Price:</strong> Leasehold properties are typically priced <strong>15% to 20% lower</strong> than comparable Freehold units in the same location.</li>
+            <li><strong>Higher Rental Yields:</strong> Due to lower acquisition costs while command identical rental rates in prime locations, Leasehold properties often yield higher rental ROIs for smart investors!</li>
+            <li><strong>Remaining Lease Considerations:</strong> When remaining lease drops below 50 years, commercial banks become cautious in approving 90% financing. Property owners need to pay a <em>Lease Extension Premium</em> to the state government to renew the lease tenure.</li>
+          </ul>
+
+          <div class="blog-highlight-box">
+            <strong>Investment Strategy Summary:</strong><br>
+            • If your objective is <strong>Cash Flow & High Monthly Rental Yields</strong>: Leasehold near transit hubs/universities represents high value.<br>
+            • If your objective is <strong>Generational Wealth & Intergenerational Inheritance</strong>: Freehold remains the gold standard.
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Need Property Investment Portfolio Advice?</h4>
+            <p>Get expert market insights before committing to a multi-hundred-thousand ringgit investment.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20I%20need%20advice%20on%20Freehold%20vs%20Leasehold%20properties." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Discuss with Zaim Rosli</a>
+          </div>
         `
       },
       {
         id: 3,
         slug: "pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur",
         category: "Strategi Pelaburan",
+        categoryEn: "INVESTMENT STRATEGY",
         date: "28 Julai 2026",
+        dateEn: "28 July 2026",
         readTime: "7 Minit Bacaan",
+        readTimeEn: "7 Min Read",
         title: "Pembangunan Berasaskan Transit (TOD): Strategi Pulangan Sewa Tinggi Berhampiran MRT/LRT",
+        titleEn: "Transit-Oriented Development (TOD): High Rental Yield Strategy Near MRT/LRT Stations",
         image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Transit Oriented Development TOD">
@@ -666,15 +769,49 @@
             <p>Saya mempunyai senarai projek TOD subsale & undercon eksklusif di Kuala Lumpur & Selangor.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20berminat%20dengan%20senarai%20projek%20TOD." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Dapatkan Senarai Projek TOD</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Transit-Oriented Development TOD">
+
+          <p><strong>Transit-Oriented Development (TOD)</strong> represents the fastest growing property trend across Kuala Lumpur and Selangor. TOD developments integrate residential units, offices, and retail spaces connected via direct covered walkways to MRT or LRT stations.</p>
+
+          <h2>1. Why TOD Projects Maintain 90%+ Occupancy Rates</h2>
+          <p>Modern urban renters prioritize seamless daily commuting without the frustration of traffic congestion and private vehicle maintenance costs.</p>
+          <ul>
+            <li><strong>High-Quality Tenant Demographics:</strong> Young working professionals, expatriates, and financial sector employees in TRX, KLCC, and Bangsar South prefer renting adjacent to MRT networks.</li>
+            <li><strong>Low Vacancy Rates:</strong> TOD units consistently rank as first choices compared to condominiums requiring driving distance to train stations.</li>
+          </ul>
+
+          <h2>2. Key Selection Criteria for High-Potential TOD Projects</h2>
+          <ol>
+            <li><strong>Covered Walkway Distance:</strong> Ensure pedestrian distance to MRT/LRT stations does not exceed 300 meters (under 5 minutes walk) and is fully covered for tenant safety.</li>
+            <li><strong>Unit Layout Efficiency:</strong> 1 to 2-bedroom units (500 - 750 sqft) are the most sought-after layouts by working singles and young couples.</li>
+            <li><strong>Major Rail Transit Hubs:</strong> Projects near major interchange stations such as TRX, KL Sentral, and Bandar Malaysia enjoy the fastest capital appreciation potential.</li>
+          </ol>
+
+          <div class="blog-highlight-box">
+            <strong>Estimated Rental Yield Benchmarks:</strong><br>
+            Prime TOD developments in the Klang Valley average a <strong>Rental Yield of 5.5% to 7.0% per annum</strong>, significantly outperforming conventional market averages (3.8% - 4.2%).
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Looking for High-Yield TOD Projects?</h4>
+            <p>I maintain an exclusive curated list of prime subsale & undercon TOD developments in Kuala Lumpur & Selangor.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20I%20am%20interested%20in%20your%20TOD%20project%20listings." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Get TOD Project List</a>
+          </div>
         `
       },
       {
         id: 4,
         slug: "rumah-subsale-vs-undercon-pemaju-mana-berbaloi",
         category: "Perbandingan Hartanah",
+        categoryEn: "PROPERTY COMPARISON",
         date: "20 Julai 2026",
+        dateEn: "20 July 2026",
         readTime: "7 Minit Bacaan",
+        readTimeEn: "7 Min Read",
         title: "Rumah Subsale vs Rumah Baru Pemaju (Undercon): Mana Lagi Berbaloi?",
+        titleEn: "Subsale vs New Developer Projects (Undercon): Which Offers Better Value?",
         image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Subsale vs Undercon">
@@ -706,15 +843,50 @@
             <p>Dapatkan pandangan telus mengenai perbandingan nilai pasaran kawasan sasaran anda.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20tolong%20bantu%20saya%20bandingkan%20subsale%20dan%20undercon." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Konsultasi Percuma Hari Ini</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Subsale vs Undercon">
+
+          <p>Every property buyer faces a critical decision: <em>Should you purchase an existing subsale house in the secondary market, or buy a new under-construction unit directly from a developer?</em></p>
+
+          <h2>1. New Developer Launch (Under-Construction)</h2>
+          <p>Undercon projects appeal to buyers seeking minimal upfront capital requirements and modern architecture with contemporary facilities.</p>
+          <ul>
+            <li><strong>Advantages:</strong> Developer package incentives usually offer <em>Zero Downpayment</em>, cash rebates, alongside free SPA & Loan legal fees. Additionally, buyers benefit from a 24-month Defect Liability Period (DLP).</li>
+            <li><strong>Disadvantages:</strong> Risk of construction delays or developer insolvency. Buyers must also service Progressive Interest payments during the 3-year construction phase.</li>
+          </ul>
+
+          <h2>2. Subsale Properties (Secondary Market)</h2>
+          <p>Subsale homes suit buyers prioritizing proven neighborhoods, established amenities, and physical property inspection.</p>
+          <ul>
+            <li><strong>Advantages:</strong> "What you see is what you get". You can evaluate structural conditions, living environments, and actual views. The property can be occupied or rented out immediately upon ownership transfer.</li>
+            <li><strong>Disadvantages:</strong> Requires 10% upfront cash deposit and legal/MOT funding. Older subsale homes may require additional refurbishment and repair costs.</li>
+          </ul>
+
+          <div class="blog-highlight-box">
+            <strong>Quick Selection Matrix:</strong><br>
+            • Choose <strong>Undercon</strong> if capital savings are limited and you are ready to wait 3 years for delivery.<br>
+            • Choose <strong>Subsale</strong> if you have deposit funds ready and want immediate occupancy or rental income.
+          </div>
+
+          <div class="blog-modal-cta">
+            <h4>Compare Subsale & Undercon Options with Zaim</h4>
+            <p>Receive transparent comparative market analysis tailored to your target location.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20please%20help%20me%20compare%20subsale%20vs%20undercon%20options." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Free Consultation Today</a>
+          </div>
         `
       },
       {
         id: 5,
         slug: "panduan-menjual-rumah-cepat-terjual-harga-pasaran",
         category: "Panduan Penjual",
+        categoryEn: "SELLER GUIDE",
         date: "12 Julai 2026",
+        dateEn: "12 July 2026",
         readTime: "6 Minit Bacaan",
+        readTimeEn: "6 Min Read",
         title: "Panduan Menjual Rumah: 5 Langkah Supaya Rumah Cepat Terjual Pada Harga Pasaran Tertinggi",
+        titleEn: "Seller's Guide: 5 Steps to Sell Your Home Quickly at the Highest Market Value",
         image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Panduan Menjual Rumah">
@@ -751,15 +923,55 @@
             <p>Saya menyediakan perkhidmatan semakan valuation percuma dan pelan pemasaran hartanah lengkap.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20jual%20rumah%20saya.%20Boleh%20bantu%20semak%20valuation?" target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Semak Valuation Rumah Percuma</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Home Seller Guide">
+
+          <p>Selling your home is a transaction that demands a market data-driven strategy. Properties listed at unrealistic prices or without proper presentation risk lingering indefinitely on the market.</p>
+
+          <h2>Step 1: Check Current Bank Valuation</h2>
+          <p>Avoid pricing your home solely based on emotional expectations. With the help of a registered REN, obtain official valuation checks from at least 3 major commercial banks. Buyers rely on 90% bank loans; pricing above bank valuation forces buyers to fork out extra cash, often causing deals to collapse.</p>
+
+          <h2>Step 2: Perform Touch-Ups & Home Staging</h2>
+          <p>A buyer's first impression is formed within the first 10 seconds of entering your property.</p>
+          <ul>
+            <li>Repaint main interior walls in bright, neutral tones.</li>
+            <li>Repair plumbing leaks, damaged switches, or roof water marks.</li>
+            <li>Ensure optimum cleanliness and proper lighting performance.</li>
+          </ul>
+
+          <h2>Step 3: Understand Real Property Gains Tax (RPGT)</h2>
+          <p>As a seller, understand the applicable RPGT rates set by LHDN based on holding period:</p>
+          <ul>
+            <li>Year 1 to 3: 30% on net taxable gain.</li>
+            <li>Year 4: 20% | Year 5: 15%.</li>
+            <li>Year 6 onwards: <strong>0% (Tax Exempted for Malaysian Citizens)</strong>.</li>
+          </ul>
+
+          <h2>Step 4: Execute High-Impact Digital Marketing</h2>
+          <p>Market your listing with professional photography, video walkthroughs, and targeted exposure across top real estate portals (Mudah, PropertyGuru, IProperty, TikTok, and Facebook Ads).</p>
+
+          <h2>Step 5: Appoint a Registered Estate Negotiator (REN)</h2>
+          <p>A professional negotiator will pre-qualify potential buyers to verify financial capability prior to arrange viewings, safeguarding your time and safety.</p>
+
+          <div class="blog-modal-cta">
+            <h4>Looking to Sell Your Property at Peak Valuation?</h4>
+            <p>I provide free bank valuation checks and a comprehensive property marketing plan.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20I%20want%20to%20sell%20my%20property.%20Can%20you%20help%20check%20valuation?" target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Free Valuation Check</a>
+          </div>
         `
       },
       {
         id: 6,
         slug: "refinance-rumah-cash-out-kurangkan-ansuran",
         category: "Kewangan & Refinance",
+        categoryEn: "FINANCE & REFINANCING",
         date: "1 Julai 2026",
+        dateEn: "1 July 2026",
         readTime: "5 Minit Bacaan",
+        readTimeEn: "5 Min Read",
         title: "Refinance Rumah: Cara Dapatkan Cash Out & Kurangkan Ansuran Bulanan",
+        titleEn: "Home Refinancing: How to Unlock Cash Out Equity & Lower Your Monthly Installments",
         image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
         content: `
           <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Refinance Rumah Cash Out">
@@ -794,36 +1006,106 @@
             <p>Dapatkan bantuan analisis pembiayaan semula hartanah secara khusus dan profesional.</p>
             <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20nak%20kira%20potensi%20Refinance%20rumah%20saya." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Kira Potensi Cash Out Refinance</a>
           </div>
+        `,
+        contentEn: `
+          <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80" style="width:100%; height:320px; object-fit:cover; border-radius:12px; margin-bottom:24px;" alt="Home Refinancing Cash Out">
+
+          <p>If you have owned your home for several years, its market value has likely appreciated. <strong>Property Refinancing</strong> involves replacing your current housing loan with a new mortgage package offering more favorable financial terms.</p>
+
+          <h2>1. Two Core Objectives of Property Refinancing</h2>
+          <ul>
+            <li><strong>Debt Consolidation:</strong> Merge high-interest debts such as Credit Cards (18% p.a.) or Personal Loans (8%-10% p.a.) into your mortgage loan which carries a significantly lower interest rate (~3.8% - 4.2% p.a.). This substantially reduces your total monthly debt outlay!</li>
+            <li><strong>Cash Out Equity:</strong> Unlock your property's capital appreciation into liquid cash funds for business expansion, children's education, or property renovations.</li>
+          </ul>
+
+          <h2>2. Cash Out Calculation Formula</h2>
+          <div class="blog-highlight-box">
+            <strong>Cash Out Formula:</strong><br>
+            <code>Net Cash Out = (Current Market Value x 90%) - Outstanding Mortgage Balance - Legal & Valuation Fees</code>
+          </div>
+
+          <p><strong>Case Example:</strong><br>
+          Your property was purchased 7 years ago for RM300,000. Today, its market value has reached RM500,000. Your remaining bank loan balance stands at RM240,000.<br>
+          • 90% of Current Market Value (RM500,000) = RM450,000.<br>
+          • Net Cash Out = RM450,000 - RM240,000 = <strong>RM210,000 (before transaction fees)</strong>.</p>
+
+          <h2>3. Key Steps Before Submitting Refinance Applications</h2>
+          <ol>
+            <li><strong>Verify Bank Lock-in Period:</strong> Ensure any early settlement penalty window (typically first 3 years) has expired to avoid 2% - 3% bank penalty fees.</li>
+            <li><strong>Maintain Clean CCRIS & CTOS Records:</strong> Ensure zero payment arrears across all banking commitments for at least the past 6 months.</li>
+          </ol>
+
+          <div class="blog-modal-cta">
+            <h4>Interested in Calculating Your Refinance Cash Out Potential?</h4>
+            <p>Get personalized, professional mortgage refinancing analysis and tailored bank options.</p>
+            <a href="https://wa.me/60100000000?text=Hi%20Zaim,%20I%20want%20to%20calculate%20my%20home%20refinancing%20cash-out%20potential." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Calculate Refinance Cash Out</a>
+          </div>
         `
       }
     ];
 
-    // Fungsi Membuka Modal Artikel Berserta URL Slug SEO Deep-Linking
-    function openBlogModal(target) {
+    // Pembolehubah Global Keadaan Bahasa & Artikel Aktif
+    let currentOpenArticle = null;
+    let currentBlogLang = 'ms';
+
+    // Membuka Modal Artikel Berserta URL Slug SEO Deep-Linking
+    function openBlogModal(target, lang) {
+      if (lang) currentBlogLang = lang;
       let article = null;
       if (typeof target === 'number') {
         article = BLOG_ARTICLES[target];
+      } else if (typeof target === 'object' && target !== null) {
+        article = target;
       } else if (typeof target === 'string') {
         article = BLOG_ARTICLES.find(a => a.slug === target || a.id == target);
       }
       if (!article) return;
 
-      document.getElementById('modal-category').innerText = article.category.toUpperCase();
-      document.getElementById('modal-meta').innerText = `📅 ${article.date} • ⏱️ ${article.readTime}`;
-      document.getElementById('modal-body-content').innerHTML = `
-        <h1 style="font-size: clamp(1.25rem, 4.5vw, 1.85rem); font-weight: 800; color: var(--primary-navy); margin-bottom: 20px; line-height: 1.3; font-family: var(--font-heading);">${article.title}</h1>
-        ${article.content}
-      `;
+      currentOpenArticle = article;
+      renderBlogModalContent();
 
       const modal = document.getElementById('blog-modal');
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
 
-      // Update URL bar for SEO slug deep-linking
+      // Kemaskini Bar URL bagi sokongan SEO slug deep-linking
       if (history.pushState && article.slug) {
-        history.pushState({ slug: article.slug }, article.title, '/blog/' + article.slug);
+        const titleText = (currentBlogLang === 'en' && article.titleEn) ? article.titleEn : article.title;
+        history.pushState({ slug: article.slug }, titleText, '/blog/' + article.slug);
       }
+    }
+
+    // Mengemaskini Kandungan Modal mengikut Bahasa Semasa (BM / EN)
+    function renderBlogModalContent() {
+      if (!currentOpenArticle) return;
+      const article = currentOpenArticle;
+      const isEn = currentBlogLang === 'en';
+
+      const categoryText = (isEn && article.categoryEn) ? article.categoryEn : article.category;
+      const titleText = (isEn && article.titleEn) ? article.titleEn : article.title;
+      const contentText = (isEn && article.contentEn) ? article.contentEn : article.content;
+      const dateText = (isEn && article.dateEn) ? article.dateEn : article.date;
+      const readTimeText = (isEn && article.readTimeEn) ? article.readTimeEn : article.readTime;
+
+      document.getElementById('modal-category').innerText = categoryText.toUpperCase();
+      document.getElementById('modal-meta').innerText = `📅 ${dateText} • ⏱️ ${readTimeText}`;
+
+      const langBtn = document.getElementById('modal-lang-toggle');
+      if (langBtn) {
+        langBtn.innerText = isEn ? '🌐 Baca dalam Bahasa Melayu' : '🌐 Read in English';
+      }
+
+      document.getElementById('modal-body-content').innerHTML = `
+        <h1 style="font-size: clamp(1.25rem, 4.5vw, 1.85rem); font-weight: 800; color: var(--primary-navy); margin-bottom: 20px; line-height: 1.3; font-family: var(--font-heading);">${titleText}</h1>
+        ${contentText}
+      `;
+    }
+
+    // Menukar Bahasa Secara Instant tanpa Menutup Modal
+    function toggleBlogModalLang() {
+      currentBlogLang = (currentBlogLang === 'ms') ? 'en' : 'ms';
+      renderBlogModalContent();
     }
 
     // Fungsi Tutup Modal Artikel
