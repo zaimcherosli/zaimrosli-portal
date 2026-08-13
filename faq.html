@@ -1,33 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frequently Asked Questions (FAQ) — Zaim Rosli (REN39575)</title>
-  <meta name="description" content="Common questions and answers regarding Malaysian real estate purchases, bank loans, legal fees, and REN services.">
+  <title>Soalan Lazim (FAQ) — Zaim Rosli Real Estate (REN39575)</title>
+  <meta name="description" content="Jawapan lengkap bagi soalan lazim berkaitan jualan rumah, pinjaman bank, yuran guaman, duti setem, dan perkhidmatan Perunding Hartanah Berdaftar (REN) di Malaysia.">
   <link rel="stylesheet" href="/styles.css">
   <style>
+    .faq-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
     .faq-item {
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       margin-bottom: 16px;
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--accent-gold);
+      box-shadow: var(--shadow-md);
     }
     .faq-question {
       padding: 20px 24px;
       font-weight: 700;
       font-size: 1.05rem;
+      color: var(--primary-navy);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+      background: var(--accent-gold);
+      color: #ffffff;
     }
     .faq-answer {
-      padding: 0 24px 20px;
-      color: var(--text-muted);
+      display: none;
+      padding: 0 24px 22px;
+      color: #334155;
       font-size: 0.98rem;
-      line-height: 1.7;
+      line-height: 1.75;
+      border-top: 1px dashed #f1f5f9;
+      margin-top: 4px;
+      padding-top: 16px;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    .faq-category-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(217, 119, 6, 0.12);
+      color: #d97706;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .faq-cta-box {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      padding: 36px 28px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+    .faq-cta-box h3 {
+      color: #ffffff;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .faq-cta-box p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      margin-bottom: 22px;
+    }
+    .btn-wa-faq {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #ffffff !important;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none !important;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-wa-faq:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
     }
   </style>
   <link rel="manifest" href="/manifest.json">
@@ -46,24 +136,24 @@
     <div class="container nav-wrapper">
       <a href="index.html" class="logo">
         <span class="logo-main">ZAIM<span>ROSLI</span></span>
-        <span class="logo-sub">REGISTERED REAL ESTATE PORTAL</span>
+        <span class="logo-sub">PORTAL HARTANAH BERDAFTAR</span>
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About Zaim</a></li>
-        <li><a href="properties.html" class="nav-link">Properties</a></li>
-        <li><a href="services.html" class="nav-link">Services</a></li>
-        <li><a href="calculator.html" class="nav-link">Calculators</a></li>
-        <li><a href="blog.html" class="nav-link">Blog</a></li>
-        <li><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+        <li><a href="index.html" class="nav-link">Utama</a></li>
+        <li><a href="about.html" class="nav-link">Tentang Zaim</a></li>
+        <li><a href="properties.html" class="nav-link">Hartanah</a></li>
+        <li><a href="services.html" class="nav-link">Perkhidmatan</a></li>
+        <li><a href="calculator.html" class="nav-link">Kalkulator</a></li>
+        <li><a href="blog.html" class="nav-link">Blog & Panduan</a></li>
+        <li><a href="testimonials.html" class="nav-link">Testimoni</a></li>
         <li><a href="faq.html" class="nav-link active">FAQ</a></li>
-        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li><a href="contact.html" class="nav-link">Hubungi</a></li>
       </ul>
 
       <div class="nav-cta">
-        <a href="contact.html" class="btn btn-accent btn-sm">Appointment</a>
-        <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+        <a href="contact.html" class="btn btn-accent btn-sm">Temujanji</a>
+        <button class="mobile-nav-toggle" aria-label="Buka Menu Navigasi">
           <span></span>
           <span></span>
           <span></span>
@@ -80,83 +170,183 @@
           <span class="logo-main">ZAIM<span>ROSLI</span></span>
           <span class="logo-sub">REN39575</span>
         </div>
-        <button class="mobile-drawer-close">&times;</button>
+        <button class="mobile-drawer-close" aria-label="Tutup Menu">&times;</button>
       </div>
 
       <ul class="mobile-drawer-links">
-        <li><a href="index.html" class="mobile-drawer-link">Home</a></li>
-        <li><a href="about.html" class="mobile-drawer-link">About Zaim</a></li>
-        <li><a href="properties.html" class="mobile-drawer-link">Properties</a></li>
-        <li><a href="services.html" class="mobile-drawer-link">Services</a></li>
-        <li><a href="calculator.html" class="mobile-drawer-link">Calculators</a></li>
-        <li><a href="blog.html" class="mobile-drawer-link">Blog</a></li>
-        <li><a href="testimonials.html" class="mobile-drawer-link">Testimonials</a></li>
+        <li><a href="index.html" class="mobile-drawer-link">Utama</a></li>
+        <li><a href="about.html" class="mobile-drawer-link">Tentang Zaim</a></li>
+        <li><a href="properties.html" class="mobile-drawer-link">Hartanah</a></li>
+        <li><a href="services.html" class="mobile-drawer-link">Perkhidmatan</a></li>
+        <li><a href="calculator.html" class="mobile-drawer-link">Kalkulator</a></li>
+        <li><a href="blog.html" class="mobile-drawer-link">Blog & Panduan</a></li>
+        <li><a href="testimonials.html" class="mobile-drawer-link">Testimoni</a></li>
         <li><a href="faq.html" class="mobile-drawer-link active">FAQ</a></li>
-        <li><a href="contact.html" class="mobile-drawer-link">Contact</a></li>
+        <li><a href="contact.html" class="mobile-drawer-link">Hubungi</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- Page Hero Banner -->
+  <!-- Page Header Hero Banner -->
   <section class="page-hero">
     <div class="container">
-      <h1>Frequently Asked <span>Questions (FAQ)</span></h1>
-      <p>Answers to common questions regarding property purchases, legal fees, and bank loans in Malaysia.</p>
+      <span class="section-subtitle">SOALAN LAZIM HARTANAH</span>
+      <h1>Jawapan Kepada <span>Soalan Utama Anda</span></h1>
+      <p>Himpunan soalan kerap ditanya berkaitan jualan, belian, pinjaman bank, yuran guaman, dan perkhidmatan Perunding Hartanah Berdaftar (REN).</p>
     </div>
   </section>
 
-  <!-- FAQ Accordions -->
-  <section class="section">
-    <div class="container" style="max-width: 840px;">
-      
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>1. What is the standard agent commission rate for property sales in Malaysia?</span>
-          <span>+</span>
+  <!-- FAQ Content Section -->
+  <section class="section" style="background: var(--bg-surface); min-height: 60vh;">
+    <div class="container faq-container">
+
+      <!-- Item 1 -->
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Perkhidmatan Agensi</span>
+            <div>1. Berapakah kadar komisen standard Perunding Hartanah Berdaftar (REN) di Malaysia?</div>
+          </div>
+          <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          According to LPPEH guidelines, the maximum agency fee for residential property transactions is capped at 3% of the agreed transacted price. This fee is paid by the property seller upon successful execution of the Sales and Purchase Agreement (SPA).
+          <p>Mengikut garis panduan Lembaga Penilai, Pentaksir, Ejen Hartanah dan Pengurus Harta (LPPEH), kadar yuran agensi maksimum untuk transaksi hartanah kediaman ialah <strong>3% daripada harga transaksi yang dipersetujui</strong>.</p>
+          <p>Yuran komisen ini ditanggung sepenuhnya oleh <strong>penjual rumah</strong> (pemilik) dan dibayar selepas Perjanjian Jual Beli (SPA) ditandatangani serta deposit 10% diselesaikan.</p>
         </div>
       </div>
 
+      <!-- Item 2 -->
       <div class="faq-item">
-        <div class="faq-question">
-          <span>2. How much upfront cash do I need to purchase a residential home?</span>
-          <span>+</span>
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Pembeli Rumah</span>
+            <div>2. Berapakah wang tunai pendahuluan (deposit) yang saya perlukan untuk membeli rumah?</div>
+          </div>
+          <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          Typically, buyers require 10% downpayment plus approximately 3% to 5% of the purchase price to cover SPA legal fees, MOT stamp duty, loan facility agreement fees, and valuation fees. Use our online <a href="calculator.html" style="color: var(--accent-gold); font-weight:700;">Legal Fee Calculator</a> for a personalized calculation.
+          <p>Bagi belian rumah subsale (pasaran kedua), pembeli lazimnya memerlukan:</p>
+          <ul>
+            <li><strong>10% Deposit Tunai:</strong> Terbahagi kepada 3.18% wang cengkeram (Earnest Deposit) semasa menandatangani Surat Tawaran Belian (OTP), dan 6.82% baki deposit semasa menandatangani SPA.</li>
+            <li><strong>3% - 5% Tunai Kos Kos Tambahan:</strong> Menampung yuran guaman SPA & Pinjaman, yuran penilaian bank, dan Duti Setem MOT (Memorandum of Transfer).</li>
+          </ul>
+          <p><em>Nota: Bagi pembeli rumah pertama, terdapat insentif pengecualian 100% duti setem MOT bagi hartanah berharga RM500,000 ke bawah.</em></p>
         </div>
       </div>
 
+      <!-- Item 3 -->
       <div class="faq-item">
-        <div class="faq-question">
-          <span>3. What is the difference between SPA Legal Fee and MOT Stamp Duty?</span>
-          <span>+</span>
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Status Hak Milik</span>
+            <div>3. Apakah perbezaan utama antara status Freehold (Pegangan Bebas) dan Leasehold (Pegangan Pajakan)?</div>
+          </div>
+          <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          The SPA legal fee is paid to the appointed law firm for drafting and executing the Sale and Purchase Agreement. MOT (Memorandum of Transfer) stamp duty is a statutory tax paid directly to LHDN (Inland Revenue Board Malaysia) to officially transfer ownership of the property title.
+          <p><strong>Freehold (Pegangan Bebas):</strong> Tanah dimiliki secara kekal selama-lamanya tanpa tempoh luput. Pindah milik subsale bukan Bumiputera tidak memerlukan Kebenaran Pihak Berkuasa Negeri (State Consent), membolehkan transaksi selesai lebih cepat (~3 bulan).</p>
+          <p><strong>Leasehold (Pegangan Pajakan):</strong> Tanah dipajakkan oleh Kerajaan Negeri (biasanya 99 tahun). Setiap pindah milik memerlukan kelulusan State Consent yang mengambil masa 2-6 bulan. Walau bagaimanapun, harga rumah Leasehold lazimnya 15%-20% lebih murah dan memberikan kadar pulangan sewa (Rental Yield) yang lebih tinggi.</p>
         </div>
       </div>
 
+      <!-- Item 4 -->
       <div class="faq-item">
-        <div class="faq-question">
-          <span>4. Can I withdraw from EPF Account 2 to finance my home purchase?</span>
-          <span>+</span>
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Pinjaman Bank</span>
+            <div>4. Bagaimanakah bank mengira kelayakan pinjaman perumahan saya (DSR)?</div>
+          </div>
+          <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          Yes! First-time homebuyers or buyers upgrading their primary residence can withdraw from KWSP EPF Account 2 to cover downpayment shortages or reduce existing housing loan balances.
+          <p>Bank mengukur kelayakan peminjam menggunakan Nisbah Khidmat Hutang (Debt Service Ratio - DSR):</p>
+          <div class="blog-highlight-box" style="margin: 10px 0;">
+            <code>DSR = (Jumlah Komitmen Hutang Bulanan / Pendapatan Bersih Selepas Cukai & KWSP) x 100%</code>
+          </div>
+          <p>Had maksimum DSR kebanyakan bank di Malaysia ialah antara <strong>60% hingga 70%</strong>. Sebagai contoh, jika gaji bersih anda RM5,000 dan komitmen hutang sedia ada RM1,500, anggaran kelayakan ansuran bulanan rumah baharu anda ialah sekitar RM1,500 - RM2,000.</p>
         </div>
       </div>
 
+      <!-- Item 5 -->
       <div class="faq-item">
-        <div class="faq-question">
-          <span>5. How long does a property transfer transaction take from booking to key handover?</span>
-          <span>+</span>
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Dokumen Loan</span>
+            <div>5. Apakah senarai dokumen wajib yang perlu disediakan untuk memohon pinjaman perumahan?</div>
+          </div>
+          <span class="faq-icon">+</span>
         </div>
         <div class="faq-answer">
-          For Freehold properties with no restrictions, completion usually takes 3 months from the date of SPA signing. For Leasehold properties requiring State Authority consent, completion typically ranges between 4 to 6 months.
+          <p><strong>Bagi Pekerja Bergaji (Sektor Swasta / Kerajaan):</strong></p>
+          <ul>
+            <li>Salinan Kad Pengenalan (IC) Depan & Belakang.</li>
+            <li>Slip Gaji 3 - 6 Bulan Terkini.</li>
+            <li>Penyata Bank Kemasukan Gaji 3 - 6 Bulan Terkini.</li>
+            <li>Penyata KWSP (EPF) Terkini Tahun Semasa.</li>
+            <li>Borang EA / BE Cukai Pendapatan LHDN Terkini.</li>
+          </ul>
+          <p><strong>Bagi Peniaga / Bekerja Sendiri:</strong> Sediakan Borang B LHDN, Resit Bayaran Cukai, Penyata Bank Syarikat 6 Bulan, dan Sijil Pendaftaran Perniagaan (SSM).</p>
         </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Guaman & Undang-Undang</span>
+            <div>6. Adakah pembeli dan penjual boleh berkongsi firma guaman yang sama?</div>
+          </div>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Mengikut <strong>Akta Profesion Undang-Undang 1976</strong> di Malaysia, satu peguam atau firma guaman <strong>TIDAK BOLEH</strong> mewakili kedua-dua pihak (pembeli dan penjual) dalam transaksi hartanah yang sama bagi mengelakkan pertikaian kepentingan (conflict of interest).</p>
+          <p>Firma peguam biasanya akan mewakili pihak pembeli untuk urusan SPA dan pinjaman bank, manakala penjual boleh memilih untuk melantik peguam sendiri atau diwakili peguam pembeli bagi tujuan melepaskan gadaian lama (discharge of charge) sahaja.</p>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Peranan REN</span>
+            <div>7. Apakah bantuan yang diberikan oleh Perunding Hartanah Berdaftar Zaim Rosli (REN39575)?</div>
+          </div>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sebagai REN berdaftar di bawah LPPEH dengan agensi bertauliah, Zaim Rosli menyediakan perkhidmatan end-to-end merangkumi:</p>
+          <ul>
+            <li>Semakan Penilaian Pasaran Semasa (Bank Valuation) secara percuma.</li>
+            <li>Penapisan Kelayakan Peminjam & Semakan DSR sebelum pembeli membuat bayaran booking.</li>
+            <li>Pemasaran Hartanah secara agresif menerusi portal utama & pengiklanan digital berkualiti tinggi.</li>
+            <li>Pengurusan Dokumentasi Tawaran Belian (OTP), khidmat panel peguam, serta bank banker terbaik.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <div>
+            <span class="faq-category-badge">Tempoh Transaksi</span>
+            <div>8. Berapa lamakah tempoh masa yang diperlukan dari tandatangan SPA sehingga penyerahan kunci?</div>
+          </div>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p><strong>Hartanah Freehold (Pegangan Bebas):</strong> Purata tempoh transaksi ialah <strong>3 bulan</strong> dari tarikh kelulusan pinjaman bank dan penandatanganan SPA.</p>
+          <p><strong>Hartanah Leasehold (Pegangan Pajakan):</strong> Purata tempoh transaksi ialah <strong>4 hingga 6 bulan</strong>. Tempoh ini memerlukan proses permohonan dan kelulusan Kebenaran Pihak Berkuasa Negeri (State Consent) terlebih dahulu sebelum tempoh 3 bulan rasmi bermula.</p>
+        </div>
+      </div>
+
+      <!-- CTA Box -->
+      <div class="faq-cta-box">
+        <h3>Masih Ada Soalan Yang Belum Terjawab?</h3>
+        <p>Saya sedia memberikan penjelasan secara langsung dan membantu anda menyelesaikan sebarang kekeliruan isu hartanah.</p>
+        <a href="https://wa.me/60100000000?text=Halo%20Zaim,%20saya%20ada%20soalan%20mengenai%20urutan%20beli/jual%20rumah." target="_blank" class="btn-wa-faq">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Tanya Soalan via WhatsApp
+        </a>
       </div>
 
     </div>
@@ -166,13 +356,19 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-bottom">
-        <div>&copy; 2026 Zaim Rosli Real Estate. All Rights Reserved.</div>
-        <div>LPPEH Registered Real Estate Negotiator REN39575</div>
+        <div>&copy; 2026 Zaim Rosli Real Estate. Hak Cipta Terelihara.</div>
+        <div>Perunding Hartanah Berdaftar LPPEH REN39575</div>
       </div>
     </div>
   </footer>
 
-  <script src="/app.js"></script>
-  <script src="/pwa.js"></script>
+  <script src="/properties-data.js?v=15"></script>
+  <script src="/app.js?v=15"></script>
+  <script>
+    function toggleFaq(element) {
+      const item = element.parentElement;
+      item.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>

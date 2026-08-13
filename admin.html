@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Zaim Rosli Hartanah</title>
+  <title>Admin Dashboard | Zaim Rosli Properties</title>
   <link rel="stylesheet" href="/styles.css">
   <style>
     html, body {
@@ -568,7 +568,7 @@
           <span class="logo-main" style="font-size: 1.35rem; line-height: 1;">ZAIM<span>ROSLI</span></span>
           <span class="badge-version" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; border: 1px solid #b45309; box-shadow: 0 1px 4px rgba(217, 119, 6, 0.2); white-space: nowrap;">v2.6.1 • Live KV</span>
         </div>
-        <span style="background: #0f172a; color: #f59e0b; padding: 2px 9px; border-radius: 12px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap;">PORTAL EJEN (ADMIN)</span>
+        <span style="background: #0f172a; color: #f59e0b; padding: 2px 9px; border-radius: 12px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; white-space: nowrap;">AGENT PORTAL (ADMIN)</span>
       </a>
 
       <!-- Desktop Segmented Tab Control -->
@@ -589,7 +589,7 @@
           <span style="color: #cbd5e1;">|</span>
           <button onclick="handleLogout()" style="background: none; border: none; color: #ef4444; font-weight: 700; font-size: 0.82rem; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            Log Keluar
+            Log Out
           </button>
         </div>
 
@@ -632,7 +632,7 @@
         <hr style="margin: 12px 0; border: none; border-top: 1px solid #e2e8f0;">
 
         <button onclick="handleLogout()" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 12px 16px; border-radius: 12px; font-weight: 700; background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5;">
-          🚪 Log Keluar
+          🚪 Log Out
         </button>
       </div>
     </div>
@@ -645,10 +645,10 @@
       <!-- Active Listings Panel -->
       <div id="tab-panel-active" class="panel" style="display: block;">
         <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-          <h2>Urus Listings Hartanah</h2>
+          <h2>Manage Property Listings</h2>
           <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
             <button onclick="loadPropertiesList()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Dari Cloudflare KV">🔄 Refresh List</button>
-            <button onclick="openModal()" class="btn-add">+ Tambah Hartanah</button>
+            <button onclick="openModal()" class="btn-add">+ Add Property</button>
           </div>
         </div>
 
@@ -664,7 +664,7 @@
           <h2>Rekod Transaksi Lalu (Past Deals)</h2>
           <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
             <button onclick="loadPastDealsAdmin()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Past Deals">🔄 Refresh Past Deals</button>
-            <button onclick="openPastDealModal()" class="btn-add" style="background: #d97706;">+ Tambah Past Deal</button>
+            <button onclick="openPastDealModal()" class="btn-add" style="background: #d97706;">+ Add Past Deal</button>
           </div>
         </div>
 
@@ -715,7 +715,7 @@
 
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">HARGA / KADAR SEWA</label>
-          <input type="text" id="past-form-price" class="form-input" placeholder="Contoh: RM 2,100 / bln ATAU RM 1,450,000" required>
+          <input type="text" id="past-form-price" class="form-input" placeholder="Contoh: RM 2,100 / mo ATAU RM 1,450,000" required>
         </div>
 
         <div class="form-group" style="margin-bottom: 24px;">
@@ -724,7 +724,7 @@
         </div>
 
         <div class="modal-action-row">
-          <button type="button" onclick="closePastDealModal()" class="btn-cancel" style="flex: 1;">Batal</button>
+          <button type="button" onclick="closePastDealModal()" class="btn-cancel" style="flex: 1;">Cancel</button>
           <button type="submit" id="past-save-btn" class="btn-submit" style="flex: 2; background: #d97706;">Simpan Past Deal</button>
         </div>
       </form>
@@ -735,7 +735,7 @@
   <div id="property-modal" class="modal-overlay">
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-        <h3 id="modal-title" style="font-size: 1.3rem; font-weight: 800;">Tambah Hartanah</h3>
+        <h3 id="modal-title" style="font-size: 1.3rem; font-weight: 800;">Add New Property</h3>
         <button onclick="closeModal()" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #64748b;">&times;</button>
       </div>
 
@@ -783,7 +783,7 @@
             <option value="Kedah">Kedah</option>
             <option value="Kelantan">Kelantan</option>
             <option value="Melaka">Melaka</option>
-            <option value="Negeri Sembilan">Negeri Sembilan</option>
+            <option value="State / Region Sembilan">State / Region Sembilan</option>
             <option value="Pahang">Pahang</option>
             <option value="Perak">Perak</option>
             <option value="Perlis">Perlis</option>
@@ -808,7 +808,7 @@
             <option value="Studio">Studio / SOHO / SOFO</option>
             <option value="Kilang">Kilang / Gudang (Industrial)</option>
             <option value="Tanah Industri">Tanah Industri / Commercial Land</option>
-            <option value="Kedai / Pejabat">Kedai / Pejabat (Shoplot / Office)</option>
+            <option value="Shop / Office">Shop / Office (Shoplot / Office)</option>
             <option value="Ruang Komersial">Ruang Komersial / Retail Space</option>
           </select>
         </div>
@@ -848,7 +848,7 @@
         <div id="group-tenure" class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PEGANGAN</label>
           <select id="form-tenure" class="form-select">
-            <option value="-">- (TIDAK PERLU / FOR RENT)</option>
+            <option value="-">- N/A (FOR RENT)</option>
             <option value="Freehold">Freehold</option>
             <option value="Leasehold">Leasehold</option>
           </select>
@@ -857,7 +857,7 @@
         <div id="group-lotType" class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">LOT TYPE</label>
           <select id="form-lotType" class="form-select">
-            <option value="-">- (TIDAK PERLU / FOR RENT)</option>
+            <option value="-">- N/A (FOR RENT)</option>
             <option value="Non-Bumi Lot">Non-Bumi Lot</option>
             <option value="Bumi Lot">Bumi Lot</option>
             <option value="Open Title">Open Title</option>
@@ -866,13 +866,13 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">Pautan Rujukan / Referral Link (e.g. PropMall)</label>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">Referral Link (e.g. PropMall)</label>
           <input type="url" id="form-ref-url" class="form-input" placeholder="https://propmall.co/share/eezmfo1hta">
         </div>
 
         <!-- Image Upload & Drag Drop Grid -->
         <div class="form-group" style="margin-bottom: 18px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">GAMBAR HARTANAH (MUAT NAIK CLOUDFLARE R2)</label>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PROPERTY IMAGES (CLOUDFLARE R2 UPLOAD)</label>
           <div style="display: flex; gap: 10px; margin-bottom: 6px;">
             <input type="file" id="form-image-file" multiple accept="image/*" class="form-input" onchange="handleImageUpload(event)">
           </div>
@@ -881,19 +881,19 @@
             <!-- Rendered thumbs -->
           </div>
           <p style="font-size: 0.78rem; color: #64748b; margin-top: 6px;">
-            💡 Tahan & seret gambar untuk ubah susunan. Gambar 1 adalah Gambar Utama.
+            💡 Click & drag images to reorder. Image 1 will be used as the Cover Photo.
           </p>
         </div>
 
         <!-- Description with full height auto-expand -->
         <div class="form-group" style="margin-bottom: 24px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">DESKRIPSI HARTANAH (PAPARAN PENUH)</label>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PROPERTY DESCRIPTION (FULL DETAILS)</label>
           <textarea id="form-description" class="form-textarea" style="min-height: 180px; height: auto; overflow: hidden; resize: vertical;" oninput="autoResizeDescription(this)" required></textarea>
         </div>
 
         <div class="modal-action-row">
-          <button type="button" onclick="closeModal()" class="btn btn-outline" style="flex: 1;">Batal</button>
-          <button type="submit" id="prop-submit-btn" class="btn btn-accent" style="flex: 2;">Simpan Hartanah</button>
+          <button type="button" onclick="closeModal()" class="btn btn-outline" style="flex: 1;">Cancel</button>
+          <button type="submit" id="prop-submit-btn" class="btn btn-accent" style="flex: 2;">Save Property</button>
         </div>
       </form>
 
@@ -973,16 +973,16 @@
         const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
         const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
         const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
-        const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / bln`;
+        const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / mo`;
         const categoryBadge = p.category ? `<span style="background:#f1f5f9; color:#334155; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #e2e8f0;">${p.category}</span>` : '';
         const typeBadge = p.type ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${p.type}</span>` : '';
-        const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Pautan Rujukan (PropMall)</a>` : '';
+        const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
 
-        const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(p.type);
+        const isCommercial = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial'].includes(p.type);
         const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
         const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
-        const bedsChip = (!isCommercial && p.beds > 0) ? `<span class="meta-chip">🛏️ ${bedsVal} Bilik</span>` : '';
-        const bathsChip = (p.baths > 0) ? `<span class="meta-chip">🚿 ${bathsVal} B.Air</span>` : '';
+        const bedsChip = (!isCommercial && p.beds > 0) ? `<span class="meta-chip">🛏️ ${bedsVal} Beds</span>` : '';
+        const bathsChip = (p.baths > 0) ? `<span class="meta-chip">🚿 ${bathsVal} Baths</span>` : '';
 
         return `
           <div class="listing-item">
@@ -1000,16 +1000,16 @@
                 ${bedsChip}
                 ${bathsChip}
                 <span class="meta-chip">📐 Built-up ${p.size} sqft</span>
-                ${p.landSize && p.landSize !== '-' ? `<span class="meta-chip">🌳 Tanah ${p.landSize}</span>` : ''}
+                ${p.landSize && p.landSize !== '-' ? `<span class="meta-chip">🌳 Land ${p.landSize}</span>` : ''}
               </div>
               ${refLinkHtml}
             </div>
             
             <div class="listing-actions-row">
-              <button onclick="editProperty(${idx})" class="action-btn" title="Edit Hartanah">
+              <button onclick="editProperty(${idx})" class="action-btn" title="Edit Property">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               </button>
-              <button onclick="deleteProperty(${idx})" class="action-btn delete" title="Padam Hartanah">
+              <button onclick="deleteProperty(${idx})" class="action-btn delete" title="Delete Property">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
               </button>
             </div>
@@ -1045,7 +1045,7 @@
       document.getElementById('form-category').value = 'Subsales';
       document.getElementById('form-landSize').value = '';
       document.getElementById('form-ref-url').value = '';
-      document.getElementById('modal-title').textContent = 'Tambah Hartanah';
+      document.getElementById('modal-title').textContent = 'Add New Property';
       uploadedImageUrls = [];
       rebuildImageThumbsGrid();
       toggleTenureLotFields();
@@ -1091,7 +1091,7 @@
       rebuildImageThumbsGrid();
       toggleTenureLotFields();
 
-      document.getElementById('modal-title').textContent = 'Edit Hartanah';
+      document.getElementById('modal-title').textContent = 'Edit Property Listing';
       document.getElementById('property-modal').style.display = 'flex';
       const saveBar = document.querySelector('.save-bar');
       if (saveBar) saveBar.style.display = 'none';
@@ -1118,7 +1118,7 @@
       e.preventDefault();
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '⌛ Menyimpan ke Cloudflare R2...';
+      submitBtn.innerHTML = '⌛ Saving to Cloudflare R2...';
       submitBtn.disabled = true;
 
       const idx = document.getElementById('form-id').value;
@@ -1155,7 +1155,7 @@
         slug: slug,
         title: title,
         price: price,
-        priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / bln`,
+        priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / mo`,
         category: category,
         location: location,
         region: region,
@@ -1325,7 +1325,7 @@
         thumb.innerHTML = `
           <img src="${url}" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
           <button type="button" onclick="removeUploadedImage(${idx})" style="position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.7);color:#fff;border:none;cursor:pointer;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:2;" title="Buang Gambar">&times;</button>
-          ${isMain ? '<span style="position:absolute;bottom:3px;left:3px;background:#0f172a;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;z-index:2;">Utama</span>' : ''}
+          ${isMain ? '<span style="position:absolute;bottom:3px;left:3px;background:#0f172a;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;z-index:2;">Home</span>' : ''}
         `;
 
         thumb.addEventListener('pointerdown', (e) => {
@@ -1478,10 +1478,10 @@
       }
       if (!pastDealsList || pastDealsList.length === 0) {
         pastDealsList = [
-          { id: 'p1', title: 'Double Storey Terrace House', type: 'Rumah Teres', location: 'Bandar Seri Putra, Bangi', category: 'DISEWAKAN', price: 'RM 2,100 / bln', image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80' },
-          { id: 'p2', title: 'The Domain 4 - Neo Cyber', type: 'Kondominium', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 1,200 / bln', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80' },
+          { id: 'p1', title: 'Double Storey Terrace House', type: 'Rumah Teres', location: 'Bandar Seri Putra, Bangi', category: 'DISEWAKAN', price: 'RM 2,100 / mo', image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80' },
+          { id: 'p2', title: 'The Domain 4 - Neo Cyber', type: 'Kondominium', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 1,200 / mo', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80' },
           { id: 'p3', title: '3-Storey Semi-D Villa Symphony Hills', type: 'Semi-D', location: 'Cyberjaya, Selangor', category: 'TERJUAL', price: 'RM 1,450,000', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80' },
-          { id: 'p4', title: 'Partially Fitted Office Prima 10', type: 'Kedai / Pejabat', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 35,000 / bln', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80' }
+          { id: 'p4', title: 'Partially Fitted Office Prima 10', type: 'Shop / Office', location: 'Cyberjaya, Selangor', category: 'DISEWAKAN', price: 'RM 35,000 / mo', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80' }
         ];
       }
 
