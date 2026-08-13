@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zaimrosli-pwa-v9';
+const CACHE_NAME = 'zaimrosli-pwa-v11';
 
 // Install Event
 self.addEventListener('install', (event) => {
@@ -29,7 +29,7 @@ self.addEventListener('fetch', (event) => {
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-store' })
       .then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
@@ -54,4 +54,11 @@ self.addEventListener('fetch', (event) => {
         });
       })
   );
+});
+
+// Receive SKIP_WAITING command from the app when user approves the update
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

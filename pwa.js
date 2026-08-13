@@ -3,9 +3,115 @@
   // 1. Register Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
+      let isUpdating = false;
+
+      function applyUpdate(waitingSW) {
+        if (isUpdating) return;
+        isUpdating = true;
+        console.log('[PWA] Triggering silent update activation...');
+        if (waitingSW) {
+          waitingSW.postMessage({ type: 'SKIP_WAITING' });
+        }
+      }
+
+      function isUserEditing() {
+        const activeEl = document.activeElement;
+        if (!activeEl) return false;
+        const tag = activeEl.tagName.toUpperCase();
+        return tag === 'INPUT' || tag === 'TEXTAREA' || activeEl.isContentEditable;
+      }
+
       navigator.serviceWorker.register('/sw.js')
-        .then((reg) => console.log('[PWA] Service Worker registered successfully:', reg.scope))
-        .catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
+        .then((reg) => {
+          console.log('[PWA] Service Worker registered successfully:', reg.scope);
+
+          // Check for updates on page load and tab focus
+          reg.update().catch(() => {});
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+              reg.update().catch(() => {});
+            }
+          });
+
+          // Detect new updates
+          reg.addEventListener('updatefound', () => {
+            const newSW = reg.installing;
+            if (!newSW) return;
+
+            newSW.addEventListener('statechange', () => {
+              if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('[PWA] New version installed in background');
+                applyUpdate(newSW);
+              }
+            });
+          });
+
+          // If a SW is already waiting on load
+          if (reg.waiting && navigator.serviceWorker.controller) {
+            applyUpdate(reg.waiting);
+          }
+
+        }).catch((err) => console.warn('[PWA] Service Worker registration failed:', err));
+
+      // Reload when new SW takes control
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+
+        const performReload = () => {
+          refreshing = true;
+          showSilentUpdateBadge();
+          setTimeout(() => {
+            window.location.reload();
+          }, 600);
+        };
+
+        if (isUserEditing()) {
+          console.log('[PWA] User is typing — deferring update reload until tab switch');
+          const onNav = () => {
+            document.removeEventListener('visibilitychange', onNav);
+            performReload();
+          };
+          document.addEventListener('visibilitychange', onNav, { once: true });
+        } else {
+          performReload();
+        }
+      });
+    });
+  }
+
+  function showSilentUpdateBadge() {
+    if (document.getElementById('swSilentBadge')) return;
+    const badge = document.createElement('div');
+    badge.id = 'swSilentBadge';
+    const isMobile = window.innerWidth <= 768;
+    const bottomPos = isMobile ? '78px' : '24px';
+    badge.style.cssText = `
+        position: fixed;
+        bottom: ${bottomPos};
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: linear-gradient(135deg, rgba(217, 119, 6, 0.95), rgba(180, 83, 9, 0.95));
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.5rem 1.1rem;
+        border-radius: 50px;
+        box-shadow: 0 8px 24px rgba(217, 119, 6, 0.35);
+        z-index: 999999;
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    `;
+    badge.innerHTML = \`<span>✨</span><span>Kemaskini sistem digunakan...</span>\`;
+    document.body.appendChild(badge);
+    requestAnimationFrame(() => {
+        badge.style.opacity = '1';
+        badge.style.transform = 'translateX(-50%) translateY(0)';
     });
   }
 

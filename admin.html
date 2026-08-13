@@ -526,7 +526,7 @@
       <a href="index.html" class="logo" style="display:flex; flex-direction:column; align-items:flex-start; text-decoration:none; gap:2px;">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <span class="logo-main">ZAIM<span>ROSLI</span></span>
-          <span class="badge-version" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; padding: 2px 8px; border-radius: 8px; font-size: 0.65rem; font-weight: 800; border: 1px solid #b45309; box-shadow: 0 1px 4px rgba(217, 119, 6, 0.25);">v2.5.0 • Live KV</span>
+          <span class="badge-version" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a; padding: 2px 8px; border-radius: 8px; font-size: 0.65rem; font-weight: 800; border: 1px solid #b45309; box-shadow: 0 1px 4px rgba(217, 119, 6, 0.25);">v2.6.1 • Live KV</span>
         </div>
         <span class="logo-sub" style="margin-top:2px;">PORTAL EJEN (ADMIN)</span>
       </a>
@@ -902,6 +902,7 @@
       document.getElementById('form-tenure').value = p.tenure || '-';
       document.getElementById('form-lotType').value = p.lotType || '-';
       document.getElementById('form-ref-url').value = p.refUrl || '';
+      document.getElementById('form-description').value = p.description || '';
       if (Array.isArray(p.images) && p.images.length > 0) {
         uploadedImageUrls = [...p.images];
       } else if (p.image) {
@@ -925,6 +926,14 @@
         saveToStorage();
         renderListingsGrid();
       }
+    }
+
+    function slugify(text) {
+      if (!text) return "";
+      return text.toString().toLowerCase().trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
     }
 
     async function saveProperty(e) {
@@ -1019,11 +1028,15 @@
     async function saveToStorage() {
       localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentProperties)
+          body: JSON.stringify(currentProperties),
+          signal: controller.signal
         });
+        clearTimeout(timeoutId);
       } catch (e) {
         console.error('KV save error:', e);
       }
