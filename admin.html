@@ -1002,7 +1002,7 @@
         const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
         const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
         const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
-        const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / mo`;
+        const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / month`;
         const categoryBadge = p.category ? `<span style="background:#f1f5f9; color:#334155; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #e2e8f0;">${p.category}</span>` : '';
         const typeBadge = p.type ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${p.type}</span>` : '';
         const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
@@ -1221,7 +1221,7 @@
         slug: slug,
         title: title,
         price: price,
-        priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / mo`,
+        priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / month`,
         category: category,
         location: location,
         region: region,
