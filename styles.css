@@ -1161,3 +1161,92 @@ footer.site-footer {
     padding: 10px 6px !important;
   }
 }
+
+/* ==========================================================================
+   EXECUTIVE DROPDOWN NAVIGATION SUB-MENU STYLES
+   ========================================================================== */
+.nav-links li.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-link-dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.nav-link-dropdown span.arrow {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-item-dropdown:hover .nav-link-dropdown span.arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 230px;
+  background: #0f172a;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+.nav-item-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: #cbd5e1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(217, 119, 6, 0.18);
+  color: #fbbf24;
+  transform: translateX(4px);
+}
+
+/* Mobile Drawer Submenu Accordion */
+.mobile-submenu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 14px;
+  margin-top: 4px;
+  border-left: 2px solid rgba(217, 119, 6, 0.3);
+}
+
+.mobile-item-dropdown.active .mobile-submenu {
+  display: flex;
+}
+
+.mobile-submenu .mobile-drawer-link {
+  font-size: 0.88rem !important;
+  color: #94a3b8 !important;
+  padding: 6px 12px !important;
+}
+
+.mobile-submenu .mobile-drawer-link:hover {
+  color: #fbbf24 !important;
+}
