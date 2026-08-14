@@ -692,38 +692,38 @@
       <div id="tab-panel-active" class="panel" style="display: block; background: transparent; border: none; box-shadow: none; padding: 0;">
         
         <!-- Top Action Bar -->
-        <div class="admin-top-action-bar" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px;">
-          <div>
-            <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0; line-height: 1.2;">Manage Listings</h2>
-            <div style="font-size: 0.78rem; font-weight: 600; color: #64748b; margin-top: 2px;"><span id="total-live-badge">21</span> total listings in database</div>
+        <div class="admin-top-action-bar" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 1; min-width: 0;">
+            <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Manage Listings</h2>
+            <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; flex-shrink: 0;" id="total-live-badge">21</span>
           </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <button onclick="loadPropertiesList()" class="btn-icon-round" style="width: 38px; height: 38px; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;" title="Refresh Data">🔄</button>
-            <button onclick="openModal()" class="btn-add-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-weight: 800; font-size: 0.85rem; padding: 9px 16px; border-radius: 10px; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3); transition: all 0.2s; white-space: nowrap;">
+          <div style="display: flex; gap: 6px; align-items: center; flex-shrink: 0;">
+            <button onclick="loadPropertiesList()" class="btn-icon-round" style="width: 36px; height: 36px; border-radius: 9px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);" title="Refresh Data">🔄</button>
+            <button onclick="openModal()" class="btn-add-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-weight: 800; font-size: 0.80rem; padding: 8px 12px; border-radius: 9px; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25); transition: all 0.2s; white-space: nowrap;">
               <span>+ Add Property</span>
             </button>
           </div>
         </div>
 
-        <!-- Sleek Segmented Category Tabs (Single Row Touch Scrollable) -->
-        <div class="admin-segmented-container" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+        <!-- Sleek Segmented Category Tabs & Full-width Search Bar -->
+        <div class="admin-segmented-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
           
-          <div class="admin-scroll-tabs" style="display: flex; gap: 6px; background: #e2e8f0; padding: 4px; border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%;">
-            <button id="admin-cat-all" onclick="setAdminCategoryFilter('all')" class="admin-tab-pill active" style="padding: 6px 14px; border-radius: 9px; font-size: 0.80rem; font-weight: 700; border: none; background: #0f172a; color: #ffffff; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 6px;">
-              All <span class="badge-pill-count" style="background: rgba(255,255,255,0.25); padding: 1px 6px; border-radius: 8px; font-size: 0.70rem;" id="count-all">0</span>
+          <div class="admin-scroll-tabs" style="display: flex; width: 100%; background: #e2e8f0; padding: 3px; border-radius: 10px; box-sizing: border-box;">
+            <button id="admin-cat-all" onclick="setAdminCategoryFilter('all')" class="admin-tab-pill active" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: #0f172a; color: #ffffff; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+              All <span class="badge-pill-count" style="background: rgba(255,255,255,0.25); padding: 1px 5px; border-radius: 6px; font-size: 0.68rem;" id="count-all">0</span>
             </button>
-            <button id="admin-cat-residential" onclick="setAdminCategoryFilter('residential')" class="admin-tab-pill" style="padding: 6px 14px; border-radius: 9px; font-size: 0.80rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 6px;">
-              Residential <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 6px; border-radius: 8px; font-size: 0.70rem; color: #0f172a;" id="count-res">0</span>
+            <button id="admin-cat-residential" onclick="setAdminCategoryFilter('residential')" class="admin-tab-pill" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+              Residential <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-res">0</span>
             </button>
-            <button id="admin-cat-commercial" onclick="setAdminCategoryFilter('commercial')" class="admin-tab-pill" style="padding: 6px 14px; border-radius: 9px; font-size: 0.80rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 6px;">
-              Commercial <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 6px; border-radius: 8px; font-size: 0.70rem; color: #0f172a;" id="count-comm">0</span>
+            <button id="admin-cat-commercial" onclick="setAdminCategoryFilter('commercial')" class="admin-tab-pill" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+              Commercial <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-comm">0</span>
             </button>
           </div>
 
-          <!-- Compact Search Pill -->
-          <div class="admin-search-wrapper" style="position: relative; flex: 1; min-width: 200px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Search title or location..." style="width: 100%; padding: 8px 12px 8px 34px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-size: 0.82rem; background: #ffffff; color: #0f172a; outline: none; transition: all 0.2s;">
+          <!-- Full Width Clean Search Bar -->
+          <div class="admin-search-wrapper" style="position: relative; width: 100%; box-sizing: border-box;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Cari tajuk atau lokasi..." style="width: 100%; padding: 8px 12px 8px 34px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-size: 0.82rem; background: #ffffff; color: #0f172a; outline: none; box-sizing: border-box;">
           </div>
 
         </div>
