@@ -76,7 +76,7 @@ function createPropertyCardHTML(item) {
   const sizeSpec = item.size ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
 
   const catFolder = isCommercial ? 'commercial' : 'residential';
-  const detailUrl = `/property-detail/${item.slug || item.id}`;
+  const detailUrl = `/properties/${catFolder}/${item.slug || item.id}`;
 
   return `
     <div class="property-card">
