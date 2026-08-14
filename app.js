@@ -27,7 +27,7 @@ function highlightActiveNavLink() {
   });
 }
 
-// 2. Mobile Drawer Navigation Toggle
+// 2. Mobile Drawer Navigation Toggle & Submenu Accordions
 function initMobileDrawerNav() {
   const toggleBtn = document.querySelector('.mobile-nav-toggle');
   const overlay = document.querySelector('.mobile-overlay');
@@ -56,6 +56,19 @@ function initMobileDrawerNav() {
       }
     });
   }
+
+  // Setup accordion toggle for mobile drawer dropdowns
+  document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+    toggle.style.cursor = 'pointer';
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const parent = toggle.closest('.mobile-item-dropdown');
+      if (parent) {
+        parent.classList.toggle('active');
+      }
+    });
+  });
 }
 
 // 3. Property Card Generator HTML String

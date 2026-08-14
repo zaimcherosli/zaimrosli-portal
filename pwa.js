@@ -1,5 +1,15 @@
-// PWA Service Worker Registration & Premium Custom App Install Modal (Kwikezee Style)
+// PWA Service Worker Registration & Premium Custom App Install Modal
 (function initPWA() {
+  // Check if running in standalone mode (already installed & opened as PWA)
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+    || window.navigator.standalone === true 
+    || document.referrer.includes('android-app://');
+
+  if (isStandalone) {
+    console.log('[PWA] App is running in standalone mode.');
+    localStorage.setItem('zaimrosli_pwa_installed', 'true');
+  }
+
   // 1. Register Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -68,11 +78,17 @@
     });
   }
 
+  // If already installed or in standalone mode, DO NOT show install popup
+  if (isStandalone || localStorage.getItem('zaimrosli_pwa_installed') === 'true') {
+    return;
+  }
+
   // 2. Inject & Manage Premium PWA Installation Modal
   let deferredPrompt = null;
 
   function injectPwaModalHTML() {
     if (document.getElementById('pwa-install-modal')) return;
+    if (isStandalone || localStorage.getItem('zaimrosli_pwa_installed') === 'true') return;
 
     const modalDiv = document.createElement('div');
     modalDiv.id = 'pwa-install-modal';
@@ -368,22 +384,30 @@
     }
 
     function openPwaModal() {
+      if (isStandalone || localStorage.getItem('zaimrosli_pwa_installed') === 'true') return;
+      const dismissedUntil = parseInt(localStorage.getItem('zaimrosli_pwa_dismissed_until') || '0', 10);
+      if (Date.now() < dismissedUntil) return;
       if (modal) modal.classList.add('active');
     }
 
-    function closePwaModal() {
+    function closePwaModal(permanent = false) {
       if (modal) modal.classList.remove('active');
-      sessionStorage.setItem('zaimrosli_pwa_dismissed_v1', 'true');
+      if (permanent) {
+        localStorage.setItem('zaimrosli_pwa_installed', 'true');
+      } else {
+        // Dismiss for 14 days
+        localStorage.setItem('zaimrosli_pwa_dismissed_until', (Date.now() + (14 * 24 * 60 * 60 * 1000)).toString());
+      }
     }
 
     window.openPwaInstallModal = openPwaModal;
 
-    if (closeBtn) closeBtn.addEventListener('click', closePwaModal);
-    if (dismissBtn) dismissBtn.addEventListener('click', closePwaModal);
+    if (closeBtn) closeBtn.addEventListener('click', () => closePwaModal(false));
+    if (dismissBtn) dismissBtn.addEventListener('click', () => closePwaModal(false));
 
     if (modal) {
       modal.addEventListener('click', (e) => {
-        if (e.target === modal) closePwaModal();
+        if (e.target === modal) closePwaModal(false);
       });
     }
 
@@ -393,18 +417,32 @@
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
           console.log('[PWA] Choice:', outcome);
+          if (outcome === 'accepted') {
+            localStorage.setItem('zaimrosli_pwa_installed', 'true');
+          }
           deferredPrompt = null;
-          closePwaModal();
+          closePwaModal(true);
         }
       });
     }
 
-    // Auto-show modal after 2.5s if not dismissed in session
-    const hasDismissed = sessionStorage.getItem('zaimrosli_pwa_dismissed_v1');
-    if (!hasDismissed) {
-      setTimeout(openPwaModal, 2500);
+    // Auto-show modal after 4s only if not installed and not dismissed within 14 days
+    const dismissedUntil = parseInt(localStorage.getItem('zaimrosli_pwa_dismissed_until') || '0', 10);
+    const isDismissed = Date.now() < dismissedUntil;
+    const isInstalled = localStorage.getItem('zaimrosli_pwa_installed') === 'true';
+
+    if (!isDismissed && !isInstalled && !isStandalone) {
+      setTimeout(openPwaModal, 4000);
     }
   }
+
+  // Listen for native appinstalled event to permanently silence popup
+  window.addEventListener('appinstalled', () => {
+    console.log('[PWA] Application was successfully installed!');
+    localStorage.setItem('zaimrosli_pwa_installed', 'true');
+    const modal = document.getElementById('pwa-install-modal');
+    if (modal) modal.classList.remove('active');
+  });
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
