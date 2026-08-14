@@ -20,7 +20,7 @@ export async function onRequest(context) {
     if (!prop) return response;
 
     const title = (prop.title || 'Property Listing').replace(/"/g, '&quot;');
-    const price = (prop.priceStr || 'RM 0').replace(/"/g, '&quot;');
+    const price = (prop.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month').replace(/"/g, '&quot;');
     const loc = (prop.location || 'Selangor').replace(/"/g, '&quot;');
     const type = (prop.type || 'Property').replace(/"/g, '&quot;');
     const desc = `${price} • ${loc} • ${type} — Zaim Rosli (REN39575)`;
