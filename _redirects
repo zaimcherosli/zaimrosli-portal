@@ -2,6 +2,7 @@
 /property-detail/* /property-detail.html 200
 /blog/* /blog.html 200
 /properties/residential /properties.html 200
+/properties/commercial-industrial /properties.html 200
 /properties/commercial /properties.html 200
 /properties/for-sale /properties.html 200
 /properties/for-rent /properties.html 200
