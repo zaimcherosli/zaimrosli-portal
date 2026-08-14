@@ -17,7 +17,7 @@
 </head>
 <body>
 
-            <!-- Site Navigation Header -->
+              <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-wrapper">
       <a href="index.html" class="logo">
@@ -34,11 +34,11 @@
             Properties <span class="arrow">▾</span>
           </a>
           <div class="dropdown-menu">
-            <a href="/residential" class="dropdown-item">Residential Properties</a>
-            <a href="/commercial" class="dropdown-item">Commercial & Industrial</a>
+            <a href="/properties/residential" class="dropdown-item">Residential Properties</a>
+            <a href="/properties/commercial" class="dropdown-item">Commercial & Industrial</a>
             <div style="margin: 4px 8px; border-top: 1px solid rgba(255,255,255,0.15);"></div>
-            <a href="/for-sale" class="dropdown-item">Properties For Sale</a>
-            <a href="/for-rent" class="dropdown-item">Rental Properties</a>
+            <a href="/properties/for-sale" class="dropdown-item">Properties For Sale</a>
+            <a href="/properties/for-rent" class="dropdown-item">Rental Properties</a>
             <a href="properties.html" class="dropdown-item">All Listings</a>
           </div>
         </li>
@@ -114,10 +114,10 @@
             <span>Properties</span> <span style="font-size: 0.8rem;">▾</span>
           </div>
           <div class="mobile-submenu">
-            <a href="/residential" class="mobile-drawer-link">Residential Properties</a>
-            <a href="/commercial" class="mobile-drawer-link">Commercial & Industrial</a>
-            <a href="/for-sale" class="mobile-drawer-link">For Sale</a>
-            <a href="/for-rent" class="mobile-drawer-link">For Rent</a>
+            <a href="/properties/residential" class="mobile-drawer-link">Residential Properties</a>
+            <a href="/properties/commercial" class="mobile-drawer-link">Commercial & Industrial</a>
+            <a href="/properties/for-sale" class="mobile-drawer-link">For Sale</a>
+            <a href="/properties/for-rent" class="mobile-drawer-link">For Rent</a>
             <a href="properties.html" class="mobile-drawer-link">All Listings</a>
           </div>
         </li>
@@ -280,15 +280,15 @@
       const path = window.location.pathname.toLowerCase();
       const urlParams = new URLSearchParams(window.location.search);
 
-      if (path.includes('/residential') || urlParams.get('category') === 'Residential') {
+      if (path.includes('/properties/residential') || path.includes('/residential') || urlParams.get('category') === 'Residential') {
         activeCategory = 'Residential';
-      } else if (path.includes('/commercial') || urlParams.get('category') === 'Commercial') {
+      } else if (path.includes('/properties/commercial') || path.includes('/commercial') || urlParams.get('category') === 'Commercial') {
         activeCategory = 'Commercial';
       }
 
-      if (path.includes('/for-sale') || urlParams.get('status') === 'sale') {
+      if (path.includes('/properties/for-sale') || path.includes('/for-sale') || urlParams.get('status') === 'sale') {
         statusSelect.value = 'sale';
-      } else if (path.includes('/for-rent') || urlParams.get('status') === 'rent') {
+      } else if (path.includes('/properties/for-rent') || path.includes('/for-rent') || urlParams.get('status') === 'rent') {
         statusSelect.value = 'rent';
       }
 

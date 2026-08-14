@@ -1,7 +1,8 @@
 /api/* https://zaimrosli-worker.huzaimrosli.workers.dev/api/:splat 200
 /property-detail/* /property-detail.html 200
 /blog/* /blog.html 200
-/residential /properties.html 200
-/commercial /properties.html 200
-/for-sale /properties.html 200
-/for-rent /properties.html 200
+/properties/residential /properties.html 200
+/properties/commercial /properties.html 200
+/properties/for-sale /properties.html 200
+/properties/for-rent /properties.html 200
+/properties/* /properties.html 200
