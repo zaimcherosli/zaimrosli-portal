@@ -34,7 +34,8 @@ function initMobileDrawerNav() {
   const closeBtn = document.querySelector('.mobile-drawer-close');
 
   if (toggleBtn && overlay) {
-    toggleBtn.addEventListener('click', () => {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
@@ -59,6 +60,7 @@ function initMobileDrawerNav() {
 
 // 3. Property Card Generator HTML String
 function createPropertyCardHTML(item) {
+  if (!item) return '';
   const badgeClass = item.status === 'sale' ? 'badge-sale' : 'badge-rent';
   const badgeLabel = item.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
   const cardImg = Array.isArray(item.images) && item.images.length > 0 
@@ -67,24 +69,28 @@ function createPropertyCardHTML(item) {
 
   const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : item.beds;
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
-  const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(item.type);
+  const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office'];
+  const isCommercial = commTypes.includes(item.type);
   const bedsSpec = (!isCommercial && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${bedsVal} Beds</span>` : '';
   const bathsSpec = (item.baths > 0) ? `<span class="property-spec-item">🚿 ${bathsVal} Baths</span>` : '';
   const sizeSpec = item.size ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
 
+  const catFolder = isCommercial ? 'commercial' : 'residential';
+  const detailUrl = `/properties/${catFolder}/${item.slug || item.id}`;
+
   return `
     <div class="property-card">
       <div class="property-thumb-wrap">
-        <img src="${cardImg}" class="property-thumb" alt="${item.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'">
+        <img src="${cardImg}" class="property-thumb" alt="${item.title || 'Property'}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'">
         <span class="property-badge ${badgeClass}">${badgeLabel}</span>
-        <span class="property-region-badge">${item.region}</span>
+        <span class="property-region-badge">${item.region || 'Selangor'}</span>
       </div>
       <div class="property-content">
-        <div class="property-price">${item.priceStr}</div>
-        <h3 class="property-title">${item.title}</h3>
+        <div class="property-price">${item.priceStr || 'RM 0'}</div>
+        <h3 class="property-title">${item.title || ''}</h3>
         <div class="property-location">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${item.location}
+          ${item.location || ''}
         </div>
         <div class="property-specs-row">
           ${bedsSpec}
@@ -92,8 +98,8 @@ function createPropertyCardHTML(item) {
           ${sizeSpec}
         </div>
         <div style="display: flex; gap: 8px; margin-top: 16px;">
-          <a href="/property-detail/${item.slug || item.id}" class="btn btn-outline btn-sm" style="flex: 1;">View Details</a>
-          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}')" class="btn btn-outline btn-sm" style="width: 42px; padding: 0 !important; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Share Property" aria-label="Share Property">
+          <a href="${detailUrl}" class="btn btn-outline btn-sm" style="flex: 1;">View Details</a>
+          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}', '${catFolder}')" class="btn btn-outline btn-sm" style="width: 42px; padding: 0 !important; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Share Property" aria-label="Share Property">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
           </button>
         </div>
@@ -102,6 +108,9 @@ function createPropertyCardHTML(item) {
   `;
 }
 
+window.createPropertyCardHTML = createPropertyCardHTML;
+window.initMobileDrawerNav = initMobileDrawerNav;
+
 // Global Share Function
 window.shareProperty = async function(e, slugOrId, title, imageUrl, catFolder = 'residential') {
   if (e) {
@@ -109,11 +118,6 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl, catFolder = 
     e.stopPropagation();
   }
   const url = window.location.origin + '/properties/' + catFolder + '/' + slugOrId;
-  if (e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-  const url = window.location.origin + '/property-detail/' + slugOrId;
   const shareText = title + ' — Zaim Rosli Real Estate';
   const fullCopyText = shareText + '\n' + url;
 
@@ -144,7 +148,7 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl, catFolder = 
     navigator.clipboard.writeText(fullCopyText).then(() => {
       alert('📋 Pautan hartanah telah disalin!');
     }).catch(() => {
-      prompt('Salin pautan ini:', fullCopyText);
+      prompt('Salin pautan me:', fullCopyText);
     });
   }
 };
