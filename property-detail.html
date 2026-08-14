@@ -445,7 +445,7 @@
 
         document.getElementById('d-title').textContent = prop.title;
         document.getElementById('d-location').innerHTML = `📍 ${prop.location}`;
-        document.getElementById('d-price').textContent = prop.priceStr;
+        document.getElementById('d-price').textContent = (prop.priceStr || '').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
 
         // Image Gallery Handling
         let allImages = [];
