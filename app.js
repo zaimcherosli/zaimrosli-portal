@@ -110,10 +110,10 @@ function createPropertyCardHTML(item) {
           ${bathsSpec}
           ${sizeSpec}
         </div>
-        <div style="display: flex; gap: 8px; margin-top: 16px;">
-          <a href="${detailUrl}" class="btn btn-outline btn-sm" style="flex: 1;">View Details</a>
-          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}', '${catFolder}')" class="btn btn-outline btn-sm" style="width: 42px; padding: 0 !important; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Share Property" aria-label="Share Property">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+        <div style="display: flex; gap: 10px; margin-top: 18px;">
+          <a href="${detailUrl}" class="btn btn-outline btn-sm" style="flex: 1; border-radius: 10px; font-weight: 700; text-align: center; padding: 10px 16px; font-size: 0.9rem;">View Details →</a>
+          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}', '${catFolder}')" class="btn btn-outline btn-sm" style="width: 44px; height: 42px; border-radius: 10px; padding: 0 !important; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Share Property" aria-label="Share Property">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
           </button>
         </div>
       </div>
