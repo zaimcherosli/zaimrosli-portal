@@ -195,6 +195,7 @@
         const status = statusSelect.value;
 
         const filtered = PROPERTIES_DATA.filter(item => {
+          if (item.hidden) return false;
           const matchQ = !q || item.title.toLowerCase().includes(q) || item.location.toLowerCase().includes(q);
           const matchType = !type || item.type === type;
           const matchRegion = !region || item.region === region;

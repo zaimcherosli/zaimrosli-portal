@@ -280,7 +280,7 @@
       function renderHomeFeatured() {
         const grid = document.getElementById('home-featured-grid');
         if (grid && typeof PROPERTIES_DATA !== 'undefined') {
-          const featuredList = PROPERTIES_DATA.slice(0, 6);
+          const featuredList = PROPERTIES_DATA.filter(item => !item.hidden).slice(0, 6);
           grid.innerHTML = featuredList.map(item => createPropertyCardHTML(item)).join('');
         }
       }
