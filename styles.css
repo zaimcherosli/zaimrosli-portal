@@ -577,21 +577,36 @@ header.site-header {
 }
 
 .property-specs-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-color);
-  margin-top: auto;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-weight: 600;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  padding: 12px 0 16px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .property-spec-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 6px 2px !important;
+  border-radius: 8px !important;
+  font-size: clamp(0.70rem, 2.2vw, 0.82rem) !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center !important;
 }
 
 /* Executive Deep Obsidian Footer */
@@ -1383,24 +1398,34 @@ footer.site-footer {
 }
 
 .property-specs-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 0 16px;
-  border-top: 1px solid #f1f5f9;
-  margin-top: auto;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  padding: 12px 0 16px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .property-spec-item {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  color: #475569;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 6px 2px !important;
+  border-radius: 8px !important;
+  font-size: clamp(0.70rem, 2.2vw, 0.82rem) !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center !important;
 }
