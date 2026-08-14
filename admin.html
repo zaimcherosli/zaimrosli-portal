@@ -1015,13 +1015,17 @@
         const builtUpChip = p.size ? `<div class="spec-chip">📐 Built-up ${p.size} sqft</div>` : '';
         const landChip = (p.landSize && p.landSize !== '-') ? `<div class="spec-chip">🌳 Land ${p.landSize}</div>` : '';
 
+        const isHidden = !!p.hidden;
+        const cardStyle = isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : '';
+        const imgStyle = isHidden ? 'style="opacity: 0.5; filter: grayscale(50%);"' : '';
+
         return `
-          <div class="listing-item">
-            <img src="${mainImg}" class="listing-thumb" alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
+          <div class="listing-item" ${cardStyle}>
+            <img src="${mainImg}" class="listing-thumb" ${imgStyle} alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
             <div class="listing-info">
               <div class="listing-badges-row">
                 <span class="badge-status ${badgeClass}">${badgeText}</span>
-                ${p.hidden ? '<span style="background:#fee2e2; color:#dc2626; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:800; border:1px solid #fca5a5;">🙈 HIDDEN</span>' : ''}
+                ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">🙈 HIDDEN FROM MAIN PAGE</span>' : ''}
                 ${categoryBadge}
                 ${typeBadge}
               </div>
@@ -1043,10 +1047,10 @@
             </div>
             
             <div class="listing-actions-row">
-              <button onclick="toggleHideProperty(${idx})" class="action-btn ${p.hidden ? 'hidden-btn' : ''}" title="${p.hidden ? 'Unhide Listing (Show on Public Site)' : 'Hide Listing (Hide from Public Site)'}">
-                ${p.hidden 
-                  ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
-                  : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
+              <button onclick="toggleHideProperty(event, ${idx})" class="action-btn ${isHidden ? 'hidden-btn' : ''}" title="${isHidden ? 'Click to Unhide (Show on Main Page)' : 'Click to Hide (Hide from Main Page)'}">
+                ${isHidden 
+                  ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+                  : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
                 }
               </button>
               <button onclick="editProperty(${idx})" class="action-btn" title="Edit Property">
@@ -1141,6 +1145,25 @@
       setTimeout(autoResizeDescription, 50);
     }
 
+    async function toggleHideProperty(event, idx) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const p = currentProperties[idx];
+      if (!p) return;
+
+      p.hidden = !p.hidden;
+      renderListingsGrid();
+      
+      const saveBar = document.querySelector('.save-bar');
+      if (saveBar) {
+        saveBar.style.display = 'flex';
+      }
+      
+      await saveToStorage();
+    }
+
     function deleteProperty(idx) {
       if (confirm('Adakah anda pasti untuk memadam hartanah ini?')) {
         currentProperties.splice(idx, 1);
@@ -1216,7 +1239,8 @@
         image: mainImg,
         images: imagesArr,
         description: description,
-        refUrl: refUrl
+        refUrl: refUrl,
+        hidden: (idx !== '' && currentProperties[idx]) ? !!currentProperties[idx].hidden : false
       };
 
       if (idx !== '') {
