@@ -622,10 +622,12 @@
     </div>
   </header>
 
-  <!-- Admin Mobile Drawer Overlay -->
+    <!-- Admin Mobile Drawer Overlay -->
   <div id="admin-mobile-overlay" class="mobile-overlay">
-    <div class="mobile-drawer" style="padding: 24px;">
-      <div class="mobile-drawer-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <div class="mobile-drawer" style="padding: 24px 20px; display: flex !important; flex-direction: column !important; justify-content: flex-start !important; gap: 14px !important; overflow-y: auto !important; height: 100% !important;">
+      
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header" style="margin-bottom: 4px; padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0;">
         <div class="logo" style="display: flex; flex-direction: column; gap: 2px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <span class="logo-main" style="font-size: 1.25rem; line-height: 1;">ZAIM<span>ROSLI</span></span>
@@ -636,12 +638,51 @@
         <button onclick="closeAdminMobileDrawer()" class="mobile-drawer-close" style="background: #f1f5f9; border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #0f172a;" aria-label="Close Menu">&times;</button>
       </div>
 
-      <div style="background: #f8fafc; padding: 12px 14px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
-        <div style="width: 38px; height: 38px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.88rem; flex-shrink: 0; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);">ZR</div>
+      <!-- User Profile Card -->
+      <div style="background: #f8fafc; padding: 10px 12px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px;">
+        <div style="width: 36px; height: 36px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);">ZR</div>
         <div style="overflow: hidden; flex: 1;">
-          <div style="font-weight: 700; font-size: 0.85rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="mobile-user-display">huzaimrosli@gmail.com</div>
-          <div style="font-size: 0.72rem; color: #64748b; margin-top: 1px;">LPPEH Negotiator (REN39575)</div>
+          <div style="font-weight: 700; font-size: 0.82rem; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="mobile-user-display">huzaimrosli@gmail.com</div>
+          <div style="font-size: 0.70rem; color: #64748b;">LPPEH Negotiator (REN39575)</div>
         </div>
+      </div>
+
+      <!-- Navigation Menu Items (Pinned to Top) -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 0.68rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; padding-left: 4px;">PENGURUSAN LISTING</div>
+
+        <button id="mobile-tab-btn-all" onclick="setAdminCategoryFilter('all'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; background: #0f172a; color: #ffffff; border: none; box-shadow: 0 2px 6px rgba(15,23,42,0.15);">
+          🏢 All Active Listings
+        </button>
+
+        <button id="mobile-tab-btn-res" onclick="setAdminCategoryFilter('residential'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
+          🏠 Residential Listings
+        </button>
+
+        <button id="mobile-tab-btn-comm" onclick="setAdminCategoryFilter('commercial'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
+          🏭 Commercial & Industrial
+        </button>
+
+        <div style="font-size: 0.68rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px; padding-left: 4px;">REKOD & AWAM</div>
+
+        <button id="mobile-tab-btn-past" onclick="switchAdminTab('past'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
+          🤝 Past Deals
+        </button>
+
+        <a href="/index.html" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 11px 14px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1; text-decoration: none;">
+          🌐 View Public Website
+        </a>
+
+        <hr style="margin: 6px 0; border: none; border-top: 1px solid #e2e8f0;">
+
+        <button onclick="handleLogout()" class="btn" style="width: 100%; justify-content: center; gap: 8px; padding: 11px 14px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Log Out
+        </button>
+      </div>
+
+    </div>
+  </div>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -673,11 +714,30 @@
 
       <!-- Active Listings Panel -->
       <div id="tab-panel-active" class="panel" style="display: block;">
-        <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
           <h2>Manage Property Listings</h2>
           <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
             <button onclick="loadPropertiesList()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Dari Cloudflare KV">🔄 Refresh List</button>
             <button onclick="openModal()" class="btn-add">+ Add Property</button>
+          </div>
+        </div>
+
+        <!-- Category Segmentation Tabs (All / Residential / Commercial & Industrial) -->
+        <div class="admin-cat-filter-wrapper" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:#f8fafc; padding:12px 16px; border-radius:14px; border:1px solid #e2e8f0; margin-bottom:20px;">
+          <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+            <button id="admin-cat-all" onclick="setAdminCategoryFilter('all')" class="admin-filter-pill active" style="padding:7px 14px; border-radius:20px; font-size:0.82rem; font-weight:700; cursor:pointer; border:1px solid #0f172a; background:#0f172a; color:#ffffff; transition:all 0.2s;">
+              🏢 All (<span id="count-all">0</span>)
+            </button>
+            <button id="admin-cat-residential" onclick="setAdminCategoryFilter('residential')" class="admin-filter-pill" style="padding:7px 14px; border-radius:20px; font-size:0.82rem; font-weight:700; cursor:pointer; border:1px solid #cbd5e1; background:#ffffff; color:#334155; transition:all 0.2s;">
+              🏠 Residential (<span id="count-res">0</span>)
+            </button>
+            <button id="admin-cat-commercial" onclick="setAdminCategoryFilter('commercial')" class="admin-filter-pill" style="padding:7px 14px; border-radius:20px; font-size:0.82rem; font-weight:700; cursor:pointer; border:1px solid #cbd5e1; background:#ffffff; color:#334155; transition:all 0.2s;">
+              🏭 Commercial & Industrial (<span id="count-comm">0</span>)
+            </button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Cari tajuk atau lokasi..." style="padding:7px 12px; border-radius:10px; border:1px solid #cbd5e1; font-size:0.82rem; width:180px;">
           </div>
         </div>
 
@@ -996,9 +1056,88 @@
       renderListingsGrid();
     }
 
+    let currentAdminCatFilter = 'all';
+
+    function setAdminCategoryFilter(cat) {
+      currentAdminCatFilter = cat;
+      
+      // Update pill active styles
+      ['all', 'residential', 'commercial'].forEach(c => {
+        const btn = document.getElementById(`admin-cat-${c}`);
+        if (btn) {
+          if (c === cat) {
+            btn.style.background = '#0f172a';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#0f172a';
+            btn.classList.add('active');
+          } else {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#334155';
+            btn.style.borderColor = '#cbd5e1';
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      // Update mobile drawer active buttons if present
+      const mAll = document.getElementById('mobile-tab-btn-all');
+      const mRes = document.getElementById('mobile-tab-btn-res');
+      const mComm = document.getElementById('mobile-tab-btn-comm');
+      if (mAll && mRes && mComm) {
+        [mAll, mRes, mComm].forEach(b => {
+          b.style.background = '#ffffff';
+          b.style.color = '#334155';
+          b.style.borderColor = '#cbd5e1';
+        });
+        if (cat === 'all') { mAll.style.background = '#0f172a'; mAll.style.color = '#ffffff'; mAll.style.borderColor = '#0f172a'; }
+        if (cat === 'residential') { mRes.style.background = '#0f172a'; mRes.style.color = '#ffffff'; mRes.style.borderColor = '#0f172a'; }
+        if (cat === 'commercial') { mComm.style.background = '#0f172a'; mComm.style.color = '#ffffff'; mComm.style.borderColor = '#0f172a'; }
+      }
+
+      renderListingsGrid();
+    }
+
     function renderListingsGrid() {
       const grid = document.getElementById('admin-listings-grid');
-      grid.innerHTML = currentProperties.map((p, idx) => {
+      const commTypes = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat'];
+      
+      const resCount = currentProperties.filter(p => !commTypes.includes(p.type)).length;
+      const commCount = currentProperties.filter(p => commTypes.includes(p.type)).length;
+      const totalCount = currentProperties.length;
+
+      const cAllEl = document.getElementById('count-all');
+      const cResEl = document.getElementById('count-res');
+      const cCommEl = document.getElementById('count-comm');
+      if (cAllEl) cAllEl.textContent = totalCount;
+      if (cResEl) cResEl.textContent = resCount;
+      if (cCommEl) cCommEl.textContent = commCount;
+
+      const searchKeyword = (document.getElementById('admin-search-input')?.value || '').toLowerCase().trim();
+
+      let displayList = currentProperties.map((p, originalIdx) => ({ property: p, originalIdx })).filter(({ property: p }) => {
+        const isCommercial = commTypes.includes(p.type);
+        if (currentAdminCatFilter === 'residential' && isCommercial) return false;
+        if (currentAdminCatFilter === 'commercial' && !isCommercial) return false;
+        if (searchKeyword) {
+          const matchTitle = (p.title || '').toLowerCase().includes(searchKeyword);
+          const matchLoc = (p.location || '').toLowerCase().includes(searchKeyword);
+          const matchType = (p.type || '').toLowerCase().includes(searchKeyword);
+          if (!matchTitle && !matchLoc && !matchType) return false;
+        }
+        return true;
+      });
+
+      if (displayList.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; background:#ffffff; border:1px dashed #cbd5e1; padding:40px; text-align:center; border-radius:14px; color:#64748b;">
+            <p style="font-size:1.1rem; font-weight:700; margin-bottom:8px; color:#0f172a;">Tiada hartanah dijumpai untuk kategori ini.</p>
+            <p style="font-size:0.85rem;">Klik "+ Add Property" untuk menambah listing baharu.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
         const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
         const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
         const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
