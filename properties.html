@@ -17,8 +17,7 @@
 </head>
 <body>
 
-      <!-- Site Navigation Header -->
-    <!-- Site Navigation Header -->
+        <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-wrapper">
       <a href="index.html" class="logo">
@@ -35,6 +34,9 @@
             Properties <span class="arrow">▾</span>
           </a>
           <div class="dropdown-menu">
+            <a href="properties.html?category=Residential" class="dropdown-item">Residential Properties</a>
+            <a href="properties.html?category=Commercial" class="dropdown-item">Commercial & Industrial</a>
+            <div style="margin: 4px 8px; border-top: 1px solid rgba(255,255,255,0.15);"></div>
             <a href="properties.html?status=sale" class="dropdown-item">Properties For Sale</a>
             <a href="properties.html?status=rent" class="dropdown-item">Rental Properties</a>
             <a href="properties.html" class="dropdown-item">All Listings</a>
@@ -112,6 +114,8 @@
             <span>Properties</span> <span style="font-size: 0.8rem;">▾</span>
           </div>
           <div class="mobile-submenu">
+            <a href="properties.html?category=Residential" class="mobile-drawer-link">Residential Properties</a>
+            <a href="properties.html?category=Commercial" class="mobile-drawer-link">Commercial & Industrial</a>
             <a href="properties.html?status=sale" class="mobile-drawer-link">For Sale</a>
             <a href="properties.html?status=rent" class="mobile-drawer-link">For Rent</a>
             <a href="properties.html" class="mobile-drawer-link">All Listings</a>
@@ -232,9 +236,15 @@
   <!-- Properties Grid Section -->
   <section class="section" style="padding-top: 10px;">
     <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px;">
         <div style="font-size: 0.95rem; color: var(--text-muted); font-weight: 600;">
           Showing <span id="results-count" style="color: var(--accent-gold); font-weight: 800;">0</span> properties
+        </div>
+
+        <div class="quick-category-tabs" style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <button onclick="setCategoryFilter('')" class="cat-tab-btn active" id="cat-tab-all" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #0f172a; color: #fff; font-size: 0.82rem; font-weight: 700; cursor: pointer;">All</button>
+          <button onclick="setCategoryFilter('Residential')" class="cat-tab-btn" id="cat-tab-res" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Residential</button>
+          <button onclick="setCategoryFilter('Commercial')" class="cat-tab-btn" id="cat-tab-comm" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Commercial & Industrial</button>
         </div>
       </div>
 
@@ -266,13 +276,40 @@
       const statusSelect = document.getElementById('filter-status');
       const resetBtn = document.getElementById('filter-reset-btn');
 
-      // Check URL query parameters
+      let activeCategory = '';
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('q')) searchInput.value = urlParams.get('q');
       if (urlParams.get('type')) typeSelect.value = urlParams.get('type');
       if (urlParams.get('status')) statusSelect.value = urlParams.get('status');
+      if (urlParams.get('category')) activeCategory = urlParams.get('category');
+
+      window.setCategoryFilter = function(cat) {
+        activeCategory = cat;
+        updateTabStyles();
+        updateTabStyles();
+      filterAndRender();
+      };
+
+      function updateTabStyles() {
+        document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+          btn.style.background = '#ffffff';
+          btn.style.color = '#334155';
+        });
+        if (activeCategory === 'Residential') {
+          const resBtn = document.getElementById('cat-tab-res');
+          if (resBtn) { resBtn.style.background = '#0f172a'; resBtn.style.color = '#fff'; }
+        } else if (activeCategory === 'Commercial') {
+          const commBtn = document.getElementById('cat-tab-comm');
+          if (commBtn) { commBtn.style.background = '#0f172a'; commBtn.style.color = '#fff'; }
+        } else {
+          const allBtn = document.getElementById('cat-tab-all');
+          if (allBtn) { allBtn.style.background = '#0f172a'; allBtn.style.color = '#fff'; }
+        }
+      }
 
       function filterAndRender() {
+        const commTypes = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat'];
+
         const q = searchInput.value.toLowerCase().trim();
         const type = typeSelect.value;
         const region = regionSelect.value;
@@ -284,7 +321,13 @@
           const matchType = !type || item.type === type;
           const matchRegion = !region || item.region === region;
           const matchStatus = !status || item.status === status;
-          return matchQ && matchType && matchRegion && matchStatus;
+          
+          const isComm = commTypes.includes(item.type);
+          let matchCat = true;
+          if (activeCategory === 'Residential') matchCat = !isComm;
+          if (activeCategory === 'Commercial') matchCat = isComm;
+
+          return matchQ && matchType && matchRegion && matchStatus && matchCat;
         });
 
         countEl.textContent = filtered.length;
@@ -309,9 +352,11 @@
         typeSelect.value = '';
         regionSelect.value = '';
         statusSelect.value = '';
-        filterAndRender();
+        updateTabStyles();
+      filterAndRender();
       });
 
+      updateTabStyles();
       filterAndRender();
       window.addEventListener('properties-updated', filterAndRender);
     });
