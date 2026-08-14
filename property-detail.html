@@ -320,11 +320,11 @@
           const querySlug = urlParams.get('slug');
           const queryId = urlParams.get('id');
 
-          // Extract slug from URL path: /property-detail/the-grand-pavilion-penthouse
+          // Extract slug from URL path: /properties/residential/slug-name or /property-detail/slug-name
           const pathParts = window.location.pathname.split('/').filter(Boolean);
-          const pathSlug = (pathParts.length >= 2 && pathParts[0] === 'property-detail') ? pathParts[1] : null;
+          const pathSlug = pathParts.length > 0 ? pathParts[pathParts.length - 1] : null;
 
-          const targetSlug = pathSlug || querySlug;
+          const targetSlug = (pathSlug && pathSlug !== 'property-detail.html' && pathSlug !== 'properties') ? pathSlug : querySlug;
           
           const prop = (window.PROPERTIES_DATA || []).find(p => 
             p.slug === targetSlug || 

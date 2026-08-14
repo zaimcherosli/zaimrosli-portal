@@ -103,7 +103,12 @@ function createPropertyCardHTML(item) {
 }
 
 // Global Share Function
-window.shareProperty = async function(e, slugOrId, title, imageUrl) {
+window.shareProperty = async function(e, slugOrId, title, imageUrl, catFolder = 'residential') {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  const url = window.location.origin + '/properties/' + catFolder + '/' + slugOrId;
   if (e) {
     e.preventDefault();
     e.stopPropagation();
