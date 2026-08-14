@@ -236,15 +236,9 @@
   <!-- Properties Grid Section -->
   <section class="section" style="padding-top: 10px;">
     <div class="container">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <div style="font-size: 0.95rem; color: var(--text-muted); font-weight: 600;">
           Showing <span id="results-count" style="color: var(--accent-gold); font-weight: 800;">0</span> properties
-        </div>
-
-        <div class="quick-category-tabs" style="display: flex; flex-wrap: wrap; gap: 8px;">
-          <button onclick="setCategoryFilter('')" class="cat-tab-btn active" id="cat-tab-all" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #0f172a; color: #fff; font-size: 0.82rem; font-weight: 700; cursor: pointer;">All</button>
-          <button onclick="setCategoryFilter('Residential')" class="cat-tab-btn" id="cat-tab-res" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Residential</button>
-          <button onclick="setCategoryFilter('Commercial')" class="cat-tab-btn" id="cat-tab-comm" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.82rem; font-weight: 700; cursor: pointer;">Commercial & Industrial</button>
         </div>
       </div>
 
@@ -297,8 +291,8 @@
 
       window.setCategoryFilter = function(cat) {
         activeCategory = cat;
-        updateTabStyles();
-        updateTabStyles();
+        updatePageHeaderAndFilters();
+        updatePageHeaderAndFilters();
       filterAndRender();
       };
 
@@ -390,11 +384,11 @@
         typeSelect.value = '';
         regionSelect.value = '';
         statusSelect.value = '';
-        updateTabStyles();
+        updatePageHeaderAndFilters();
       filterAndRender();
       });
 
-      updateTabStyles();
+      updatePageHeaderAndFilters();
       filterAndRender();
       window.addEventListener('properties-updated', filterAndRender);
     });
