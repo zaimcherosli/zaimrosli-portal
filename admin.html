@@ -1832,18 +1832,58 @@
         renderListingsGrid();
         await saveToStorage();
 
-        // Show success notification
+        // Show sleek luxury floating notification
         const photoCount = (listing.images && listing.images.length) ? listing.images.length : (listing.image ? 1 : 0);
         const toast = document.createElement('div');
-        toast.style.cssText = 'position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#064e3b;color:#ffffff;padding:16px 24px;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.5);z-index:9999999;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;border:2px solid #10b981;text-align:center;max-width:92vw;box-sizing:border-box;';
-        toast.innerHTML = `🎉 <b>BERJAYA DI-SYNC!</b> "${listing.title}" bersama <b>${photoCount} Gambar HD</b> telah diterbitkan!`;
+        toast.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #0f172a;
+          color: #ffffff;
+          padding: 10px 16px;
+          border-radius: 14px;
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+          z-index: 99999999;
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          border: 1px solid #10b981;
+          max-width: 440px;
+          width: calc(100vw - 32px);
+          box-sizing: border-box;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        `;
+        toast.innerHTML = `
+          <div style="width: 34px; height: 34px; border-radius: 50%; background: #064e3b; color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; flex-shrink: 0; border: 1px solid #10b981;">
+            ✓
+          </div>
+          <div style="flex: 1; min-width: 0; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+              <span style="font-size: 0.70rem; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;">Berjaya Disegerakkan</span>
+              <span style="font-size: 0.65rem; background: #1e293b; color: #f59e0b; padding: 1px 6px; border-radius: 8px; font-weight: 800; border: 1px solid rgba(245,158,11,0.3);">${photoCount} Gambar HD</span>
+            </div>
+            <div style="font-size: 0.82rem; font-weight: 700; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              ${listing.title}
+            </div>
+          </div>
+          <button onclick="this.parentElement.remove()" style="background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer; padding: 2px 4px; line-height: 1; display: flex; align-items: center; justify-content: center;" title="Tutup">&times;</button>
+        `;
         document.body.appendChild(toast);
-        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 6000);
+
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-10px)';
+            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+          }
+        }, 5000);
 
         // Open the newly imported listing in Edit Modal immediately
         setTimeout(() => {
           editProperty(0);
-        }, 500);
+        }, 400);
 
       } catch (err) {
         console.error('Error importing auto_sync listing:', err);
