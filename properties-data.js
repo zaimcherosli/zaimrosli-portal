@@ -41,6 +41,34 @@ const PROPERTIES_DATA = [
     "hidden": false
   },
   {
+    "id": "prop-bangi-seksyen-4-1786234000",
+    "slug": "huge-corner-lot-bungalow-at-seksyen-4-bandar-baru-bangi-for-sale",
+    "title": "Huge Corner Lot Bungalow at Seksyen 4 Bandar Baru Bangi For Sale",
+    "price": 1558000,
+    "priceStr": "RM 1,558,000",
+    "category": "Subsales",
+    "location": "Seksyen 4, Bandar Baru Bangi, Selangor",
+    "region": "Selangor",
+    "type": "Banglo",
+    "status": "sale",
+    "beds": 6,
+    "bedsPlus": 0,
+    "baths": 5,
+    "bathsPlus": 0,
+    "parking": 4,
+    "size": 4200,
+    "landSize": "20,774 sqft ( 75 per sqft)",
+    "tenure": "Leasehold",
+    "lotType": "Bumi Lot",
+    "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "description": "WTS / FOR SALE\n\nHuge Corner Lot Bungalow at Seksyen 4 Bandar Baru Bangi For Sale\n\nPROPERTY DETAILS\n- Type : Banglo\n- Tenure : Leasehold (Bumi Lot)\n- Build Up : 4,200 sqft\n- Land Area : 20,774 sqft ( 75 per sqft)\n- Bedroom : 6\n- Bathroom : 5\n- Parking : 4\n\nAKSES & KEMUDAHAN\n- Berhampiran UKM, KPTM, UNIKL, MFI\n- Akses mudah ke Lebuhraya PLUS & SILK\n\n=========================\nAsking Price : RM 1,558,000\n=========================",
+    "refUrl": "https://propmall.co",
+    "hidden": false
+  },
+  {
     "id": "prop-1786797215168",
     "slug": "2-storey-shop-22x70-office-layout-seksyen-13-shah-alam",
     "title": "2 Storey Shop 22'x70' Office Layout Seksyen 13 Shah Alam",
