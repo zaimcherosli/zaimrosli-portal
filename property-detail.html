@@ -302,7 +302,11 @@
                 <div class="spec-label">BATHROOMS</div>
                 <div id="d-baths" class="spec-val">-</div>
               </div>
-              <div class="spec-box">
+              <div id="box-landSize" class="spec-box">
+                <div class="spec-label">LAND AREA</div>
+                <div id="d-landSize" class="spec-val">-</div>
+              </div>
+              <div id="box-size" class="spec-box">
                 <div class="spec-label">BUILT-UP SIZE</div>
                 <div id="d-size" class="spec-val">- sqft</div>
               </div>
@@ -591,7 +595,27 @@
           }
         }
 
-        document.getElementById('d-size').textContent = `${prop.size} sqft`;
+        // Land Area Box
+        const landBox = document.getElementById('box-landSize');
+        if (landBox) {
+          if (!prop.landSize || prop.landSize === '-' || prop.landSize === '0') {
+            landBox.style.display = 'none';
+          } else {
+            landBox.style.display = 'block';
+            document.getElementById('d-landSize').textContent = prop.landSize;
+          }
+        }
+
+        // Built-up Size Box
+        const sizeBox = document.getElementById('box-size');
+        if (sizeBox) {
+          if (!prop.size || isNaN(prop.size) || prop.size === 0 || prop.size === '0' || prop.size === '-') {
+            sizeBox.style.display = 'none';
+          } else {
+            sizeBox.style.display = 'block';
+            document.getElementById('d-size').textContent = `${prop.size} sqft`;
+          }
+        }
 
         // Hide Tenure and Lot Type for FOR RENT listings
         const tenureBox = document.getElementById('box-tenure');

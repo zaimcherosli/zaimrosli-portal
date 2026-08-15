@@ -838,9 +838,9 @@
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">KATEGORI TRANSAKSI</label>
           <select id="form-category" class="form-select" required>
-            <option value="Subsales">Subsales / Rumah Second-hand</option>
-            <option value="New Project">Projek Baharu (New Project)</option>
-            <option value="Rental">Sewa (Rental / WTL)</option>
+            <option value="Subsales">Subsales (FOR SALE / WTS)</option>
+            <option value="Rental">Rental (FOR RENT / WTL)</option>
+            <option value="New Project">New Project</option>
           </select>
         </div>
 
@@ -889,8 +889,9 @@
             <option value="Apartment">Apartment / Flat</option>
             <option value="Townhouse">Townhouse</option>
             <option value="Studio">Studio / SOHO / SOFO</option>
-            <option value="Kilang">Kilang / Gudang (Industrial)</option>
+            <option value="Tanah">Tanah (Land / Agriculture / Residential Land)</option>
             <option value="Tanah Industri">Tanah Industri / Commercial Land</option>
+            <option value="Kilang">Kilang / Gudang (Industrial)</option>
             <option value="Shop / Office">Shop / Office (Shoplot / Office)</option>
             <option value="Ruang Komersial">Ruang Komersial / Retail Space</option>
           </select>
@@ -898,8 +899,8 @@
 
         <div style="display: flex; gap: 16px; margin-bottom: 16px;">
           <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK TIDUR</label>
-            <input type="number" id="form-beds" class="form-input" value="3" required>
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK TIDUR (OPTIONAL)</label>
+            <input type="number" id="form-beds" class="form-input" placeholder="0">
           </div>
           <div class="form-group" style="flex: 1;">
             <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK (+) EKSTRA</label>
@@ -909,8 +910,8 @@
 
         <div style="display: flex; gap: 16px; margin-bottom: 16px;">
           <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK AIR</label>
-            <input type="number" id="form-baths" class="form-input" value="2" required>
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BILIK AIR (OPTIONAL)</label>
+            <input type="number" id="form-baths" class="form-input" placeholder="0">
           </div>
           <div class="form-group" style="flex: 1;">
             <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">B.AIR (+) EKSTRA</label>
@@ -920,12 +921,12 @@
 
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ TANAH (LAND AREA)</label>
-          <input type="text" id="form-landSize" class="form-input" placeholder="Contoh: 2.11 acre atau 4500 sqft">
+          <input type="text" id="form-landSize" class="form-input" placeholder="Contoh: 9.00 acre / 5 Ekar / 4500 sqft">
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ BINA-AN (BUILT-UP SQFT)</label>
-          <input type="number" id="form-size" class="form-input" placeholder="Contoh: 50407" required>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">SAIZ BINA-AN (BUILT-UP SQFT - OPTIONAL)</label>
+          <input type="number" id="form-size" class="form-input" placeholder="Contoh: 3000 (Tinggalkan kosong jika tanah)">
         </div>
 
         <div id="group-tenure" class="form-group" style="margin-bottom: 16px;">
@@ -1263,7 +1264,7 @@
       document.getElementById('form-baths').value = p.baths || '';
       document.getElementById('form-baths-plus').value = p.bathsPlus || '';
       document.getElementById('form-landSize').value = p.landSize || '';
-      document.getElementById('form-size').value = p.size;
+      document.getElementById('form-size').value = (p.size && !isNaN(p.size) && p.size > 0) ? p.size : '';
       document.getElementById('form-tenure').value = p.tenure || '-';
       document.getElementById('form-lotType').value = p.lotType || '-';
       document.getElementById('form-ref-url').value = p.refUrl || '';
@@ -1340,7 +1341,7 @@
       const baths = parseInt(document.getElementById('form-baths').value) || 0;
       const bathsPlus = parseInt(document.getElementById('form-baths-plus').value) || 0;
       const landSize = document.getElementById('form-landSize').value.trim() || '-';
-      const size = parseInt(document.getElementById('form-size').value);
+      const size = parseInt(document.getElementById('form-size').value) || 0;
       const tenure = document.getElementById('form-tenure').value;
       const lotType = document.getElementById('form-lotType').value;
       const refUrl = document.getElementById('form-ref-url').value.trim();
