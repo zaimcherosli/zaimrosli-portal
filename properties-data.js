@@ -280,9 +280,9 @@ const PROPERTIES_DATA = [
     "region": "Selangor",
     "type": "Tanah Industri",
     "status": "rent",
-    "beds": 3,
+    "beds": 0,
     "bedsPlus": 0,
-    "baths": 2,
+    "baths": 0,
     "bathsPlus": 0,
     "parking": 2,
     "size": 0,
@@ -293,7 +293,7 @@ const PROPERTIES_DATA = [
     "images": [
       "https://cdn.propmall.net/media/img-property/list-129635/list-129635-01-695890194189c7.70449302.jpg"
     ],
-    "description": "WTL / FOR RENT\n\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With Crusher Run\n\nPROPERTY DETAILS\n- Type : Teres\n- Build Up : 1000 sqft\n- Land Area : 3.29 acre\n- Bedroom : 3\n- Bathroom : 2\n- Parking : 2\n\n=========================\nAsking Rental : RM 50,000 / bln\n=========================\n\n\n--- MAKLUMAT ASAL ---\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With Crusher Run\n\nRM 50,000 Monthly\n\n+ Pulau Indah (Pulau Lumut), Selangor\n+ Industrial Land\n+ Land Area : 3.29 acre\n\nPropMall, Built By Agents, For Agents\n\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With  Crusher Run",
+    "description": "WTL / FOR RENT\n\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With Crusher Run\n\nPROPERTY DETAILS\n- Type : Industrial Land\n- Land Area : 3.29 acre\n\n=========================\nAsking Rental : RM 50,000 / bln\n=========================\n\n\n--- MAKLUMAT ASAL ---\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With Crusher Run\n\nRM 50,000 Monthly\n\n+ Pulau Indah (Pulau Lumut), Selangor\n+ Industrial Land\n+ Land Area : 3.29 acre\n\nPropMall, Built By Agents, For Agents\n\n3.29 acres Industrial Land In Taman Perindustrian Pulau Indah For Rent, Flat Land With  Crusher Run",
     "refUrl": "https://propmall.co/share/g7pekwr9b2",
     "hidden": false
   },

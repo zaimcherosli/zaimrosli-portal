@@ -347,7 +347,8 @@
         const region = regionSelect.value;
         const status = statusSelect.value;
 
-        const filtered = PROPERTIES_DATA.filter(item => {
+        const dataToFilter = (window.PROPERTIES_DATA && Array.isArray(window.PROPERTIES_DATA)) ? window.PROPERTIES_DATA : (typeof PROPERTIES_DATA !== 'undefined' ? PROPERTIES_DATA : []);
+        const filtered = dataToFilter.filter(item => {
           if (item.hidden) return false;
           const matchQ = !q || item.title.toLowerCase().includes(q) || item.location.toLowerCase().includes(q);
           const matchType = !type || item.type === type;
