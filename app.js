@@ -96,7 +96,7 @@ function createPropertyCardHTML(item) {
     let cleanLand = item.landSize.replace(/\s*\([^)]*\)/g, '').trim();
     landSpec = `
       <div class="property-spec-box spec-land">
-        <div class="spec-top"><span class="spec-icon">🌳</span><span class="spec-name">Land</span></div>
+        <div class="spec-top">LAND</div>
         <div class="spec-val">${cleanLand}</div>
       </div>
     `;
@@ -106,7 +106,7 @@ function createPropertyCardHTML(item) {
   if (!isLand && item.beds > 0) {
     bedsSpec = `
       <div class="property-spec-box">
-        <div class="spec-top"><span class="spec-icon">${roomIcon}</span><span class="spec-name">${roomLabel}</span></div>
+        <div class="spec-top">${roomLabel.toUpperCase()}</div>
         <div class="spec-val">${bedsVal}</div>
       </div>
     `;
@@ -116,7 +116,7 @@ function createPropertyCardHTML(item) {
   if (!isLand && item.baths > 0) {
     bathsSpec = `
       <div class="property-spec-box">
-        <div class="spec-top"><span class="spec-icon">🚿</span><span class="spec-name">Baths</span></div>
+        <div class="spec-top">BATHS</div>
         <div class="spec-val">${bathsVal}</div>
       </div>
     `;
@@ -127,7 +127,7 @@ function createPropertyCardHTML(item) {
     const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
     sizeSpec = `
       <div class="property-spec-box">
-        <div class="spec-top"><span class="spec-icon">📐</span><span class="spec-name">Built-up</span></div>
+        <div class="spec-top">BUILT-UP</div>
         <div class="spec-val">${formattedSize} sqft</div>
       </div>
     `;
