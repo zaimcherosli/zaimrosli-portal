@@ -228,24 +228,139 @@
     }
 
     .admin-specs-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0 6px;
+      margin: 10px 0 8px;
     }
 
-    .spec-chip {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #334155;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
+    .admin-specs-row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+      justify-content: flex-start !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .admin-specs-row.specs-left-aligned {
+      display: flex !important;
+      justify-content: flex-start !important;
+      gap: 8px !important;
+    }
+
+    .admin-specs-row.specs-left-aligned .admin-spec-box {
+      flex: 0 0 auto !important;
+      min-width: 68px !important;
+      padding: 6px 12px !important;
+    }
+
+    .admin-specs-row.specs-grid-2x2 {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important;
+    }
+
+    .admin-specs-row.specs-grid-2x2 .admin-spec-box {
+      width: 100% !important;
+      padding: 6px 8px !important;
+    }
+
+    .admin-spec-box {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      transition: all 0.2s ease !important;
+      box-sizing: border-box !important;
+    }
+
+    .admin-spec-box:hover {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    .admin-spec-box.spec-land {
+      background: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+    }
+
+    .admin-spec-top {
+      display: block !important;
+      font-size: 0.65rem !important;
+      font-weight: 800 !important;
+      color: #64748b !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      white-space: nowrap !important;
+      line-height: 1 !important;
+      margin-bottom: 4px !important;
+      text-align: center !important;
+    }
+
+    .spec-land .admin-spec-top {
+      color: #166534 !important;
+    }
+
+    .admin-spec-val {
+      font-size: 0.85rem !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      line-height: 1.15 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 100% !important;
+      text-align: center !important;
+    }
+
+    .spec-land .admin-spec-val {
+      color: #15803d !important;
+    }
+
+    .admin-spec-banner {
+      width: 100% !important;
+      padding: 8px 12px !important;
+      margin: 6px 0 !important;
+      border-radius: 8px !important;
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+    }
+
+    .admin-spec-banner.spec-land-banner {
+      background: #f0fdf4 !important;
+      border: 1px solid #bbf7d0 !important;
+    }
+
+    .admin-spec-banner .spec-banner-label {
+      font-size: 0.70rem !important;
+      font-weight: 800 !important;
+      color: #64748b !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
+    }
+
+    .admin-spec-banner.spec-land-banner .spec-banner-label {
+      color: #166534 !important;
+    }
+
+    .admin-spec-banner .spec-banner-val {
+      font-size: 0.90rem !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .admin-spec-banner.spec-land-banner .spec-banner-val {
+      color: #15803d !important;
     }
 
     .meta-chip {
@@ -1150,13 +1265,80 @@
         const typeBadge = p.type ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${p.type}</span>` : '';
         const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
 
-        const isCommercial = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial'].includes(p.type);
+        const commTypes = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat', 'Tanah', 'Tanah Komersial'];
+        const isCommercial = commTypes.includes(p.type) || (p.type && p.type.toLowerCase().includes('tanah')) || (p.type && p.type.toLowerCase().includes('land')) || (p.type && p.type.toLowerCase().includes('shop')) || (p.type && p.type.toLowerCase().includes('office'));
+        const isLand = (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land'))) || (p.landSize && p.landSize !== '-' && (!p.beds || p.beds === 0));
+
+        const roomLabel = isCommercial ? 'Rooms' : 'Beds';
         const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
         const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
-        const bedsChip = (!isCommercial && p.beds > 0) ? `<div class="spec-chip">🛏️ ${bedsVal} Beds</div>` : '';
-        const bathsChip = (p.baths > 0) ? `<div class="spec-chip">🚿 ${bathsVal} Baths</div>` : '';
-        const builtUpChip = p.size ? `<div class="spec-chip">📐 Built-up ${p.size} sqft</div>` : '';
-        const landChip = (p.landSize && p.landSize !== '-') ? `<div class="spec-chip">🌳 Land ${p.landSize}</div>` : '';
+
+        const hasLand = p.landSize && p.landSize !== '-' && p.landSize !== '0';
+        const hasBeds = !isLand && p.beds > 0;
+        const hasBaths = !isLand && p.baths > 0;
+        const hasSize = p.size && p.size > 0 && !isLand;
+
+        let adminSpecsHTML = '';
+
+        if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
+          const cleanLand = p.landSize ? p.landSize.trim() : '-';
+          adminSpecsHTML = `
+            <div class="admin-spec-banner spec-land-banner">
+              <span class="spec-banner-label">LAND AREA</span>
+              <span class="spec-banner-val">${cleanLand}</span>
+            </div>
+          `;
+        } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
+          const formattedSize = p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size;
+          adminSpecsHTML = `
+            <div class="admin-spec-banner">
+              <span class="spec-banner-label">BUILT-UP AREA</span>
+              <span class="spec-banner-val">${formattedSize} sqft</span>
+            </div>
+          `;
+        } else {
+          const specItems = [];
+          if (hasBeds) {
+            specItems.push(`
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">${roomLabel.toUpperCase()}</div>
+                <div class="admin-spec-val">${bedsVal}</div>
+              </div>
+            `);
+          }
+          if (hasBaths) {
+            specItems.push(`
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">BATHS</div>
+                <div class="admin-spec-val">${bathsVal}</div>
+              </div>
+            `);
+          }
+          if (hasSize) {
+            const formattedSize = p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size;
+            specItems.push(`
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">BUILT-UP</div>
+                <div class="admin-spec-val">${formattedSize} sqft</div>
+              </div>
+            `);
+          }
+          if (hasLand) {
+            const cleanLand = p.landSize.replace(/\s*\([^)]*\)/g, '').trim();
+            specItems.push(`
+              <div class="admin-spec-box spec-land">
+                <div class="admin-spec-top">LAND</div>
+                <div class="admin-spec-val">${cleanLand}</div>
+              </div>
+            `);
+          }
+          const gridClass = specItems.length === 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+          adminSpecsHTML = `
+            <div class="admin-specs-row ${gridClass}">
+              ${specItems.join('')}
+            </div>
+          `;
+        }
 
         const isHidden = !!p.hidden;
         const cardStyle = isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : '';
@@ -1180,10 +1362,7 @@
               </div>
 
               <div class="admin-specs-grid">
-                ${bedsChip}
-                ${bathsChip}
-                ${builtUpChip}
-                ${landChip}
+                ${adminSpecsHTML}
               </div>
 
               ${refLinkHtml}
