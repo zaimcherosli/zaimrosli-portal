@@ -2,200 +2,325 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>1-Click PropMall Sync Tool — Zaim Rosli Real Estate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=18">
+  <link rel="stylesheet" href="/styles.css?v=19">
   <style>
-    .sync-page {
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background: #f8fafc;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .sync-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .sync-header-inner {
       max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sync-container {
+      max-width: 800px;
+      margin: 24px auto 60px;
+      padding: 0 16px;
     }
     .sync-card {
       background: #ffffff;
       border-radius: 20px;
-      padding: 36px;
+      padding: 32px 24px;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .main-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 10px;
+      line-height: 1.25;
+    }
+    .main-subtitle {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid #f1f5f9;
+      margin: 24px 0;
+    }
+    .platform-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .platform-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 14px;
+    }
+    .drag-btn-wrap {
+      margin: 16px 0;
+      text-align: center;
     }
     .bookmark-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: #f1c40f !important;
-      font-size: 1.2rem;
+      color: #f59e0b !important;
+      font-size: 1.05rem;
       font-weight: 800;
-      padding: 16px 32px;
-      border-radius: 14px;
-      border: 2px dashed #f1c40f;
-      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 2px dashed #f59e0b;
+      text-decoration: none !important;
       cursor: move;
-      box-shadow: 0 8px 20px rgba(241, 196, 15, 0.25);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
       transition: all 0.2s ease;
-      margin: 20px 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .bookmark-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(241, 196, 15, 0.4);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
     }
-    .code-box {
-      background: #0f172a;
-      color: #94a3b8;
-      font-family: monospace;
-      font-size: 0.82rem;
-      padding: 16px;
-      border-radius: 12px;
-      word-break: break-all;
-      max-height: 120px;
-      overflow-y: auto;
-      margin: 15px 0;
-      border: 1px solid #334155;
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 12px;
     }
     .step-item {
       display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 12px;
       align-items: flex-start;
+      font-size: 0.90rem;
+      line-height: 1.5;
+      color: #334155;
     }
     .step-num {
-      width: 36px;
-      height: 36px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      background: var(--accent-gold);
+      background: #f59e0b;
       color: #0f172a;
       font-weight: 800;
+      font-size: 0.80rem;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      margin-top: 2px;
     }
-    .copy-btn {
-      background: var(--accent-gold);
+    .copy-code-container {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 12px 0;
+      position: relative;
+    }
+    .code-preview {
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 0.75rem;
+      word-break: break-all;
+      max-height: 70px;
+      overflow-y: hidden;
+      opacity: 0.8;
+    }
+    .btn-copy-code {
+      width: 100%;
+      background: #f59e0b;
       color: #0f172a;
       border: none;
-      font-weight: 700;
-      padding: 12px 24px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 14px;
       border-radius: 10px;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
       transition: all 0.2s;
     }
-    .copy-btn:hover {
-      opacity: 0.9;
+    .btn-copy-code:hover {
+      background: #d97706;
+    }
+    .btn-copy-code:active {
+      transform: scale(0.98);
+    }
+    @media (max-width: 600px) {
+      .sync-card {
+        padding: 22px 16px;
+        border-radius: 16px;
+      }
+      .main-title {
+        font-size: 1.35rem;
+      }
+      .platform-box {
+        padding: 16px 14px;
+      }
+      .bookmark-btn {
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 12px 16px;
+      }
     }
   </style>
 </head>
-<body style="background: #f8fafc;">
+<body>
 
-  <!-- Site Navigation -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="/" class="brand-logo">
-        <span class="logo-name">ZAIM<span>ROSLI</span></span>
-        <span class="logo-tagline">REGISTERED REAL ESTATE PORTAL</span>
+  <!-- Site Navigation Header -->
+  <header class="sync-header">
+    <div class="sync-header-inner">
+      <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 800; font-size: 1.1rem; color: #0f172a; letter-spacing: -0.5px;">ZAIM<span style="color: #f59e0b;">ROSLI</span></span>
+        <span style="font-size: 0.65rem; background: #0f172a; color: #f59e0b; padding: 2px 7px; border-radius: 6px; font-weight: 700;">SYNC TOOL</span>
       </a>
-      <a href="/admin" class="btn btn-outline" style="font-size: 0.85rem; padding: 8px 16px;">📱 Admin Portal</a>
+      <a href="/admin" style="background: #0f172a; color: #ffffff; text-decoration: none; font-size: 0.80rem; font-weight: 700; padding: 7px 14px; border-radius: 8px; display: flex; align-items: center; gap: 6px;">
+        📱 Admin Portal
+      </a>
     </div>
   </header>
 
-  <div class="sync-page">
+  <main class="sync-container">
     <div class="sync-card">
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-        <span style="font-size: 2rem;">⚡</span>
-        <h1 style="font-size: 1.8rem; margin: 0; font-weight: 800;">1-Click PropMall Sync Tool</h1>
-      </div>
-      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
-        Alat pantas untuk menyedut <b>tajuk, harga, spesifikasi, dan KESEMUA GAMBAR HD (9–20 gambar)</b> dari PropMall terus ke laman web <b>zaimrosli.my</b> dalam 1 klik!
+      <div class="hero-badge">⚡ PropMall Auto-Sync</div>
+      <h1 class="main-title">1-Click PropMall Sync Bookmarklet</h1>
+      <p class="main-subtitle">
+        Alat pintar untuk mengekstrak tajuk, harga, spesifikasi, dan <b>KESEMUA 9–20 GAMBAR HD</b> dari PropMall terus ke laman web <b>zaimrosli.my</b> dalam 1 klik!
       </p>
 
-      <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;">
+      <hr class="section-divider">
 
-      <!-- Laptop / Desktop Instructions -->
-      <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">💻 Cara Pasang di Laptop / PC (Paling Mudah):</h2>
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div>
-          <b>Tarik butang kuning di bawah</b> dan lepaskan (*drag & drop*) ke atas <b>Bookmarks Bar</b> pelayar Chrome / Edge abang:
-          <br>
-          <a class="bookmark-btn" href='javascript:(async function(){ try { const toast = document.createElement('div'); toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:16px 24px;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.4);z-index:999999;font-family:sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:12px;border:1px solid #d4af37;text-align:center;max-width:90vw;'; toast.innerHTML = '⌛ <span>Sedang mengekstrak maklumat & gambar listing ke ZaimRosli.my...</span>'; document.body.appendChild(toast); function updateToast(msg, isSuccess) { toast.style.background = isSuccess ? '#064e3b' : '#7f1d1d'; toast.innerHTML = (isSuccess ? '✅ ' : '⚠️ ') + msg; setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 6000); } // 1. Gather all HD images from DOM let allImgs = []; const imgElements = document.querySelectorAll('img[src*="cdn.propmall.net/media/img-property/"], img[src*="cdn.propmall.my/media/img-property/"], img[id*="cdn.propmall.net"]'); imgElements.forEach(img => { let src = (img.src || img.id || '').split('?')[0].trim(); if (src.includes('/img-property/') && !src.includes('logo') && !allImgs.includes(src)) { allImgs.push(src); } }); const matches = document.body.innerHTML.match(/https:\/\/(?:cdn\.propmall\.net|cdn\.propmall\.my)\/media\/img-property\/[^\s"'?>]+\.(?:jpg|png|jpeg)/gi) || []; matches.forEach(url => { let clean = url.split('?')[0].trim(); if (!allImgs.includes(clean)) allImgs.push(clean); }); // 2. Extract Title let rawTitle = ''; const titleEl = document.querySelector('h1, h2.listing-title, .modal-title, meta[property="og:title"]'); if (titleEl) { rawTitle = titleEl.content || titleEl.innerText || ''; } if (!rawTitle) rawTitle = document.title.replace(/ on PropMall.*$/i, '').replace(/ - PropMall.*$/i, '').trim(); let title = rawTitle.replace(/^[\s\p{Extended_Pictographic}\p{Emoji_Presentation}‼️🔥✨📍🏢🏠🏭🏬🏡📌🔑🌟⚡]+/u, '').trim(); title = title.replace(/^(?:WTS|WTL|WTR|WTB|FOR SALE|FOR RENT|COA LISTING|EXCLUSIVE LISTING|HOT LISTING|UNTUK DIJUAL|UNTUK DISEWA|DISEWA|DIJUAL)\s*[:\-!\=\/,|]*\s*(?:FOR SALE|FOR RENT|WTS|WTL|WTR)?\s*/i, '').trim(); title = title.replace(/^[,:\-–—\/.!#|*]+\s*/, '').replace(/[,:\-–—\/.!#|*]+\s*$/, '').trim(); if (!title || title.length < 5) title = "Hartanah PropMall " + new Date().toLocaleDateString(); const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); // 3. Extract Full Page Text for specs const bodyText = document.body.innerText || ''; const isRent = /WTL|WTR|FOR RENT|SEWA|RENTAL|DISEWA|Monthly/i.test(bodyText + ' ' + title); const status = isRent ? 'rent' : 'sale'; const category = isRent ? 'Rental' : 'Subsales'; // Price let price = 0; let priceStr = "RM 0"; const kMatch = bodyText.match(/(?:RM|Asking|Price|Harga)?\s*[:\=]?\s*([\d\.]+)\s*(k|mil|m|juta)\b/i); const rmMatch = bodyText.match(/(?:RM|Asking|Price|Harga)\s*[:\=]?\s*([\d,]+)/i) || bodyText.match(/RM\s*([\d,]+)/i); if (kMatch) { let val = parseFloat(kMatch[1]); const unit = kMatch[2].toLowerCase(); if (unit === 'k') price = val * 1000; else if (unit === 'm' || unit === 'mil' || unit === 'juta') price = val * 1000000; } else if (rmMatch) { price = parseFloat(rmMatch[1].replace(/,/g, '')); } if (price > 0) { priceStr = isRent ? `RM ${price.toLocaleString('en-US')} / month` : `RM ${price.toLocaleString('en-US')}`; } // Size / Built-up let builtUp = 1000; const buMatch = bodyText.match(/(?:Built[ -]?up|Size|Keluasan|BU|Luas)[^\n\d]*([\d,]+)\s*(?:sqft|kaki)/i) || bodyText.match(/([\d,]+)\s*sqft/i); if (buMatch) builtUp = parseInt(buMatch[1].replace(/,/g, '')); // Land Size let landSize = "-"; const laMatch = bodyText.match(/(?:Land[ -]?Area|Land[ -]?Size|Tanah|Keluasan Tanah)[^\n:]*:\s*([^\n]+)/i); if (laMatch) landSize = laMatch[1].trim(); // Beds & Baths let beds = 0, baths = 0; const bedM = bodyText.match(/(\d+)\s*(?:Rooms|Bilik|Bedrooms|Bed|R)\b/i); if (bedM) beds = parseInt(bedM[1]); const bathM = bodyText.match(/(\d+)\s*(?:Bathrooms|Bath|Bilik Air|B\.Air|B)\b/i); if (bathM) baths = parseInt(bathM[1]); // Location let location = "Selangor"; const locMatch = bodyText.match(/(?:@|at|in|di|Taman|Bandar|Seksyen|Jalan)\s*([A-Za-z0-9\s,]+(?:Selangor|Kuala Lumpur|Puchong|Ijok|Bangi|Sepang|Kajang|KL|PJ|Ipoh|Melaka|Shah Alam|Subang|Cyberjaya|Putrajaya|Telok Panglima Garang|Klang|Cheras|Ulu Langat|Gombak|Rawang|Ampang|Bangsar)[^\n]*)/i) || bodyText.match(/(?:Puchong|Ijok|Bangi|Sepang|Kajang|Petaling Jaya|Subang|Shah Alam|Cyberjaya|Putrajaya|Telok Panglima Garang|Klang|Cheras|Ulu Langat|Gombak|Rawang|Ampang|Bangsar)[^\n]*/i); if (locMatch) location = locMatch[1] ? locMatch[1].trim() : locMatch[0].trim(); location = location.replace(/^[,:\-–—\/.!#|*\s]+/, '').trim(); if (!location) location = "Selangor"; // Property Type let pType = "Teres"; const combinedCheck = (bodyText + " " + title).toLowerCase(); if (combinedCheck.includes('commercial land') || combinedCheck.includes('tanah komersial')) pType = "Tanah Komersial"; else if (combinedCheck.includes('industrial land') || combinedCheck.includes('tanah industri')) pType = "Tanah Industri"; else if (combinedCheck.includes('land') || combinedCheck.includes('tanah') || combinedCheck.includes('pertanian') || combinedCheck.includes('agricultural')) pType = "Tanah"; else if (combinedCheck.includes('factory') || combinedCheck.includes('kilang') || combinedCheck.includes('warehouse') || combinedCheck.includes('gudang')) pType = "Kilang"; else if (combinedCheck.includes('shop') || combinedCheck.includes('kedai') || combinedCheck.includes('office') || combinedCheck.includes('pejabat') || combinedCheck.includes('retail') || combinedCheck.includes('shoplot')) pType = "Shop / Office"; else if (combinedCheck.includes('semi-d') || combinedCheck.includes('semi d')) pType = "Semi-D"; else if (combinedCheck.includes('bungalow') || combinedCheck.includes('banglo')) pType = "Banglo"; else if (combinedCheck.includes('townhouse')) pType = "Townhouse"; else if (combinedCheck.includes('condo') || combinedCheck.includes('serviced residence') || combinedCheck.includes('service apartment') || combinedCheck.includes('apartment') || combinedCheck.includes('pangsapuri')) pType = "Kondominium / Pangsapuri"; else if (combinedCheck.includes('terrace') || combinedCheck.includes('teres') || combinedCheck.includes('storey') || combinedCheck.includes('tingkat')) pType = "Teres"; else if (combinedCheck.includes('commercial') || combinedCheck.includes('komersial')) pType = "Ruang Komersial"; let structuredDesc = `${isRent ? 'WTL / FOR RENT' : 'WTS / FOR SALE'}\n\n`; structuredDesc += `${title}\n\n`; structuredDesc += `PROPERTY DETAILS\n`; structuredDesc += `- Type : ${pType}\n`; if (!isRent) structuredDesc += `- Tenure : Freehold (Non-Bumi Lot)\n`; structuredDesc += `- Build Up : ${builtUp} sqft\n`; if (landSize !== "-") structuredDesc += `- Land Area : ${landSize}\n`; if (beds > 0) structuredDesc += `- Bedroom : ${beds}\n`; if (baths > 0) structuredDesc += `- Bathroom : ${baths}\n`; structuredDesc += `- Parking : 2\n\n`; structuredDesc += `=========================\n`; structuredDesc += `${isRent ? 'Asking Rental' : 'Asking Price'} : ${priceStr}\n`; structuredDesc += `=========================\n`; const coverImage = allImgs.length > 0 ? allImgs[0] : "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"; const newListing = { id: `prop-${Date.now()}`, slug: slug, title: title, price: price, priceStr: priceStr, category: category, location: location, region: location.toLowerCase().includes('kuala lumpur') ? "Kuala Lumpur" : "Selangor", type: pType, status: status, beds: beds, baths: baths, parking: 2, size: builtUp, landSize: landSize, tenure: isRent ? "-" : "Freehold", lotType: isRent ? "-" : "Non-Bumi Lot", image: coverImage, images: allImgs.length > 0 ? allImgs : [coverImage], description: structuredDesc.trim(), refUrl: window.location.href }; // 4. Sync to ZaimRosli Cloudflare Worker API const apiUrl = 'https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties'; const getRes = await fetch(`${apiUrl}?t=${Date.now()}`); let currentData = []; if (getRes.ok) { currentData = await getRes.json(); if (typeof currentData === 'string') currentData = JSON.parse(currentData); } currentData = [newListing, ...currentData.filter(p => p.slug !== newListing.slug && p.id !== newListing.id)]; const postRes = await fetch(`${apiUrl}?t=${Date.now()}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(currentData) }); if (postRes.ok) { const commTypes = ['Kilang', 'Tanah Industri', 'Tanah Komersial', 'Tanah', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat']; const isComm = commTypes.includes(pType) || /factory|kilang|shop|office|commercial|industrial|land|tanah|gudang|warehouse/i.test(pType + " " + title); const catFolder = isComm ? 'commercial' : 'residential'; const liveUrl = `https://zaimrosli.my/properties/${catFolder}/${slug}`; updateToast(`🎉 BERJAYA! Listing <b>${title}</b> bersama <b>${newListing.images.length} Gambar HD</b> telah diterbitkan ke ZaimRosli.my!<br><br><a href="${liveUrl}" target="_blank" style="color:#fde047;text-decoration:underline;font-weight:bold;">👉 Buka Pautan Live</a> | <a href="https://zaimrosli.my/admin" target="_blank" style="color:#93c5fd;text-decoration:underline;font-weight:bold;">📱 Buka Admin</a>`, true); } else { updateToast('Gagal menyimpan ke server API. Sila cuba lagi.', false); } } catch (err) { alert('Error syncing to ZaimRosli.my: ' + err.message); } })();'>⚡ Sync to ZaimRosli</a>
+      <!-- LAPTOP / DESKTOP GUIDE -->
+      <div class="platform-box">
+        <div class="platform-header">
+          <span>💻</span>
+          <span>Untuk Laptop / Komputer (Paling Mudah)</span>
+        </div>
+        <p style="font-size: 0.88rem; color: #64748b; margin: 0 0 12px;">
+          Tarik butang kuning di bawah dan letakkan (*drag & drop*) pada <b>Bookmarks Bar</b> pelayar Google Chrome / Edge abang:
+        </p>
+
+        <div class="drag-btn-wrap">
+          <a class="bookmark-btn" href="javascript:(async%20function(){%0A%20%20try%20{%0A%20%20%20%20const%20toast%20=%20document.createElement('div');%0A%20%20%20%20toast.style.cssText%20=%20'position:fixed;top:20px;left:50%25;transform:translateX(-50%25);background:%230f172a;color:%23ffffff;padding:16px%2024px;border-radius:14px;box-shadow:0%2020px%2040px%20rgba(0,0,0,0.5);z-index:9999999;font-family:-apple-system,BlinkMacSystemFont,Segoe%20UI,Roboto,sans-serif;font-size:14px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:8px;border:2px%20solid%20%23f59e0b;text-align:center;max-width:92vw;box-sizing:border-box;line-height:1.4;';%0A%20%20%20%20toast.innerHTML%20=%20'%3Cdiv%3E%E2%8C%9B%20%3Cb%3ESedang%20mengekstrak%20maklumat%20&%20gambar%20listing%20ke%20ZaimRosli.my...%3C%2Fb%3E%3C%2Fdiv%3E';%0A%20%20%20%20document.body.appendChild(toast);%0A%0A%20%20%20%20function%20updateToast(msg,%20isSuccess)%20{%0A%20%20%20%20%20%20toast.style.background%20=%20isSuccess%20?%20'%23064e3b'%20:%20'%237f1d1d';%0A%20%20%20%20%20%20toast.style.borderColor%20=%20isSuccess%20?%20'%2310b981'%20:%20'%23ef4444';%0A%20%20%20%20%20%20toast.innerHTML%20=%20(isSuccess%20?%20'%E2%9C%85%20'%20:%20'%E2%9A%A0%EF%B8%8F%20')%20+%20msg;%0A%20%20%20%20%20%20setTimeout(()%20=%3E%20{%20if%20(toast.parentNode)%20toast.parentNode.removeChild(toast);%20},%207000);%0A%20%20%20%20}%0A%0A%20%20%20%20let%20allImgs%20=%20[];%0A%20%20%20%20const%20imgElements%20=%20document.querySelectorAll('img[src*=%22cdn.propmall.net%2Fmedia%2Fimg-property%2F%22],%20img[src*=%22cdn.propmall.my%2Fmedia%2Fimg-property%2F%22],%20img[id*=%22cdn.propmall.net%22]');%0A%20%20%20%20imgElements.forEach(img%20=%3E%20{%0A%20%20%20%20%20%20let%20src%20=%20(img.src%20%7C%7C%20img.id%20%7C%7C%20'').split('?')[0].trim();%0A%20%20%20%20%20%20if%20(src.includes('%2Fimg-property%2F')%20&&%20!src.includes('logo')%20&&%20!allImgs.includes(src))%20{%0A%20%20%20%20%20%20%20%20allImgs.push(src);%0A%20%20%20%20%20%20}%0A%20%20%20%20});%0A%0A%20%20%20%20const%20matches%20=%20document.body.innerHTML.match(%2Fhttps:%5C%2F%5C%2F(?:cdn%5C.propmall%5C.net%7Ccdn%5C.propmall%5C.my)%5C%2Fmedia%5C%2Fimg-property%5C%2F[%5E%5Cs%22'?%3E]+%5C.(?:jpg%7Cpng%7Cjpeg)%2Fgi)%20%7C%7C%20[];%0A%20%20%20%20matches.forEach(url%20=%3E%20{%0A%20%20%20%20%20%20let%20clean%20=%20url.split('?')[0].trim();%0A%20%20%20%20%20%20if%20(!allImgs.includes(clean))%20allImgs.push(clean);%0A%20%20%20%20});%0A%0A%20%20%20%20let%20rawTitle%20=%20'';%0A%20%20%20%20const%20titleEl%20=%20document.querySelector('h1,%20h2.listing-title,%20.modal-title,%20meta[property=%22og:title%22]');%0A%20%20%20%20if%20(titleEl)%20rawTitle%20=%20titleEl.content%20%7C%7C%20titleEl.innerText%20%7C%7C%20'';%0A%20%20%20%20if%20(!rawTitle)%20rawTitle%20=%20document.title.replace(%2F%20on%20PropMall.*$%2Fi,%20'').replace(%2F%20-%20PropMall.*$%2Fi,%20'').trim();%0A%0A%20%20%20%20let%20title%20=%20rawTitle.replace(%2F%5E[%5Cs%5Cp{Extended_Pictographic}%5Cp{Emoji_Presentation}%E2%80%BC%EF%B8%8F%F0%9F%94%A5%E2%9C%A8%F0%9F%93%8D%F0%9F%8F%A2%F0%9F%8F%A0%F0%9F%8F%AD%F0%9F%8F%AC%F0%9F%8F%A1%F0%9F%93%8C%F0%9F%94%91%F0%9F%8C%9F%E2%9A%A1]+%2Fu,%20'').trim();%0A%20%20%20%20title%20=%20title.replace(%2F%5E(?:WTS%7CWTL%7CWTR%7CWTB%7CFOR%20SALE%7CFOR%20RENT%7CCOA%20LISTING%7CEXCLUSIVE%20LISTING%7CHOT%20LISTING%7CUNTUK%20DIJUAL%7CUNTUK%20DISEWA%7CDISEWA%7CDIJUAL)%5Cs*[:%5C-!%5C=%5C%2F,%7C]*%5Cs*(?:FOR%20SALE%7CFOR%20RENT%7CWTS%7CWTL%7CWTR)?%5Cs*%2Fi,%20'').trim();%0A%20%20%20%20title%20=%20title.replace(%2F%5E[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*]+%5Cs*%2F,%20'').replace(%2F[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*]+%5Cs*$%2F,%20'').trim();%0A%20%20%20%20if%20(!title%20%7C%7C%20title.length%20%3C%205)%20title%20=%20%22Hartanah%20PropMall%20%22%20+%20new%20Date().toLocaleDateString();%0A%0A%20%20%20%20const%20slug%20=%20title.toLowerCase().replace(%2F[%5Ea-z0-9]+%2Fg,%20'-').replace(%2F(%5E-%7C-$)%2Fg,%20'');%0A%20%20%20%20const%20bodyText%20=%20document.body.innerText%20%7C%7C%20'';%0A%20%20%20%20const%20isRent%20=%20%2FWTL%7CWTR%7CFOR%20RENT%7CSEWA%7CRENTAL%7CDISEWA%7CMonthly%2Fi.test(bodyText%20+%20'%20'%20+%20title);%0A%20%20%20%20const%20status%20=%20isRent%20?%20'rent'%20:%20'sale';%0A%20%20%20%20const%20category%20=%20isRent%20?%20'Rental'%20:%20'Subsales';%0A%0A%20%20%20%20let%20price%20=%200;%0A%20%20%20%20let%20priceStr%20=%20%22RM%200%22;%0A%20%20%20%20const%20kMatch%20=%20bodyText.match(%2F(?:RM%7CAsking%7CPrice%7CHarga)?%5Cs*[:%5C=]?%5Cs*([%5Cd%5C.]+)%5Cs*(k%7Cmil%7Cm%7Cjuta)%08%2Fi);%0A%20%20%20%20const%20rmMatch%20=%20bodyText.match(%2F(?:RM%7CAsking%7CPrice%7CHarga)%5Cs*[:%5C=]?%5Cs*([%5Cd,]+)%2Fi)%20%7C%7C%20bodyText.match(%2FRM%5Cs*([%5Cd,]+)%2Fi);%0A%0A%20%20%20%20if%20(kMatch)%20{%0A%20%20%20%20%20%20let%20val%20=%20parseFloat(kMatch[1]);%0A%20%20%20%20%20%20const%20unit%20=%20kMatch[2].toLowerCase();%0A%20%20%20%20%20%20if%20(unit%20===%20'k')%20price%20=%20val%20*%201000;%0A%20%20%20%20%20%20else%20if%20(unit%20===%20'm'%20%7C%7C%20unit%20===%20'mil'%20%7C%7C%20unit%20===%20'juta')%20price%20=%20val%20*%201000000;%0A%20%20%20%20}%20else%20if%20(rmMatch)%20{%0A%20%20%20%20%20%20price%20=%20parseFloat(rmMatch[1].replace(%2F,%2Fg,%20''));%0A%20%20%20%20}%0A%20%20%20%20if%20(price%20%3E%200)%20{%0A%20%20%20%20%20%20priceStr%20=%20isRent%20?%20%60RM%20${price.toLocaleString('en-US')}%20%2F%20month%60%20:%20%60RM%20${price.toLocaleString('en-US')}%60;%0A%20%20%20%20}%0A%0A%20%20%20%20let%20builtUp%20=%201000;%0A%20%20%20%20const%20buMatch%20=%20bodyText.match(%2F(?:Built[%20-]?up%7CSize%7CKeluasan%7CBU%7CLuas)[%5E%0A%5Cd]*([%5Cd,]+)%5Cs*(?:sqft%7Ckaki)%2Fi)%20%7C%7C%20bodyText.match(%2F([%5Cd,]+)%5Cs*sqft%2Fi);%0A%20%20%20%20if%20(buMatch)%20builtUp%20=%20parseInt(buMatch[1].replace(%2F,%2Fg,%20''));%0A%0A%20%20%20%20let%20landSize%20=%20%22-%22;%0A%20%20%20%20const%20laMatch%20=%20bodyText.match(%2F(?:Land[%20-]?Area%7CLand[%20-]?Size%7CTanah%7CKeluasan%20Tanah)[%5E%0A:]*:%5Cs*([%5E%0A]+)%2Fi);%0A%20%20%20%20if%20(laMatch)%20landSize%20=%20laMatch[1].trim();%0A%0A%20%20%20%20let%20beds%20=%200,%20baths%20=%200;%0A%20%20%20%20const%20bedM%20=%20bodyText.match(%2F(%5Cd+)%5Cs*(?:Rooms%7CBilik%7CBedrooms%7CBed%7CR)%08%2Fi);%0A%20%20%20%20if%20(bedM)%20beds%20=%20parseInt(bedM[1]);%0A%20%20%20%20const%20bathM%20=%20bodyText.match(%2F(%5Cd+)%5Cs*(?:Bathrooms%7CBath%7CBilik%20Air%7CB%5C.Air%7CB)%08%2Fi);%0A%20%20%20%20if%20(bathM)%20baths%20=%20parseInt(bathM[1]);%0A%0A%20%20%20%20let%20location%20=%20%22Selangor%22;%0A%20%20%20%20const%20locMatch%20=%20bodyText.match(%2F(?:@%7Cat%7Cin%7Cdi%7CTaman%7CBandar%7CSeksyen%7CJalan)%5Cs*([A-Za-z0-9%5Cs,]+(?:Selangor%7CKuala%20Lumpur%7CPuchong%7CIjok%7CBangi%7CSepang%7CKajang%7CKL%7CPJ%7CIpoh%7CMelaka%7CShah%20Alam%7CSubang%7CCyberjaya%7CPutrajaya%7CTelok%20Panglima%20Garang%7CKlang%7CCheras%7CUlu%20Langat%7CGombak%7CRawang%7CAmpang%7CBangsar)[%5E%0A]*)%2Fi)%20%7C%7C%20bodyText.match(%2F(?:Puchong%7CIjok%7CBangi%7CSepang%7CKajang%7CPetaling%20Jaya%7CSubang%7CShah%20Alam%7CCyberjaya%7CPutrajaya%7CTelok%20Panglima%20Garang%7CKlang%7CCheras%7CUlu%20Langat%7CGombak%7CRawang%7CAmpang%7CBangsar)[%5E%0A]*%2Fi);%0A%20%20%20%20if%20(locMatch)%20location%20=%20locMatch[1]%20?%20locMatch[1].trim()%20:%20locMatch[0].trim();%0A%20%20%20%20location%20=%20location.replace(%2F%5E[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*%5Cs]+%2F,%20'').trim();%0A%20%20%20%20if%20(!location)%20location%20=%20%22Selangor%22;%0A%0A%20%20%20%20let%20pType%20=%20%22Teres%22;%0A%20%20%20%20const%20combinedCheck%20=%20(bodyText%20+%20%22%20%22%20+%20title).toLowerCase();%0A%20%20%20%20if%20(combinedCheck.includes('commercial%20land')%20%7C%7C%20combinedCheck.includes('tanah%20komersial'))%20pType%20=%20%22Tanah%20Komersial%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('industrial%20land')%20%7C%7C%20combinedCheck.includes('tanah%20industri'))%20pType%20=%20%22Tanah%20Industri%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('land')%20%7C%7C%20combinedCheck.includes('tanah')%20%7C%7C%20combinedCheck.includes('pertanian')%20%7C%7C%20combinedCheck.includes('agricultural'))%20pType%20=%20%22Tanah%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('factory')%20%7C%7C%20combinedCheck.includes('kilang')%20%7C%7C%20combinedCheck.includes('warehouse')%20%7C%7C%20combinedCheck.includes('gudang'))%20pType%20=%20%22Kilang%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('shop')%20%7C%7C%20combinedCheck.includes('kedai')%20%7C%7C%20combinedCheck.includes('office')%20%7C%7C%20combinedCheck.includes('pejabat')%20%7C%7C%20combinedCheck.includes('retail')%20%7C%7C%20combinedCheck.includes('shoplot'))%20pType%20=%20%22Shop%20%2F%20Office%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('semi-d')%20%7C%7C%20combinedCheck.includes('semi%20d'))%20pType%20=%20%22Semi-D%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('bungalow')%20%7C%7C%20combinedCheck.includes('banglo'))%20pType%20=%20%22Banglo%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('townhouse'))%20pType%20=%20%22Townhouse%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('condo')%20%7C%7C%20combinedCheck.includes('serviced%20residence')%20%7C%7C%20combinedCheck.includes('service%20apartment')%20%7C%7C%20combinedCheck.includes('apartment')%20%7C%7C%20combinedCheck.includes('pangsapuri'))%20pType%20=%20%22Kondominium%20%2F%20Pangsapuri%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('terrace')%20%7C%7C%20combinedCheck.includes('teres')%20%7C%7C%20combinedCheck.includes('storey')%20%7C%7C%20combinedCheck.includes('tingkat'))%20pType%20=%20%22Teres%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('commercial')%20%7C%7C%20combinedCheck.includes('komersial'))%20pType%20=%20%22Ruang%20Komersial%22;%0A%0A%20%20%20%20let%20structuredDesc%20=%20%60${isRent%20?%20'WTL%20%2F%20FOR%20RENT'%20:%20'WTS%20%2F%20FOR%20SALE'}%5Cn%5Cn${title}%5Cn%5CnPROPERTY%20DETAILS%5Cn-%20Type%20:%20${pType}%5Cn%60%20+%20(!isRent%20?%20%60-%20Tenure%20:%20Freehold%20(Non-Bumi%20Lot)%5Cn%60%20:%20'')%20+%20%60-%20Build%20Up%20:%20${builtUp}%20sqft%5Cn%60%20+%20(landSize%20!==%20'-'%20?%20%60-%20Land%20Area%20:%20${landSize}%5Cn%60%20:%20'')%20+%20(beds%20%3E%200%20?%20%60-%20Bedroom%20:%20${beds}%5Cn%60%20:%20'')%20+%20(baths%20%3E%200%20?%20%60-%20Bathroom%20:%20${baths}%5Cn%60%20:%20'')%20+%20%60-%20Parking%20:%202%5Cn%5Cn=========================%5Cn${isRent%20?%20'Asking%20Rental'%20:%20'Asking%20Price'}%20:%20${priceStr}%5Cn=========================%5Cn%60;%0A%0A%20%20%20%20const%20coverImage%20=%20allImgs.length%20%3E%200%20?%20allImgs[0]%20:%20%22https:%2F%2Fimages.unsplash.com%2Fphoto-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80%22;%0A%0A%20%20%20%20const%20newListing%20=%20{%0A%20%20%20%20%20%20id:%20%60prop-${Date.now()}%60,%0A%20%20%20%20%20%20slug:%20slug,%0A%20%20%20%20%20%20title:%20title,%0A%20%20%20%20%20%20price:%20price,%0A%20%20%20%20%20%20priceStr:%20priceStr,%0A%20%20%20%20%20%20category:%20category,%0A%20%20%20%20%20%20location:%20location,%0A%20%20%20%20%20%20region:%20location.toLowerCase().includes('kuala%20lumpur')%20?%20%22Kuala%20Lumpur%22%20:%20%22Selangor%22,%0A%20%20%20%20%20%20type:%20pType,%0A%20%20%20%20%20%20status:%20status,%0A%20%20%20%20%20%20beds:%20beds,%0A%20%20%20%20%20%20baths:%20baths,%0A%20%20%20%20%20%20parking:%202,%0A%20%20%20%20%20%20size:%20builtUp,%0A%20%20%20%20%20%20landSize:%20landSize,%0A%20%20%20%20%20%20tenure:%20isRent%20?%20%22-%22%20:%20%22Freehold%22,%0A%20%20%20%20%20%20lotType:%20isRent%20?%20%22-%22%20:%20%22Non-Bumi%20Lot%22,%0A%20%20%20%20%20%20image:%20coverImage,%0A%20%20%20%20%20%20images:%20allImgs.length%20%3E%200%20?%20allImgs%20:%20[coverImage],%0A%20%20%20%20%20%20description:%20structuredDesc.trim(),%0A%20%20%20%20%20%20refUrl:%20window.location.href%0A%20%20%20%20};%0A%0A%20%20%20%20const%20apiUrl%20=%20'https:%2F%2Fzaimrosli-worker.huzaimrosli.workers.dev%2Fapi%2Fproperties';%0A%20%20%20%20const%20getRes%20=%20await%20fetch(%60${apiUrl}?t=${Date.now()}%60);%0A%20%20%20%20let%20currentData%20=%20[];%0A%20%20%20%20if%20(getRes.ok)%20{%0A%20%20%20%20%20%20currentData%20=%20await%20getRes.json();%0A%20%20%20%20%20%20if%20(typeof%20currentData%20===%20'string')%20currentData%20=%20JSON.parse(currentData);%0A%20%20%20%20}%0A%20%20%20%20currentData%20=%20[newListing,%20...currentData.filter(p%20=%3E%20p.slug%20!==%20newListing.slug%20&&%20p.id%20!==%20newListing.id)];%0A%0A%20%20%20%20const%20postRes%20=%20await%20fetch(%60${apiUrl}?t=${Date.now()}%60,%20{%0A%20%20%20%20%20%20method:%20'POST',%0A%20%20%20%20%20%20headers:%20{%20'Content-Type':%20'application%2Fjson'%20},%0A%20%20%20%20%20%20body:%20JSON.stringify(currentData)%0A%20%20%20%20});%0A%0A%20%20%20%20if%20(postRes.ok)%20{%0A%20%20%20%20%20%20const%20commTypes%20=%20['Kilang',%20'Tanah%20Industri',%20'Tanah%20Komersial',%20'Tanah',%20'Shop%20%2F%20Office',%20'Ruang%20Komersial',%20'Kedai%20%2F%20Pejabat'];%0A%20%20%20%20%20%20const%20isComm%20=%20commTypes.includes(pType)%20%7C%7C%20%2Ffactory%7Ckilang%7Cshop%7Coffice%7Ccommercial%7Cindustrial%7Cland%7Ctanah%7Cgudang%7Cwarehouse%2Fi.test(pType%20+%20%22%20%22%20+%20title);%0A%20%20%20%20%20%20const%20catFolder%20=%20isComm%20?%20'commercial'%20:%20'residential';%0A%20%20%20%20%20%20const%20liveUrl%20=%20%60https:%2F%2Fzaimrosli.my%2Fproperties%2F${catFolder}%2F${slug}%60;%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20updateToast(%60%3Cdiv%3E%F0%9F%8E%89%20%3Cb%3EBERJAYA%20DITERBITKAN!%3C%2Fb%3E%3C%2Fdiv%3E%3Cdiv%20style=%22font-size:12px;margin:4px%200;%22%3E${title}%20(${newListing.images.length}%20Gambar%20HD)%3C%2Fdiv%3E%3Cdiv%20style=%22display:flex;gap:12px;justify-content:center;margin-top:6px;%22%3E%3Ca%20href=%22${liveUrl}%22%20target=%22_blank%22%20style=%22color:%23fde047;text-decoration:underline;font-weight:bold;%22%3E%F0%9F%94%97%20Buka%20Live%3C%2Fa%3E%3Ca%20href=%22https:%2F%2Fzaimrosli.my%2Fadmin%22%20target=%22_blank%22%20style=%22color:%2393c5fd;text-decoration:underline;font-weight:bold;%22%3E%F0%9F%93%B1%20Buka%20Admin%3C%2Fa%3E%3C%2Fdiv%3E%60,%20true);%0A%20%20%20%20}%20else%20{%0A%20%20%20%20%20%20updateToast('Gagal%20menyimpan%20listing%20ke%20server%20API.%20Sila%20cuba%20lagi.',%20false);%0A%20%20%20%20}%0A%20%20}%20catch%20(err)%20{%0A%20%20%20%20alert('Error%20syncing%20to%20ZaimRosli.my:%20'%20+%20err.message);%0A%20%20}%0A})();">
+            <span>⚡</span>
+            <span>Sync to ZaimRosli</span>
+          </a>
+        </div>
+
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div>Tarik butang di atas ke Bookmarks Bar pelayar anda.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div>Buka mana-mana listing hartanah di <b>PropMall</b>.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div>Klik butang <b>⚡ Sync to ZaimRosli</b> di Bookmarks Bar anda. Selesai! Semua gambar & data terus aktif di <b>zaimrosli.my</b>. 🎉</div>
+          </div>
         </div>
       </div>
 
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div>
-          <b>Buka mana-mana listing di PropMall</b> (tab biasa).
+      <!-- MOBILE PHONE GUIDE -->
+      <div class="platform-box" style="border-color: #fde68a; background: #fffbeb;">
+        <div class="platform-header" style="color: #92400e;">
+          <span>📱</span>
+          <span>Untuk Telefon Pintar (Android / iPhone)</span>
         </div>
-      </div>
+        <p style="font-size: 0.88rem; color: #78350f; margin: 0 0 14px;">
+          Di telefon pintar, salin kod bookmarklet di bawah dan simpan sebagai Bookmark di Google Chrome atau Safari:
+        </p>
 
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div>
-          <b>Klik butang "⚡ Sync to ZaimRosli"</b> di Bookmarks Bar abang. Siap! Semua gambar dan maklumat akan terus masuk secara live ke <b>zaimrosli.my</b>! 🎉
-        </div>
-      </div>
-
-      <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 32px 0;">
-
-      <!-- Mobile Instructions -->
-      <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">📱 Cara Pasang di Telefon (Mobile Android / iPhone):</h2>
-
-      <div style="background: #f1f5f9; padding: 20px; border-radius: 14px; margin-bottom: 20px;">
-        <b>Langkah 1: Salin Kod Skrip di Bawah</b>
-        <div class="code-box" id="code-snippet">javascript:(async function(){ try { const toast = document.createElement('div'); toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:16px 24px;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.4);z-index:999999;font-family:sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:12px;border:1px solid #d4af37;text-align:center;max-width:90vw;'; toast.innerHTML = '⌛ <span>Sedang mengekstrak maklumat & gambar listing ke ZaimRosli.my...</span>'; document.body.appendChild(toast); function updateToast(msg, isSuccess) { toast.style.background = isSuccess ? '#064e3b' : '#7f1d1d'; toast.innerHTML = (isSuccess ? '✅ ' : '⚠️ ') + msg; setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 6000); } // 1. Gather all HD images from DOM let allImgs = []; const imgElements = document.querySelectorAll('img[src*="cdn.propmall.net/media/img-property/"], img[src*="cdn.propmall.my/media/img-property/"], img[id*="cdn.propmall.net"]'); imgElements.forEach(img => { let src = (img.src || img.id || '').split('?')[0].trim(); if (src.includes('/img-property/') && !src.includes('logo') && !allImgs.includes(src)) { allImgs.push(src); } }); const matches = document.body.innerHTML.match(/https:\/\/(?:cdn\.propmall\.net|cdn\.propmall\.my)\/media\/img-property\/[^\s"'?>]+\.(?:jpg|png|jpeg)/gi) || []; matches.forEach(url => { let clean = url.split('?')[0].trim(); if (!allImgs.includes(clean)) allImgs.push(clean); }); // 2. Extract Title let rawTitle = ''; const titleEl = document.querySelector('h1, h2.listing-title, .modal-title, meta[property="og:title"]'); if (titleEl) { rawTitle = titleEl.content || titleEl.innerText || ''; } if (!rawTitle) rawTitle = document.title.replace(/ on PropMall.*$/i, '').replace(/ - PropMall.*$/i, '').trim(); let title = rawTitle.replace(/^[\s\p{Extended_Pictographic}\p{Emoji_Presentation}‼️🔥✨📍🏢🏠🏭🏬🏡📌🔑🌟⚡]+/u, '').trim(); title = title.replace(/^(?:WTS|WTL|WTR|WTB|FOR SALE|FOR RENT|COA LISTING|EXCLUSIVE LISTING|HOT LISTING|UNTUK DIJUAL|UNTUK DISEWA|DISEWA|DIJUAL)\s*[:\-!\=\/,|]*\s*(?:FOR SALE|FOR RENT|WTS|WTL|WTR)?\s*/i, '').trim(); title = title.replace(/^[,:\-–—\/.!#|*]+\s*/, '').replace(/[,:\-–—\/.!#|*]+\s*$/, '').trim(); if (!title || title.length < 5) title = "Hartanah PropMall " + new Date().toLocaleDateString(); const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); // 3. Extract Full Page Text for specs const bodyText = document.body.innerText || ''; const isRent = /WTL|WTR|FOR RENT|SEWA|RENTAL|DISEWA|Monthly/i.test(bodyText + ' ' + title); const status = isRent ? 'rent' : 'sale'; const category = isRent ? 'Rental' : 'Subsales'; // Price let price = 0; let priceStr = "RM 0"; const kMatch = bodyText.match(/(?:RM|Asking|Price|Harga)?\s*[:\=]?\s*([\d\.]+)\s*(k|mil|m|juta)\b/i); const rmMatch = bodyText.match(/(?:RM|Asking|Price|Harga)\s*[:\=]?\s*([\d,]+)/i) || bodyText.match(/RM\s*([\d,]+)/i); if (kMatch) { let val = parseFloat(kMatch[1]); const unit = kMatch[2].toLowerCase(); if (unit === 'k') price = val * 1000; else if (unit === 'm' || unit === 'mil' || unit === 'juta') price = val * 1000000; } else if (rmMatch) { price = parseFloat(rmMatch[1].replace(/,/g, '')); } if (price > 0) { priceStr = isRent ? `RM ${price.toLocaleString('en-US')} / month` : `RM ${price.toLocaleString('en-US')}`; } // Size / Built-up let builtUp = 1000; const buMatch = bodyText.match(/(?:Built[ -]?up|Size|Keluasan|BU|Luas)[^\n\d]*([\d,]+)\s*(?:sqft|kaki)/i) || bodyText.match(/([\d,]+)\s*sqft/i); if (buMatch) builtUp = parseInt(buMatch[1].replace(/,/g, '')); // Land Size let landSize = "-"; const laMatch = bodyText.match(/(?:Land[ -]?Area|Land[ -]?Size|Tanah|Keluasan Tanah)[^\n:]*:\s*([^\n]+)/i); if (laMatch) landSize = laMatch[1].trim(); // Beds & Baths let beds = 0, baths = 0; const bedM = bodyText.match(/(\d+)\s*(?:Rooms|Bilik|Bedrooms|Bed|R)\b/i); if (bedM) beds = parseInt(bedM[1]); const bathM = bodyText.match(/(\d+)\s*(?:Bathrooms|Bath|Bilik Air|B\.Air|B)\b/i); if (bathM) baths = parseInt(bathM[1]); // Location let location = "Selangor"; const locMatch = bodyText.match(/(?:@|at|in|di|Taman|Bandar|Seksyen|Jalan)\s*([A-Za-z0-9\s,]+(?:Selangor|Kuala Lumpur|Puchong|Ijok|Bangi|Sepang|Kajang|KL|PJ|Ipoh|Melaka|Shah Alam|Subang|Cyberjaya|Putrajaya|Telok Panglima Garang|Klang|Cheras|Ulu Langat|Gombak|Rawang|Ampang|Bangsar)[^\n]*)/i) || bodyText.match(/(?:Puchong|Ijok|Bangi|Sepang|Kajang|Petaling Jaya|Subang|Shah Alam|Cyberjaya|Putrajaya|Telok Panglima Garang|Klang|Cheras|Ulu Langat|Gombak|Rawang|Ampang|Bangsar)[^\n]*/i); if (locMatch) location = locMatch[1] ? locMatch[1].trim() : locMatch[0].trim(); location = location.replace(/^[,:\-–—\/.!#|*\s]+/, '').trim(); if (!location) location = "Selangor"; // Property Type let pType = "Teres"; const combinedCheck = (bodyText + " " + title).toLowerCase(); if (combinedCheck.includes('commercial land') || combinedCheck.includes('tanah komersial')) pType = "Tanah Komersial"; else if (combinedCheck.includes('industrial land') || combinedCheck.includes('tanah industri')) pType = "Tanah Industri"; else if (combinedCheck.includes('land') || combinedCheck.includes('tanah') || combinedCheck.includes('pertanian') || combinedCheck.includes('agricultural')) pType = "Tanah"; else if (combinedCheck.includes('factory') || combinedCheck.includes('kilang') || combinedCheck.includes('warehouse') || combinedCheck.includes('gudang')) pType = "Kilang"; else if (combinedCheck.includes('shop') || combinedCheck.includes('kedai') || combinedCheck.includes('office') || combinedCheck.includes('pejabat') || combinedCheck.includes('retail') || combinedCheck.includes('shoplot')) pType = "Shop / Office"; else if (combinedCheck.includes('semi-d') || combinedCheck.includes('semi d')) pType = "Semi-D"; else if (combinedCheck.includes('bungalow') || combinedCheck.includes('banglo')) pType = "Banglo"; else if (combinedCheck.includes('townhouse')) pType = "Townhouse"; else if (combinedCheck.includes('condo') || combinedCheck.includes('serviced residence') || combinedCheck.includes('service apartment') || combinedCheck.includes('apartment') || combinedCheck.includes('pangsapuri')) pType = "Kondominium / Pangsapuri"; else if (combinedCheck.includes('terrace') || combinedCheck.includes('teres') || combinedCheck.includes('storey') || combinedCheck.includes('tingkat')) pType = "Teres"; else if (combinedCheck.includes('commercial') || combinedCheck.includes('komersial')) pType = "Ruang Komersial"; let structuredDesc = `${isRent ? 'WTL / FOR RENT' : 'WTS / FOR SALE'}\n\n`; structuredDesc += `${title}\n\n`; structuredDesc += `PROPERTY DETAILS\n`; structuredDesc += `- Type : ${pType}\n`; if (!isRent) structuredDesc += `- Tenure : Freehold (Non-Bumi Lot)\n`; structuredDesc += `- Build Up : ${builtUp} sqft\n`; if (landSize !== "-") structuredDesc += `- Land Area : ${landSize}\n`; if (beds > 0) structuredDesc += `- Bedroom : ${beds}\n`; if (baths > 0) structuredDesc += `- Bathroom : ${baths}\n`; structuredDesc += `- Parking : 2\n\n`; structuredDesc += `=========================\n`; structuredDesc += `${isRent ? 'Asking Rental' : 'Asking Price'} : ${priceStr}\n`; structuredDesc += `=========================\n`; const coverImage = allImgs.length > 0 ? allImgs[0] : "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"; const newListing = { id: `prop-${Date.now()}`, slug: slug, title: title, price: price, priceStr: priceStr, category: category, location: location, region: location.toLowerCase().includes('kuala lumpur') ? "Kuala Lumpur" : "Selangor", type: pType, status: status, beds: beds, baths: baths, parking: 2, size: builtUp, landSize: landSize, tenure: isRent ? "-" : "Freehold", lotType: isRent ? "-" : "Non-Bumi Lot", image: coverImage, images: allImgs.length > 0 ? allImgs : [coverImage], description: structuredDesc.trim(), refUrl: window.location.href }; // 4. Sync to ZaimRosli Cloudflare Worker API const apiUrl = 'https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties'; const getRes = await fetch(`${apiUrl}?t=${Date.now()}`); let currentData = []; if (getRes.ok) { currentData = await getRes.json(); if (typeof currentData === 'string') currentData = JSON.parse(currentData); } currentData = [newListing, ...currentData.filter(p => p.slug !== newListing.slug && p.id !== newListing.id)]; const postRes = await fetch(`${apiUrl}?t=${Date.now()}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(currentData) }); if (postRes.ok) { const commTypes = ['Kilang', 'Tanah Industri', 'Tanah Komersial', 'Tanah', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat']; const isComm = commTypes.includes(pType) || /factory|kilang|shop|office|commercial|industrial|land|tanah|gudang|warehouse/i.test(pType + " " + title); const catFolder = isComm ? 'commercial' : 'residential'; const liveUrl = `https://zaimrosli.my/properties/${catFolder}/${slug}`; updateToast(`🎉 BERJAYA! Listing <b>${title}</b> bersama <b>${newListing.images.length} Gambar HD</b> telah diterbitkan ke ZaimRosli.my!<br><br><a href="${liveUrl}" target="_blank" style="color:#fde047;text-decoration:underline;font-weight:bold;">👉 Buka Pautan Live</a> | <a href="https://zaimrosli.my/admin" target="_blank" style="color:#93c5fd;text-decoration:underline;font-weight:bold;">📱 Buka Admin</a>`, true); } else { updateToast('Gagal menyimpan ke server API. Sila cuba lagi.', false); } } catch (err) { alert('Error syncing to ZaimRosli.my: ' + err.message); } })();</div>
-        <button class="copy-btn" id="btn-copy-code">
-          📋 Salin Kod Bookmarklet
+        <button class="btn-copy-code" id="btn-copy">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span id="btn-copy-text">Salin Kod Bookmarklet</span>
         </button>
-        <span id="copy-status" style="margin-left: 12px; font-weight: 700; color: #059669; display: none;">✅ Berjaya Disalin!</span>
-      </div>
 
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div>
-          <b>Simpan Sebagai Bookmark di Telefon:</b>
-          <ul style="margin: 8px 0 0 18px; line-height: 1.6; color: #334155;">
-            <li>Di Chrome / Safari telefon, bookmark halaman ini (tekan ⭐ atau <i>Add to Bookmark</i>).</li>
-            <li>Namakan bookmark itu sebagai <b><code>⚡ Sync ZaimRosli</code></b>.</li>
-            <li>Tekan <b>Edit Bookmark</b>, padam URL lamanya dan <b>Paste kod yang disalin tadi ke ruangan URL</b>.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div>
-          <b>Cara Guna di Telefon:</b>
-          <p style="margin: 6px 0; color: #334155; line-height: 1.5;">
-            Bila abang buka listing di PropMall (melalui Chrome telefon), tekan pada <b>Address Bar (ruangan URL atas)</b> ➔ taip perkataan <code>sync</code> ➔ tekan bookmark <b>⚡ Sync ZaimRosli</b>.
-          </p>
-          <p style="color: #059669; font-weight: 700;">
-            ✨ Notifikasi hijau akan keluar dan listing bersama kesemua gambar HD terus siap diterbitkan ke portal abang!
-          </p>
+        <div class="step-list" style="margin-top: 18px;">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div>Tekan butang kuning <b>"Salin Kod Bookmarklet"</b> di atas.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div>Bookmark halaman ini di telefon anda (tekan ⭐ di Chrome atau <i>Add Bookmark</i> di Safari), dan namakannya <b><code>⚡ Sync ZaimRosli</code></b>.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div>Tekan <b>Edit Bookmark</b>, padam URL lamanya dan <b>Paste</b> kod yang disalin tadi.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div><b>Cara Guna di Telefon:</b> Bila buka listing di PropMall (Chrome), tekan pada <b>ruangan URL atas ➔ taip perkataan <code>sync</code> ➔ tekan bookmark ⚡ Sync ZaimRosli</b>. Pop-up hijau akan terus muncul dan listing bersama kesemua gambar HD siap diterbitkan! ✨</div>
+          </div>
         </div>
       </div>
 
     </div>
-  </div>
+  </main>
 
   <script>
-    const copyBtn = document.getElementById('btn-copy-code');
-    const copyStatus = document.getElementById('copy-status');
-    const codeSnippet = document.getElementById('code-snippet');
+    const copyBtn = document.getElementById('btn-copy');
+    const copyText = document.getElementById('btn-copy-text');
+    const bookmarkletCode = "javascript:(async%20function(){%0A%20%20try%20{%0A%20%20%20%20const%20toast%20=%20document.createElement('div');%0A%20%20%20%20toast.style.cssText%20=%20'position:fixed;top:20px;left:50%25;transform:translateX(-50%25);background:%230f172a;color:%23ffffff;padding:16px%2024px;border-radius:14px;box-shadow:0%2020px%2040px%20rgba(0,0,0,0.5);z-index:9999999;font-family:-apple-system,BlinkMacSystemFont,Segoe%20UI,Roboto,sans-serif;font-size:14px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:8px;border:2px%20solid%20%23f59e0b;text-align:center;max-width:92vw;box-sizing:border-box;line-height:1.4;';%0A%20%20%20%20toast.innerHTML%20=%20'%3Cdiv%3E%E2%8C%9B%20%3Cb%3ESedang%20mengekstrak%20maklumat%20&%20gambar%20listing%20ke%20ZaimRosli.my...%3C%2Fb%3E%3C%2Fdiv%3E';%0A%20%20%20%20document.body.appendChild(toast);%0A%0A%20%20%20%20function%20updateToast(msg,%20isSuccess)%20{%0A%20%20%20%20%20%20toast.style.background%20=%20isSuccess%20?%20'%23064e3b'%20:%20'%237f1d1d';%0A%20%20%20%20%20%20toast.style.borderColor%20=%20isSuccess%20?%20'%2310b981'%20:%20'%23ef4444';%0A%20%20%20%20%20%20toast.innerHTML%20=%20(isSuccess%20?%20'%E2%9C%85%20'%20:%20'%E2%9A%A0%EF%B8%8F%20')%20+%20msg;%0A%20%20%20%20%20%20setTimeout(()%20=%3E%20{%20if%20(toast.parentNode)%20toast.parentNode.removeChild(toast);%20},%207000);%0A%20%20%20%20}%0A%0A%20%20%20%20let%20allImgs%20=%20[];%0A%20%20%20%20const%20imgElements%20=%20document.querySelectorAll('img[src*=%22cdn.propmall.net%2Fmedia%2Fimg-property%2F%22],%20img[src*=%22cdn.propmall.my%2Fmedia%2Fimg-property%2F%22],%20img[id*=%22cdn.propmall.net%22]');%0A%20%20%20%20imgElements.forEach(img%20=%3E%20{%0A%20%20%20%20%20%20let%20src%20=%20(img.src%20%7C%7C%20img.id%20%7C%7C%20'').split('?')[0].trim();%0A%20%20%20%20%20%20if%20(src.includes('%2Fimg-property%2F')%20&&%20!src.includes('logo')%20&&%20!allImgs.includes(src))%20{%0A%20%20%20%20%20%20%20%20allImgs.push(src);%0A%20%20%20%20%20%20}%0A%20%20%20%20});%0A%0A%20%20%20%20const%20matches%20=%20document.body.innerHTML.match(%2Fhttps:%5C%2F%5C%2F(?:cdn%5C.propmall%5C.net%7Ccdn%5C.propmall%5C.my)%5C%2Fmedia%5C%2Fimg-property%5C%2F[%5E%5Cs%22'?%3E]+%5C.(?:jpg%7Cpng%7Cjpeg)%2Fgi)%20%7C%7C%20[];%0A%20%20%20%20matches.forEach(url%20=%3E%20{%0A%20%20%20%20%20%20let%20clean%20=%20url.split('?')[0].trim();%0A%20%20%20%20%20%20if%20(!allImgs.includes(clean))%20allImgs.push(clean);%0A%20%20%20%20});%0A%0A%20%20%20%20let%20rawTitle%20=%20'';%0A%20%20%20%20const%20titleEl%20=%20document.querySelector('h1,%20h2.listing-title,%20.modal-title,%20meta[property=%22og:title%22]');%0A%20%20%20%20if%20(titleEl)%20rawTitle%20=%20titleEl.content%20%7C%7C%20titleEl.innerText%20%7C%7C%20'';%0A%20%20%20%20if%20(!rawTitle)%20rawTitle%20=%20document.title.replace(%2F%20on%20PropMall.*$%2Fi,%20'').replace(%2F%20-%20PropMall.*$%2Fi,%20'').trim();%0A%0A%20%20%20%20let%20title%20=%20rawTitle.replace(%2F%5E[%5Cs%5Cp{Extended_Pictographic}%5Cp{Emoji_Presentation}%E2%80%BC%EF%B8%8F%F0%9F%94%A5%E2%9C%A8%F0%9F%93%8D%F0%9F%8F%A2%F0%9F%8F%A0%F0%9F%8F%AD%F0%9F%8F%AC%F0%9F%8F%A1%F0%9F%93%8C%F0%9F%94%91%F0%9F%8C%9F%E2%9A%A1]+%2Fu,%20'').trim();%0A%20%20%20%20title%20=%20title.replace(%2F%5E(?:WTS%7CWTL%7CWTR%7CWTB%7CFOR%20SALE%7CFOR%20RENT%7CCOA%20LISTING%7CEXCLUSIVE%20LISTING%7CHOT%20LISTING%7CUNTUK%20DIJUAL%7CUNTUK%20DISEWA%7CDISEWA%7CDIJUAL)%5Cs*[:%5C-!%5C=%5C%2F,%7C]*%5Cs*(?:FOR%20SALE%7CFOR%20RENT%7CWTS%7CWTL%7CWTR)?%5Cs*%2Fi,%20'').trim();%0A%20%20%20%20title%20=%20title.replace(%2F%5E[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*]+%5Cs*%2F,%20'').replace(%2F[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*]+%5Cs*$%2F,%20'').trim();%0A%20%20%20%20if%20(!title%20%7C%7C%20title.length%20%3C%205)%20title%20=%20%22Hartanah%20PropMall%20%22%20+%20new%20Date().toLocaleDateString();%0A%0A%20%20%20%20const%20slug%20=%20title.toLowerCase().replace(%2F[%5Ea-z0-9]+%2Fg,%20'-').replace(%2F(%5E-%7C-$)%2Fg,%20'');%0A%20%20%20%20const%20bodyText%20=%20document.body.innerText%20%7C%7C%20'';%0A%20%20%20%20const%20isRent%20=%20%2FWTL%7CWTR%7CFOR%20RENT%7CSEWA%7CRENTAL%7CDISEWA%7CMonthly%2Fi.test(bodyText%20+%20'%20'%20+%20title);%0A%20%20%20%20const%20status%20=%20isRent%20?%20'rent'%20:%20'sale';%0A%20%20%20%20const%20category%20=%20isRent%20?%20'Rental'%20:%20'Subsales';%0A%0A%20%20%20%20let%20price%20=%200;%0A%20%20%20%20let%20priceStr%20=%20%22RM%200%22;%0A%20%20%20%20const%20kMatch%20=%20bodyText.match(%2F(?:RM%7CAsking%7CPrice%7CHarga)?%5Cs*[:%5C=]?%5Cs*([%5Cd%5C.]+)%5Cs*(k%7Cmil%7Cm%7Cjuta)%08%2Fi);%0A%20%20%20%20const%20rmMatch%20=%20bodyText.match(%2F(?:RM%7CAsking%7CPrice%7CHarga)%5Cs*[:%5C=]?%5Cs*([%5Cd,]+)%2Fi)%20%7C%7C%20bodyText.match(%2FRM%5Cs*([%5Cd,]+)%2Fi);%0A%0A%20%20%20%20if%20(kMatch)%20{%0A%20%20%20%20%20%20let%20val%20=%20parseFloat(kMatch[1]);%0A%20%20%20%20%20%20const%20unit%20=%20kMatch[2].toLowerCase();%0A%20%20%20%20%20%20if%20(unit%20===%20'k')%20price%20=%20val%20*%201000;%0A%20%20%20%20%20%20else%20if%20(unit%20===%20'm'%20%7C%7C%20unit%20===%20'mil'%20%7C%7C%20unit%20===%20'juta')%20price%20=%20val%20*%201000000;%0A%20%20%20%20}%20else%20if%20(rmMatch)%20{%0A%20%20%20%20%20%20price%20=%20parseFloat(rmMatch[1].replace(%2F,%2Fg,%20''));%0A%20%20%20%20}%0A%20%20%20%20if%20(price%20%3E%200)%20{%0A%20%20%20%20%20%20priceStr%20=%20isRent%20?%20%60RM%20${price.toLocaleString('en-US')}%20%2F%20month%60%20:%20%60RM%20${price.toLocaleString('en-US')}%60;%0A%20%20%20%20}%0A%0A%20%20%20%20let%20builtUp%20=%201000;%0A%20%20%20%20const%20buMatch%20=%20bodyText.match(%2F(?:Built[%20-]?up%7CSize%7CKeluasan%7CBU%7CLuas)[%5E%0A%5Cd]*([%5Cd,]+)%5Cs*(?:sqft%7Ckaki)%2Fi)%20%7C%7C%20bodyText.match(%2F([%5Cd,]+)%5Cs*sqft%2Fi);%0A%20%20%20%20if%20(buMatch)%20builtUp%20=%20parseInt(buMatch[1].replace(%2F,%2Fg,%20''));%0A%0A%20%20%20%20let%20landSize%20=%20%22-%22;%0A%20%20%20%20const%20laMatch%20=%20bodyText.match(%2F(?:Land[%20-]?Area%7CLand[%20-]?Size%7CTanah%7CKeluasan%20Tanah)[%5E%0A:]*:%5Cs*([%5E%0A]+)%2Fi);%0A%20%20%20%20if%20(laMatch)%20landSize%20=%20laMatch[1].trim();%0A%0A%20%20%20%20let%20beds%20=%200,%20baths%20=%200;%0A%20%20%20%20const%20bedM%20=%20bodyText.match(%2F(%5Cd+)%5Cs*(?:Rooms%7CBilik%7CBedrooms%7CBed%7CR)%08%2Fi);%0A%20%20%20%20if%20(bedM)%20beds%20=%20parseInt(bedM[1]);%0A%20%20%20%20const%20bathM%20=%20bodyText.match(%2F(%5Cd+)%5Cs*(?:Bathrooms%7CBath%7CBilik%20Air%7CB%5C.Air%7CB)%08%2Fi);%0A%20%20%20%20if%20(bathM)%20baths%20=%20parseInt(bathM[1]);%0A%0A%20%20%20%20let%20location%20=%20%22Selangor%22;%0A%20%20%20%20const%20locMatch%20=%20bodyText.match(%2F(?:@%7Cat%7Cin%7Cdi%7CTaman%7CBandar%7CSeksyen%7CJalan)%5Cs*([A-Za-z0-9%5Cs,]+(?:Selangor%7CKuala%20Lumpur%7CPuchong%7CIjok%7CBangi%7CSepang%7CKajang%7CKL%7CPJ%7CIpoh%7CMelaka%7CShah%20Alam%7CSubang%7CCyberjaya%7CPutrajaya%7CTelok%20Panglima%20Garang%7CKlang%7CCheras%7CUlu%20Langat%7CGombak%7CRawang%7CAmpang%7CBangsar)[%5E%0A]*)%2Fi)%20%7C%7C%20bodyText.match(%2F(?:Puchong%7CIjok%7CBangi%7CSepang%7CKajang%7CPetaling%20Jaya%7CSubang%7CShah%20Alam%7CCyberjaya%7CPutrajaya%7CTelok%20Panglima%20Garang%7CKlang%7CCheras%7CUlu%20Langat%7CGombak%7CRawang%7CAmpang%7CBangsar)[%5E%0A]*%2Fi);%0A%20%20%20%20if%20(locMatch)%20location%20=%20locMatch[1]%20?%20locMatch[1].trim()%20:%20locMatch[0].trim();%0A%20%20%20%20location%20=%20location.replace(%2F%5E[,:%5C-%E2%80%93%E2%80%94%5C%2F.!%23%7C*%5Cs]+%2F,%20'').trim();%0A%20%20%20%20if%20(!location)%20location%20=%20%22Selangor%22;%0A%0A%20%20%20%20let%20pType%20=%20%22Teres%22;%0A%20%20%20%20const%20combinedCheck%20=%20(bodyText%20+%20%22%20%22%20+%20title).toLowerCase();%0A%20%20%20%20if%20(combinedCheck.includes('commercial%20land')%20%7C%7C%20combinedCheck.includes('tanah%20komersial'))%20pType%20=%20%22Tanah%20Komersial%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('industrial%20land')%20%7C%7C%20combinedCheck.includes('tanah%20industri'))%20pType%20=%20%22Tanah%20Industri%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('land')%20%7C%7C%20combinedCheck.includes('tanah')%20%7C%7C%20combinedCheck.includes('pertanian')%20%7C%7C%20combinedCheck.includes('agricultural'))%20pType%20=%20%22Tanah%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('factory')%20%7C%7C%20combinedCheck.includes('kilang')%20%7C%7C%20combinedCheck.includes('warehouse')%20%7C%7C%20combinedCheck.includes('gudang'))%20pType%20=%20%22Kilang%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('shop')%20%7C%7C%20combinedCheck.includes('kedai')%20%7C%7C%20combinedCheck.includes('office')%20%7C%7C%20combinedCheck.includes('pejabat')%20%7C%7C%20combinedCheck.includes('retail')%20%7C%7C%20combinedCheck.includes('shoplot'))%20pType%20=%20%22Shop%20%2F%20Office%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('semi-d')%20%7C%7C%20combinedCheck.includes('semi%20d'))%20pType%20=%20%22Semi-D%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('bungalow')%20%7C%7C%20combinedCheck.includes('banglo'))%20pType%20=%20%22Banglo%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('townhouse'))%20pType%20=%20%22Townhouse%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('condo')%20%7C%7C%20combinedCheck.includes('serviced%20residence')%20%7C%7C%20combinedCheck.includes('service%20apartment')%20%7C%7C%20combinedCheck.includes('apartment')%20%7C%7C%20combinedCheck.includes('pangsapuri'))%20pType%20=%20%22Kondominium%20%2F%20Pangsapuri%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('terrace')%20%7C%7C%20combinedCheck.includes('teres')%20%7C%7C%20combinedCheck.includes('storey')%20%7C%7C%20combinedCheck.includes('tingkat'))%20pType%20=%20%22Teres%22;%0A%20%20%20%20else%20if%20(combinedCheck.includes('commercial')%20%7C%7C%20combinedCheck.includes('komersial'))%20pType%20=%20%22Ruang%20Komersial%22;%0A%0A%20%20%20%20let%20structuredDesc%20=%20%60${isRent%20?%20'WTL%20%2F%20FOR%20RENT'%20:%20'WTS%20%2F%20FOR%20SALE'}%5Cn%5Cn${title}%5Cn%5CnPROPERTY%20DETAILS%5Cn-%20Type%20:%20${pType}%5Cn%60%20+%20(!isRent%20?%20%60-%20Tenure%20:%20Freehold%20(Non-Bumi%20Lot)%5Cn%60%20:%20'')%20+%20%60-%20Build%20Up%20:%20${builtUp}%20sqft%5Cn%60%20+%20(landSize%20!==%20'-'%20?%20%60-%20Land%20Area%20:%20${landSize}%5Cn%60%20:%20'')%20+%20(beds%20%3E%200%20?%20%60-%20Bedroom%20:%20${beds}%5Cn%60%20:%20'')%20+%20(baths%20%3E%200%20?%20%60-%20Bathroom%20:%20${baths}%5Cn%60%20:%20'')%20+%20%60-%20Parking%20:%202%5Cn%5Cn=========================%5Cn${isRent%20?%20'Asking%20Rental'%20:%20'Asking%20Price'}%20:%20${priceStr}%5Cn=========================%5Cn%60;%0A%0A%20%20%20%20const%20coverImage%20=%20allImgs.length%20%3E%200%20?%20allImgs[0]%20:%20%22https:%2F%2Fimages.unsplash.com%2Fphoto-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80%22;%0A%0A%20%20%20%20const%20newListing%20=%20{%0A%20%20%20%20%20%20id:%20%60prop-${Date.now()}%60,%0A%20%20%20%20%20%20slug:%20slug,%0A%20%20%20%20%20%20title:%20title,%0A%20%20%20%20%20%20price:%20price,%0A%20%20%20%20%20%20priceStr:%20priceStr,%0A%20%20%20%20%20%20category:%20category,%0A%20%20%20%20%20%20location:%20location,%0A%20%20%20%20%20%20region:%20location.toLowerCase().includes('kuala%20lumpur')%20?%20%22Kuala%20Lumpur%22%20:%20%22Selangor%22,%0A%20%20%20%20%20%20type:%20pType,%0A%20%20%20%20%20%20status:%20status,%0A%20%20%20%20%20%20beds:%20beds,%0A%20%20%20%20%20%20baths:%20baths,%0A%20%20%20%20%20%20parking:%202,%0A%20%20%20%20%20%20size:%20builtUp,%0A%20%20%20%20%20%20landSize:%20landSize,%0A%20%20%20%20%20%20tenure:%20isRent%20?%20%22-%22%20:%20%22Freehold%22,%0A%20%20%20%20%20%20lotType:%20isRent%20?%20%22-%22%20:%20%22Non-Bumi%20Lot%22,%0A%20%20%20%20%20%20image:%20coverImage,%0A%20%20%20%20%20%20images:%20allImgs.length%20%3E%200%20?%20allImgs%20:%20[coverImage],%0A%20%20%20%20%20%20description:%20structuredDesc.trim(),%0A%20%20%20%20%20%20refUrl:%20window.location.href%0A%20%20%20%20};%0A%0A%20%20%20%20const%20apiUrl%20=%20'https:%2F%2Fzaimrosli-worker.huzaimrosli.workers.dev%2Fapi%2Fproperties';%0A%20%20%20%20const%20getRes%20=%20await%20fetch(%60${apiUrl}?t=${Date.now()}%60);%0A%20%20%20%20let%20currentData%20=%20[];%0A%20%20%20%20if%20(getRes.ok)%20{%0A%20%20%20%20%20%20currentData%20=%20await%20getRes.json();%0A%20%20%20%20%20%20if%20(typeof%20currentData%20===%20'string')%20currentData%20=%20JSON.parse(currentData);%0A%20%20%20%20}%0A%20%20%20%20currentData%20=%20[newListing,%20...currentData.filter(p%20=%3E%20p.slug%20!==%20newListing.slug%20&&%20p.id%20!==%20newListing.id)];%0A%0A%20%20%20%20const%20postRes%20=%20await%20fetch(%60${apiUrl}?t=${Date.now()}%60,%20{%0A%20%20%20%20%20%20method:%20'POST',%0A%20%20%20%20%20%20headers:%20{%20'Content-Type':%20'application%2Fjson'%20},%0A%20%20%20%20%20%20body:%20JSON.stringify(currentData)%0A%20%20%20%20});%0A%0A%20%20%20%20if%20(postRes.ok)%20{%0A%20%20%20%20%20%20const%20commTypes%20=%20['Kilang',%20'Tanah%20Industri',%20'Tanah%20Komersial',%20'Tanah',%20'Shop%20%2F%20Office',%20'Ruang%20Komersial',%20'Kedai%20%2F%20Pejabat'];%0A%20%20%20%20%20%20const%20isComm%20=%20commTypes.includes(pType)%20%7C%7C%20%2Ffactory%7Ckilang%7Cshop%7Coffice%7Ccommercial%7Cindustrial%7Cland%7Ctanah%7Cgudang%7Cwarehouse%2Fi.test(pType%20+%20%22%20%22%20+%20title);%0A%20%20%20%20%20%20const%20catFolder%20=%20isComm%20?%20'commercial'%20:%20'residential';%0A%20%20%20%20%20%20const%20liveUrl%20=%20%60https:%2F%2Fzaimrosli.my%2Fproperties%2F${catFolder}%2F${slug}%60;%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20updateToast(%60%3Cdiv%3E%F0%9F%8E%89%20%3Cb%3EBERJAYA%20DITERBITKAN!%3C%2Fb%3E%3C%2Fdiv%3E%3Cdiv%20style=%22font-size:12px;margin:4px%200;%22%3E${title}%20(${newListing.images.length}%20Gambar%20HD)%3C%2Fdiv%3E%3Cdiv%20style=%22display:flex;gap:12px;justify-content:center;margin-top:6px;%22%3E%3Ca%20href=%22${liveUrl}%22%20target=%22_blank%22%20style=%22color:%23fde047;text-decoration:underline;font-weight:bold;%22%3E%F0%9F%94%97%20Buka%20Live%3C%2Fa%3E%3Ca%20href=%22https:%2F%2Fzaimrosli.my%2Fadmin%22%20target=%22_blank%22%20style=%22color:%2393c5fd;text-decoration:underline;font-weight:bold;%22%3E%F0%9F%93%B1%20Buka%20Admin%3C%2Fa%3E%3C%2Fdiv%3E%60,%20true);%0A%20%20%20%20}%20else%20{%0A%20%20%20%20%20%20updateToast('Gagal%20menyimpan%20listing%20ke%20server%20API.%20Sila%20cuba%20lagi.',%20false);%0A%20%20%20%20}%0A%20%20}%20catch%20(err)%20{%0A%20%20%20%20alert('Error%20syncing%20to%20ZaimRosli.my:%20'%20+%20err.message);%0A%20%20}%0A})();";
 
     copyBtn.addEventListener('click', () => {
-      const textToCopy = codeSnippet.innerText.trim();
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        copyStatus.style.display = 'inline';
-        setTimeout(() => { copyStatus.style.display = 'none'; }, 3000);
+      navigator.clipboard.writeText(bookmarkletCode).then(() => {
+        copyBtn.style.background = '#10b981';
+        copyBtn.style.color = '#ffffff';
+        copyText.textContent = '✅ Berjaya Disalin ke Clipboard!';
+        setTimeout(() => {
+          copyBtn.style.background = '#f59e0b';
+          copyBtn.style.color = '#0f172a';
+          copyText.textContent = 'Salin Kod Bookmarklet';
+        }, 3500);
       }).catch(() => {
-        alert('Sila salin teks di dalam kotak secara manual.');
+        alert('Sila guna Chrome atau Safari untuk fungsi salin automatik.');
       });
     });
   </script>
