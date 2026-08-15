@@ -1,5 +1,49 @@
 const PROPERTIES_DATA = [
   {
+    "id": "prop-1786805163370",
+    "slug": "hot-tanah-berdekatan-upcoming-station-ecrl-maran-tanah-status-bangunan-perumahan-komersial-industri",
+    "title": "HOT! Tanah Berdekatan Upcoming Station ECRL Maran. Tanah Status Bangunan Perumahan, Komersial & Industri",
+    "price": 5900000,
+    "priceStr": "RM 5,900,000",
+    "category": "Subsales",
+    "location": "Maran, Pahang",
+    "region": "Selangor",
+    "type": "Tanah",
+    "status": "sale",
+    "beds": 0,
+    "bedsPlus": 0,
+    "baths": 0,
+    "bathsPlus": 0,
+    "parking": 2,
+    "size": 0,
+    "landSize": "9.00 acre ( 655,556 per acre)",
+    "tenure": "Freehold",
+    "lotType": "",
+    "image": "https://cdn.propmall.net/media/img-property/list-102583/list-102583-01-68a3f7bf3d9b82.47894072.jpg",
+    "images": [
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-01-68a3f7bf3d9b82.47894072.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-02-68a3f7bfbb93e8.04453751.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-03-68a3f7c047de25.64597147.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-04-68a3f7c0cbb066.37130317.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-05-68a3f7c1510971.08650721.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-06-68a3f7c1e4c3e7.58715667.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-07-68a3f7c26c7db8.90763854.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102583/list-102583-08-68a3f7c2f0cca0.95261903.jpg",
+      "https://cdn.propmall.net/media/img-property/list-147784/list-147784-01-69f84c9e198a26.90481058.jpg",
+      "https://cdn.propmall.net/media/img-property/list-130794/list-130794-01-6a805c2abb7ac1.52341571.jpg",
+      "https://cdn.propmall.net/media/img-property/list-132662/list-132662-01-696f74655e0149.82227371.jpg",
+      "https://cdn.propmall.net/media/img-property/list-130565/list-130565-01-695f4edad83a23.34395536.jpg",
+      "https://cdn.propmall.net/media/img-property/list-165955/list-165955-01-6a8057d7390a73.51111823.jpg",
+      "https://cdn.propmall.net/media/img-property/list-133352/list-133352-01-69745294e52bd4.58684225.jpg",
+      "https://cdn.propmall.net/media/img-property/list-102849/list-102849-01-68a49d8119d7c5.03270680.jpg",
+      "https://cdn.propmall.net/media/img-property/list-113107/list-113107-01-68ef079fbd24d7.97022580.jpg",
+      "https://cdn.propmall.net/media/img-property/list-117362/list-117362-01-690821511f4ef6.82415143.jpg"
+    ],
+    "description": "WTS / FOR SALE\n\nHOT! Tanah Berdekatan Upcoming Station ECRL Maran. Tanah Status Bangunan Perumahan, Komersial & Industri\n\nPROPERTY DETAILS\n- Type : Tanah\n- Tenure : Freehold (Malay Reserve)\n- Land Area : 9.00 acre ( 655,556 per acre)\n- Maran, Pahang\n- Tepi Jalan Utama KL-Kuantan\n- 6 minit Jarak antara Tanah ke Station ECRL Maran\n- 9.05 Ekar\n- Status Bangunan\n- Syarat Nyata untuk Perumahan, Komersial, Industri & Lain2\n- Sesuai Untuk Perumahan, Warehouse, Factory, Hospital & Lain2\n- Harga Jualan\n-RM15.00 / sqft\n-RM 5.9 Juta (Negotiable)\n\n=========================\nAsking Price : RM 5,900,000\n=========================\n\n--- MAKLUMAT ASAL (RUJUKAN EJEN) ---\nEjen Listing : Zaim Rosli\nAgensi : JAZ INTERNATIONAL MALAYSIA SDN BHD (VEPM (1) 0120/4)\nNo. Tel : +60108118559\nPautan Rujukan : https://propmall.co/listing?str=&state=&area=&price_min=&price_max=&category=2013&type=&room=any&bath=any&goprice=ANY&status=ALL",
+    "refUrl": "https://propmall.co/listing?str=&state=&area=&price_min=&price_max=&category=2013&type=&room=any&bath=any&goprice=ANY&status=ALL",
+    "hidden": false
+  },
+  {
     "id": "prop-1786804688558",
     "slug": "huge-corner-lot-bungalow-at-seksyen-4-bandar-baru-bangi-for-sale",
     "title": "Huge Corner Lot Bungalow at Seksyen 4 Bandar Baru Bangi For Sale",
@@ -1057,3 +1101,4 @@ const PROPERTIES_DATA = [
     "hidden": false
   }
 ];
+if (typeof window !== 'undefined') { window.PROPERTIES_DATA = PROPERTIES_DATA; }
