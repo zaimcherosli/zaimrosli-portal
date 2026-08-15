@@ -82,11 +82,14 @@ function createPropertyCardHTML(item) {
 
   const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : item.beds;
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
-  const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office'];
-  const isCommercial = commTypes.includes(item.type);
-  const bedsSpec = (!isCommercial && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${bedsVal} Beds</span>` : '';
-  const bathsSpec = (item.baths > 0) ? `<span class="property-spec-item">🚿 ${bathsVal} Baths</span>` : '';
-  const sizeSpec = item.size ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
+  const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah', 'Tanah Komersial'];
+  const isCommercial = commTypes.includes(item.type) || (item.type && item.type.toLowerCase().includes('tanah')) || (item.type && item.type.toLowerCase().includes('land'));
+  const isLand = (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land'))) || (item.landSize && item.landSize !== '-' && !item.beds);
+
+  const landSpec = (item.landSize && item.landSize !== '-') ? `<span class="property-spec-item" title="Land Area">🌳 ${item.landSize}</span>` : '';
+  const bedsSpec = (!isLand && item.beds > 0) ? `<span class="property-spec-item">🛏️ ${bedsVal} Beds</span>` : '';
+  const bathsSpec = (!isLand && item.baths > 0) ? `<span class="property-spec-item">🚿 ${bathsVal} Baths</span>` : '';
+  const sizeSpec = (item.size && item.size > 0 && !isLand) ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
 
   const catFolder = isCommercial ? 'commercial' : 'residential';
   const detailUrl = `/properties/${catFolder}/${item.slug || item.id}`;
@@ -106,6 +109,7 @@ function createPropertyCardHTML(item) {
           ${item.location || ''}
         </div>
         <div class="property-specs-row">
+          ${landSpec}
           ${bedsSpec}
           ${bathsSpec}
           ${sizeSpec}
