@@ -568,10 +568,17 @@
         badge.textContent = prop.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
         badge.className = `property-badge ${prop.status === 'sale' ? 'badge-sale' : 'badge-rent'}`;
 
+        // Property Type
+        const resolvedType = (prop.type && prop.type !== '-' && prop.type !== '') ? prop.type : (prop.landSize && (!prop.beds || prop.beds === 0) ? 'Tanah' : (prop.category || 'Subsales'));
+        const typeEl = document.getElementById('d-type');
+        if (typeEl) {
+          typeEl.textContent = resolvedType;
+        }
+
         // Handle Bedrooms / Rooms: Hide for Land or if 0; For Commercial/Office with rooms, display as ROOMS
-        const isLand = (prop.type && (prop.type.toLowerCase().includes('tanah') || prop.type.toLowerCase().includes('land')));
+        const isLand = (resolvedType && (resolvedType.toLowerCase().includes('tanah') || resolvedType.toLowerCase().includes('land')));
         const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah Komersial'];
-        const isCommercial = commTypes.includes(prop.type) || (prop.type && (prop.type.toLowerCase().includes('office') || prop.type.toLowerCase().includes('shop') || prop.type.toLowerCase().includes('komersial')));
+        const isCommercial = commTypes.includes(resolvedType) || (resolvedType && (resolvedType.toLowerCase().includes('office') || resolvedType.toLowerCase().includes('shop') || resolvedType.toLowerCase().includes('komersial')));
 
         const bedsBox = document.getElementById('box-beds');
         if (bedsBox) {
