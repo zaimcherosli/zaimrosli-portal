@@ -577,10 +577,8 @@ header.site-header {
 }
 
 .property-specs-row {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: nowrap !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)) !important;
   gap: 6px !important;
   padding: 12px 0 16px !important;
   border-top: 1px solid #f1f5f9 !important;
@@ -589,24 +587,74 @@ header.site-header {
   box-sizing: border-box !important;
 }
 
-.property-spec-item {
-  flex: 1 1 0 !important;
-  min-width: 0 !important;
+.property-spec-box {
   background: #f8fafc !important;
   border: 1px solid #e2e8f0 !important;
-  padding: 6px 2px !important;
-  border-radius: 8px !important;
-  font-size: clamp(0.70rem, 2.2vw, 0.82rem) !important;
-  color: #475569 !important;
-  font-weight: 600 !important;
+  padding: 6px 4px !important;
+  border-radius: 9px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  min-width: 0 !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+.property-spec-box:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.property-spec-box.spec-land {
+  background: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.spec-top {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 3px !important;
+  gap: 4px !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  margin-bottom: 4px !important;
+}
+
+.spec-icon {
+  font-size: 0.82rem !important;
+  line-height: 1 !important;
+}
+
+.spec-name {
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.spec-land .spec-top {
+  color: #166534 !important;
+}
+
+.spec-val {
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  line-height: 1.1 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  text-align: center !important;
+  max-width: 100% !important;
+}
+
+.spec-land .spec-val {
+  color: #15803d !important;
 }
 
 /* Executive Deep Obsidian Footer */

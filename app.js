@@ -90,10 +90,48 @@ function createPropertyCardHTML(item) {
   const roomIcon = isCommercial ? '🚪' : '🛏️';
 
   const hasLand = item.landSize && item.landSize !== '-' && item.landSize !== '0';
-  const landSpec = hasLand ? `<span class="property-spec-item" style="color: #059669; font-weight: 700;">🌳 ${item.landSize}</span>` : '';
-  const bedsSpec = (!isLand && item.beds > 0) ? `<span class="property-spec-item">${roomIcon} ${bedsVal} ${roomLabel}</span>` : '';
-  const bathsSpec = (!isLand && item.baths > 0) ? `<span class="property-spec-item">🚿 ${bathsVal} Baths</span>` : '';
-  const sizeSpec = (item.size && item.size > 0 && !isLand) ? `<span class="property-spec-item">📐 ${item.size} sqft</span>` : '';
+  
+  let landSpec = '';
+  if (hasLand) {
+    let cleanLand = item.landSize.replace(/\s*\([^)]*\)/g, '').trim();
+    landSpec = `
+      <div class="property-spec-box spec-land">
+        <div class="spec-top"><span class="spec-icon">🌳</span><span class="spec-name">Land</span></div>
+        <div class="spec-val">${cleanLand}</div>
+      </div>
+    `;
+  }
+
+  let bedsSpec = '';
+  if (!isLand && item.beds > 0) {
+    bedsSpec = `
+      <div class="property-spec-box">
+        <div class="spec-top"><span class="spec-icon">${roomIcon}</span><span class="spec-name">${roomLabel}</span></div>
+        <div class="spec-val">${bedsVal}</div>
+      </div>
+    `;
+  }
+
+  let bathsSpec = '';
+  if (!isLand && item.baths > 0) {
+    bathsSpec = `
+      <div class="property-spec-box">
+        <div class="spec-top"><span class="spec-icon">🚿</span><span class="spec-name">Baths</span></div>
+        <div class="spec-val">${bathsVal}</div>
+      </div>
+    `;
+  }
+
+  let sizeSpec = '';
+  if (item.size && item.size > 0 && !isLand) {
+    const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
+    sizeSpec = `
+      <div class="property-spec-box">
+        <div class="spec-top"><span class="spec-icon">📐</span><span class="spec-name">Built-up</span></div>
+        <div class="spec-val">${formattedSize} sqft</div>
+      </div>
+    `;
+  }
 
   const catFolder = isCommercial ? 'commercial' : 'residential';
   const detailUrl = `/properties/${catFolder}/${item.slug || item.id}`;
