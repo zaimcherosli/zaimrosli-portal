@@ -1802,5 +1802,58 @@
     }
   </script>
   <script src="/pwa.js"></script>
+<script>
+    // Auto-Sync Import Handler from PropMall Bookmarklet
+    async function handleAutoSyncImport() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoSyncRaw = urlParams.get('auto_sync');
+        if (!autoSyncRaw) return;
+
+        let listing = JSON.parse(decodeURIComponent(autoSyncRaw));
+        if (!listing || !listing.title) return;
+
+        // Clean query param from URL bar
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        // Wait for currentProperties to load if needed
+        if (!currentProperties || currentProperties.length === 0) {
+          await loadPropertiesList();
+        }
+
+        // Check if listing already exists by slug or refUrl
+        const existingIdx = currentProperties.findIndex(p => p.slug === listing.slug || (p.refUrl && p.refUrl === listing.refUrl));
+        if (existingIdx >= 0) {
+          currentProperties[existingIdx] = { ...currentProperties[existingIdx], ...listing };
+        } else {
+          currentProperties.unshift(listing);
+        }
+
+        renderListingsGrid();
+        await saveToStorage();
+
+        // Show success notification
+        const photoCount = (listing.images && listing.images.length) ? listing.images.length : (listing.image ? 1 : 0);
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#064e3b;color:#ffffff;padding:16px 24px;border-radius:14px;box-shadow:0 20px 40px rgba(0,0,0,0.5);z-index:9999999;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;font-size:14px;font-weight:700;display:flex;align-items:center;gap:12px;border:2px solid #10b981;text-align:center;max-width:92vw;box-sizing:border-box;';
+        toast.innerHTML = `🎉 <b>BERJAYA DI-SYNC!</b> "${listing.title}" bersama <b>${photoCount} Gambar HD</b> telah diterbitkan!`;
+        document.body.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 6000);
+
+        // Open the newly imported listing in Edit Modal immediately
+        setTimeout(() => {
+          editProperty(0);
+        }, 500);
+
+      } catch (err) {
+        console.error('Error importing auto_sync listing:', err);
+      }
+    }
+
+    // Call after DOM loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(handleAutoSyncImport, 600);
+    });
+</script>
 </body>
 </html>
