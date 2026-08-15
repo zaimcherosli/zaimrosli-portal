@@ -723,7 +723,7 @@
               Residential <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-res">0</span>
             </button>
             <button id="admin-cat-commercial" onclick="setAdminCategoryFilter('commercial')" class="admin-tab-pill" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
-              Commercial <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-comm">0</span>
+              Commercial & Land <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-comm">0</span>
             </button>
           </div>
 
@@ -1096,7 +1096,7 @@
 
     function renderListingsGrid() {
       const grid = document.getElementById('admin-listings-grid');
-      const commTypes = ['Kilang', 'Tanah Industri', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat'];
+      const commTypes = ['Kilang', 'Tanah Industri', 'Tanah', 'Shop / Office', 'Ruang Komersial', 'Kedai / Pejabat', 'Tanah Komersial', 'Ruang Pejabat'];
       
       const resCount = currentProperties.filter(p => !commTypes.includes(p.type)).length;
       const commCount = currentProperties.filter(p => commTypes.includes(p.type)).length;
@@ -1418,15 +1418,11 @@
     async function saveToStorage() {
       localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4000);
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentProperties),
-          signal: controller.signal
+          body: JSON.stringify(currentProperties)
         });
-        clearTimeout(timeoutId);
       } catch (e) {
         console.error('KV save error:', e);
       }
@@ -1817,7 +1813,17 @@
         // Clean query param from URL bar
         window.history.replaceState({}, document.title, window.location.pathname);
 
-        // Wait for currentProperties to load if needed
+        // Always fetch freshest data from KV to ensure no listings are lost
+        try {
+          const freshRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
+          if (freshRes.ok) {
+            const freshData = await freshRes.json();
+            if (Array.isArray(freshData) && freshData.length > 0) {
+              currentProperties = freshData;
+            }
+          }
+        } catch(e) {}
+
         if (!currentProperties || currentProperties.length === 0) {
           await loadPropertiesList();
         }
