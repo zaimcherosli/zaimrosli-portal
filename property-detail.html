@@ -614,12 +614,15 @@
         function cleanPublicDescription(desc) {
           if (!desc) return "";
           return desc
+            .replace(/---\s*MAKLUMAT ASAL\s*---[\s\S]*$/gi, '')
+            .replace(/📝\s*MAKLUMAT TERPERINCI:[\s\S]*$/gi, '')
+            .replace(/PropMall,\s*Built By Agents,\s*For Agents/gi, '')
             .replace(/https?:\/\/(?:www\.)?propmall\.(?:co|my|net)\/[^\s]+/gi, '')
             .replace(/https?:\/\/t\.me\/[^\s]+/gi, '')
             .replace(/Hello Partner Agents,?\s*/gi, '')
             .replace(/I want to share this Listing in PropMall with you\.?\s*/gi, '')
-            .replace(/---\s*MAKLUMAT ASAL\s*---/gi, '\n📝 MAKLUMAT TERPERINCI:\n')
-            .replace(/\n\s*\n\s*\n/g, '\n\n')
+            .replace(/={4,}/g, '')
+            .replace(/\n\s*\n\s*\n+/g, '\n\n')
             .trim();
         }
 
