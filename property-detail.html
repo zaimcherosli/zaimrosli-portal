@@ -568,18 +568,23 @@
         badge.textContent = prop.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
         badge.className = `property-badge ${prop.status === 'sale' ? 'badge-sale' : 'badge-rent'}`;
 
-        document.getElementById('d-type').textContent = prop.type;
+        // Handle Bedrooms / Rooms: Hide for Land or if 0; For Commercial/Office with rooms, display as ROOMS
+        const isLand = (prop.type && (prop.type.toLowerCase().includes('tanah') || prop.type.toLowerCase().includes('land')));
+        const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah Komersial'];
+        const isCommercial = commTypes.includes(prop.type) || (prop.type && (prop.type.toLowerCase().includes('office') || prop.type.toLowerCase().includes('shop') || prop.type.toLowerCase().includes('komersial')));
 
-        // Hide Bedrooms for Commercial/Industrial properties or if 0
-        const isCommercial = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial'].includes(prop.type);
         const bedsBox = document.getElementById('box-beds');
         if (bedsBox) {
-          if (isCommercial || !prop.beds || prop.beds === 0) {
+          if (isLand || !prop.beds || prop.beds === 0) {
             bedsBox.style.display = 'none';
           } else {
             bedsBox.style.display = 'block';
+            const labelEl = bedsBox.querySelector('.spec-label');
+            if (labelEl) {
+              labelEl.textContent = isCommercial ? 'ROOMS / PARTITIONS' : 'BEDROOMS';
+            }
             const bedsVal = prop.bedsPlus > 0 ? `${prop.beds}+${prop.bedsPlus}` : prop.beds;
-            document.getElementById('d-beds').textContent = `${bedsVal} Beds`;
+            document.getElementById('d-beds').textContent = `${bedsVal} ${isCommercial ? 'Rooms' : 'Beds'}`;
           }
         }
 
