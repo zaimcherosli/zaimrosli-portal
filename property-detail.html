@@ -613,15 +613,12 @@
 
         function cleanPublicDescription(desc) {
           if (!desc) return "";
-          let cleaned = desc;
-          if (cleaned.includes('--- MAKLUMAT ASAL ---')) {
-            cleaned = cleaned.split('--- MAKLUMAT ASAL ---')[0].trim();
-          }
-          return cleaned
+          return desc
             .replace(/https?:\/\/(?:www\.)?propmall\.(?:co|my|net)\/[^\s]+/gi, '')
             .replace(/https?:\/\/t\.me\/[^\s]+/gi, '')
             .replace(/Hello Partner Agents,?\s*/gi, '')
             .replace(/I want to share this Listing in PropMall with you\.?\s*/gi, '')
+            .replace(/---\s*MAKLUMAT ASAL\s*---/gi, '\n📝 MAKLUMAT TERPERINCI:\n')
             .replace(/\n\s*\n\s*\n/g, '\n\n')
             .trim();
         }
