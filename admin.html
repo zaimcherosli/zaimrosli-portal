@@ -1856,8 +1856,8 @@
           await loadPropertiesList();
         }
 
-        // Check if listing already exists by slug or refUrl
-        const existingIdx = currentProperties.findIndex(p => p.slug === listing.slug || (p.refUrl && p.refUrl === listing.refUrl));
+        // Check if listing already exists by exact title or exact slug (DO NOT match by refUrl because all feed items share search URL)
+        const existingIdx = currentProperties.findIndex(p => (listing.id && p.id === listing.id) || (p.slug === listing.slug && p.title.toLowerCase().trim() === listing.title.toLowerCase().trim()));
         if (existingIdx >= 0) {
           currentProperties[existingIdx] = { ...currentProperties[existingIdx], ...listing };
         } else {
