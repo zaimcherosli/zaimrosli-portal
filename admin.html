@@ -453,12 +453,17 @@
         padding: 2px 7px !important;
         margin-left: 0 !important;
       }
-      .user-badge {
-        font-size: 0.75rem !important;
-        padding: 4px 8px !important;
-      }
       .user-badge #user-display {
         display: none !important;
+      }
+      .admin-desktop-tabs {
+        display: none !important;
+      }
+      .admin-desktop-user {
+        display: none !important;
+      }
+      .admin-hamburger-btn {
+        display: flex !important;
       }
       .btn-logout .logout-text {
         display: none !important;
@@ -1622,17 +1627,39 @@
     // ==========================================
     // PAST DEALS MANAGEMENT & ADMIN NAV LOGIC
     // ==========================================
-    let pastDealsList = [];
-
     function toggleAdminMobileDrawer() {
-      const overlay = document.getElementById('admin-mobile-overlay');
-      if (overlay) overlay.classList.toggle('active');
+      const drawer = document.getElementById('admin-mobile-drawer');
+      if (!drawer) return;
+      const isVisible = drawer.classList.contains('active') || drawer.style.display === 'flex';
+      if (isVisible) {
+        drawer.classList.remove('active');
+        drawer.style.display = 'none';
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('active');
+        drawer.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     function closeAdminMobileDrawer() {
-      const overlay = document.getElementById('admin-mobile-overlay');
-      if (overlay) overlay.classList.remove('active');
+      const drawer = document.getElementById('admin-mobile-drawer');
+      if (!drawer) return;
+      drawer.classList.remove('active');
+      drawer.style.display = 'none';
+      document.body.style.overflow = '';
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const drawer = document.getElementById('admin-mobile-drawer');
+      if (drawer) {
+        drawer.addEventListener('click', (e) => {
+          if (e.target === drawer) {
+            closeAdminMobileDrawer();
+          }
+        });
+      }
+    });
 
     function switchAdminTab(tab) {
       const activeBtn = document.getElementById('tab-btn-active');
