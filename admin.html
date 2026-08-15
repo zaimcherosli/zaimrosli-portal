@@ -1249,16 +1249,26 @@
       if (saveBar) saveBar.style.display = 'flex';
     }
 
-    function editProperty(idx) {
-      const p = currentProperties[idx];
-      document.getElementById('form-id').value = idx;
-      document.getElementById('form-title').value = p.title;
-      document.getElementById('form-price').value = p.price;
+    function editProperty(propIdOrIdx) {
+      let p = null;
+      if (typeof propIdOrIdx === 'number') {
+        p = currentProperties[propIdOrIdx];
+      } else if (typeof propIdOrIdx === 'string') {
+        p = currentProperties.find(item => item.id === propIdOrIdx || item.slug === propIdOrIdx);
+        if (!p && !isNaN(parseInt(propIdOrIdx))) {
+          p = currentProperties[parseInt(propIdOrIdx)];
+        }
+      }
+      if (!p) return;
+
+      document.getElementById('form-id').value = p.id || p.slug;
+      document.getElementById('form-title').value = p.title || '';
+      document.getElementById('form-price').value = p.price || 0;
       document.getElementById('form-category').value = p.category || (p.status === 'rent' ? 'Rental' : 'Subsales');
-      document.getElementById('form-status').value = p.status;
-      document.getElementById('form-location').value = p.location;
-      document.getElementById('form-region').value = p.region;
-      document.getElementById('form-type').value = p.type;
+      document.getElementById('form-status').value = p.status || 'sale';
+      document.getElementById('form-location').value = p.location || '';
+      document.getElementById('form-region').value = p.region || 'Selangor';
+      document.getElementById('form-type').value = p.type || 'Kondominium';
       document.getElementById('form-beds').value = p.beds || '';
       document.getElementById('form-beds-plus').value = p.bedsPlus || '';
       document.getElementById('form-baths').value = p.baths || '';
@@ -1286,12 +1296,17 @@
       setTimeout(autoResizeDescription, 50);
     }
 
-    async function toggleHideProperty(event, idx) {
+    async function toggleHideProperty(event, propIdOrIdx) {
       if (event) {
         event.preventDefault();
         event.stopPropagation();
       }
-      const p = currentProperties[idx];
+      let p = null;
+      if (typeof propIdOrIdx === 'number') {
+        p = currentProperties[propIdOrIdx];
+      } else {
+        p = currentProperties.find(item => item.id === propIdOrIdx || item.slug === propIdOrIdx);
+      }
       if (!p) return;
 
       p.hidden = !p.hidden;
@@ -1305,11 +1320,19 @@
       await saveToStorage();
     }
 
-    function deleteProperty(idx) {
+    function deleteProperty(propIdOrIdx) {
       if (confirm('Adakah anda pasti untuk memadam hartanah ini?')) {
-        currentProperties.splice(idx, 1);
-        saveToStorage();
-        renderListingsGrid();
+        let idx = -1;
+        if (typeof propIdOrIdx === 'number') {
+          idx = propIdOrIdx;
+        } else {
+          idx = currentProperties.findIndex(item => item.id === propIdOrIdx || item.slug === propIdOrIdx);
+        }
+        if (idx >= 0) {
+          currentProperties.splice(idx, 1);
+          saveToStorage();
+          renderListingsGrid();
+        }
       }
     }
 
@@ -1328,7 +1351,7 @@
       submitBtn.innerHTML = '⌛ Saving to Cloudflare R2...';
       submitBtn.disabled = true;
 
-      const idx = document.getElementById('form-id').value;
+      const targetId = document.getElementById('form-id').value;
       const title = document.getElementById('form-title').value.trim();
       const price = parseFloat(document.getElementById('form-price').value);
       const category = document.getElementById('form-category').value;
@@ -1357,8 +1380,13 @@
 
       const slug = slugify(title);
 
+      // Find existing item by ID or Slug (Never rely on fragile array index!)
+      const existingIdx = targetId ? currentProperties.findIndex(p => p.id === targetId || p.slug === targetId) : -1;
+      const finalId = (existingIdx >= 0 && currentProperties[existingIdx].id) ? currentProperties[existingIdx].id : `prop-${Date.now()}`;
+      const isHidden = (existingIdx >= 0 && currentProperties[existingIdx]) ? !!currentProperties[existingIdx].hidden : false;
+
       const propData = {
-        id: idx !== '' ? currentProperties[idx].id : `prop-${Date.now()}`,
+        id: finalId,
         slug: slug,
         title: title,
         price: price,
@@ -1381,11 +1409,11 @@
         images: imagesArr,
         description: description,
         refUrl: refUrl,
-        hidden: (idx !== '' && currentProperties[idx]) ? !!currentProperties[idx].hidden : false
+        hidden: isHidden
       };
 
-      if (idx !== '') {
-        currentProperties[idx] = propData;
+      if (existingIdx >= 0) {
+        currentProperties[existingIdx] = propData;
       } else {
         currentProperties.unshift(propData);
       }
@@ -1887,9 +1915,9 @@
           }
         }, 5000);
 
-        // Open the newly imported listing in Edit Modal immediately
+        // Open the newly imported listing in Edit Modal by its unique ID
         setTimeout(() => {
-          editProperty(0);
+          editProperty(listing.id || listing.slug);
         }, 400);
 
       } catch (err) {
