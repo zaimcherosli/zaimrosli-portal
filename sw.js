@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zaimrosli-pwa-v21';
+const CACHE_NAME = 'zaimrosli-pwa-v22';
 
 // Install Event
 self.addEventListener('install', (event) => {

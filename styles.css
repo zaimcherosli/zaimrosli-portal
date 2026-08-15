@@ -577,9 +577,11 @@ header.site-header {
 }
 
 .property-specs-row {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)) !important;
-  gap: 6px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
   padding: 12px 0 16px !important;
   border-top: 1px solid #f1f5f9 !important;
   margin-top: auto !important;
@@ -587,17 +589,38 @@ header.site-header {
   box-sizing: border-box !important;
 }
 
+.property-specs-row.specs-left-aligned {
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.property-specs-row.specs-left-aligned .property-spec-box {
+  flex: 0 0 auto !important;
+  min-width: 68px !important;
+  padding: 6px 12px !important;
+}
+
+.property-specs-row.specs-grid-2x2 {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 6px !important;
+}
+
+.property-specs-row.specs-grid-2x2 .property-spec-box {
+  width: 100% !important;
+  padding: 6px 8px !important;
+}
+
 .property-spec-box {
   background: #f8fafc !important;
   border: 1px solid #e2e8f0 !important;
-  padding: 6px 4px !important;
-  border-radius: 9px !important;
+  border-radius: 8px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  min-width: 0 !important;
   transition: all 0.2s ease !important;
   box-sizing: border-box !important;
 }
@@ -642,6 +665,49 @@ header.site-header {
 }
 
 .spec-land .spec-val {
+  color: #15803d !important;
+}
+
+.property-spec-banner {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  margin: 12px 0 16px !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.property-spec-banner.spec-land-banner {
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.spec-banner-label {
+  font-size: 0.70rem !important;
+  font-weight: 800 !important;
+  color: #64748b !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+.spec-land-banner .spec-banner-label {
+  color: #166534 !important;
+}
+
+.spec-banner-val {
+  font-size: 0.92rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.spec-land-banner .spec-banner-val {
   color: #15803d !important;
 }
 

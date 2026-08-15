@@ -84,51 +84,81 @@ function createPropertyCardHTML(item) {
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
   const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah', 'Tanah Komersial'];
   const isCommercial = commTypes.includes(item.type) || (item.type && item.type.toLowerCase().includes('tanah')) || (item.type && item.type.toLowerCase().includes('land')) || (item.type && item.type.toLowerCase().includes('shop')) || (item.type && item.type.toLowerCase().includes('office'));
-  const isLand = (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land'))) || (item.landSize && item.landSize !== '-' && !item.beds);
+  const isLand = (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land'))) || (item.landSize && item.landSize !== '-' && (!item.beds || item.beds === 0));
 
   const roomLabel = isCommercial ? 'Rooms' : 'Beds';
-  const roomIcon = isCommercial ? '🚪' : '🛏️';
 
   const hasLand = item.landSize && item.landSize !== '-' && item.landSize !== '0';
-  
-  let landSpec = '';
-  if (hasLand) {
-    let cleanLand = item.landSize.replace(/\s*\([^)]*\)/g, '').trim();
-    landSpec = `
-      <div class="property-spec-box spec-land">
-        <div class="spec-top">LAND</div>
-        <div class="spec-val">${cleanLand}</div>
+  const hasBeds = !isLand && item.beds > 0;
+  const hasBaths = !isLand && item.baths > 0;
+  const hasSize = item.size && item.size > 0 && !isLand;
+
+  let specsHTML = '';
+
+  // 1. Full-width horizontal bar for Land or single Land spec
+  if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
+    const cleanLand = item.landSize ? item.landSize.trim() : '-';
+    specsHTML = `
+      <div class="property-spec-banner spec-land-banner">
+        <span class="spec-banner-label">LAND AREA</span>
+        <span class="spec-banner-val">${cleanLand}</span>
       </div>
     `;
-  }
-
-  let bedsSpec = '';
-  if (!isLand && item.beds > 0) {
-    bedsSpec = `
-      <div class="property-spec-box">
-        <div class="spec-top">${roomLabel.toUpperCase()}</div>
-        <div class="spec-val">${bedsVal}</div>
-      </div>
-    `;
-  }
-
-  let bathsSpec = '';
-  if (!isLand && item.baths > 0) {
-    bathsSpec = `
-      <div class="property-spec-box">
-        <div class="spec-top">BATHS</div>
-        <div class="spec-val">${bathsVal}</div>
-      </div>
-    `;
-  }
-
-  let sizeSpec = '';
-  if (item.size && item.size > 0 && !isLand) {
+  } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
+    // 2. Commercial / Retail with only Built-up size
     const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
-    sizeSpec = `
-      <div class="property-spec-box">
-        <div class="spec-top">BUILT-UP</div>
-        <div class="spec-val">${formattedSize} sqft</div>
+    specsHTML = `
+      <div class="property-spec-banner">
+        <span class="spec-banner-label">BUILT-UP AREA</span>
+        <span class="spec-banner-val">${formattedSize} sqft</span>
+      </div>
+    `;
+  } else {
+    // 3. Multi-spec items (Houses, Villas, Shoplots)
+    const specItems = [];
+
+    if (hasBeds) {
+      specItems.push(`
+        <div class="property-spec-box">
+          <div class="spec-top">${roomLabel.toUpperCase()}</div>
+          <div class="spec-val">${bedsVal}</div>
+        </div>
+      `);
+    }
+
+    if (hasBaths) {
+      specItems.push(`
+        <div class="property-spec-box">
+          <div class="spec-top">BATHS</div>
+          <div class="spec-val">${bathsVal}</div>
+        </div>
+      `);
+    }
+
+    if (hasSize) {
+      const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
+      specItems.push(`
+        <div class="property-spec-box">
+          <div class="spec-top">BUILT-UP</div>
+          <div class="spec-val">${formattedSize} sqft</div>
+        </div>
+      `);
+    }
+
+    if (hasLand) {
+      const cleanLand = item.landSize.replace(/\s*\([^)]*\)/g, '').trim();
+      specItems.push(`
+        <div class="property-spec-box spec-land">
+          <div class="spec-top">LAND</div>
+          <div class="spec-val">${cleanLand}</div>
+        </div>
+      `);
+    }
+
+    const gridClass = specItems.length === 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+    specsHTML = `
+      <div class="property-specs-row ${gridClass}">
+        ${specItems.join('')}
       </div>
     `;
   }
@@ -150,12 +180,7 @@ function createPropertyCardHTML(item) {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           ${item.location || ''}
         </div>
-        <div class="property-specs-row">
-          ${landSpec}
-          ${bedsSpec}
-          ${bathsSpec}
-          ${sizeSpec}
-        </div>
+        ${specsHTML}
         <div style="display: flex; gap: 10px; margin-top: 18px;">
           <a href="${detailUrl}" class="btn btn-outline btn-sm" style="flex: 1; border-radius: 10px; font-weight: 700; text-align: center; padding: 10px 16px; font-size: 0.9rem;">View Details →</a>
           <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}', '${catFolder}')" class="btn btn-outline btn-sm" style="width: 44px; height: 42px; border-radius: 10px; padding: 0 !important; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" title="Share Property" aria-label="Share Property">
