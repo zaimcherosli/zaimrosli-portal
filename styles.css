@@ -928,9 +928,14 @@ footer.site-footer {
 .spec-box {
   background: #ffffff;
   border: 1px solid var(--border-color);
-  padding: 16px;
+  padding: 16px 20px;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  text-align: left !important;
 }
 
 .spec-label {
@@ -939,13 +944,18 @@ footer.site-footer {
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  text-align: left !important;
+  width: 100% !important;
 }
 
 .spec-val {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: var(--text-main);
+  text-align: left !important;
+  width: 100% !important;
+  line-height: 1.2;
 }
 
 /* Inner Pages Grid Classes */
@@ -1097,13 +1107,22 @@ footer.site-footer {
     box-sizing: border-box !important;
   }
   .spec-box {
-    padding: 12px 10px !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    text-align: left !important;
   }
   .spec-label {
     font-size: 0.65rem !important;
+    text-align: left !important;
+    width: 100% !important;
   }
   .spec-val {
     font-size: 0.95rem !important;
+    text-align: left !important;
+    width: 100% !important;
   }
 }
 
