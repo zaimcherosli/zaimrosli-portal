@@ -59,6 +59,7 @@
             <a href="/services.html#selling" class="dropdown-item">Property Selling Advisory</a>
             <a href="/services.html#valuation" class="dropdown-item">Free Market Valuation</a>
             <a href="/services.html#legal-loan" class="dropdown-item">Legal & Loan Assistance</a>
+            <a href="/foreign-buyers.html" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">🌏 Foreign Buyer & Expat Advisory</a>
           </div>
         </li>
 
@@ -79,6 +80,7 @@
             Resources <span class="arrow">▾</span>
           </a>
           <div class="dropdown-menu">
+            <a href="/foreign-buyers.html" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">🌏 Foreign Buyer Guide</a>
             <a href="/blog.html" class="dropdown-item">Blog & Guides</a>
             <a href="/testimonials.html" class="dropdown-item">Client Reviews</a>
             <a href="/faq.html" class="dropdown-item">FAQ</a>
@@ -88,7 +90,7 @@
         </li>
 
         <li><a href="/about.html" class="nav-link">About Zaim</a></li>
-        <li><a href="/contact.html" class="nav-link">Contact</a></li>
+        <li><a href="/contact.html" class="nav-link active">Contact</a></li>
       </ul>
 
       <div class="nav-cta">
@@ -271,7 +273,7 @@
     </div>
   </footer>
 
-  <script src="/app.js?v=17"></script>
+  <script src="/app.js?v=20"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('contact-form-el');
@@ -279,9 +281,24 @@
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const name = document.getElementById('c-name').value.trim();
+        const email = document.getElementById('c-email').value.trim();
+        const phone = document.getElementById('c-phone').value.trim();
+        const service = document.getElementById('c-service').value;
+        const msg = document.getElementById('c-msg').value.trim();
+
+        const waText = `Hi Zaim Rosli (REN39575), saya ingin membuat pertanyaan hartanah:\n\n👤 Nama: ${name}\n📧 Email: ${email}\n📱 No Telefon: ${phone}\n🏷️ Perkhidmatan: ${service}\n💬 Mesej: ${msg}`;
+        const waUrl = `https://wa.me/60108118559?text=${encodeURIComponent(waText)}`;
+
         successMsg.style.display = 'block';
-        form.reset();
+        successMsg.innerHTML = `✅ Terima kasih ${name}! Mesej anda sedang dihantar terus ke WhatsApp Zaim Rosli...`;
         window.scrollTo({ top: successMsg.offsetTop - 120, behavior: 'smooth' });
+
+        setTimeout(() => {
+          window.open(waUrl, '_blank');
+          form.reset();
+        }, 800);
       });
     });
   </script>
