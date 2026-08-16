@@ -1,11 +1,11 @@
-const CACHE_NAME = 'zaimrosli-pwa-v38';
+const CACHE_NAME = 'zaimrosli-pwa-v39';
 
-// Install Event
+// Install Event — Skip waiting immediately so new SW activates fast
 self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate Event
+// Activate Event — Claim all clients immediately & purge old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -43,6 +43,34 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // For HTML navigation requests — always fetch from network first
+  // This ensures users always get the latest page content
+  if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          const cachedResponse = await caches.match(event.request);
+          if (cachedResponse) return cachedResponse;
+          const fallback = await caches.match('/index.html') || await caches.match('/');
+          if (fallback) return fallback;
+          return new Response('Aplikasi dalam mod luar talian (offline). Sila sambung semula internet.', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
+          });
+        })
+    );
+    return;
+  }
+
+  // For CSS, JS, and other assets — Network-First with cache fallback
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
@@ -57,15 +85,7 @@ self.addEventListener('fetch', (event) => {
         if (cachedResponse) {
           return cachedResponse;
         }
-        if (event.request.mode === 'navigate') {
-          const fallback = await caches.match('/index.html') || await caches.match('/');
-          if (fallback) return fallback;
-        }
-        return new Response('Aplikasi dalam mod luar talian (offline). Sila sambung semula internet.', {
-          status: 503,
-          statusText: 'Service Unavailable',
-          headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
-        });
+        return new Response('', { status: 503 });
       })
   );
 });

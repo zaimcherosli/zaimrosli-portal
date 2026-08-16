@@ -55,6 +55,12 @@
           if (reg.waiting && navigator.serviceWorker.controller) {
             applyUpdate(reg.waiting);
           }
+
+          // Aggressive auto-update: check for new SW every 60 seconds
+          setInterval(() => {
+            reg.update().catch(() => {});
+          }, 60 * 1000);
+
         }).catch((err) => console.warn('[PWA] SW registration failed:', err));
 
       let refreshing = false;
