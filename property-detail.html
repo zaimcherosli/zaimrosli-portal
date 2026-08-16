@@ -283,8 +283,20 @@
             <div class="detail-header-stack" style="margin-bottom: 22px;">
               <h1 id="d-title" style="font-size: clamp(1.4rem, 2.4vw, 1.9rem); font-weight: 800; color: #0f172a; line-height: 1.3; margin-bottom: 8px; word-break: break-word;">Property Title</h1>
               <p id="d-location" style="font-size: 0.95rem; color: #64748b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-weight: 500;">📍 Location</p>
-              <div id="d-price" class="detail-price-box" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 800; color: #d97706; line-height: 1.2;">
-                RM 0
+              
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <div id="d-price" class="detail-price-box" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 800; color: #d97706; line-height: 1.2;">
+                  RM 0
+                </div>
+                <div id="d-currency-estimates" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
+              </div>
+
+              <!-- Foreign Buyer Eligibility Notice -->
+              <div id="d-foreigner-badge" style="display: none; margin-top: 10px;">
+                <a href="/foreign-buyers.html" style="display: inline-flex; align-items: center; gap: 6px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 8px; text-decoration: none;">
+                  <span>🌏 Foreigner Eligible Listing</span>
+                  <span style="font-weight: 400; opacity: 0.8;">• View Expat Guide →</span>
+                </a>
               </div>
             </div>
 
@@ -463,6 +475,32 @@
         document.getElementById('d-title').textContent = prop.title;
         document.getElementById('d-location').innerHTML = `📍 ${prop.location}`;
         document.getElementById('d-price').textContent = (prop.priceStr || '').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+
+        // Currency Converter Estimates (approx 1 USD ≈ 4.45 MYR, 1 SGD ≈ 3.32 MYR)
+        const currContainer = document.getElementById('d-currency-estimates');
+        if (currContainer && prop.price && prop.price > 0) {
+          const isRental = prop.status === 'rent';
+          const usdVal = Math.round(prop.price / 4.45);
+          const sgdVal = Math.round(prop.price / 3.32);
+          const suffix = isRental ? ' / mo' : '';
+
+          currContainer.innerHTML = `
+            <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
+              ≈ $${usdVal.toLocaleString('en-US')} USD${suffix}
+            </span>
+            <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
+              ≈ S$${sgdVal.toLocaleString('en-US')} SGD${suffix}
+            </span>
+          `;
+        }
+
+        // Check Foreigner Eligibility (>1M in KL, >2M in Selangor, Commercial/Industrial or Rental)
+        const foreignBadge = document.getElementById('d-foreigner-badge');
+        if (foreignBadge) {
+          const isCommercial = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land'].includes(prop.type);
+          const isEligible = (prop.status === 'rent') || isCommercial || (prop.price >= 1000000);
+          foreignBadge.style.display = isEligible ? 'block' : 'none';
+        }
 
         // Image Gallery Handling
         let allImages = [];
