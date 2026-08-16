@@ -1304,7 +1304,7 @@
               <span class="spec-banner-val">${cleanLandText || '-'}</span>
             </div>
           `;
-        } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
+        } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
           const formattedSize = p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size;
           adminSpecsHTML = `
             <div class="admin-spec-banner">
@@ -1312,12 +1312,13 @@
               <span class="spec-banner-val">${formattedSize} sqft</span>
             </div>
           `;
-        } else {
+        } else if (isCommercial) {
           const specItems = [];
+          const formattedSize = hasSize ? (p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size) : null;
           if (hasBeds) {
             specItems.push(`
               <div class="admin-spec-box">
-                <div class="admin-spec-top">${roomLabel.toUpperCase()}</div>
+                <div class="admin-spec-top">ROOMS</div>
                 <div class="admin-spec-val">${bedsVal}</div>
               </div>
             `);
@@ -1330,8 +1331,7 @@
               </div>
             `);
           }
-          if (hasSize) {
-            const formattedSize = p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size;
+          if (formattedSize) {
             specItems.push(`
               <div class="admin-spec-box">
                 <div class="admin-spec-top">BUILT-UP</div>
@@ -1342,15 +1342,40 @@
           if (hasLand) {
             specItems.push(`
               <div class="admin-spec-box spec-land">
-                <div class="admin-spec-top">LAND</div>
+                <div class="admin-spec-top">LAND AREA</div>
                 <div class="admin-spec-val">${cleanLandText}</div>
               </div>
             `);
           }
-          const gridClass = specItems.length === 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+          const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
           adminSpecsHTML = `
             <div class="admin-specs-row ${gridClass}">
               ${specItems.join('')}
+            </div>
+          `;
+        } else {
+          // 4. Uniform 4-box 2x2 grid for ALL Residential properties
+          const formattedSize = hasSize ? (p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size) : null;
+          const landClass = hasLand ? 'spec-land' : '';
+
+          adminSpecsHTML = `
+            <div class="admin-specs-row specs-grid-2x2">
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">BEDS</div>
+                <div class="admin-spec-val">${hasBeds ? bedsVal : '-'}</div>
+              </div>
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">BATHS</div>
+                <div class="admin-spec-val">${hasBaths ? bathsVal : '-'}</div>
+              </div>
+              <div class="admin-spec-box">
+                <div class="admin-spec-top">BUILT-UP</div>
+                <div class="admin-spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
+              </div>
+              <div class="admin-spec-box ${landClass}">
+                <div class="admin-spec-top">LAND AREA</div>
+                <div class="admin-spec-val">${hasLand ? cleanLandText : '-'}</div>
+              </div>
             </div>
           `;
         }

@@ -104,7 +104,7 @@ function createPropertyCardHTML(item) {
         <span class="spec-banner-val">${cleanLandText || '-'}</span>
       </div>
     `;
-  } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
+  } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
     // 2. Commercial / Retail with only Built-up size
     const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
     specsHTML = `
@@ -113,19 +113,19 @@ function createPropertyCardHTML(item) {
         <span class="spec-banner-val">${formattedSize} sqft</span>
       </div>
     `;
-  } else {
-    // 3. Multi-spec items (Houses, Villas, Shoplots)
+  } else if (isCommercial) {
+    // 3. Commercial items with multiple specs (Shoplots, Offices, Factories)
     const specItems = [];
-
+    const formattedSize = hasSize ? (item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size) : null;
+    
     if (hasBeds) {
       specItems.push(`
         <div class="property-spec-box">
-          <div class="spec-top">${roomLabel.toUpperCase()}</div>
+          <div class="spec-top">ROOMS</div>
           <div class="spec-val">${bedsVal}</div>
         </div>
       `);
     }
-
     if (hasBaths) {
       specItems.push(`
         <div class="property-spec-box">
@@ -134,9 +134,7 @@ function createPropertyCardHTML(item) {
         </div>
       `);
     }
-
-    if (hasSize) {
-      const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
+    if (formattedSize) {
       specItems.push(`
         <div class="property-spec-box">
           <div class="spec-top">BUILT-UP</div>
@@ -144,20 +142,44 @@ function createPropertyCardHTML(item) {
         </div>
       `);
     }
-
     if (hasLand) {
       specItems.push(`
         <div class="property-spec-box spec-land">
-          <div class="spec-top">LAND</div>
+          <div class="spec-top">LAND AREA</div>
           <div class="spec-val">${cleanLandText}</div>
         </div>
       `);
     }
 
-    const gridClass = specItems.length === 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+    const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
     specsHTML = `
       <div class="property-specs-row ${gridClass}">
         ${specItems.join('')}
+      </div>
+    `;
+  } else {
+    // 4. Uniform 4-box 2x2 grid for ALL Residential properties (Condos, Terraces, Semi-D, Bungalows, Townhouses)
+    const formattedSize = hasSize ? (item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size) : null;
+    const landClass = hasLand ? 'spec-land' : '';
+
+    specsHTML = `
+      <div class="property-specs-row specs-grid-2x2">
+        <div class="property-spec-box">
+          <div class="spec-top">BEDS</div>
+          <div class="spec-val">${hasBeds ? bedsVal : '-'}</div>
+        </div>
+        <div class="property-spec-box">
+          <div class="spec-top">BATHS</div>
+          <div class="spec-val">${hasBaths ? bathsVal : '-'}</div>
+        </div>
+        <div class="property-spec-box">
+          <div class="spec-top">BUILT-UP</div>
+          <div class="spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
+        </div>
+        <div class="property-spec-box ${landClass}">
+          <div class="spec-top">LAND AREA</div>
+          <div class="spec-val">${hasLand ? cleanLandText : '-'}</div>
+        </div>
       </div>
     `;
   }
