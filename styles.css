@@ -663,7 +663,7 @@ header.site-header {
   border-color: #bbf7d0 !important;
 }
 
-.spec-top {
+.property-spec-box .spec-top, .spec-top {
   display: block !important;
   font-size: 0.65rem !important;
   font-weight: 800 !important;
@@ -674,13 +674,14 @@ header.site-header {
   line-height: 1 !important;
   margin-bottom: 4px !important;
   text-align: center !important;
+  width: 100% !important;
 }
 
-.spec-land .spec-top {
+.property-spec-box.spec-land .spec-top, .spec-land .spec-top {
   color: #166534 !important;
 }
 
-.spec-val {
+.property-spec-box .spec-val {
   font-size: 0.85rem !important;
   font-weight: 800 !important;
   color: #0f172a !important;
@@ -690,9 +691,10 @@ header.site-header {
   text-overflow: ellipsis !important;
   max-width: 100% !important;
   text-align: center !important;
+  width: 100% !important;
 }
 
-.spec-land .spec-val {
+.property-spec-box.spec-land .spec-val, .spec-land .spec-val {
   color: #15803d !important;
 }
 
@@ -938,7 +940,7 @@ footer.site-footer {
   text-align: left !important;
 }
 
-.spec-label {
+.spec-box .spec-label {
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -949,7 +951,7 @@ footer.site-footer {
   width: 100% !important;
 }
 
-.spec-val {
+.spec-box .spec-val {
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--text-main);
@@ -1114,12 +1116,12 @@ footer.site-footer {
     justify-content: center !important;
     text-align: left !important;
   }
-  .spec-label {
+  .spec-box .spec-label {
     font-size: 0.65rem !important;
     text-align: left !important;
     width: 100% !important;
   }
-  .spec-val {
+  .spec-box .spec-val {
     font-size: 0.95rem !important;
     text-align: left !important;
     width: 100% !important;
