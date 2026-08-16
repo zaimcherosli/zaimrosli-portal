@@ -104,37 +104,62 @@
   </script>
 
   <style>
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 16px 0 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      background: #ffffff;
+    }
     .threshold-table {
       width: 100%;
+      min-width: 680px;
       border-collapse: collapse;
-      margin: 20px 0 30px;
+      margin: 0;
       background: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
+      border: none;
     }
     .threshold-table th {
       background: #0f172a;
       color: #ffffff;
       padding: 14px 16px;
       text-align: left;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
     .threshold-table td {
       padding: 14px 16px;
       border-bottom: 1px solid #f1f5f9;
-      font-size: 0.90rem;
+      font-size: 0.88rem;
       color: #334155;
+      white-space: nowrap;
     }
     .threshold-table tr:last-child td {
       border-bottom: none;
     }
     .threshold-table tr:nth-child(even) {
       background: #f8fafc;
+    }
+    .mobile-table-hint {
+      display: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    @media (max-width: 768px) {
+      .mobile-table-hint {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+      }
     }
     .highlight-badge {
       background: #e0f2fe;
@@ -357,54 +382,60 @@
   <!-- Minimum Price Threshold Table -->
   <section id="thresholds" class="section section-alt" style="padding: 70px 0; background: #f8fafc;">
     <div class="container" style="max-width: 960px;">
-      <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+      <div class="section-header" style="text-align: center; margin-bottom: 24px;">
         <span class="section-subtitle">REGULATORY FRAMEWORK</span>
         <h2 class="section-title">Minimum Property Purchase Thresholds</h2>
         <p class="section-description">To safeguard local housing markets, state authorities implement minimum property price tiers for foreign purchasers.</p>
       </div>
 
-      <table class="threshold-table">
-        <thead>
-          <tr>
-            <th>State / Region</th>
-            <th>Residential Strata (Condos)</th>
-            <th>Landed Property</th>
-            <th>Commercial / Industrial</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kuala Lumpur (KL)</strong></td>
-            <td><span class="highlight-badge">RM 1,000,000</span> (~ USD 225k)</td>
-            <td><span class="highlight-badge">RM 1,000,000</span> (Gated)</td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-          </tr>
-          <tr>
-            <td><strong>Selangor (Zone 1 & 2)</strong></td>
-            <td><span class="highlight-badge">RM 2,000,000</span> (~ USD 450k)</td>
-            <td>Not Permitted (Except Special Schemes)</td>
-            <td><span class="highlight-badge">RM 3,000,000</span></td>
-          </tr>
-          <tr>
-            <td><strong>Putrajaya & Cyberjaya</strong></td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-          </tr>
-          <tr>
-            <td><strong>Penang (Island / Mainland)</strong></td>
-            <td><span class="highlight-badge">RM 800,000 - RM 1,000,000</span></td>
-            <td><span class="highlight-badge">RM 1,800,000 - RM 3,000,000</span></td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-          </tr>
-          <tr>
-            <td><strong>Johor (Iskandar / Medini)</strong></td>
-            <td><span class="highlight-badge">RM 1,000,000</span> (RM 500k in Medini)</td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-            <td><span class="highlight-badge">RM 1,000,000</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="mobile-table-hint">
+        <span>👉 Swipe left / right to view full table</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="threshold-table">
+          <thead>
+            <tr>
+              <th>State / Region</th>
+              <th>Residential Strata (Condos)</th>
+              <th>Landed Property</th>
+              <th>Commercial / Industrial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kuala Lumpur (KL)</strong></td>
+              <td><span class="highlight-badge">RM 1,000,000</span> (~ USD 225k)</td>
+              <td><span class="highlight-badge">RM 1,000,000</span> (Gated)</td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+            </tr>
+            <tr>
+              <td><strong>Selangor (Zone 1 & 2)</strong></td>
+              <td><span class="highlight-badge">RM 2,000,000</span> (~ USD 450k)</td>
+              <td>Not Permitted (Except Special Schemes)</td>
+              <td><span class="highlight-badge">RM 3,000,000</span></td>
+            </tr>
+            <tr>
+              <td><strong>Putrajaya & Cyberjaya</strong></td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+            </tr>
+            <tr>
+              <td><strong>Penang (Island / Mainland)</strong></td>
+              <td><span class="highlight-badge">RM 800,000 - RM 1,000,000</span></td>
+              <td><span class="highlight-badge">RM 1,800,000 - RM 3,000,000</span></td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+            </tr>
+            <tr>
+              <td><strong>Johor (Iskandar / Medini)</strong></td>
+              <td><span class="highlight-badge">RM 1,000,000</span> (RM 500k in Medini)</td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+              <td><span class="highlight-badge">RM 1,000,000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div style="background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 12px; padding: 18px 24px; color: #0369a1; font-size: 0.88rem; line-height: 1.6;">
         💡 <strong>Note on Restrictions:</strong> Foreign buyers cannot purchase properties priced below the state threshold, Malay Reserve Land, properties designated under Bumiputera quotas, or low-and-medium-cost public housing schemes.
