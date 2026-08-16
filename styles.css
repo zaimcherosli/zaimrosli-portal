@@ -579,6 +579,7 @@ header.site-header {
   overflow: hidden;
   min-height: 2.9em;
   line-height: 1.45;
+  text-transform: uppercase;
 }
 
 .property-location {
