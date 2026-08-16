@@ -403,14 +403,17 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=17"></script>
-  <script src="/app.js?v=17"></script>
+  <script src="/properties-data.js?v=21"></script>
+  <script src="/app.js?v=21"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       function renderHomeFeatured() {
         const grid = document.getElementById('home-featured-grid');
-        if (grid && typeof PROPERTIES_DATA !== 'undefined') {
-          const featuredList = PROPERTIES_DATA.filter(item => !item.hidden).slice(0, 6);
+        const data = (window.PROPERTIES_DATA && Array.isArray(window.PROPERTIES_DATA) && window.PROPERTIES_DATA.length > 0) 
+          ? window.PROPERTIES_DATA 
+          : (typeof PROPERTIES_DATA !== 'undefined' ? PROPERTIES_DATA : []);
+        if (grid && data.length > 0) {
+          const featuredList = data.filter(item => !item.hidden).slice(0, 6);
           grid.innerHTML = featuredList.map(item => createPropertyCardHTML(item)).join('');
         }
       }
