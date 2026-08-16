@@ -610,11 +610,12 @@
         // Land Area Box
         const landBox = document.getElementById('box-landSize');
         if (landBox) {
-          if (!prop.landSize || prop.landSize === '-' || prop.landSize === '0') {
+          const cleanLandText = (prop.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
+          if (!cleanLandText || cleanLandText === '-' || cleanLandText === '0') {
             landBox.style.display = 'none';
           } else {
             landBox.style.display = 'block';
-            document.getElementById('d-landSize').textContent = prop.landSize;
+            document.getElementById('d-landSize').textContent = cleanLandText;
           }
         }
 

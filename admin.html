@@ -1273,7 +1273,8 @@
         const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
         const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
 
-        const hasLand = p.landSize && p.landSize !== '-' && p.landSize !== '0';
+        const cleanLandText = (p.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
+        const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
         const hasBeds = !isLand && p.beds > 0;
         const hasBaths = !isLand && p.baths > 0;
         const hasSize = p.size && p.size > 0 && !isLand;
@@ -1281,11 +1282,10 @@
         let adminSpecsHTML = '';
 
         if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
-          const cleanLand = p.landSize ? p.landSize.trim() : '-';
           adminSpecsHTML = `
             <div class="admin-spec-banner spec-land-banner">
               <span class="spec-banner-label">LAND AREA</span>
-              <span class="spec-banner-val">${cleanLand}</span>
+              <span class="spec-banner-val">${cleanLandText || '-'}</span>
             </div>
           `;
         } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
@@ -1324,11 +1324,10 @@
             `);
           }
           if (hasLand) {
-            const cleanLand = p.landSize.replace(/\s*\([^)]*\)/g, '').trim();
             specItems.push(`
               <div class="admin-spec-box spec-land">
                 <div class="admin-spec-top">LAND</div>
-                <div class="admin-spec-val">${cleanLand}</div>
+                <div class="admin-spec-val">${cleanLandText}</div>
               </div>
             `);
           }

@@ -88,7 +88,8 @@ function createPropertyCardHTML(item) {
 
   const roomLabel = isCommercial ? 'Rooms' : 'Beds';
 
-  const hasLand = item.landSize && item.landSize !== '-' && item.landSize !== '0';
+  const cleanLandText = (item.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
+  const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
   const hasBeds = !isLand && item.beds > 0;
   const hasBaths = !isLand && item.baths > 0;
   const hasSize = item.size && item.size > 0 && !isLand;
@@ -97,11 +98,10 @@ function createPropertyCardHTML(item) {
 
   // 1. Full-width horizontal bar for Land or single Land spec
   if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
-    const cleanLand = item.landSize ? item.landSize.trim() : '-';
     specsHTML = `
       <div class="property-spec-banner spec-land-banner">
         <span class="spec-banner-label">LAND AREA</span>
-        <span class="spec-banner-val">${cleanLand}</span>
+        <span class="spec-banner-val">${cleanLandText || '-'}</span>
       </div>
     `;
   } else if (!hasLand && !hasBeds && !hasBaths && hasSize) {
@@ -146,11 +146,10 @@ function createPropertyCardHTML(item) {
     }
 
     if (hasLand) {
-      const cleanLand = item.landSize.replace(/\s*\([^)]*\)/g, '').trim();
       specItems.push(`
         <div class="property-spec-box spec-land">
           <div class="spec-top">LAND</div>
-          <div class="spec-val">${cleanLand}</div>
+          <div class="spec-val">${cleanLandText}</div>
         </div>
       `);
     }
