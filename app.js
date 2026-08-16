@@ -82,7 +82,7 @@ function createPropertyCardHTML(item) {
 
   const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : item.beds;
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
-  const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah', 'Tanah Komersial'];
+  const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
   const isCommercial = commTypes.includes(item.type) || (item.type && item.type.toLowerCase().includes('tanah')) || (item.type && item.type.toLowerCase().includes('land')) || (item.type && item.type.toLowerCase().includes('shop')) || (item.type && item.type.toLowerCase().includes('office'));
   const isLand = (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land'))) || (item.landSize && item.landSize !== '-' && (!item.beds || item.beds === 0));
 

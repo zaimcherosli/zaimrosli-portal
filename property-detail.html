@@ -569,7 +569,21 @@
         badge.className = `property-badge ${prop.status === 'sale' ? 'badge-sale' : 'badge-rent'}`;
 
         // Property Type
-        const resolvedType = (prop.type && prop.type !== '-' && prop.type !== '') ? prop.type : (prop.landSize && (!prop.beds || prop.beds === 0) ? 'Tanah' : (prop.category || 'Subsales'));
+        const typeMap = {
+          'Tanah': 'Land',
+          'Tanah Komersial': 'Commercial Land',
+          'Tanah Industri': 'Industrial Land',
+          'Kedai / Pejabat': 'Shop / Office',
+          'Ruang Komersial': 'Commercial Space',
+          'Ruang Pejabat': 'Office Space',
+          'Kilang': 'Factory',
+          'Banglo': 'Bungalow',
+          'Teres': 'Terrace House',
+          'Kondominium': 'Condominium',
+          'Kondominium / Pangsapuri': 'Condominium'
+        };
+        const rawType = (prop.type && prop.type !== '-' && prop.type !== '') ? prop.type : (prop.landSize && (!prop.beds || prop.beds === 0) ? 'Land' : (prop.category || 'Subsales'));
+        const resolvedType = typeMap[rawType] || rawType;
         const typeEl = document.getElementById('d-type');
         if (typeEl) {
           typeEl.textContent = resolvedType;
@@ -577,7 +591,7 @@
 
         // Handle Bedrooms / Rooms: Hide for Land or if 0; For Commercial/Office with rooms, display as ROOMS
         const isLand = (resolvedType && (resolvedType.toLowerCase().includes('tanah') || resolvedType.toLowerCase().includes('land')));
-        const commTypes = ['Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Shop / Office', 'Tanah Komersial'];
+        const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
         const isCommercial = commTypes.includes(resolvedType) || (resolvedType && (resolvedType.toLowerCase().includes('office') || resolvedType.toLowerCase().includes('shop') || resolvedType.toLowerCase().includes('komersial')));
 
         const bedsBox = document.getElementById('box-beds');
@@ -644,7 +658,8 @@
           if (lotTypeBox) lotTypeBox.style.display = 'none';
         } else {
           if (lotTypeBox) lotTypeBox.style.display = 'block';
-          document.getElementById('d-lotType').textContent = prop.lotType;
+          const lotTypeVal = prop.lotType === 'Rezab Melayu' ? 'Malay Reserve' : prop.lotType;
+          document.getElementById('d-lotType').textContent = lotTypeVal;
         }
 
         function cleanPublicDescription(desc) {
