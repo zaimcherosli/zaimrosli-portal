@@ -83,21 +83,21 @@ function createPropertyCardHTML(item) {
   const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : item.beds;
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : item.baths;
   const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
-  const isCommercial = commTypes.includes(item.type) || (item.type && item.type.toLowerCase().includes('tanah')) || (item.type && item.type.toLowerCase().includes('land')) || (item.type && item.type.toLowerCase().includes('shop')) || (item.type && item.type.toLowerCase().includes('office'));
-  const isLand = (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land'))) || (item.landSize && item.landSize !== '-' && (!item.beds || item.beds === 0));
+  const isCommercial = commTypes.includes(item.type) || (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land') || item.type.toLowerCase().includes('shop') || item.type.toLowerCase().includes('office') || item.type.toLowerCase().includes('factory') || item.type.toLowerCase().includes('kilang')));
+  const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(item.type) || ((!item.type || item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land')) && (!item.size || item.size === 0 || item.size === '0') && (!item.beds || item.beds === 0));
 
   const roomLabel = isCommercial ? 'Rooms' : 'Beds';
 
   const cleanLandText = (item.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
   const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
-  const hasBeds = !isLand && item.beds > 0;
-  const hasBaths = !isLand && item.baths > 0;
-  const hasSize = item.size && item.size > 0 && !isLand;
+  const hasSize = (item.size && parseFloat(item.size) > 0) && !isPureLand;
+  const hasBeds = !isPureLand && item.beds > 0;
+  const hasBaths = !isPureLand && item.baths > 0;
 
   let specsHTML = '';
 
   // 1. Full-width horizontal bar for Land or single Land spec
-  if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
+  if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
     specsHTML = `
       <div class="property-spec-banner spec-land-banner">
         <span class="spec-banner-label">LAND AREA</span>
@@ -106,7 +106,7 @@ function createPropertyCardHTML(item) {
     `;
   } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
     // 2. Commercial / Retail with only Built-up size
-    const formattedSize = item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size;
+    const formattedSize = (typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size;
     specsHTML = `
       <div class="property-spec-banner">
         <span class="spec-banner-label">BUILT-UP AREA</span>
@@ -116,7 +116,7 @@ function createPropertyCardHTML(item) {
   } else if (isCommercial) {
     // 3. Commercial items with multiple specs (Shoplots, Offices, Factories)
     const specItems = [];
-    const formattedSize = hasSize ? (item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size) : null;
+    const formattedSize = hasSize ? ((typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size) : null;
     
     if (hasBeds) {
       specItems.push(`
@@ -159,7 +159,7 @@ function createPropertyCardHTML(item) {
     `;
   } else {
     // 4. Uniform 4-box 2x2 grid for ALL Residential properties (Condos, Terraces, Semi-D, Bungalows, Townhouses)
-    const formattedSize = hasSize ? (item.size.toLocaleString ? item.size.toLocaleString('en-US') : item.size) : null;
+    const formattedSize = hasSize ? ((typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size) : null;
     const landClass = hasLand ? 'spec-land' : '';
 
     specsHTML = `

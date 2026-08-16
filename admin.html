@@ -1282,8 +1282,8 @@
         const typeBadge = displayType ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${displayType}</span>` : '';
         const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
 
-        const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')));
-        const isLand = (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land'))) || (p.landSize && p.landSize !== '-' && (!p.beds || p.beds === 0));
+        const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory') || p.type.toLowerCase().includes('kilang')));
+        const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(p.type) || ((!p.type || p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')) && (!p.size || p.size === 0 || p.size === '0') && (!p.beds || p.beds === 0));
 
         const roomLabel = isCommercial ? 'Rooms' : 'Beds';
         const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
@@ -1291,13 +1291,13 @@
 
         const cleanLandText = (p.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
         const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
-        const hasBeds = !isLand && p.beds > 0;
-        const hasBaths = !isLand && p.baths > 0;
-        const hasSize = p.size && p.size > 0 && !isLand;
+        const hasSize = (p.size && parseFloat(p.size) > 0) && !isPureLand;
+        const hasBeds = !isPureLand && p.beds > 0;
+        const hasBaths = !isPureLand && p.baths > 0;
 
         let adminSpecsHTML = '';
 
-        if (isLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
+        if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
           adminSpecsHTML = `
             <div class="admin-spec-banner spec-land-banner">
               <span class="spec-banner-label">LAND AREA</span>
@@ -1305,7 +1305,7 @@
             </div>
           `;
         } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
-          const formattedSize = p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size;
+          const formattedSize = (typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size;
           adminSpecsHTML = `
             <div class="admin-spec-banner">
               <span class="spec-banner-label">BUILT-UP AREA</span>
@@ -1314,7 +1314,7 @@
           `;
         } else if (isCommercial) {
           const specItems = [];
-          const formattedSize = hasSize ? (p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size) : null;
+          const formattedSize = hasSize ? ((typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size) : null;
           if (hasBeds) {
             specItems.push(`
               <div class="admin-spec-box">
@@ -1355,7 +1355,7 @@
           `;
         } else {
           // 4. Uniform 4-box 2x2 grid for ALL Residential properties
-          const formattedSize = hasSize ? (p.size.toLocaleString ? p.size.toLocaleString('en-US') : p.size) : null;
+          const formattedSize = hasSize ? ((typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size) : null;
           const landClass = hasLand ? 'spec-land' : '';
 
           adminSpecsHTML = `
