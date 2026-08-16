@@ -9,6 +9,4 @@
 /properties/commercial /properties.html?category=Commercial 200
 /properties/for-sale /properties.html?status=sale 200
 /properties/for-rent /properties.html?status=rent 200
-/foreign-buyers /foreign-buyers.html 200
-/expat-guide /foreign-buyers.html 200
 /blog/* /blog.html 200
