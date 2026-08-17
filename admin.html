@@ -1478,9 +1478,9 @@
       grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
         const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
         const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
-        const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
-        const priceDisplay = p.status === 'sale' ? `RM ${p.price.toLocaleString('en-US')}` : `RM ${p.price.toLocaleString('en-US')} / month`;
-        const categoryBadge = p.category ? `<span style="background:#f1f5f9; color:#334155; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #e2e8f0;">${p.category}</span>` : '';
+        const priceDisplay = (p.price != null && !isNaN(Number(p.price))) 
+          ? (p.status === 'sale' ? `RM ${Number(p.price).toLocaleString('en-US')}` : `RM ${Number(p.price).toLocaleString('en-US')} / month`) 
+          : (p.priceStr || 'RM 0');
         
         const rawType = p.type || (p.landSize && (!p.beds || p.beds === 0) ? 'Land' : '');
         const displayType = typeMap[rawType] || rawType;
@@ -1510,7 +1510,7 @@
             </div>
           `;
         } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
-          const formattedSize = (typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size;
+          const formattedSize = (p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : (p.size || '-');
           adminSpecsHTML = `
             <div class="admin-spec-banner">
               <span class="spec-banner-label">BUILT-UP AREA</span>
@@ -1519,7 +1519,7 @@
           `;
         } else if (isCommercial) {
           const specItems = [];
-          const formattedSize = hasSize ? ((typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size) : null;
+          const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
           if (hasBeds) {
             specItems.push(`
               <div class="admin-spec-box">
@@ -1560,7 +1560,7 @@
           `;
         } else {
           // 4. Uniform 4-box 2x2 grid for ALL Residential properties
-          const formattedSize = hasSize ? ((typeof p.size === 'number') ? p.size.toLocaleString('en-US') : p.size) : null;
+          const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
           const landClass = hasLand ? 'spec-land' : '';
 
           adminSpecsHTML = `
@@ -1822,7 +1822,7 @@
           slug: slug,
           title: title,
           price: price,
-          priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / month`,
+          priceStr: (price != null && !isNaN(Number(price))) ? (status === 'sale' ? `RM ${Number(price).toLocaleString('en-US')}` : `RM ${Number(price).toLocaleString('en-US')} / month`) : (document.getElementById('form-price').value || 'RM 0'),
           category: category,
           location: location,
           region: region,
