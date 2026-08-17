@@ -1172,6 +1172,22 @@
       renderListingsGrid();
     }
 
+    // Real-Time Cross-Device Sync (Instantly updates desktop when edited on mobile & vice versa)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        const modal = document.getElementById('property-modal');
+        if (!modal || modal.style.display !== 'flex') {
+          loadPropertiesList();
+        }
+      }
+    });
+    window.addEventListener('focus', () => {
+      const modal = document.getElementById('property-modal');
+      if (!modal || modal.style.display !== 'flex') {
+        loadPropertiesList();
+      }
+    });
+
     let currentAdminCatFilter = 'all';
 
     function setAdminCategoryFilter(cat) {
