@@ -1,4 +1,37 @@
-import { LOCATIONS_CONFIG } from '../../locations-config.js';
+const LOCATIONS_CONFIG = {
+  bangi: {
+    slug: "bangi",
+    name: "Bangi",
+    state: "Selangor",
+    active: true,
+    seoTitle: "Ejen Hartanah Bangi & Rumah Dijual / Sewa di Bandar Baru Bangi — Zaim Rosli (REN39575)",
+    seoDescription: "Cari rumah sewa, banglo, semi-d & ruang komersial untuk dijual di Bandar Baru Bangi & Bandar Seri Putra. Khidmat ejen hartanah berdaftar REN39575.",
+    h1: "Hartanah di Bangi: Rumah Dijual & Sewa di Bandar Baru Bangi",
+    introContent: "Bandar Baru Bangi dan perbandaran sekitarnya seperti Bandar Seri Putra dan Seksyen 1–16 merupakan hab kediaman dan komersial strategik di selatan Selangor.",
+    filterKeywords: ["bangi", "bandar baru bangi", "bandar seri putra", "bangi avenue", "gandaria", "kajang impian", "jenderam"],
+    subareas: ["Seksyen 4", "Seksyen 9 (Pusat Bandar)", "Bandar Seri Putra", "Taman Kajang Impian (Sempadan Sek 7)", "Bangi Avenue", "Southville City", "Jenderam Hulu"],
+    relatedBlogSlugs: ["panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement", "pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur", "freehold-vs-leasehold-pelaburan-hartanah-malaysia"],
+    faqs: [
+      { question: "Apakah jenis hartanah yang terdapat di kawasan Bangi?", answer: "Kawasan Bangi menawarkan pelbagai jenis hartanah merangkumi rumah teres, semi-D, banglo sudut, ruang komersial pejabat/kedai, serta tanah status bangunan dan kediaman." }
+    ]
+  },
+  nilai: {
+    slug: "nilai",
+    name: "Nilai",
+    state: "Negeri Sembilan",
+    active: true,
+    seoTitle: "Ejen Hartanah Nilai & Rumah / Kedai Dijual & Sewa di Nilai Impian & Bandar Baru Nilai — Zaim Rosli (REN39575)",
+    seoDescription: "Cari rumah, kedai shoplot, tanah & kilang industri untuk dijual / sewa di Nilai, Bandar Baru Nilai & Nilai Impian. Khidmat ejen hartanah berdaftar REN39575.",
+    h1: "Hartanah di Nilai: Rumah, Shoplot & Kilang Dijual / Sewa di Nilai",
+    introContent: "Nilai merupakan koridor pertumbuhan pesat dan hab pendidikan serta logistik utama yang menghubungkan Lembah Klang dan Negeri Sembilan.",
+    filterKeywords: ["nilai", "bandar baru nilai", "nilai impian", "desa melati", "desa cempaka", "nilai 3", "putra nilai", "bandar enstek", "labu"],
+    subareas: ["Bandar Baru Nilai", "Nilai Impian", "Taman Desa Melati", "Taman Desa Cempaka", "Kawasan Perindustrian Nilai", "Pusat Borong Nilai 3", "Bandar Enstek"],
+    relatedBlogSlugs: ["panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement", "pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur", "freehold-vs-leasehold-pelaburan-hartanah-malaysia"],
+    faqs: [
+      { question: "Apakah potensi pelaburan hartanah di kawasan Nilai?", answer: "Nilai mempunyai permintaan sewa yang tinggi hasil daripada ekosistem universiti utama serta kawasan perindustrian aktif dan Pusat Borong Nilai 3." }
+    ]
+  }
+};
 
 function safeJsonStringify(obj) {
   return JSON.stringify(obj)
