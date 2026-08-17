@@ -1763,85 +1763,96 @@
       e.preventDefault();
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '⌛ Saving to Cloudflare R2...';
+      submitBtn.innerHTML = '⌛ Saving...';
       submitBtn.disabled = true;
 
-      const targetId = document.getElementById('form-id').value;
-      const title = document.getElementById('form-title').value.trim();
-      const price = parseFloat(document.getElementById('form-price').value);
-      const category = document.getElementById('form-category').value;
-      const status = document.getElementById('form-status').value;
-      const location = document.getElementById('form-location').value.trim();
-      const region = document.getElementById('form-region').value;
-      const type = document.getElementById('form-type').value;
-      const beds = parseInt(document.getElementById('form-beds').value) || 0;
-      const bedsPlus = parseInt(document.getElementById('form-beds-plus').value) || 0;
-      const baths = parseInt(document.getElementById('form-baths').value) || 0;
-      const bathsPlus = parseInt(document.getElementById('form-baths-plus').value) || 0;
-      const landSize = document.getElementById('form-landSize').value.trim() || '-';
-      const size = parseInt(document.getElementById('form-size').value) || 0;
-      const tenure = document.getElementById('form-tenure').value;
-      const lotType = document.getElementById('form-lotType').value;
-      const refUrl = document.getElementById('form-ref-url').value.trim();
-      const description = document.getElementById('form-description').value.trim();
+      try {
+        const targetId = document.getElementById('form-id').value;
+        const title = document.getElementById('form-title').value.trim();
+        const price = parseFloat(document.getElementById('form-price').value) || 0;
+        const category = document.getElementById('form-category').value;
+        const status = document.getElementById('form-status').value;
+        const location = document.getElementById('form-location').value.trim();
+        const region = document.getElementById('form-region').value;
+        const type = document.getElementById('form-type').value;
+        const beds = parseInt(document.getElementById('form-beds').value) || 0;
+        const bedsPlus = parseInt(document.getElementById('form-beds-plus').value) || 0;
+        const baths = parseInt(document.getElementById('form-baths').value) || 0;
+        const bathsPlus = parseInt(document.getElementById('form-baths-plus').value) || 0;
+        const landSize = document.getElementById('form-landSize').value.trim() || '-';
+        const size = parseInt(document.getElementById('form-size').value) || 0;
+        const tenure = document.getElementById('form-tenure').value;
+        const lotType = document.getElementById('form-lotType').value;
+        const refUrl = document.getElementById('form-ref-url').value.trim();
+        const description = document.getElementById('form-description').value.trim();
 
-      let mainImg = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80";
-      let imagesArr = [];
-      
-      if (uploadedImageUrls.length > 0) {
-        mainImg = uploadedImageUrls[0];
-        imagesArr = [...uploadedImageUrls];
-      }
+        let mainImg = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80";
+        let imagesArr = [];
+        
+        if (uploadedImageUrls.length > 0) {
+          mainImg = uploadedImageUrls[0];
+          imagesArr = [...uploadedImageUrls];
+        }
 
-      const slug = slugify(title);
+        const slug = slugify(title) || `prop-${Date.now()}`;
 
-      // Find existing item by ID or Slug (Never rely on fragile array index!)
-      const existingIdx = targetId ? currentProperties.findIndex(p => p.id === targetId || p.slug === targetId) : -1;
-      const finalId = (existingIdx >= 0 && currentProperties[existingIdx].id) ? currentProperties[existingIdx].id : `prop-${Date.now()}`;
-      const isHidden = (existingIdx >= 0 && currentProperties[existingIdx]) ? !!currentProperties[existingIdx].hidden : false;
+        // Find existing item by ID or Slug (Never rely on fragile array index!)
+        const existingIdx = targetId ? currentProperties.findIndex(p => p.id === targetId || p.slug === targetId) : -1;
+        const finalId = (existingIdx >= 0 && currentProperties[existingIdx].id) ? currentProperties[existingIdx].id : `prop-${Date.now()}`;
+        const isHidden = (existingIdx >= 0 && currentProperties[existingIdx]) ? !!currentProperties[existingIdx].hidden : false;
 
-      const propData = {
-        id: finalId,
-        slug: slug,
-        title: title,
-        price: price,
-        priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / month`,
-        category: category,
-        location: location,
-        region: region,
-        type: type,
-        status: status,
-        beds: beds,
-        bedsPlus: bedsPlus,
-        baths: baths,
-        bathsPlus: bathsPlus,
-        parking: 2,
-        size: size,
-        landSize: landSize,
-        tenure: tenure,
-        lotType: lotType,
-        image: mainImg,
-        images: imagesArr,
-        description: description,
-        refUrl: refUrl,
-        hidden: isHidden
-      };
+        const propData = {
+          id: finalId,
+          slug: slug,
+          title: title,
+          price: price,
+          priceStr: status === 'sale' ? `RM ${price.toLocaleString('en-US')}` : `RM ${price.toLocaleString('en-US')} / month`,
+          category: category,
+          location: location,
+          region: region,
+          type: type,
+          status: status,
+          beds: beds,
+          bedsPlus: bedsPlus,
+          baths: baths,
+          bathsPlus: bathsPlus,
+          parking: 2,
+          size: size,
+          landSize: landSize,
+          tenure: tenure,
+          lotType: lotType,
+          image: mainImg,
+          images: imagesArr,
+          description: description,
+          refUrl: refUrl,
+          hidden: isHidden
+        };
 
-      if (existingIdx >= 0) {
-        currentProperties[existingIdx] = propData;
-      } else {
-        currentProperties.unshift(propData);
-      }
+        if (existingIdx >= 0) {
+          currentProperties[existingIdx] = propData;
+        } else {
+          currentProperties.unshift(propData);
+        }
 
-      await saveToStorage();
-      renderListingsGrid();
-      
-      submitBtn.innerHTML = '✅ Saved to Cloudflare R2!';
-      setTimeout(() => {
+        // Optimistically render UI and save to local storage immediately
+        renderListingsGrid();
+        submitBtn.innerHTML = '✅ Saved!';
+        
+        // Asynchronous Cloud Sync with timeout (never blocks UI)
+        saveToStorage();
+
+        setTimeout(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          closeModal();
+        }, 400);
+
+      } catch (err) {
+        console.error('Error saving property:', err);
+        alert('Ralat menyimpan hartanah: ' + err.message);
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        closeModal();
-      }, 600);
+      }
     }
 
     async function forceSyncCloudflare() {
@@ -1862,24 +1873,11 @@
       localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
       try {
         let fullList = [...currentProperties];
-        try {
-          const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
-          if (res.ok) {
-            const remote = await res.json();
-            if (Array.isArray(remote)) {
-              const sysLoc = remote.find(p => p && p.id === '__SYS_LOCATIONS_DATA__');
-              if (sysLoc) {
-                fullList = fullList.filter(p => p.id !== '__SYS_LOCATIONS_DATA__');
-                fullList.push(sysLoc);
-              }
-            }
-          }
-        } catch (e) {}
-
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(fullList)
+          body: JSON.stringify(fullList),
+          signal: AbortSignal.timeout(5000)
         });
       } catch (e) {
         console.error('KV save error:', e);
