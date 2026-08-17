@@ -419,8 +419,8 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=17"></script>
-  <script src="/app.js?v=17"></script>
+  <script src="/properties-data.js?v=21"></script>
+  <script src="/app.js?v=21"></script>
   <script>
     function slugify(text) {
       if (!text) return '';
@@ -451,7 +451,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      function renderDetail() {
+      async function renderDetail() {
+        const loadingEl = document.getElementById('detail-loading');
+        const containerEl = document.getElementById('detail-container');
+        const notFoundEl = document.getElementById('detail-404');
+
         try {
           const urlParams = new URLSearchParams(window.location.search);
           const querySlug = urlParams.get('slug');
@@ -466,21 +470,42 @@
             pathSlug = pathParts[0];
           }
           const targetSlug = querySlug || pathSlug;
-          
-          let prop = null;
-          if (targetSlug && targetSlug !== 'property-detail' && targetSlug !== 'property-detail.html' && targetSlug !== 'properties') {
-            prop = (window.PROPERTIES_DATA || []).find(p => 
-              p.slug === targetSlug || 
-              p.id === queryId || 
-              p.id === targetSlug ||
-              slugify(p.title) === targetSlug ||
-              (p.slug && p.slug.startsWith(targetSlug))
+
+          function matchProperty(dataset, slugOrId) {
+            if (!dataset || !Array.isArray(dataset) || !slugOrId) return null;
+            return dataset.find(p =>
+              p.slug === slugOrId ||
+              p.id === queryId ||
+              p.id === slugOrId ||
+              slugify(p.title) === slugOrId ||
+              (p.slug && p.slug.startsWith(slugOrId))
             );
           }
 
-          const loadingEl = document.getElementById('detail-loading');
-          const containerEl = document.getElementById('detail-container');
-          const notFoundEl = document.getElementById('detail-404');
+          let prop = null;
+          if (targetSlug && targetSlug !== 'property-detail' && targetSlug !== 'property-detail.html' && targetSlug !== 'properties') {
+            // A. Try local dataset (window.PROPERTIES_DATA)
+            prop = matchProperty(window.PROPERTIES_DATA, targetSlug);
+
+            // B. If not found locally, fetch fresh live data from Worker API
+            if (!prop) {
+              try {
+                const apiRes = await fetch('/api/properties?t=' + Date.now(), { cache: 'no-store' });
+                if (apiRes.ok) {
+                  const liveList = await apiRes.json();
+                  if (Array.isArray(liveList) && liveList.length > 0) {
+                    window.PROPERTIES_DATA = liveList;
+                    try {
+                      localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(liveList));
+                    } catch (storeErr) {}
+                    prop = matchProperty(liveList, targetSlug);
+                  }
+                }
+              } catch (fetchErr) {
+                console.log('Live properties fetch skipped:', fetchErr);
+              }
+            }
+          }
 
           if (loadingEl) loadingEl.style.display = 'none';
 
@@ -894,10 +919,9 @@
 
         } catch (e) {
           console.error("renderDetail error:", e);
-          const loadingEl = document.getElementById('detail-loading');
-          const containerEl = document.getElementById('detail-container');
           if (loadingEl) loadingEl.style.display = 'none';
-          if (containerEl) containerEl.style.display = 'block';
+          if (containerEl) containerEl.style.display = 'none';
+          if (notFoundEl) notFoundEl.style.display = 'block';
         }
       }
 
