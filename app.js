@@ -303,27 +303,45 @@ window.calcLoanStampDuty = calcLoanStampDuty;
 window.calcValuationFee = calcValuationFee;
 
 
-// Live Cloudflare KV Synchronizer for All Public Pages
+// Live Cloudflare KV Synchronizer for All Public Pages (Real-Time Mobile & Desktop Sync)
 (function initLivePropertiesSync() {
-  try {
-    const local = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        window.PROPERTIES_DATA = parsed;
-        window.dispatchEvent(new CustomEvent('properties-updated'));
+  function syncFromStorage() {
+    try {
+      const local = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+      if (local) {
+        const parsed = JSON.parse(local);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          window.PROPERTIES_DATA = parsed;
+          window.dispatchEvent(new CustomEvent('properties-updated'));
+        }
       }
-    }
-  } catch(e) {}
+    } catch(e) {}
+  }
 
-  fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties')
-    .then(res => res.json())
-    .then(data => {
-      if (Array.isArray(data) && data.length > 0) {
-        window.PROPERTIES_DATA = data;
-        localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
-        window.dispatchEvent(new CustomEvent('properties-updated'));
-      }
-    })
-    .catch(err => console.log('Live KV sync skipped:', err));
+  function fetchLiveKV() {
+    fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          window.PROPERTIES_DATA = data;
+          try {
+            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
+          } catch(e) {}
+          window.dispatchEvent(new CustomEvent('properties-updated'));
+        }
+      })
+      .catch(err => console.log('Live KV sync skipped:', err));
+  }
+
+  // 1. Initial fast local load + network fetch
+  syncFromStorage();
+  fetchLiveKV();
+
+  // 2. Real-time auto-sync when user returns to app/tab on mobile or desktop
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      fetchLiveKV();
+    }
+  });
+  window.addEventListener('focus', fetchLiveKV);
 })();
