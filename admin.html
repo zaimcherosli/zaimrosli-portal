@@ -2164,14 +2164,16 @@
 
     async function loadLocationsAdmin() {
       try {
-        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now());
+        const res = await fetch('/api/locations?t=' + Date.now());
         if (res.ok) {
           let data = await res.json();
           if (typeof data === 'string') try { data = JSON.parse(data); } catch(e) {}
           if (Array.isArray(data) && data.length > 0) {
             locationsList = data;
+            try { localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(data)); } catch(e) {}
           } else if (data && typeof data === 'object' && !data.message) {
             locationsList = Object.values(data);
+            try { localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(locationsList)); } catch(e) {}
           }
         }
       } catch(e) {}
