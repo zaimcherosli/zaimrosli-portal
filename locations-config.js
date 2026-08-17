@@ -4,7 +4,7 @@
  * Dynamic property listings are fetched and filtered directly from Cloudflare Worker KV.
  */
 
-export const LOCATIONS_CONFIG = {
+const LOCATIONS_CONFIG = {
   bangi: {
     slug: "bangi",
     name: "Bangi",
@@ -55,4 +55,7 @@ export const LOCATIONS_CONFIG = {
 
 if (typeof window !== 'undefined') {
   window.LOCATIONS_CONFIG = LOCATIONS_CONFIG;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { LOCATIONS_CONFIG };
 }
