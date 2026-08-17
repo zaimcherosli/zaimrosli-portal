@@ -2655,10 +2655,24 @@
     async function handleAutoSyncImport() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const autoSyncRaw = urlParams.get('auto_sync');
+        let autoSyncRaw = urlParams.get('auto_sync');
+        if (!autoSyncRaw && window.location.hash.includes('auto_sync=')) {
+          const hashParams = new URLSearchParams(window.location.hash.substring(1));
+          autoSyncRaw = hashParams.get('auto_sync');
+        }
         if (!autoSyncRaw) return;
 
-        let listing = JSON.parse(decodeURIComponent(autoSyncRaw));
+        let listing = null;
+        try {
+          listing = JSON.parse(autoSyncRaw);
+        } catch (e1) {
+          try {
+            listing = JSON.parse(decodeURIComponent(autoSyncRaw));
+          } catch (e2) {
+            console.error('Failed to parse auto_sync payload:', e2);
+            return;
+          }
+        }
         if (!listing || !listing.title) return;
 
         // Clean query param from URL bar
