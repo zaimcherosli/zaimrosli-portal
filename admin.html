@@ -1278,8 +1278,8 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/properties-data.js?v=17"></script>
-  <script src="/app.js?v=17"></script>
+  <script src="/properties-data.js?v=18"></script>
+  <script src="/app.js?v=18"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -1475,164 +1475,170 @@
         'Kondominium / Pangsapuri': 'Condominium'
       };
 
-      grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
-        const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
-        const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
-        const priceDisplay = (p.price != null && !isNaN(Number(p.price))) 
-          ? (p.status === 'sale' ? `RM ${Number(p.price).toLocaleString('en-US')}` : `RM ${Number(p.price).toLocaleString('en-US')} / month`) 
-          : (p.priceStr || 'RM 0');
-        
-        const rawType = p.type || (p.landSize && (!p.beds || p.beds === 0) ? 'Land' : '');
-        const displayType = typeMap[rawType] || rawType;
-        const typeBadge = displayType ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${displayType}</span>` : '';
-        const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
+      try {
+        grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
+          const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
+          const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
+          const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
+          const categoryBadge = p.category ? `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #fde68a;">${p.category}</span>` : '';
+          const priceDisplay = (p.price != null && !isNaN(Number(p.price))) 
+            ? (p.status === 'sale' ? `RM ${Number(p.price).toLocaleString('en-US')}` : `RM ${Number(p.price).toLocaleString('en-US')} / month`) 
+            : (p.priceStr || 'RM 0');
+          
+          const rawType = p.type || (p.landSize && (!p.beds || p.beds === 0) ? 'Land' : '');
+          const displayType = typeMap[rawType] || rawType;
+          const typeBadge = displayType ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${displayType}</span>` : '';
+          const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
 
-        const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory') || p.type.toLowerCase().includes('kilang')));
-        const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(p.type) || ((!p.type || p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')) && (!p.size || p.size === 0 || p.size === '0') && (!p.beds || p.beds === 0));
+          const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory') || p.type.toLowerCase().includes('kilang')));
+          const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(p.type) || ((!p.type || p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')) && (!p.size || p.size === 0 || p.size === '0') && (!p.beds || p.beds === 0));
 
-        const roomLabel = isCommercial ? 'Rooms' : 'Beds';
-        const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
-        const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
+          const roomLabel = isCommercial ? 'Rooms' : 'Beds';
+          const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
+          const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
 
-        const cleanLandText = (p.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
-        const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
-        const hasSize = (p.size && parseFloat(p.size) > 0) && !isPureLand;
-        const hasBeds = !isPureLand && p.beds > 0;
-        const hasBaths = !isPureLand && p.baths > 0;
+          const cleanLandText = (p.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
+          const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
+          const hasSize = (p.size && parseFloat(p.size) > 0) && !isPureLand;
+          const hasBeds = !isPureLand && p.beds > 0;
+          const hasBaths = !isPureLand && p.baths > 0;
 
-        let adminSpecsHTML = '';
+          let adminSpecsHTML = '';
 
-        if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
-          adminSpecsHTML = `
-            <div class="admin-spec-banner spec-land-banner">
-              <span class="spec-banner-label">LAND AREA</span>
-              <span class="spec-banner-val">${cleanLandText || '-'}</span>
+          if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
+            adminSpecsHTML = `
+              <div class="admin-spec-banner spec-land-banner">
+                <span class="spec-banner-label">LAND AREA</span>
+                <span class="spec-banner-val">${cleanLandText || '-'}</span>
+              </div>
+            `;
+          } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
+            const formattedSize = (p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : (p.size || '-');
+            adminSpecsHTML = `
+              <div class="admin-spec-banner">
+                <span class="spec-banner-label">BUILT-UP AREA</span>
+                <span class="spec-banner-val">${formattedSize} sqft</span>
+              </div>
+            `;
+          } else if (isCommercial) {
+            const specItems = [];
+            const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
+            if (hasBeds) {
+              specItems.push(`
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">ROOMS</div>
+                  <div class="admin-spec-val">${bedsVal}</div>
+                </div>
+              `);
+            }
+            if (hasBaths) {
+              specItems.push(`
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">BATHS</div>
+                  <div class="admin-spec-val">${bathsVal}</div>
+                </div>
+              `);
+            }
+            if (formattedSize) {
+              specItems.push(`
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">BUILT-UP</div>
+                  <div class="admin-spec-val">${formattedSize} sqft</div>
+                </div>
+              `);
+            }
+            if (hasLand) {
+              specItems.push(`
+                <div class="admin-spec-box spec-land">
+                  <div class="admin-spec-top">LAND AREA</div>
+                  <div class="admin-spec-val">${cleanLandText}</div>
+                </div>
+              `);
+            }
+            const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+            adminSpecsHTML = `
+              <div class="admin-specs-row ${gridClass}">
+                ${specItems.join('')}
+              </div>
+            `;
+          } else {
+            // 4. Uniform 4-box 2x2 grid for ALL Residential properties
+            const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
+            const landClass = hasLand ? 'spec-land' : '';
+
+            adminSpecsHTML = `
+              <div class="admin-specs-row specs-grid-2x2">
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">BEDS</div>
+                  <div class="admin-spec-val">${hasBeds ? bedsVal : '-'}</div>
+                </div>
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">BATHS</div>
+                  <div class="admin-spec-val">${hasBaths ? bathsVal : '-'}</div>
+                </div>
+                <div class="admin-spec-box">
+                  <div class="admin-spec-top">BUILT-UP</div>
+                  <div class="admin-spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
+                </div>
+                <div class="admin-spec-box ${landClass}">
+                  <div class="admin-spec-top">LAND AREA</div>
+                  <div class="admin-spec-val">${hasLand ? cleanLandText : '-'}</div>
+                </div>
+              </div>
+            `;
+          }
+
+          const isHidden = !!p.hidden;
+          const cardStyle = isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : '';
+          const imgStyle = isHidden ? 'style="opacity: 0.5; filter: grayscale(50%);"' : '';
+
+          return `
+            <div class="listing-item" ${cardStyle}>
+              <img src="${mainImg}" class="listing-thumb" ${imgStyle} alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
+              <div class="listing-info">
+                <div class="listing-badges-row">
+                  <span class="badge-status ${badgeClass}">${badgeText}</span>
+                  ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">🙈 HIDDEN FROM MAIN PAGE</span>' : ''}
+                  ${categoryBadge}
+                  ${typeBadge}
+                </div>
+                <div style="font-size:1.15rem; font-weight:800; color:#d97706; margin-top:4px;">${priceDisplay}</div>
+                <h3 class="listing-title">${p.title}</h3>
+
+                <div style="font-size:0.8rem; font-weight:600; color:#64748b; margin: 4px 0 6px; display:flex; align-items:center; gap:4px;">
+                  <span>📍</span> <span>${(p.location || "").replace(/^\+\s*/, "")}</span>
+                </div>
+
+                <div class="admin-specs-grid">
+                  ${adminSpecsHTML}
+                </div>
+
+                ${refLinkHtml}
+              </div>
+              
+              <div class="listing-actions-row">
+                <a href="/properties/${isCommercial ? 'commercial' : 'residential'}/${p.slug || p.id}" target="_blank" class="action-btn" title="View Live Page" style="display:flex; align-items:center; justify-content:center; text-decoration:none; color:#334155;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+                <button onclick="toggleHideProperty(event, ${idx})" class="action-btn ${isHidden ? 'hidden-btn' : ''}" title="${isHidden ? 'Click to Unhide (Show on Main Page)' : 'Click to Hide (Hide from Main Page)'}">
+                  ${isHidden 
+                    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+                    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
+                  }
+                </button>
+                <button onclick="editProperty(${idx})" class="action-btn" title="Edit Property">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button onclick="deleteProperty(${idx})" class="action-btn delete" title="Delete Property">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+              </div>
             </div>
           `;
-        } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
-          const formattedSize = (p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : (p.size || '-');
-          adminSpecsHTML = `
-            <div class="admin-spec-banner">
-              <span class="spec-banner-label">BUILT-UP AREA</span>
-              <span class="spec-banner-val">${formattedSize} sqft</span>
-            </div>
-          `;
-        } else if (isCommercial) {
-          const specItems = [];
-          const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
-          if (hasBeds) {
-            specItems.push(`
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">ROOMS</div>
-                <div class="admin-spec-val">${bedsVal}</div>
-              </div>
-            `);
-          }
-          if (hasBaths) {
-            specItems.push(`
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">BATHS</div>
-                <div class="admin-spec-val">${bathsVal}</div>
-              </div>
-            `);
-          }
-          if (formattedSize) {
-            specItems.push(`
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">BUILT-UP</div>
-                <div class="admin-spec-val">${formattedSize} sqft</div>
-              </div>
-            `);
-          }
-          if (hasLand) {
-            specItems.push(`
-              <div class="admin-spec-box spec-land">
-                <div class="admin-spec-top">LAND AREA</div>
-                <div class="admin-spec-val">${cleanLandText}</div>
-              </div>
-            `);
-          }
-          const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
-          adminSpecsHTML = `
-            <div class="admin-specs-row ${gridClass}">
-              ${specItems.join('')}
-            </div>
-          `;
-        } else {
-          // 4. Uniform 4-box 2x2 grid for ALL Residential properties
-          const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
-          const landClass = hasLand ? 'spec-land' : '';
-
-          adminSpecsHTML = `
-            <div class="admin-specs-row specs-grid-2x2">
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">BEDS</div>
-                <div class="admin-spec-val">${hasBeds ? bedsVal : '-'}</div>
-              </div>
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">BATHS</div>
-                <div class="admin-spec-val">${hasBaths ? bathsVal : '-'}</div>
-              </div>
-              <div class="admin-spec-box">
-                <div class="admin-spec-top">BUILT-UP</div>
-                <div class="admin-spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
-              </div>
-              <div class="admin-spec-box ${landClass}">
-                <div class="admin-spec-top">LAND AREA</div>
-                <div class="admin-spec-val">${hasLand ? cleanLandText : '-'}</div>
-              </div>
-            </div>
-          `;
-        }
-
-        const isHidden = !!p.hidden;
-        const cardStyle = isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : '';
-        const imgStyle = isHidden ? 'style="opacity: 0.5; filter: grayscale(50%);"' : '';
-
-        return `
-          <div class="listing-item" ${cardStyle}>
-            <img src="${mainImg}" class="listing-thumb" ${imgStyle} alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
-            <div class="listing-info">
-              <div class="listing-badges-row">
-                <span class="badge-status ${badgeClass}">${badgeText}</span>
-                ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">🙈 HIDDEN FROM MAIN PAGE</span>' : ''}
-                ${categoryBadge}
-                ${typeBadge}
-              </div>
-              <div style="font-size:1.15rem; font-weight:800; color:#d97706; margin-top:4px;">${priceDisplay}</div>
-              <h3 class="listing-title">${p.title}</h3>
-
-              <div style="font-size:0.8rem; font-weight:600; color:#64748b; margin: 4px 0 6px; display:flex; align-items:center; gap:4px;">
-                <span>📍</span> <span>${(p.location || "").replace(/^\+\s*/, "")}</span>
-              </div>
-
-              <div class="admin-specs-grid">
-                ${adminSpecsHTML}
-              </div>
-
-              ${refLinkHtml}
-            </div>
-            
-            <div class="listing-actions-row">
-              <a href="/properties/${isCommercial ? 'commercial' : 'residential'}/${p.slug || p.id}" target="_blank" class="action-btn" title="View Live Page" style="display:flex; align-items:center; justify-content:center; text-decoration:none; color:#334155;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              </a>
-              <button onclick="toggleHideProperty(event, ${idx})" class="action-btn ${isHidden ? 'hidden-btn' : ''}" title="${isHidden ? 'Click to Unhide (Show on Main Page)' : 'Click to Hide (Hide from Main Page)'}">
-                ${isHidden 
-                  ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
-                  : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
-                }
-              </button>
-              <button onclick="editProperty(${idx})" class="action-btn" title="Edit Property">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button onclick="deleteProperty(${idx})" class="action-btn delete" title="Delete Property">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
+        }).join('');
+      } catch (renderErr) {
+        console.error('Grid render error:', renderErr);
+      }
     }
 
     function autoResizeDescription(el) {
