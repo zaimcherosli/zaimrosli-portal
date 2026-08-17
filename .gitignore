@@ -1,0 +1,24 @@
+# Secrets & Environment variables
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+
+# Telegram sessions & Auth
+*session*
+telegram_*
+*.session
+*.session-journal
+
+# Cloudflare & Wrangler
+.wrangler/
+.mf/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
