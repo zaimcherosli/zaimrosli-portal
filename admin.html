@@ -1285,7 +1285,16 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    let currentProperties = [];
+    let currentProperties = (() => {
+      try {
+        const stored = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) ? [...PROPERTIES_DATA] : [];
+    })();
     let uploadedImageUrls = [];
     let draggedIdx = null;
 
@@ -1310,7 +1319,9 @@
 
     async function loadPropertiesList() {
       try {
-        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
+        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), {
+          signal: AbortSignal.timeout(5000)
+        });
         if (res.ok) {
           let remoteData = await res.json();
           if (typeof remoteData === 'string') {
@@ -1333,12 +1344,17 @@
       const stored = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
       if (stored) {
         try {
-          currentProperties = JSON.parse(stored);
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            currentProperties = parsed;
+          } else {
+            currentProperties = (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) ? [...PROPERTIES_DATA] : [];
+          }
         } catch(e) {
-          currentProperties = PROPERTIES_DATA;
+          currentProperties = (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) ? [...PROPERTIES_DATA] : [];
         }
       } else {
-        currentProperties = PROPERTIES_DATA;
+        currentProperties = (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) ? [...PROPERTIES_DATA] : [];
       }
 
       renderListingsGrid();
