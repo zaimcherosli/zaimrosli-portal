@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   highlightActiveNavLink();
   initMobileDrawerNav();
+  initAreaFocusMenu();
 });
 
 // 1. Highlight Active Nav Link based on Current Page URL
@@ -344,3 +345,111 @@ window.calcValuationFee = calcValuationFee;
   });
   window.addEventListener('focus', fetchLiveKV);
 })();
+
+// 4. Dynamic Area Focus Navigation Menu from /api/locations
+async function initAreaFocusMenu() {
+  const desktopContainers = document.querySelectorAll('.area-focus-desktop');
+  const mobileContainers = document.querySelectorAll('.area-focus-mobile');
+
+  if (desktopContainers.length === 0 && mobileContainers.length === 0) {
+    return;
+  }
+
+  const RESERVED_LOCATION_SLUGS = new Set([
+    'properties', 'for-sale', 'for-rent', 'residential', 'commercial',
+    'commercial-industrial', 'admin', 'login', 'api', 'services', 'about',
+    'contact', 'faq', 'calculator', 'foreign-buyers', 'testimonials',
+    'blog', 'privacy', 'terms', 'areas'
+  ]);
+
+  try {
+    const res = await fetch('/api/locations');
+    if (!res.ok) return;
+
+    const data = await res.json();
+    let locations = [];
+
+    if (Array.isArray(data)) {
+      locations = data;
+    } else if (data && typeof data === 'object') {
+      locations = Object.values(data);
+    }
+
+    const seenSlugs = new Set();
+    const activeLocations = [];
+
+    for (const loc of locations) {
+      if (!loc || typeof loc !== 'object') continue;
+      if (loc.id === '__SYS_LOCATIONS_DATA__') continue;
+      if (loc.active !== true) continue;
+      if (!loc.name || typeof loc.name !== 'string') continue;
+
+      const slug = (loc.slug || '').toLowerCase().trim();
+      if (!slug || !/^[a-z0-9-]+$/.test(slug)) continue;
+      if (RESERVED_LOCATION_SLUGS.has(slug)) continue;
+      if (seenSlugs.has(slug)) continue;
+
+      seenSlugs.add(slug);
+      activeLocations.push({
+        name: loc.name.trim(),
+        slug: slug
+      });
+    }
+
+    if (activeLocations.length === 0) return;
+
+    // Sort ascending by name
+    activeLocations.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+
+    const maxItems = 5;
+    const displayLocations = activeLocations.slice(0, maxItems);
+
+    // Render Desktop Navigation
+    desktopContainers.forEach(container => {
+      container.innerHTML = '';
+
+      const divider = document.createElement('div');
+      divider.style.cssText = 'margin: 6px 8px; border-top: 1px solid rgba(255,255,255,0.15);';
+      container.appendChild(divider);
+
+      const header = document.createElement('div');
+      header.className = 'dropdown-section-header';
+      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #94a3b8; padding: 6px 14px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
+      header.textContent = 'AREA FOCUS';
+      container.appendChild(header);
+
+      displayLocations.forEach(loc => {
+        const a = document.createElement('a');
+        a.href = `/properties/${loc.slug}`;
+        a.className = 'dropdown-item';
+        a.textContent = loc.name;
+        container.appendChild(a);
+      });
+    });
+
+    // Render Mobile Drawer Navigation
+    mobileContainers.forEach(container => {
+      container.innerHTML = '';
+
+      const divider = document.createElement('div');
+      divider.style.cssText = 'margin: 6px 12px; border-top: 1px solid rgba(255,255,255,0.1);';
+      container.appendChild(divider);
+
+      const header = document.createElement('div');
+      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #64748b; padding: 6px 12px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
+      header.textContent = 'AREA FOCUS';
+      container.appendChild(header);
+
+      displayLocations.forEach(loc => {
+        const a = document.createElement('a');
+        a.href = `/properties/${loc.slug}`;
+        a.className = 'mobile-drawer-link';
+        a.textContent = loc.name;
+        container.appendChild(a);
+      });
+    });
+
+  } catch (err) {
+    // Graceful fallback — no error displayed, core navigation unaffected
+  }
+}
