@@ -697,6 +697,7 @@
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
   <link rel="shortcut icon" href="/favicon.ico">
+  <script src="/locations-config.js"></script>
 </head>
 <body>
 
@@ -717,6 +718,9 @@
       <div class="admin-desktop-tabs" style="background: #f1f5f9; padding: 4px; border-radius: 30px; border: 1px solid #e2e8f0; display: flex; gap: 4px; align-items: center;">
         <button id="tab-btn-active" onclick="switchAdminTab('active')" style="background: #0f172a; color: #ffffff; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(15,23,42,0.15);">
           🏢 Active Listings
+        </button>
+        <button id="tab-btn-locations" onclick="switchAdminTab('locations')" style="background: transparent; color: #64748b; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
+          📍 Location SEO
         </button>
         <button id="tab-btn-past" onclick="switchAdminTab('past')" style="background: transparent; color: #64748b; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
           🤝 Past Deals
@@ -792,6 +796,10 @@
         <a href="/propmall-sync.html" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 800; font-size: 0.85rem; background: linear-gradient(135deg, #1e293b, #0f172a); color: #f59e0b; border: 1px solid #f59e0b; text-decoration: none; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);">
           ⚡ 1-Click PropMall Sync Tool
         </a>
+
+        <button id="mobile-tab-btn-locations" onclick="switchAdminTab('locations'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
+          📍 Location SEO Hub
+        </button>
 
         <button id="mobile-tab-btn-past" onclick="switchAdminTab('past'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
           🤝 Past Deals
@@ -877,6 +885,29 @@
         </div>
       </div>
 
+      <!-- Location SEO Panel -->
+      <div id="tab-panel-locations" class="panel" style="display: none;">
+        <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom: 20px;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📍 Hub Pengurusan Lokasi SEO</span>
+              <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;" id="total-locations-badge">1</span>
+            </h2>
+            <p style="font-size: 0.85rem; color: #64748b; margin: 4px 0 0 0;">
+              Urus halaman pendaratan kawasan (cth: /properties/bangi, /properties/nilai) secara berpusat dengan padanan inventori automatik.
+            </p>
+          </div>
+          <div class="admin-btn-group" style="display:flex; gap:8px; align-items:center;">
+            <button onclick="loadLocationsAdmin()" class="btn-add" style="background:#475569; color:#fff; font-size:0.82rem; padding:8px 14px;" title="Muat Semula Lokasi">🔄 Refresh</button>
+            <button onclick="openLocationModal()" class="btn-add" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-size:0.82rem; padding:8px 16px; border:none; box-shadow: 0 2px 6px rgba(217,119,6,0.25);">+ Add Location</button>
+          </div>
+        </div>
+
+        <div id="admin-locations-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -930,6 +961,88 @@
         <div class="modal-action-row">
           <button type="button" onclick="closePastDealModal()" class="btn-cancel" style="flex: 1;">Cancel</button>
           <button type="submit" id="past-save-btn" class="btn-submit" style="flex: 2; background: #d97706;">Save Past Deal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Add/Edit Location -->
+  <div id="location-modal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px); z-index: 99999; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; overflow-y: auto;">
+    <div class="modal-card" style="background: #ffffff; width: 100%; max-width: 680px; border-radius: 20px; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+        <h3 id="loc-modal-title" style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0;">Add New Location SEO Page</h3>
+        <button type="button" onclick="closeLocationModal()" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #64748b; line-height: 1;">&times;</button>
+      </div>
+
+      <form id="loc-form" onsubmit="saveLocation(event)">
+        <input type="hidden" id="loc-form-id">
+        <input type="hidden" id="loc-is-edit" value="false">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="form-group">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">LOCATION NAME *</label>
+            <input type="text" id="loc-form-name" class="form-input" placeholder="e.g. Nilai" required oninput="handleLocationNameInput(this.value)" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+          </div>
+          <div class="form-group">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">URL SLUG * (e.g. /properties/nilai)</label>
+            <input type="text" id="loc-form-slug" class="form-input" placeholder="e.g. nilai" required style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+          <div class="form-group">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">STATE / NEGERI</label>
+            <input type="text" id="loc-form-state" class="form-input" placeholder="e.g. Negeri Sembilan" value="Selangor" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+          </div>
+          <div class="form-group">
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">STATUS</label>
+            <select id="loc-form-status" class="form-input" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+              <option value="active">Active (Published &amp; Indexed)</option>
+              <option value="inactive">Inactive (Draft / Hidden - 404)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <label style="font-size:0.75rem; font-weight:700; color:#475569; text-transform:uppercase;">SEO TITLE</label>
+            <span id="loc-title-count" style="font-size:0.72rem; color:#64748b;">0 / 65</span>
+          </div>
+          <input type="text" id="loc-form-seo-title" class="form-input" placeholder="Ejen Hartanah Nilai &amp; Rumah Dijual / Sewa — Zaim Rosli (REN39575)" oninput="updateCharCount('loc-form-seo-title', 'loc-title-count', 65)" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <label style="font-size:0.75rem; font-weight:700; color:#475569; text-transform:uppercase;">SEO META DESCRIPTION</label>
+            <span id="loc-desc-count" style="font-size:0.72rem; color:#64748b;">0 / 160</span>
+          </div>
+          <textarea id="loc-form-seo-desc" rows="2" class="form-input" placeholder="Cari rumah sewa, teres, semi-d &amp; ruang komersial untuk dijual di Nilai. Khidmat ejen hartanah berdaftar REN39575." oninput="updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160)" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">H1 HEADLINE</label>
+          <input type="text" id="loc-form-h1" class="form-input" placeholder="Hartanah di Nilai: Rumah Dijual &amp; Sewa" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">INTRO CONTENT</label>
+          <textarea id="loc-form-intro" rows="3" class="form-input" placeholder="Penerangan ringkas mengenai pasaran hartanah kawasan ini..." style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">FILTER KEYWORDS (PISAHKAN DENGAN KOMA)</label>
+          <input type="text" id="loc-form-keywords" class="form-input" placeholder="nilai, bandar baru nilai, nilai impian, mesa mall" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+          <small style="color:#64748b; font-size:0.72rem;">Listing yang mengandungi kata kunci ini pada tajuk/lokasi/penerangan akan dipadankan secara automatik.</small>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">SUBAREAS / KAWASAN SEKITAR (PISAHKAN DENGAN KOMA)</label>
+          <input type="text" id="loc-form-subareas" class="form-input" placeholder="Nilai Impian, Bandar Enstek, Kota Seriemas, Desa Palma" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+        </div>
+
+        <div class="modal-action-row" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:16px;">
+          <button type="button" onclick="closeLocationModal()" class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer;">Cancel</button>
+          <button type="submit" class="btn" style="background:#d97706; color:#ffffff; border:none; padding:10px 24px; border-radius:8px; font-weight:800; cursor:pointer;">💾 Save Location</button>
         </div>
       </form>
     </div>
@@ -1897,13 +2010,42 @@
       }
     });
 
+    let locationsList = [];
+
     function switchAdminTab(tab) {
       const activeBtn = document.getElementById('tab-btn-active');
+      const locBtn = document.getElementById('tab-btn-locations');
       const pastBtn = document.getElementById('tab-btn-past');
-      const mActiveBtn = document.getElementById('mobile-tab-btn-active');
+
+      const mActiveBtn = document.getElementById('mobile-tab-btn-active') || document.getElementById('mobile-tab-btn-all');
+      const mLocBtn = document.getElementById('mobile-tab-btn-locations');
       const mPastBtn = document.getElementById('mobile-tab-btn-past');
+
       const activePanel = document.getElementById('tab-panel-active');
+      const locPanel = document.getElementById('tab-panel-locations');
       const pastPanel = document.getElementById('tab-panel-past');
+
+      // Reset all buttons
+      [activeBtn, locBtn, pastBtn].forEach(b => {
+        if (b) {
+          b.style.background = 'transparent';
+          b.style.color = '#64748b';
+          b.style.boxShadow = 'none';
+        }
+      });
+      [mActiveBtn, mLocBtn, mPastBtn].forEach(b => {
+        if (b) {
+          b.style.background = '#ffffff';
+          b.style.color = '#334155';
+          b.style.border = '1px solid #cbd5e1';
+          b.style.boxShadow = 'none';
+        }
+      });
+
+      // Hide all panels
+      if (activePanel) activePanel.style.display = 'none';
+      if (locPanel) locPanel.style.display = 'none';
+      if (pastPanel) pastPanel.style.display = 'none';
 
       if (tab === 'active') {
         if (activeBtn) {
@@ -1911,47 +2053,342 @@
           activeBtn.style.color = '#ffffff';
           activeBtn.style.boxShadow = '0 2px 6px rgba(15,23,42,0.15)';
         }
-        if (pastBtn) {
-          pastBtn.style.background = 'transparent';
-          pastBtn.style.color = '#64748b';
-          pastBtn.style.boxShadow = 'none';
-        }
         if (mActiveBtn) {
           mActiveBtn.style.background = '#0f172a';
           mActiveBtn.style.color = '#ffffff';
           mActiveBtn.style.border = 'none';
         }
-        if (mPastBtn) {
-          mPastBtn.style.background = '#ffffff';
-          mPastBtn.style.color = '#475569';
-          mPastBtn.style.border = '1px solid #cbd5e1';
+        if (activePanel) activePanel.style.display = 'block';
+      } else if (tab === 'locations') {
+        if (locBtn) {
+          locBtn.style.background = '#0f172a';
+          locBtn.style.color = '#ffffff';
+          locBtn.style.boxShadow = '0 2px 6px rgba(15,23,42,0.15)';
         }
-        activePanel.style.display = 'block';
-        pastPanel.style.display = 'none';
-      } else {
+        if (mLocBtn) {
+          mLocBtn.style.background = '#0f172a';
+          mLocBtn.style.color = '#ffffff';
+          mLocBtn.style.border = 'none';
+        }
+        if (locPanel) locPanel.style.display = 'block';
+        loadLocationsAdmin();
+      } else if (tab === 'past') {
         if (pastBtn) {
           pastBtn.style.background = '#d97706';
           pastBtn.style.color = '#ffffff';
           pastBtn.style.boxShadow = '0 2px 6px rgba(217,119,6,0.2)';
-        }
-        if (activeBtn) {
-          activeBtn.style.background = 'transparent';
-          activeBtn.style.color = '#64748b';
-          activeBtn.style.boxShadow = 'none';
         }
         if (mPastBtn) {
           mPastBtn.style.background = '#d97706';
           mPastBtn.style.color = '#ffffff';
           mPastBtn.style.border = 'none';
         }
-        if (mActiveBtn) {
-          mActiveBtn.style.background = '#ffffff';
-          mActiveBtn.style.color = '#475569';
-          mActiveBtn.style.border = '1px solid #cbd5e1';
-        }
-        activePanel.style.display = 'none';
-        pastPanel.style.display = 'block';
+        if (pastPanel) pastPanel.style.display = 'block';
         loadPastDealsAdmin();
+      }
+    }
+
+    async function loadLocationsAdmin() {
+      try {
+        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now());
+        if (res.ok) {
+          let data = await res.json();
+          if (typeof data === 'string') try { data = JSON.parse(data); } catch(e) {}
+          if (Array.isArray(data) && data.length > 0) {
+            locationsList = data;
+          } else if (data && typeof data === 'object' && !data.message) {
+            locationsList = Object.values(data);
+          }
+        }
+      } catch(e) {}
+
+      if (locationsList.length === 0) {
+        const stored = localStorage.getItem('ZAIM_ROSLI_LOCATIONS');
+        if (stored) {
+          try { locationsList = JSON.parse(stored); } catch(e) {}
+        }
+      }
+
+      if (!locationsList || locationsList.length === 0) {
+        if (window.LOCATIONS_CONFIG && typeof window.LOCATIONS_CONFIG === 'object') {
+          locationsList = Object.values(window.LOCATIONS_CONFIG);
+        } else {
+          locationsList = [{
+            slug: "bangi",
+            name: "Bangi",
+            state: "Selangor",
+            active: true,
+            seoTitle: "Ejen Hartanah Bangi & Rumah Dijual / Sewa di Bandar Baru Bangi — Zaim Rosli (REN39575)",
+            seoDescription: "Cari rumah sewa, banglo, semi-d & ruang komersial untuk dijual di Bandar Baru Bangi & Bandar Seri Putra. Khidmat ejen hartanah berdaftar REN39575.",
+            h1: "Hartanah di Bangi: Rumah Dijual & Sewa di Bandar Baru Bangi",
+            introContent: "Bandar Baru Bangi dan perbandaran sekitarnya seperti Bandar Seri Putra dan Seksyen 1–16 merupakan hab kediaman dan komersial strategik di selatan Selangor. Portal Zaim Rosli (REN39575) membawakan senarai hartanah kediaman dan komersial yang telah disahkan dengan sokongan rundingan profesional dan semakan kelayakan pinjaman.",
+            filterKeywords: ["bangi", "bandar baru bangi", "bandar seri putra", "bangi avenue", "gandaria", "kajang impian", "jenderam"],
+            subareas: ["Seksyen 4", "Seksyen 9 (Pusat Bandar)", "Bandar Seri Putra", "Taman Kajang Impian (Sempadan Sek 7)", "Bangi Avenue", "Southville City", "Jenderam Hulu"],
+            relatedBlogSlugs: ["panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement", "pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur", "freehold-vs-leasehold-pelaburan-hartanah-malaysia"],
+            faqs: [
+              { question: "Apakah jenis hartanah yang terdapat di kawasan Bangi?", answer: "Kawasan Bangi menawarkan pelbagai jenis hartanah merangkumi rumah teres, semi-D, banglo sudut, ruang komersial pejabat/kedai, serta tanah status bangunan dan kediaman." },
+              { question: "Berapakah anggaran julat harga hartanah di Bangi?", answer: "Kadar sewa rumah teres di Bangi bermula sekitar RM 2,000 hingga RM 2,500 sebulan, manakala harga jualan hartanah landed dan ruang komersial bermula dari RM 1.5 juta ke atas bergantung kepada saiz dan lokasi." },
+              { question: "Bagaimanakah cara melantik Zaim Rosli untuk menjual atau menyewakan rumah di Bangi?", answer: "Anda boleh menghubungi Zaim Rosli (REN39575) secara terus melalui WhatsApp untuk mendapatkan khidmat semakan nilai pasaran percuma, sesi fotografi listing, dan pemasaran bersasar kepada pembeli dan penyewa berkelayakan." }
+            ]
+          }];
+        }
+      }
+
+      renderLocationsAdmin();
+    }
+
+    function getMatchedPropertyCount(locConfig) {
+      if (!Array.isArray(currentProperties) || !locConfig) return 0;
+      let keywords = [];
+      if (Array.isArray(locConfig.filterKeywords) && locConfig.filterKeywords.length > 0) {
+        keywords = locConfig.filterKeywords.map(k => k.toLowerCase().trim()).filter(Boolean);
+      } else {
+        keywords = [
+          (locConfig.slug || '').toLowerCase(),
+          (locConfig.name || '').toLowerCase(),
+          ...(Array.isArray(locConfig.subareas) ? locConfig.subareas.map(s => s.toLowerCase().replace(/📍/g, '').trim()) : [])
+        ].filter(Boolean);
+      }
+      return currentProperties.filter(item => {
+        if (item.hidden) return false;
+        const combined = `
+          ${item.title || ''}
+          ${item.location || ''}
+          ${item.region || ''}
+          ${item.description || ''}
+        `.toLowerCase();
+        return keywords.some(k => combined.includes(k));
+      }).length;
+    }
+
+    function renderLocationsAdmin() {
+      const container = document.getElementById('admin-locations-grid');
+      const badge = document.getElementById('total-locations-badge');
+      if (badge) badge.textContent = locationsList.length;
+      if (!container) return;
+
+      if (locationsList.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 12px;">
+            <p style="color: #64748b; font-weight: 600;">Tiada lokasi didaftarkan lagi.</p>
+            <button onclick="openLocationModal()" class="btn" style="background:#d97706; color:#ffffff; font-weight:700; margin-top:8px;">+ Add First Location</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = locationsList.map(loc => {
+        const isActive = loc.active !== false;
+        const statusBadge = isActive
+          ? `<span style="background:#dcfce7; color:#15803d; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">✓ ACTIVE (INDEXED)</span>`
+          : `<span style="background:#fee2e2; color:#b91c1c; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">⊘ INACTIVE (DRAFT)</span>`;
+
+        const matchCount = getMatchedPropertyCount(loc);
+        const subareasList = Array.isArray(loc.subareas) ? loc.subareas : [];
+        const subareasPills = subareasList.slice(0, 4).map(s => `<span style="background:#f1f5f9; color:#475569; padding:2px 8px; border-radius:12px; font-size:0.72rem; font-weight:600;">${s}</span>`).join('');
+        const moreSubareas = subareasList.length > 4 ? `<span style="font-size:0.72rem; color:#94a3b8;">+${subareasList.length - 4} lagi</span>` : '';
+
+        return `
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.02); transition:all 0.2s;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px;">
+                <div>
+                  <h3 style="font-size:1.15rem; font-weight:800; color:#0f172a; margin:0 0 2px 0;">${loc.name}</h3>
+                  <span style="font-size:0.78rem; font-weight:600; color:#64748b;">📍 ${loc.state || 'Selangor'}</span>
+                </div>
+                ${statusBadge}
+              </div>
+
+              <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:8px 10px; margin:10px 0; font-family:monospace; font-size:0.8rem; color:#334155; display:flex; justify-content:space-between; align-items:center;">
+                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">/properties/${loc.slug}</span>
+                <a href="/properties/${loc.slug}" target="_blank" style="color:#d97706; text-decoration:none; font-weight:700; margin-left:6px;" title="Buka Laman Live">↗</a>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
+                <span style="font-size:0.8rem; font-weight:700; color:#0f172a;">📊 Matching Listings:</span>
+                <span style="background:${matchCount > 0 ? '#fef3c7' : '#f1f5f9'}; color:${matchCount > 0 ? '#b45309' : '#64748b'}; font-weight:800; font-size:0.75rem; padding:2px 8px; border-radius:10px;">${matchCount} Listing Live</span>
+              </div>
+
+              ${subareasList.length > 0 ? `
+                <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:14px; align-items:center;">
+                  ${subareasPills}
+                  ${moreSubareas}
+                </div>
+              ` : ''}
+            </div>
+
+            <div style="display:flex; gap:6px; border-top:1px solid #f1f5f9; padding-top:12px; margin-top:8px;">
+              <button onclick="editLocation('${loc.slug}')" class="btn" style="flex:1; padding:7px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; font-size:0.78rem; font-weight:700; color:#334155; cursor:pointer;">✏️ Edit</button>
+              <button onclick="toggleLocationActive('${loc.slug}')" class="btn" style="flex:1; padding:7px; background:${isActive ? '#fffbeb' : '#f0fdf4'}; border:1px solid ${isActive ? '#fde68a' : '#bbf7d0'}; color:${isActive ? '#b45309' : '#15803d'}; border-radius:8px; font-size:0.78rem; font-weight:700; cursor:pointer;">
+                ${isActive ? '⏸ Deactivate' : '▶ Publish'}
+              </button>
+              <button onclick="deleteLocation('${loc.slug}')" class="btn" style="padding:7px 10px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:8px; font-size:0.78rem; font-weight:700; cursor:pointer;" title="Delete Location">🗑️</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openLocationModal() {
+      document.getElementById('loc-form').reset();
+      document.getElementById('loc-form-id').value = '';
+      document.getElementById('loc-is-edit').value = 'false';
+      document.getElementById('loc-modal-title').textContent = 'Add New Location SEO Page';
+      document.getElementById('loc-form-slug').readOnly = false;
+      document.getElementById('loc-form-status').value = 'active';
+      document.getElementById('loc-form-state').value = 'Selangor';
+      updateCharCount('loc-form-seo-title', 'loc-title-count', 65);
+      updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160);
+      document.getElementById('location-modal').style.display = 'flex';
+    }
+
+    function closeLocationModal() {
+      document.getElementById('location-modal').style.display = 'none';
+    }
+
+    function handleLocationNameInput(val) {
+      const isEdit = document.getElementById('loc-is-edit').value === 'true';
+      if (!isEdit) {
+        const slug = val.toLowerCase().trim()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-');
+        document.getElementById('loc-form-slug').value = slug;
+        document.getElementById('loc-form-seo-title').value = `Ejen Hartanah ${val} & Rumah Dijual / Sewa — Zaim Rosli (REN39575)`;
+        document.getElementById('loc-form-h1').value = `Hartanah di ${val}: Rumah Dijual & Sewa`;
+        document.getElementById('loc-form-seo-desc').value = `Cari rumah sewa, teres, semi-d & ruang komersial untuk dijual di ${val}. Khidmat ejen hartanah berdaftar REN39575.`;
+        document.getElementById('loc-form-keywords').value = `${slug}, ${val.toLowerCase()}`;
+        updateCharCount('loc-form-seo-title', 'loc-title-count', 65);
+        updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160);
+      }
+    }
+
+    function updateCharCount(inputId, countId, max) {
+      const el = document.getElementById(inputId);
+      const countEl = document.getElementById(countId);
+      if (el && countEl) {
+        const len = el.value.length;
+        countEl.textContent = `${len} / ${max}`;
+        countEl.style.color = len > max ? '#ef4444' : '#64748b';
+      }
+    }
+
+    function editLocation(slug) {
+      const loc = locationsList.find(l => (l.slug || '').toLowerCase() === slug.toLowerCase());
+      if (!loc) return;
+
+      document.getElementById('loc-form-id').value = loc.slug;
+      document.getElementById('loc-is-edit').value = 'true';
+      document.getElementById('loc-modal-title').textContent = `Edit Location: ${loc.name}`;
+      document.getElementById('loc-form-name').value = loc.name || '';
+      document.getElementById('loc-form-slug').value = loc.slug || '';
+      document.getElementById('loc-form-slug').readOnly = true;
+      document.getElementById('loc-form-state').value = loc.state || 'Selangor';
+      document.getElementById('loc-form-status').value = (loc.active === false) ? 'inactive' : 'active';
+      document.getElementById('loc-form-seo-title').value = loc.seoTitle || '';
+      document.getElementById('loc-form-seo-desc').value = loc.seoDescription || '';
+      document.getElementById('loc-form-h1').value = loc.h1 || '';
+      document.getElementById('loc-form-intro').value = loc.introContent || '';
+      document.getElementById('loc-form-keywords').value = Array.isArray(loc.filterKeywords) ? loc.filterKeywords.join(', ') : (loc.filterKeywords || '');
+      document.getElementById('loc-form-subareas').value = Array.isArray(loc.subareas) ? loc.subareas.join(', ') : (loc.subareas || '');
+
+      updateCharCount('loc-form-seo-title', 'loc-title-count', 65);
+      updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160);
+      document.getElementById('location-modal').style.display = 'flex';
+    }
+
+    async function saveLocation(e) {
+      e.preventDefault();
+      const isEdit = document.getElementById('loc-is-edit').value === 'true';
+      const name = document.getElementById('loc-form-name').value.trim();
+      const slug = document.getElementById('loc-form-slug').value.trim().toLowerCase()
+        .replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+
+      if (!name || !slug) {
+        alert('Sila lengkapkan Nama Lokasi dan URL Slug.');
+        return;
+      }
+
+      if (!isEdit && locationsList.some(l => l.slug.toLowerCase() === slug)) {
+        alert(`Slug '${slug}' telah digunakan. Sila gunakan slug lain.`);
+        return;
+      }
+
+      const keywordsRaw = document.getElementById('loc-form-keywords').value;
+      const keywords = keywordsRaw ? keywordsRaw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean) : [slug, name.toLowerCase()];
+
+      const subareasRaw = document.getElementById('loc-form-subareas').value;
+      const subareas = subareasRaw ? subareasRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+      const locObj = {
+        slug: slug,
+        name: name,
+        state: document.getElementById('loc-form-state').value.trim() || 'Selangor',
+        active: document.getElementById('loc-form-status').value === 'active',
+        seoTitle: document.getElementById('loc-form-seo-title').value.trim() || `Ejen Hartanah ${name} & Rumah Dijual / Sewa — Zaim Rosli (REN39575)`,
+        seoDescription: document.getElementById('loc-form-seo-desc').value.trim() || `Cari rumah sewa, teres, semi-d & ruang komersial untuk dijual di ${name}. Khidmat ejen hartanah berdaftar REN39575.`,
+        h1: document.getElementById('loc-form-h1').value.trim() || `Hartanah di ${name}: Rumah Dijual & Sewa`,
+        introContent: document.getElementById('loc-form-intro').value.trim() || `Senarai hartanah kediaman dan komersial disahkan di ${name} bersama Zaim Rosli (REN39575).`,
+        filterKeywords: keywords,
+        subareas: subareas,
+        relatedBlogSlugs: ["panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement", "pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur", "freehold-vs-leasehold-pelaburan-hartanah-malaysia"],
+        faqs: [
+          { question: `Apakah jenis hartanah yang terdapat di kawasan ${name}?`, answer: `Kawasan ${name} menawarkan pelbagai jenis hartanah merangkumi rumah teres, semi-D, banglo, serta ruang komersial pejabat/kedai.` },
+          { question: `Berapakah julat harga hartanah di ${name}?`, answer: `Julat harga jualan dan sewaan di ${name} bergantung kepada lokasi spesifik, saiz tanah dan built-up.` },
+          { question: `Bagaimanakah cara melantik Zaim Rosli untuk urusan hartanah di ${name}?`, answer: `Hubungi Zaim Rosli (REN39575) secara terus melalui WhatsApp untuk mendapatkan khidmat semakan nilai pasaran percuma dan rundingan profesional.` }
+        ]
+      };
+
+      const existingIdx = locationsList.findIndex(l => l.slug.toLowerCase() === slug);
+      if (existingIdx >= 0) {
+        locationsList[existingIdx] = { ...locationsList[existingIdx], ...locObj };
+      } else {
+        locationsList.push(locObj);
+      }
+
+      closeLocationModal();
+      renderLocationsAdmin();
+      await saveLocationsToStorage();
+      alert(`Lokasi '${name}' (${slug}) berjaya disimpan!`);
+    }
+
+    async function toggleLocationActive(slug) {
+      const loc = locationsList.find(l => l.slug.toLowerCase() === slug.toLowerCase());
+      if (!loc) return;
+      loc.active = (loc.active === false) ? true : false;
+      renderLocationsAdmin();
+      await saveLocationsToStorage();
+    }
+
+    async function deleteLocation(slug) {
+      if (slug.toLowerCase() === 'bangi') {
+        if (!confirm("AMARAN: 'bangi' adalah lokasi produksi utama. Adakah anda pasti ingin memadamkannya?")) return;
+      } else {
+        if (!confirm(`Adakah anda pasti ingin memadamkan lokasi '${slug}'?`)) return;
+      }
+
+      locationsList = locationsList.filter(l => l.slug.toLowerCase() !== slug.toLowerCase());
+      renderLocationsAdmin();
+      await saveLocationsToStorage();
+    }
+
+    async function saveLocationsToStorage() {
+      localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(locationsList));
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
+          const { data: { session } } = await supabaseClient.auth.getSession();
+          if (session && session.access_token) {
+            headers['Authorization'] = `Bearer ${session.access_token}`;
+          }
+        }
+
+        await fetch('/api/locations', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(locationsList)
+        });
+      } catch (err) {
+        console.error('Error persisting locations to Worker KV:', err);
       }
     }
 

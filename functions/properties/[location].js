@@ -79,9 +79,28 @@ export async function onRequest(context) {
   const url = new URL(context.request.url);
   const targetLocSlug = (context.params.location || '').toLowerCase();
 
-  // 1. Validate against Centralized Location Registry
-  const config = LOCATIONS_CONFIG[targetLocSlug];
-  if (!config) {
+  // 1. Resolve Location Configuration (Support static config + dynamic KV registry)
+  let config = LOCATIONS_CONFIG[targetLocSlug] || null;
+
+  try {
+    const locApiRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now(), {
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+    if (locApiRes.ok) {
+      const dynamicLocations = await locApiRes.json();
+      if (dynamicLocations && typeof dynamicLocations === 'object') {
+        if (Array.isArray(dynamicLocations)) {
+          const found = dynamicLocations.find(l => (l.slug || '').toLowerCase() === targetLocSlug);
+          if (found) config = found;
+        } else if (dynamicLocations[targetLocSlug]) {
+          config = dynamicLocations[targetLocSlug];
+        }
+      }
+    }
+  } catch (locFetchErr) {}
+
+  // 2. Reject non-existent or inactive locations with true HTTP 404
+  if (!config || config.active === false) {
     return new Response(`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,13 +122,13 @@ export async function onRequest(context) {
     });
   }
 
-  // 2. Fetch base template location.html
+  // 3. Fetch base template location.html
   const assetUrl = new URL('/location.html', url.origin);
   const response = await context.env.ASSETS.fetch(assetUrl);
   if (!response.ok) return response;
 
   try {
-    // 3. Fetch fresh live property inventory from Cloudflare Worker KV API
+    // 4. Fetch fresh live property inventory from Cloudflare Worker KV API
     const apiRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), {
       headers: { 'Cache-Control': 'no-cache' }
     });
@@ -119,8 +138,18 @@ export async function onRequest(context) {
       allProperties = await apiRes.json();
     }
 
-    // 4. Strict Location Filtering
-    const keywords = (config.filterKeywords || [config.slug, config.name.toLowerCase()]).map(k => k.toLowerCase());
+    // 5. Robust Location Filtering (Uses configured keywords or builds auto-keywords from subareas/name)
+    let keywords = [];
+    if (Array.isArray(config.filterKeywords) && config.filterKeywords.length > 0) {
+      keywords = config.filterKeywords.map(k => k.toLowerCase().trim()).filter(Boolean);
+    } else {
+      keywords = [
+        config.slug.toLowerCase(),
+        config.name.toLowerCase(),
+        ...(Array.isArray(config.subareas) ? config.subareas.map(s => s.toLowerCase().replace(/📍/g, '').trim()) : [])
+      ].filter(Boolean);
+    }
+
     const matchedProperties = allProperties.filter(item => {
       if (item.hidden) return false;
       const combinedText = `
@@ -134,13 +163,16 @@ export async function onRequest(context) {
     });
 
     const canonicalUrl = `https://zaimrosli.my/properties/${config.slug}`;
-    const pageTitle = config.seoTitle;
-    const pageDesc = config.seoDescription;
+    const pageTitle = config.seoTitle || `Ejen Hartanah ${config.name} & Rumah Dijual / Sewa — Zaim Rosli (REN39575)`;
+    const pageDesc = config.seoDescription || `Cari rumah sewa, banglo, semi-d & ruang komersial untuk dijual di ${config.name}. Khidmat ejen hartanah berdaftar REN39575.`;
+    const h1Title = config.h1 || `Hartanah di ${config.name}: Rumah Dijual & Sewa`;
+    const introText = config.introContent || `Senarai hartanah kediaman dan komersial disahkan di ${config.name} bersama ejen hartanah berdaftar Zaim Rosli (REN39575).`;
+
     const ogImg = (matchedProperties.length > 0 && Array.isArray(matchedProperties[0].images) && matchedProperties[0].images[0]) 
       ? matchedProperties[0].images[0] 
       : 'https://zaimrosli.my/icons/og-share.jpg';
 
-    // 5. Schema.org Structured Data
+    // 6. Build Schema.org Structured Data
     const collectionLd = {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -184,7 +216,6 @@ export async function onRequest(context) {
       ]
     };
 
-    // Calculate Summary Stats
     const saleCount = matchedProperties.filter(p => p.status === 'sale').length;
     const rentCount = matchedProperties.filter(p => p.status === 'rent').length;
     const resCount = matchedProperties.filter(p => p.category === 'Residential' || ['Terrace House', 'Bungalow', 'Semi-D House', 'Condominium'].includes(p.type)).length;
@@ -199,17 +230,14 @@ export async function onRequest(context) {
       priceRangeText = (minP === maxP) ? formatP(minP) : `${formatP(minP)} – ${formatP(maxP)}`;
     }
 
-    // Pre-render Subarea Pills
     const subareasHtml = Array.isArray(config.subareas) 
       ? config.subareas.map(s => `<span class="subarea-pill">📍 ${escapeHtml(s)}</span>`).join('') 
       : '';
 
-    // Pre-render Property Cards
     const propertyCardsHtml = matchedProperties.length > 0 
       ? matchedProperties.map(renderServerPropertyCard).join('') 
       : '';
 
-    // Pre-render FAQs
     const faqsHtml = Array.isArray(config.faqs) 
       ? config.faqs.map((f, i) => `
         <div class="faq-item">
@@ -244,10 +272,9 @@ export async function onRequest(context) {
     let html = await response.text();
     html = html.replace('<head>', '<head>' + seoTags);
 
-    // SSR Visible Content Replacements
     html = html.replace('<span id="breadcrumb-loc-name" style="color: var(--accent-gold); font-weight: 700;">Location</span>', `<span id="breadcrumb-loc-name" style="color: var(--accent-gold); font-weight: 700;">${escapeHtml(config.name)}</span>`);
-    html = html.replace('<h1 class="location-hero-title" id="loc-h1">Hartanah</h1>', `<h1 class="location-hero-title" id="loc-h1">${escapeHtml(config.h1)}</h1>`);
-    html = html.replace('<p class="location-hero-desc" id="loc-intro">Memuatkan senarai hartanah disahkan...</p>', `<p class="location-hero-desc" id="loc-intro">${escapeHtml(config.introContent)}</p>`);
+    html = html.replace('<h1 class="location-hero-title" id="loc-h1">Hartanah</h1>', `<h1 class="location-hero-title" id="loc-h1">${escapeHtml(h1Title)}</h1>`);
+    html = html.replace('<p class="location-hero-desc" id="loc-intro">Memuatkan senarai hartanah disahkan...</p>', `<p class="location-hero-desc" id="loc-intro">${escapeHtml(introText)}</p>`);
     html = html.replace('<div id="subareas-list" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>', `<div id="subareas-list" style="display: flex; gap: 8px; flex-wrap: wrap;">${subareasHtml}</div>`);
     
     html = html.replace('<div class="location-stat-val" id="stat-total">0</div>', `<div class="location-stat-val" id="stat-total">${matchedProperties.length}</div>`);
