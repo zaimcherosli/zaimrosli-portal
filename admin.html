@@ -2323,6 +2323,12 @@
         return;
       }
 
+      const reservedSlugs = ['properties', 'for-sale', 'for-rent', 'residential', 'commercial', 'commercial-industrial', 'admin', 'login', 'api', 'services', 'about', 'contact', 'faq', 'calculator', 'foreign-buyers', 'testimonials', 'blog', 'property', 'blog-post', 'propmall'];
+      if (reservedSlugs.includes(slug)) {
+        alert(`Slug '${slug}' adalah laluan sistem terlindung dan tidak boleh digunakan sebagai lokasi.`);
+        return;
+      }
+
       if (!isEdit && locationsList.some(l => l.slug.toLowerCase() === slug)) {
         alert(`Slug '${slug}' telah digunakan. Sila gunakan slug lain.`);
         return;

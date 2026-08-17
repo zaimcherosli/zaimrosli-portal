@@ -41,6 +41,29 @@ async function verifyAdminAuth(request) {
   }
 }
 
+const RESERVED_LOCATION_SLUGS = new Set([
+  'properties',
+  'for-sale',
+  'for-rent',
+  'residential',
+  'commercial',
+  'commercial-industrial',
+  'admin',
+  'login',
+  'api',
+  'services',
+  'about',
+  'contact',
+  'faq',
+  'calculator',
+  'foreign-buyers',
+  'testimonials',
+  'blog',
+  'property',
+  'blog-post',
+  'propmall'
+]);
+
 // Validate location configuration schema integrity before persistence
 function validateLocationsPayload(payload) {
   if (!Array.isArray(payload) && typeof payload !== 'object') {
@@ -58,6 +81,9 @@ function validateLocationsPayload(payload) {
     }
     if (!loc.slug || typeof loc.slug !== 'string' || !/^[a-z0-9-]+$/.test(loc.slug)) {
       return { valid: false, error: `Invalid slug '${loc.slug}': Slug must contain only lowercase letters, numbers, and hyphens` };
+    }
+    if (RESERVED_LOCATION_SLUGS.has(loc.slug)) {
+      return { valid: false, error: `Invalid slug '${loc.slug}': '${loc.slug}' is a reserved system route and cannot be used as a location` };
     }
     if (loc.active !== undefined && typeof loc.active !== 'boolean') {
       return { valid: false, error: `Invalid active field for '${loc.slug}': Must be boolean` };
