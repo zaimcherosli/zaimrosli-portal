@@ -1,8 +1,22 @@
 User-agent: *
 Allow: /
+Allow: /properties
+Allow: /property/
+Allow: /blog
+Allow: /services
+Allow: /about
+Allow: /contact
+Allow: /calculator
+Allow: /faq
+Allow: /foreign-buyers
+Allow: /testimonials
+
+# Disallow admin, auth and private utility tools
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /login
 Disallow: /login.html
+Disallow: /propmall-sync.html
+Disallow: /api/
 
 Sitemap: https://zaimrosli.my/sitemap.xml

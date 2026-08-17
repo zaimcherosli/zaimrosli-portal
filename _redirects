@@ -1,12 +1,29 @@
 /api/* https://zaimrosli-worker.huzaimrosli.workers.dev/api/:splat 200
-/residential/* /property-detail.html 200
-/commercial/* /property-detail.html 200
-/commercial-industrial/* /property-detail.html 200
-/property/* /property-detail.html 200
-/property-detail/* /property-detail.html 200
+
+
+# Legacy Property Detail 301 Redirects to Canonical /property/:splat
+/property-detail/* /property/:splat 301
+/properties/residential/* /property/:splat 301
+/properties/commercial/* /property/:splat 301
+/residential/* /property/:splat 301
+/commercial/* /property/:splat 301
+/commercial-industrial/* /property/:splat 301
+
+# Listing Landing Pages
 /properties/residential /properties.html?category=Residential 200
 /properties/commercial-industrial /properties.html?category=Commercial 200
 /properties/commercial /properties.html?category=Commercial 200
 /properties/for-sale /properties.html?status=sale 200
 /properties/for-rent /properties.html?status=rent 200
+/properties /properties.html 200
+
+# Clean Public Pages
+/services /services.html 200
+/about /about.html 200
+/contact /contact.html 200
+/faq /faq.html 200
+/calculator /calculator.html 200
+/foreign-buyers /foreign-buyers.html 200
+/testimonials /testimonials.html 200
+/blog /blog.html 200
 /blog/* /blog.html 200

@@ -184,19 +184,18 @@ function createPropertyCardHTML(item) {
     `;
   }
 
-  const catFolder = isCommercial ? 'commercial' : 'residential';
-  const detailUrl = `/properties/${catFolder}/${item.slug || item.id}`;
+  const detailUrl = `/property/${item.slug || item.id}`;
 
   return `
     <div class="property-card">
-      <div class="property-thumb-wrap">
+      <a href="${detailUrl}" class="property-thumb-wrap" aria-label="View details for ${item.title || 'Property'}">
         <img src="${cardImg}" class="property-thumb" alt="${item.title || 'Property'}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'">
         <span class="property-badge ${badgeClass}">${badgeLabel}</span>
         <span class="property-region-badge">${item.region || 'Selangor'}</span>
-      </div>
+      </a>
       <div class="property-content">
         <div class="property-price">${(item.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month')}</div>
-        <h3 class="property-title">${item.title || ''}</h3>
+        <h3 class="property-title"><a href="${detailUrl}" style="color: inherit; text-decoration: none;">${item.title || ''}</a></h3>
         <div class="property-location">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           ${item.location || ''}
@@ -206,7 +205,7 @@ function createPropertyCardHTML(item) {
         </div>
         <div class="property-card-actions">
           <a href="${detailUrl}" class="btn btn-outline btn-sm btn-details">View Details →</a>
-          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}', '${catFolder}')" class="btn btn-outline btn-sm btn-share" title="Share Property" aria-label="Share Property">
+          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}')" class="btn btn-outline btn-sm btn-share" title="Share Property" aria-label="Share Property">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
           </button>
         </div>
@@ -218,13 +217,13 @@ function createPropertyCardHTML(item) {
 window.createPropertyCardHTML = createPropertyCardHTML;
 window.initMobileDrawerNav = initMobileDrawerNav;
 
-// Global Share Function
-window.shareProperty = async function(e, slugOrId, title, imageUrl, catFolder = 'residential') {
+// Global Share Function with Canonical /property/{slug} URL
+window.shareProperty = async function(e, slugOrId, title, imageUrl) {
   if (e) {
     e.preventDefault();
     e.stopPropagation();
   }
-  const url = window.location.origin + '/properties/' + catFolder + '/' + slugOrId;
+  const url = window.location.origin + '/property/' + slugOrId;
   const shareText = title + ' — Zaim Rosli Real Estate';
   const fullCopyText = shareText + '\n' + url;
 

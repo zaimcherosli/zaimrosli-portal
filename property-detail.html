@@ -6,18 +6,24 @@
   <title>Property Details — Zaim Rosli (REN39575)</title>
   <meta name="description" content="View comprehensive property specifications, photo gallery, legal fees summary, and WhatsApp agent contact.">
   
-  <!-- Open Graph & Social Sharing Cards -->
+  <!-- Canonical & SEO Meta Tags -->
+  <link rel="canonical" id="canonical-tag" href="https://zaimrosli.my/properties">
   <meta property="og:site_name" content="Zaim Rosli Real Estate Portal">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Property Listing — Zaim Rosli (REN39575)">
-  <meta property="og:description" content="View verified residential, commercial, and industrial property listings for sale and rent across KL & Selangor.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:url" id="og-url" content="https://zaimrosli.my/properties">
+  <meta property="og:title" id="og-title" content="Property Listing — Zaim Rosli (REN39575)">
+  <meta property="og:description" id="og-desc" content="View verified residential, commercial, and industrial property listings for sale and rent across KL & Selangor.">
+  <meta property="og:image" id="og-image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Property Listing — Zaim Rosli (REN39575)">
-  <meta name="twitter:description" content="View verified residential, commercial, and industrial property listings for sale and rent across KL & Selangor.">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:title" id="tw-title" content="Property Listing — Zaim Rosli (REN39575)">
+  <meta name="twitter:description" id="tw-desc" content="View verified residential, commercial, and industrial property listings for sale and rent across KL & Selangor.">
+  <meta name="twitter:image" id="tw-image" content="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Schema.org Structured Data -->
+  <script id="property-jsonld" type="application/ld+json">{}</script>
+  <script id="breadcrumb-jsonld" type="application/ld+json">{}</script>
 
   <link rel="stylesheet" href="/styles.css?v=17">
   <style>
@@ -260,12 +266,26 @@
         <h3 style="color: var(--text-muted);">Loading property details...</h3>
       </div>
 
+      <!-- 404 State Container -->
+      <div id="detail-404" style="display: none; text-align: center; padding: 70px 20px; background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); margin: 20px 0;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">🏡</div>
+        <h2 style="font-size: 1.6rem; color: #0f172a; margin-bottom: 8px; font-weight: 800;">Property Listing Not Found</h2>
+        <p style="color: #64748b; font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px; line-height: 1.6;">The listing you are looking for may have been sold, rented out, or the link has changed.</p>
+        <a href="/properties" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+          Browse All Available Properties →
+        </a>
+      </div>
+
       <div id="detail-container" style="display: none;">
         
-        <!-- Breadcrumb & Back -->
-        <div style="margin-bottom: 20px;">
-          <a href="/properties.html" style="font-size: 0.9rem; color: var(--accent-gold); font-weight: 700;">← Back to All Properties</a>
-        </div>
+        <!-- Semantic Breadcrumbs Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 20px; font-size: 0.86rem; color: #64748b; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          <a href="/" style="color: var(--accent-gold); font-weight: 600; text-decoration: none;">Home</a>
+          <span style="opacity: 0.5;">/</span>
+          <a href="/properties" style="color: var(--accent-gold); font-weight: 600; text-decoration: none;">Properties</a>
+          <span style="opacity: 0.5;">/</span>
+          <span id="d-breadcrumb-title" style="color: #0f172a; font-weight: 700; max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Listing</span>
+        </nav>
 
         <div class="detail-grid" style="min-width: 0; width: 100%; max-width: 100%; box-sizing: border-box;">
           
@@ -458,334 +478,426 @@
             );
           }
 
-          if (!prop && window.PROPERTIES_DATA && window.PROPERTIES_DATA.length > 0) {
-            // Only fallback if no slug was specified at all
-            if (!targetSlug || targetSlug === 'property-detail' || targetSlug === 'property-detail.html') {
-              window.location.href = '/properties.html';
-              return;
-            }
-            prop = window.PROPERTIES_DATA[0];
+          const loadingEl = document.getElementById('detail-loading');
+          const containerEl = document.getElementById('detail-container');
+          const notFoundEl = document.getElementById('detail-404');
+
+          if (loadingEl) loadingEl.style.display = 'none';
+
+          if (!prop) {
+            if (notFoundEl) notFoundEl.style.display = 'block';
+            if (containerEl) containerEl.style.display = 'none';
+            document.title = 'Property Not Found — Zaim Rosli (REN39575)';
+            return;
           }
 
-          document.getElementById('detail-loading').style.display = 'none';
-          document.getElementById('detail-container').style.display = 'block';
+          if (notFoundEl) notFoundEl.style.display = 'none';
+          if (containerEl) containerEl.style.display = 'block';
 
-          if (!prop) return;
+          // 1. Basic Content Setup
+          document.getElementById('d-title').textContent = prop.title;
+          document.getElementById('d-location').innerHTML = `📍 ${prop.location}`;
+          document.getElementById('d-price').textContent = (prop.priceStr || '').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
 
-        document.getElementById('d-title').textContent = prop.title;
-        document.getElementById('d-location').innerHTML = `📍 ${prop.location}`;
-        document.getElementById('d-price').textContent = (prop.priceStr || '').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+          const breadcrumbTitle = document.getElementById('d-breadcrumb-title');
+          if (breadcrumbTitle) breadcrumbTitle.textContent = prop.title;
 
-        // Currency Converter Estimates (approx 1 USD ≈ 4.45 MYR, 1 SGD ≈ 3.32 MYR)
-        const currContainer = document.getElementById('d-currency-estimates');
-        if (currContainer && prop.price && prop.price > 0) {
-          const isRental = prop.status === 'rent';
-          const usdVal = Math.round(prop.price / 4.45);
-          const sgdVal = Math.round(prop.price / 3.32);
-          const suffix = isRental ? ' / month' : '';
+          // 2. Canonical URL & Meta Tags Injection
+          const canonicalUrl = `https://zaimrosli.my/property/${prop.slug || targetSlug}`;
+          const rawPriceStr = (prop.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+          const pageTitle = `${prop.title} — Zaim Rosli (REN39575)`;
+          const pageDesc = `${rawPriceStr} • ${prop.location} • ${prop.type || 'Property'} — Verified property listing by Zaim Rosli (REN39575). View specifications, photos, and contact agent.`;
 
-          currContainer.innerHTML = `
-            <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
-              ≈ $${usdVal.toLocaleString('en-US')} USD${suffix}
-            </span>
-            <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
-              ≈ S$${sgdVal.toLocaleString('en-US')} SGD${suffix}
-            </span>
-          `;
-        }
+          document.title = pageTitle;
 
-        // Check Foreigner Eligibility (>1M in KL, >2M in Selangor, Commercial/Industrial or Rental)
-        const foreignBadge = document.getElementById('d-foreigner-badge');
-        if (foreignBadge) {
-          const isCommercial = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land'].includes(prop.type);
-          const isEligible = (prop.status === 'rent') || isCommercial || (prop.price >= 1000000);
-          foreignBadge.style.display = isEligible ? 'block' : 'none';
-        }
+          const descMeta = document.querySelector('meta[name="description"]');
+          if (descMeta) descMeta.setAttribute('content', pageDesc);
 
-        // Image Gallery Handling
-        let allImages = [];
-        if (Array.isArray(prop.images) && prop.images.length > 0) {
-          allImages = prop.images.map(img => typeof img === 'string' ? img.trim() : img).filter(Boolean);
-        } else if (typeof prop.image === 'string' && prop.image.trim()) {
-          allImages = prop.image.split(',').map(s => s.trim()).filter(Boolean);
-        }
+          const canonicalLink = document.getElementById('canonical-tag');
+          if (canonicalLink) canonicalLink.setAttribute('href', canonicalUrl);
 
-        if (allImages.length === 0) {
-          allImages = ["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"];
-        }
+          const ogUrl = document.getElementById('og-url');
+          if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
 
-        const mainImg = document.getElementById('d-main-img');
-        if (mainImg) {
-          mainImg.referrerPolicy = 'no-referrer';
-          mainImg.src = allImages[0];
-          mainImg.style.transition = 'opacity 0.3s ease';
-        }
+          const ogTitle = document.getElementById('og-title');
+          if (ogTitle) ogTitle.setAttribute('content', pageTitle);
 
-        let currentImgIndex = 0;
-        let slideTimer = null;
+          const ogDesc = document.getElementById('og-desc');
+          if (ogDesc) ogDesc.setAttribute('content', pageDesc);
 
-        function setActiveImage(index) {
-          if (!allImages || allImages.length === 0) return;
-          currentImgIndex = (index + allImages.length) % allImages.length;
+          const twTitle = document.getElementById('tw-title');
+          if (twTitle) twTitle.setAttribute('content', pageTitle);
+
+          const twDesc = document.getElementById('tw-desc');
+          if (twDesc) twDesc.setAttribute('content', pageDesc);
+
+          // 3. Currency Converter Estimates
+          const currContainer = document.getElementById('d-currency-estimates');
+          if (currContainer && prop.price && prop.price > 0) {
+            const isRental = prop.status === 'rent';
+            const usdVal = Math.round(prop.price / 4.45);
+            const sgdVal = Math.round(prop.price / 3.32);
+            const suffix = isRental ? ' / month' : '';
+
+            currContainer.innerHTML = `
+              <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
+                ≈ $${usdVal.toLocaleString('en-US')} USD${suffix}
+              </span>
+              <span style="background:#f1f5f9; color:#475569; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px; border:1px solid #e2e8f0;">
+                ≈ S$${sgdVal.toLocaleString('en-US')} SGD${suffix}
+              </span>
+            `;
+          }
+
+          // 4. Check Foreigner Eligibility
+          const foreignBadge = document.getElementById('d-foreigner-badge');
+          if (foreignBadge) {
+            const isCommercial = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land'].includes(prop.type);
+            const isEligible = (prop.status === 'rent') || isCommercial || (prop.price >= 1000000);
+            foreignBadge.style.display = isEligible ? 'block' : 'none';
+          }
+
+          // 5. Image Gallery Handling
+          let allImages = [];
+          if (Array.isArray(prop.images) && prop.images.length > 0) {
+            allImages = prop.images.map(img => typeof img === 'string' ? img.trim() : img).filter(Boolean);
+          } else if (typeof prop.image === 'string' && prop.image.trim()) {
+            allImages = prop.image.split(',').map(s => s.trim()).filter(Boolean);
+          }
+
+          if (allImages.length === 0) {
+            allImages = ["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"];
+          }
+
+          const mainImg = document.getElementById('d-main-img');
           if (mainImg) {
-            mainImg.src = allImages[currentImgIndex];
+            mainImg.referrerPolicy = 'no-referrer';
+            mainImg.src = allImages[0];
+            mainImg.alt = prop.title || 'Property Image';
+            mainImg.style.transition = 'opacity 0.3s ease';
           }
-          const thumbsContainer = document.getElementById('d-gallery-thumbs');
-          if (thumbsContainer && thumbsContainer.children.length > 0) {
-            Array.from(thumbsContainer.children).forEach((child, i) => {
-              if (i === currentImgIndex) {
-                child.style.borderColor = 'var(--accent-gold)';
-                child.style.opacity = '1';
-                const targetLeft = child.offsetLeft - (thumbsContainer.clientWidth / 2) + (child.clientWidth / 2);
-                thumbsContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
-              } else {
-                child.style.borderColor = '#e2e8f0';
-                child.style.opacity = '0.65';
-              }
-            });
-          }
-        }
 
-        function startAutoSlide() {
-          stopAutoSlide();
-          if (allImages.length > 1) {
-            slideTimer = setInterval(() => {
-              currentImgIndex = (currentImgIndex + 1) % allImages.length;
-              setActiveImage(currentImgIndex);
-            }, 3500);
-          }
-        }
+          // Set OG and Twitter image tags
+          const ogImg = document.getElementById('og-image');
+          if (ogImg) ogImg.setAttribute('content', allImages[0]);
+          const twImg = document.getElementById('tw-image');
+          if (twImg) twImg.setAttribute('content', allImages[0]);
 
-        function stopAutoSlide() {
-          if (slideTimer) {
-            clearInterval(slideTimer);
-            slideTimer = null;
-          }
-        }
+          let currentImgIndex = 0;
+          let slideTimer = null;
 
-        // Render Photo Gallery Thumbnails if multiple images exist
-        const thumbsContainer = document.getElementById('d-gallery-thumbs');
-        if (thumbsContainer) {
-          thumbsContainer.innerHTML = '';
-          if (allImages.length > 1) {
-            allImages.forEach((imgUrl, idx) => {
-              const thumb = document.createElement('img');
-              thumb.src = imgUrl;
-              thumb.referrerPolicy = 'no-referrer';
-              thumb.style.cssText = `width: 90px; height: 65px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--accent-gold)' : '#e2e8f0'}; opacity: ${idx === 0 ? '1' : '0.65'}; transition: all 0.25s ease; flex-shrink: 0;`;
-              thumb.addEventListener('click', () => {
-                setActiveImage(idx);
-                startAutoSlide();
-              });
-              thumbsContainer.appendChild(thumb);
-            });
-          }
-        }
-
-        if (mainImg && allImages.length > 1) {
-          mainImg.style.cursor = 'pointer';
-          mainImg.addEventListener('click', () => {
-            setActiveImage(currentImgIndex + 1);
-            startAutoSlide();
-          });
-        }
-
-        const heroWrap = document.querySelector('.detail-hero-wrap');
-        if (heroWrap) {
-          heroWrap.addEventListener('mouseenter', stopAutoSlide);
-          heroWrap.addEventListener('mouseleave', startAutoSlide);
-        }
-        if (thumbsContainer) {
-          thumbsContainer.addEventListener('mouseenter', stopAutoSlide);
-          thumbsContainer.addEventListener('mouseleave', startAutoSlide);
-        }
-
-        startAutoSlide();
-
-        const badge = document.getElementById('d-badge-status');
-        badge.textContent = prop.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
-        badge.className = `property-badge ${prop.status === 'sale' ? 'badge-sale' : 'badge-rent'}`;
-
-        // Property Type
-        const typeMap = {
-          'Tanah': 'Land',
-          'Tanah Komersial': 'Commercial Land',
-          'Tanah Industri': 'Industrial Land',
-          'Kedai / Pejabat': 'Shop / Office',
-          'Ruang Komersial': 'Commercial Space',
-          'Ruang Pejabat': 'Office Space',
-          'Kilang': 'Factory',
-          'Banglo': 'Bungalow',
-          'Teres': 'Terrace House',
-          'Kondominium': 'Condominium',
-          'Kondominium / Pangsapuri': 'Condominium'
-        };
-        const rawType = (prop.type && prop.type !== '-' && prop.type !== '') ? prop.type : (prop.landSize && (!prop.beds || prop.beds === 0) ? 'Land' : (prop.category || 'Subsales'));
-        const resolvedType = typeMap[rawType] || rawType;
-        const typeEl = document.getElementById('d-type');
-        if (typeEl) {
-          typeEl.textContent = resolvedType;
-        }
-
-        // Handle Bedrooms / Rooms: Hide for Land or if 0; For Commercial/Office with rooms, display as ROOMS
-        const isLand = (resolvedType && (resolvedType.toLowerCase().includes('tanah') || resolvedType.toLowerCase().includes('land')));
-        const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
-        const isCommercial = commTypes.includes(resolvedType) || (resolvedType && (resolvedType.toLowerCase().includes('office') || resolvedType.toLowerCase().includes('shop') || resolvedType.toLowerCase().includes('komersial')));
-
-        const bedsBox = document.getElementById('box-beds');
-        if (bedsBox) {
-          if (isLand || !prop.beds || prop.beds === 0) {
-            bedsBox.style.display = 'none';
-          } else {
-            bedsBox.style.display = 'block';
-            const labelEl = bedsBox.querySelector('.spec-label');
-            if (labelEl) {
-              labelEl.textContent = isCommercial ? 'ROOMS / PARTITIONS' : 'BEDROOMS';
+          function setActiveImage(index) {
+            if (!allImages || allImages.length === 0) return;
+            currentImgIndex = (index + allImages.length) % allImages.length;
+            if (mainImg) {
+              mainImg.src = allImages[currentImgIndex];
             }
-            const bedsVal = prop.bedsPlus > 0 ? `${prop.beds}+${prop.bedsPlus}` : prop.beds;
-            document.getElementById('d-beds').textContent = `${bedsVal} ${isCommercial ? 'Rooms' : 'Beds'}`;
+            const thumbsContainer = document.getElementById('d-gallery-thumbs');
+            if (thumbsContainer && thumbsContainer.children.length > 0) {
+              Array.from(thumbsContainer.children).forEach((child, i) => {
+                if (i === currentImgIndex) {
+                  child.style.borderColor = 'var(--accent-gold)';
+                  child.style.opacity = '1';
+                  const targetLeft = child.offsetLeft - (thumbsContainer.clientWidth / 2) + (child.clientWidth / 2);
+                  thumbsContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
+                } else {
+                  child.style.borderColor = '#e2e8f0';
+                  child.style.opacity = '0.65';
+                }
+              });
+            }
           }
-        }
 
-        // Hide Bathrooms if 0 or missing
-        const bathsBox = document.getElementById('box-baths');
-        if (bathsBox) {
-          if (!prop.baths || prop.baths === 0) {
-            bathsBox.style.display = 'none';
+          function startAutoSlide() {
+            stopAutoSlide();
+            if (allImages.length > 1) {
+              slideTimer = setInterval(() => {
+                currentImgIndex = (currentImgIndex + 1) % allImages.length;
+                setActiveImage(currentImgIndex);
+              }, 3500);
+            }
+          }
+
+          function stopAutoSlide() {
+            if (slideTimer) {
+              clearInterval(slideTimer);
+              slideTimer = null;
+            }
+          }
+
+          // Render Photo Gallery Thumbnails
+          const thumbsContainer = document.getElementById('d-gallery-thumbs');
+          if (thumbsContainer) {
+            thumbsContainer.innerHTML = '';
+            if (allImages.length > 1) {
+              allImages.forEach((imgUrl, idx) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgUrl;
+                thumb.alt = `${prop.title} Photo ${idx + 1}`;
+                thumb.referrerPolicy = 'no-referrer';
+                thumb.style.cssText = `width: 90px; height: 65px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--accent-gold)' : '#e2e8f0'}; opacity: ${idx === 0 ? '1' : '0.65'}; transition: all 0.25s ease; flex-shrink: 0;`;
+                thumb.addEventListener('click', () => {
+                  setActiveImage(idx);
+                  startAutoSlide();
+                });
+                thumbsContainer.appendChild(thumb);
+              });
+            }
+          }
+
+          if (mainImg && allImages.length > 1) {
+            mainImg.style.cursor = 'pointer';
+            mainImg.addEventListener('click', () => {
+              setActiveImage(currentImgIndex + 1);
+              startAutoSlide();
+            });
+          }
+
+          const heroWrap = document.querySelector('.detail-hero-wrap');
+          if (heroWrap) {
+            heroWrap.addEventListener('mouseenter', stopAutoSlide);
+            heroWrap.addEventListener('mouseleave', startAutoSlide);
+          }
+          if (thumbsContainer) {
+            thumbsContainer.addEventListener('mouseenter', stopAutoSlide);
+            thumbsContainer.addEventListener('mouseleave', startAutoSlide);
+          }
+
+          startAutoSlide();
+
+          // 6. Property Badge & Type
+          const badge = document.getElementById('d-badge-status');
+          if (badge) {
+            badge.textContent = prop.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
+            badge.className = `property-badge ${prop.status === 'sale' ? 'badge-sale' : 'badge-rent'}`;
+          }
+
+          const typeMap = {
+            'Tanah': 'Land',
+            'Tanah Komersial': 'Commercial Land',
+            'Tanah Industri': 'Industrial Land',
+            'Kedai / Pejabat': 'Shop / Office',
+            'Ruang Komersial': 'Commercial Space',
+            'Ruang Pejabat': 'Office Space',
+            'Kilang': 'Factory',
+            'Banglo': 'Bungalow',
+            'Teres': 'Terrace House',
+            'Kondominium': 'Condominium',
+            'Kondominium / Pangsapuri': 'Condominium'
+          };
+          const rawType = (prop.type && prop.type !== '-' && prop.type !== '') ? prop.type : (prop.landSize && (!prop.beds || prop.beds === 0) ? 'Land' : (prop.category || 'Subsales'));
+          const resolvedType = typeMap[rawType] || rawType;
+          const typeEl = document.getElementById('d-type');
+          if (typeEl) {
+            typeEl.textContent = resolvedType;
+          }
+
+          const isLand = (resolvedType && (resolvedType.toLowerCase().includes('tanah') || resolvedType.toLowerCase().includes('land')));
+          const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
+          const isCommercial = commTypes.includes(resolvedType) || (resolvedType && (resolvedType.toLowerCase().includes('office') || resolvedType.toLowerCase().includes('shop') || resolvedType.toLowerCase().includes('komersial')));
+
+          // Bedrooms
+          const bedsBox = document.getElementById('box-beds');
+          if (bedsBox) {
+            if (isLand || !prop.beds || prop.beds === 0) {
+              bedsBox.style.display = 'none';
+            } else {
+              bedsBox.style.display = 'block';
+              const labelEl = bedsBox.querySelector('.spec-label');
+              if (labelEl) {
+                labelEl.textContent = isCommercial ? 'ROOMS / PARTITIONS' : 'BEDROOMS';
+              }
+              const bedsVal = prop.bedsPlus > 0 ? `${prop.beds}+${prop.bedsPlus}` : prop.beds;
+              document.getElementById('d-beds').textContent = `${bedsVal} ${isCommercial ? 'Rooms' : 'Beds'}`;
+            }
+          }
+
+          // Bathrooms
+          const bathsBox = document.getElementById('box-baths');
+          if (bathsBox) {
+            if (!prop.baths || prop.baths === 0) {
+              bathsBox.style.display = 'none';
+            } else {
+              bathsBox.style.display = 'block';
+              const bathsVal = prop.bathsPlus > 0 ? `${prop.baths}+${prop.bathsPlus}` : prop.baths;
+              document.getElementById('d-baths').textContent = `${bathsVal} Baths`;
+            }
+          }
+
+          // Land Area
+          const landBox = document.getElementById('box-landSize');
+          if (landBox) {
+            const cleanLandText = (prop.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
+            if (!cleanLandText || cleanLandText === '-' || cleanLandText === '0') {
+              landBox.style.display = 'none';
+            } else {
+              landBox.style.display = 'block';
+              document.getElementById('d-landSize').textContent = cleanLandText;
+            }
+          }
+
+          // Built-up Size
+          const sizeBox = document.getElementById('box-size');
+          if (sizeBox) {
+            if (!prop.size || isNaN(prop.size) || prop.size === 0 || prop.size === '0' || prop.size === '-') {
+              sizeBox.style.display = 'none';
+            } else {
+              sizeBox.style.display = 'block';
+              document.getElementById('d-size').textContent = `${prop.size.toLocaleString('en-US')} sqft`;
+            }
+          }
+
+          // Tenure & Lot Type
+          const tenureBox = document.getElementById('box-tenure');
+          const lotTypeBox = document.getElementById('box-lotType');
+          if (prop.status === 'rent' || prop.tenure === '-' || !prop.tenure) {
+            if (tenureBox) tenureBox.style.display = 'none';
           } else {
-            bathsBox.style.display = 'block';
-            const bathsVal = prop.bathsPlus > 0 ? `${prop.baths}+${prop.bathsPlus}` : prop.baths;
-            document.getElementById('d-baths').textContent = `${bathsVal} Baths`;
+            if (tenureBox) tenureBox.style.display = 'block';
+            document.getElementById('d-tenure').textContent = prop.tenure;
           }
-        }
 
-        // Land Area Box
-        const landBox = document.getElementById('box-landSize');
-        if (landBox) {
-          const cleanLandText = (prop.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
-          if (!cleanLandText || cleanLandText === '-' || cleanLandText === '0') {
-            landBox.style.display = 'none';
+          if (prop.status === 'rent' || prop.lotType === '-' || !prop.lotType) {
+            if (lotTypeBox) lotTypeBox.style.display = 'none';
           } else {
-            landBox.style.display = 'block';
-            document.getElementById('d-landSize').textContent = cleanLandText;
+            if (lotTypeBox) lotTypeBox.style.display = 'block';
+            const lotTypeVal = prop.lotType === 'Rezab Melayu' ? 'Malay Reserve' : prop.lotType;
+            document.getElementById('d-lotType').textContent = lotTypeVal;
           }
-        }
 
-        // Built-up Size Box
-        const sizeBox = document.getElementById('box-size');
-        if (sizeBox) {
-          if (!prop.size || isNaN(prop.size) || prop.size === 0 || prop.size === '0' || prop.size === '-') {
-            sizeBox.style.display = 'none';
+          function cleanPublicDescription(desc) {
+            if (!desc) return "";
+            return desc
+              .replace(/---\s*MAKLUMAT ASAL[\s\S]*$/gi, '')
+              .replace(/---\s*RUJUKAN EJEN[\s\S]*$/gi, '')
+              .replace(/📝\s*MAKLUMAT TERPERINCI[\s\S]*$/gi, '')
+              .replace(/Ejen Listing\s*:[\s\S]*$/gi, '')
+              .replace(/Listing COA Agent\s*:[\s\S]*$/gi, '')
+              .replace(/PropMall,\s*Built By Agents,\s*For Agents/gi, '')
+              .replace(/https?:\/\/(?:www\.)?propmall\.(?:co|my|net)\/[^\s]+/gi, '')
+              .replace(/https?:\/\/t\.me\/[^\s]+/gi, '')
+              .replace(/Hello Partner Agents,?\s*/gi, '')
+              .replace(/I want to share this Listing in PropMall with you\.?\s*/gi, '')
+              .replace(/^[~✔✅•*+]\s+/gm, '- ')
+              .replace(/\n\s*\n\s*\n+/g, '\n\n')
+              .trim();
+          }
+
+          document.getElementById('d-desc').textContent = cleanPublicDescription(prop.description);
+
+          // WhatsApp CTA Link with Canonical URL
+          const waMsg = encodeURIComponent(`Hi Zaim, I am interested in inquiring about "${prop.title}" (${rawPriceStr}) located in ${prop.location}.\n\nListing Link: ${canonicalUrl}`);
+          document.getElementById('d-whatsapp-btn').href = `https://wa.me/60108118559?text=${waMsg}`;
+
+          const mainImgUrl = (allImages && allImages.length > 0) ? allImages[0] : prop.image;
+
+          const shareBtn = document.getElementById('d-share-btn');
+          const bottomShareBtn = document.getElementById('d-bottom-share-btn');
+
+          function handleShareClick(e) {
+            if (window.shareProperty) {
+              window.shareProperty(e, prop.slug || prop.id, prop.title, mainImgUrl);
+            }
+          }
+
+          if (shareBtn) shareBtn.onclick = handleShareClick;
+          if (bottomShareBtn) bottomShareBtn.onclick = handleShareClick;
+
+          // 7. Dynamic Legal Fee Breakdown
+          const summaryHeader = document.getElementById('d-summary-header');
+          if (prop.status === 'rent') {
+            if (summaryHeader) summaryHeader.textContent = 'Estimated Rental Deposit Summary';
+            const secDep = prop.price * 2;
+            const utilDep = prop.price * 0.5;
+            const firstMonth = prop.price;
+            document.getElementById('d-legal-summary').innerHTML = `
+              <div class="legal-summary-row"><span>1st Month Advance Rent:</span> <strong>RM ${firstMonth.toLocaleString()}</strong></div>
+              <div class="legal-summary-row"><span>2 Months Security Deposit:</span> <strong>RM ${secDep.toLocaleString()}</strong></div>
+              <div class="legal-summary-row"><span>0.5 Month Utility Deposit:</span> <strong>RM ${utilDep.toLocaleString()}</strong></div>
+              <hr style="margin: 4px 0; border: none; border-top: 1px dashed var(--border-color);">
+              <div class="legal-summary-total">
+                <span>Est. Total Move-In Deposit:</span> <strong>RM ${(firstMonth + secDep + utilDep).toLocaleString()}</strong>
+              </div>
+            `;
           } else {
-            sizeBox.style.display = 'block';
-            document.getElementById('d-size').textContent = `${prop.size} sqft`;
+            if (summaryHeader) summaryHeader.textContent = 'Estimated Entry Costs (SPA & Stamp Duty)';
+            const spaFee = calcSPALegalFee(prop.price);
+            const motDuty = calcMOTStampDuty(prop.price);
+            const loanFee = calcLoanLegalFee(prop.price * 0.9);
+            const loanDuty = calcLoanStampDuty(prop.price * 0.9);
+
+            document.getElementById('d-legal-summary').innerHTML = `
+              <div class="legal-summary-row"><span>SPA Legal Fee:</span> <strong>RM ${spaFee.toLocaleString()}</strong></div>
+              <div class="legal-summary-row"><span>MOT Stamp Duty:</span> <strong>RM ${motDuty.toLocaleString()}</strong></div>
+              <div class="legal-summary-row"><span>Loan Legal Fee (90%):</span> <strong>RM ${loanFee.toLocaleString()}</strong></div>
+              <div class="legal-summary-row"><span>Loan Stamp Duty:</span> <strong>RM ${loanDuty.toLocaleString()}</strong></div>
+              <hr style="margin: 4px 0; border: none; border-top: 1px dashed var(--border-color);">
+              <div class="legal-summary-total">
+                <span>Est. Initial Entry Cost:</span> <strong>RM ${(spaFee + motDuty + loanFee + loanDuty).toLocaleString()}</strong>
+              </div>
+            `;
           }
-        }
 
-        // Hide Tenure and Lot Type for FOR RENT listings
-        const tenureBox = document.getElementById('box-tenure');
-        const lotTypeBox = document.getElementById('box-lotType');
-        if (prop.status === 'rent' || prop.tenure === '-' || !prop.tenure) {
-          if (tenureBox) tenureBox.style.display = 'none';
-        } else {
-          if (tenureBox) tenureBox.style.display = 'block';
-          document.getElementById('d-tenure').textContent = prop.tenure;
-        }
+          // 8. Inject Structured Data JSON-LD
+          const propJsonLd = {
+            "@context": "https://schema.org",
+            "@type": "RealEstateListing",
+            "name": prop.title,
+            "description": pageDesc,
+            "url": canonicalUrl,
+            "image": allImages,
+            "offers": {
+              "@type": "Offer",
+              "price": prop.price || 0,
+              "priceCurrency": "MYR",
+              "availability": "https://schema.org/InStock",
+              "businessFunction": prop.status === 'rent' ? "https://schema.org/LeaseOut" : "https://schema.org/Sell"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": prop.location,
+              "addressRegion": prop.region || "Selangor",
+              "addressCountry": "MY"
+            }
+          };
 
-        if (prop.status === 'rent' || prop.lotType === '-' || !prop.lotType) {
-          if (lotTypeBox) lotTypeBox.style.display = 'none';
-        } else {
-          if (lotTypeBox) lotTypeBox.style.display = 'block';
-          const lotTypeVal = prop.lotType === 'Rezab Melayu' ? 'Malay Reserve' : prop.lotType;
-          document.getElementById('d-lotType').textContent = lotTypeVal;
-        }
+          const breadcrumbJsonLd = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://zaimrosli.my/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Properties",
+                "item": "https://zaimrosli.my/properties"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": prop.title,
+                "item": canonicalUrl
+              }
+            ]
+          };
 
-        function cleanPublicDescription(desc) {
-          if (!desc) return "";
-          return desc
-            .replace(/---\s*MAKLUMAT ASAL[\s\S]*$/gi, '')
-            .replace(/---\s*RUJUKAN EJEN[\s\S]*$/gi, '')
-            .replace(/📝\s*MAKLUMAT TERPERINCI[\s\S]*$/gi, '')
-            .replace(/Ejen Listing\s*:[\s\S]*$/gi, '')
-            .replace(/Listing COA Agent\s*:[\s\S]*$/gi, '')
-            .replace(/PropMall,\s*Built By Agents,\s*For Agents/gi, '')
-            .replace(/https?:\/\/(?:www\.)?propmall\.(?:co|my|net)\/[^\s]+/gi, '')
-            .replace(/https?:\/\/t\.me\/[^\s]+/gi, '')
-            .replace(/Hello Partner Agents,?\s*/gi, '')
-            .replace(/I want to share this Listing in PropMall with you\.?\s*/gi, '')
-            .replace(/^[~✔✅•*+]\s+/gm, '- ')
-            .replace(/\n\s*\n\s*\n+/g, '\n\n')
-            .trim();
-        }
+          const propScript = document.getElementById('property-jsonld');
+          if (propScript) propScript.textContent = JSON.stringify(propJsonLd);
 
-        document.getElementById('d-desc').textContent = cleanPublicDescription(prop.description);
+          const bcScript = document.getElementById('breadcrumb-jsonld');
+          if (bcScript) bcScript.textContent = JSON.stringify(breadcrumbJsonLd);
 
-        // WhatsApp link with live page URL included
-        const currentUrl = window.location.href;
-        const waMsg = encodeURIComponent(`Hi Zaim, I am interested in inquiring about "${prop.title}" (${prop.priceStr}) located in ${prop.location}.\n\nListing Link: ${currentUrl}`);
-        document.getElementById('d-whatsapp-btn').href = `https://wa.me/60108118559?text=${waMsg}`;
-
-        const mainImgUrl = (allImages && allImages.length > 0) ? allImages[0] : prop.image;
-
-        // Set Open Graph meta image for social & messaging app preview cards
-        let ogImg = document.querySelector('meta[property="og:image"]');
-        if (!ogImg) {
-          ogImg = document.createElement('meta');
-          ogImg.setAttribute('property', 'og:image');
-          document.head.appendChild(ogImg);
-        }
-        if (mainImgUrl) ogImg.setAttribute('content', mainImgUrl);
-
-        const shareBtn = document.getElementById('d-share-btn');
-        const bottomShareBtn = document.getElementById('d-bottom-share-btn');
-        
-        function handleShareClick(e) {
-          if (window.shareProperty) {
-            window.shareProperty(e, prop.slug || prop.id, prop.title, mainImgUrl);
-          }
-        }
-
-        if (shareBtn) shareBtn.onclick = handleShareClick;
-        if (bottomShareBtn) bottomShareBtn.onclick = handleShareClick;
-
-        // Dynamic Fee Breakdown (Rental vs Subsales)
-        const summaryHeader = document.getElementById('d-summary-header');
-        if (prop.status === 'rent') {
-          if (summaryHeader) summaryHeader.textContent = 'Estimated Rental Deposit Summary';
-          const secDep = prop.price * 2;
-          const utilDep = prop.price * 0.5;
-          const firstMonth = prop.price;
-          document.getElementById('d-legal-summary').innerHTML = `
-            <div class="legal-summary-row"><span>1st Month Advance Rent:</span> <strong>RM ${firstMonth.toLocaleString()}</strong></div>
-            <div class="legal-summary-row"><span>2 Months Security Deposit:</span> <strong>RM ${secDep.toLocaleString()}</strong></div>
-            <div class="legal-summary-row"><span>0.5 Month Utility Deposit:</span> <strong>RM ${utilDep.toLocaleString()}</strong></div>
-            <hr style="margin: 4px 0; border: none; border-top: 1px dashed var(--border-color);">
-            <div class="legal-summary-total">
-              <span>Est. Total Move-In Deposit:</span> <strong>RM ${(firstMonth + secDep + utilDep).toLocaleString()}</strong>
-            </div>
-          `;
-        } else {
-          if (summaryHeader) summaryHeader.textContent = 'Estimated Entry Costs (SPA & Stamp Duty)';
-          const spaFee = calcSPALegalFee(prop.price);
-          const motDuty = calcMOTStampDuty(prop.price);
-          const loanFee = calcLoanLegalFee(prop.price * 0.9);
-          const loanDuty = calcLoanStampDuty(prop.price * 0.9);
-
-          document.getElementById('d-legal-summary').innerHTML = `
-            <div class="legal-summary-row"><span>SPA Legal Fee:</span> <strong>RM ${spaFee.toLocaleString()}</strong></div>
-            <div class="legal-summary-row"><span>MOT Stamp Duty:</span> <strong>RM ${motDuty.toLocaleString()}</strong></div>
-            <div class="legal-summary-row"><span>Loan Legal Fee (90%):</span> <strong>RM ${loanFee.toLocaleString()}</strong></div>
-            <div class="legal-summary-row"><span>Loan Stamp Duty:</span> <strong>RM ${loanDuty.toLocaleString()}</strong></div>
-            <hr style="margin: 4px 0; border: none; border-top: 1px dashed var(--border-color);">
-            <div class="legal-summary-total">
-              <span>Est. Initial Entry Cost:</span> <strong>RM ${(spaFee + motDuty + loanFee + loanDuty).toLocaleString()}</strong>
-            </div>
-          `;
-        }
         } catch (e) {
           console.error("renderDetail error:", e);
-          document.getElementById('detail-loading').style.display = 'none';
-          document.getElementById('detail-container').style.display = 'block';
+          const loadingEl = document.getElementById('detail-loading');
+          const containerEl = document.getElementById('detail-container');
+          if (loadingEl) loadingEl.style.display = 'none';
+          if (containerEl) containerEl.style.display = 'block';
         }
       }
 
