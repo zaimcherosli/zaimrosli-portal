@@ -1261,8 +1261,8 @@
             remoteData = [remoteData];
           }
           if (Array.isArray(remoteData) && remoteData.length > 0) {
-            currentProperties = remoteData;
-            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(remoteData));
+            currentProperties = remoteData.filter(p => p && p.id !== '__SYS_LOCATIONS_DATA__');
+            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
             renderListingsGrid();
             return;
           }
@@ -1800,10 +1800,25 @@
     async function saveToStorage() {
       localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
       try {
+        let fullList = [...currentProperties];
+        try {
+          const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now());
+          if (res.ok) {
+            const remote = await res.json();
+            if (Array.isArray(remote)) {
+              const sysLoc = remote.find(p => p && p.id === '__SYS_LOCATIONS_DATA__');
+              if (sysLoc) {
+                fullList = fullList.filter(p => p.id !== '__SYS_LOCATIONS_DATA__');
+                fullList.push(sysLoc);
+              }
+            }
+          }
+        } catch (e) {}
+
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(currentProperties)
+          body: JSON.stringify(fullList)
         });
       } catch (e) {
         console.error('KV save error:', e);
@@ -2338,25 +2353,50 @@
         ]
       };
 
-      const existingIdx = locationsList.findIndex(l => l.slug.toLowerCase() === slug);
+      const updatedList = [...locationsList];
+      const existingIdx = updatedList.findIndex(l => l.slug.toLowerCase() === slug);
       if (existingIdx >= 0) {
-        locationsList[existingIdx] = { ...locationsList[existingIdx], ...locObj };
+        updatedList[existingIdx] = { ...updatedList[existingIdx], ...locObj };
       } else {
-        locationsList.push(locObj);
+        updatedList.push(locObj);
       }
 
+      const submitBtn = e.target.querySelector('button[type="submit"]') || document.querySelector('#location-modal button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.innerHTML : 'Save Location';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⌛ Menyimpan ke Server...';
+      }
+
+      const saveResult = await saveLocationsToStorage(updatedList);
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+
+      if (!saveResult.success) {
+        alert(`Gagal menyimpan lokasi ke server: ${saveResult.error || 'Sila cuba lagi'}.\n\nPerubahan belum disimpan ke Cloudflare KV.`);
+        return;
+      }
+
+      locationsList = updatedList;
       closeLocationModal();
-      renderLocationsAdmin();
-      await saveLocationsToStorage();
-      alert(`Lokasi '${name}' (${slug}) berjaya disimpan!`);
+      await loadLocationsAdmin();
+      alert(`Lokasi '${name}' (${slug}) BERJAYA disimpan ke server Cloudflare KV!`);
     }
 
     async function toggleLocationActive(slug) {
       const loc = locationsList.find(l => l.slug.toLowerCase() === slug.toLowerCase());
       if (!loc) return;
-      loc.active = (loc.active === false) ? true : false;
-      renderLocationsAdmin();
-      await saveLocationsToStorage();
+      const updatedList = locationsList.map(l => l.slug.toLowerCase() === slug.toLowerCase() ? { ...l, active: !l.active } : l);
+      const res = await saveLocationsToStorage(updatedList);
+      if (res.success) {
+        locationsList = updatedList;
+        renderLocationsAdmin();
+      } else {
+        alert(`Gagal mengemaskini status: ${res.error}`);
+      }
     }
 
     async function deleteLocation(slug) {
@@ -2366,13 +2406,18 @@
         if (!confirm(`Adakah anda pasti ingin memadamkan lokasi '${slug}'?`)) return;
       }
 
-      locationsList = locationsList.filter(l => l.slug.toLowerCase() !== slug.toLowerCase());
-      renderLocationsAdmin();
-      await saveLocationsToStorage();
+      const updatedList = locationsList.filter(l => l.slug.toLowerCase() !== slug.toLowerCase());
+      const res = await saveLocationsToStorage(updatedList);
+      if (res.success) {
+        locationsList = updatedList;
+        renderLocationsAdmin();
+      } else {
+        alert(`Gagal memadam lokasi di server: ${res.error}`);
+      }
     }
 
-    async function saveLocationsToStorage() {
-      localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(locationsList));
+    async function saveLocationsToStorage(payloadToSave) {
+      const list = payloadToSave || locationsList;
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (typeof supabaseClient !== 'undefined' && supabaseClient.auth) {
@@ -2382,13 +2427,24 @@
           }
         }
 
-        await fetch('/api/locations', {
+        const res = await fetch('/api/locations', {
           method: 'POST',
           headers: headers,
-          body: JSON.stringify(locationsList)
+          body: JSON.stringify(list)
         });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          console.error('Server save error:', res.status, errData);
+          return { success: false, status: res.status, error: errData.error || `HTTP ${res.status}` };
+        }
+
+        const data = await res.json().catch(() => ({}));
+        localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(list));
+        return { success: true, data };
       } catch (err) {
         console.error('Error persisting locations to Worker KV:', err);
+        return { success: false, error: err.message };
       }
     }
 

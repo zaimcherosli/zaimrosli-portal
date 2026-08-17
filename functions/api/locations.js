@@ -73,17 +73,20 @@ function validateLocationsPayload(payload) {
 // GET /api/locations (Public read for SSR & Client Hydration)
 export async function onRequestGet(context) {
   try {
-    const workerRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now(), {
+    const workerRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), {
       headers: { 'Cache-Control': 'no-cache' }
     });
 
     if (workerRes.ok) {
-      const data = await workerRes.json();
-      if (Array.isArray(data) && data.length > 0) {
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        });
+      const allData = await workerRes.json();
+      if (Array.isArray(allData)) {
+        const sysItem = allData.find(item => item && item.id === '__SYS_LOCATIONS_DATA__');
+        if (sysItem && Array.isArray(sysItem.locations) && sysItem.locations.length > 0) {
+          return new Response(JSON.stringify(sysItem.locations), {
+            status: 200,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          });
+        }
       }
     }
   } catch (err) {}
@@ -125,18 +128,50 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const workerRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': context.request.headers.get('Authorization') || ''
-      },
-      body: JSON.stringify(validation.sanitized)
+    // 1. Fetch current live inventory from Worker KV
+    const workerRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), {
+      headers: { 'Cache-Control': 'no-cache' }
     });
+
+    let propertiesList = [];
+    if (workerRes.ok) {
+      propertiesList = await workerRes.json();
+    }
+
+    if (!Array.isArray(propertiesList)) {
+      propertiesList = [];
+    }
+
+    // 2. Upsert __SYS_LOCATIONS_DATA__ record
+    const sysIndex = propertiesList.findIndex(item => item && item.id === '__SYS_LOCATIONS_DATA__');
+    const sysRecord = {
+      id: '__SYS_LOCATIONS_DATA__',
+      hidden: true,
+      title: 'SYSTEM LOCATION CONFIG REGISTRY',
+      updatedAt: Date.now(),
+      locations: validation.sanitized
+    };
+
+    if (sysIndex >= 0) {
+      propertiesList[sysIndex] = sysRecord;
+    } else {
+      propertiesList.push(sysRecord);
+    }
+
+    // 3. Persist atomically to Cloudflare KV / R2
+    const saveRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(propertiesList)
+    });
+
+    if (!saveRes.ok) {
+      throw new Error(`Worker persistence returned HTTP status ${saveRes.status}`);
+    }
 
     return new Response(JSON.stringify({
       success: true,
-      message: 'Location configurations persisted successfully',
+      message: 'Location configurations persisted successfully to Cloudflare KV',
       count: validation.sanitized.length
     }), {
       status: 200,
@@ -145,11 +180,9 @@ export async function onRequestPost(context) {
 
   } catch (err) {
     return new Response(JSON.stringify({
-      success: true,
-      message: 'Location configurations saved to Edge registry',
-      count: validation.sanitized.length
+      error: 'Failed to write location configurations to Cloudflare KV: ' + err.message
     }), {
-      status: 200,
+      status: 500,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     });
   }
