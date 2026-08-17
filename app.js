@@ -346,7 +346,7 @@ window.calcValuationFee = calcValuationFee;
   window.addEventListener('focus', fetchLiveKV);
 })();
 
-// 4. Dynamic Area Focus Navigation Menu from /api/locations
+// 4. Dynamic Area Focus Navigation Menu from /api/locations & LOCATIONS_CONFIG
 async function initAreaFocusMenu() {
   const desktopContainers = document.querySelectorAll('.area-focus-desktop');
   const mobileContainers = document.querySelectorAll('.area-focus-mobile');
@@ -362,18 +362,8 @@ async function initAreaFocusMenu() {
     'blog', 'privacy', 'terms', 'areas'
   ]);
 
-  try {
-    const res = await fetch('/api/locations');
-    if (!res.ok) return;
-
-    const data = await res.json();
-    let locations = [];
-
-    if (Array.isArray(data)) {
-      locations = data;
-    } else if (data && typeof data === 'object') {
-      locations = Object.values(data);
-    }
+  function renderMenu(locations) {
+    if (!Array.isArray(locations) || locations.length === 0) return;
 
     const seenSlugs = new Set();
     const activeLocations = [];
@@ -381,7 +371,7 @@ async function initAreaFocusMenu() {
     for (const loc of locations) {
       if (!loc || typeof loc !== 'object') continue;
       if (loc.id === '__SYS_LOCATIONS_DATA__') continue;
-      if (loc.active !== true) continue;
+      if (loc.active === false) continue; // Default to active unless explicitly disabled
       if (!loc.name || typeof loc.name !== 'string') continue;
 
       const slug = (loc.slug || '').toLowerCase().trim();
@@ -401,9 +391,6 @@ async function initAreaFocusMenu() {
     // Sort ascending by name
     activeLocations.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
-    const maxItems = 5;
-    const displayLocations = activeLocations.slice(0, maxItems);
-
     // Render Desktop Navigation
     desktopContainers.forEach(container => {
       container.innerHTML = '';
@@ -414,15 +401,15 @@ async function initAreaFocusMenu() {
 
       const header = document.createElement('div');
       header.className = 'dropdown-section-header';
-      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #94a3b8; padding: 6px 14px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
-      header.textContent = 'AREA FOCUS';
+      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 6px 14px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
+      header.textContent = '📍 LOKASI FOKUS';
       container.appendChild(header);
 
-      displayLocations.forEach(loc => {
+      activeLocations.forEach(loc => {
         const a = document.createElement('a');
         a.href = `/properties/${loc.slug}`;
         a.className = 'dropdown-item';
-        a.textContent = loc.name;
+        a.textContent = `${loc.name} Properties`;
         container.appendChild(a);
       });
     });
@@ -436,20 +423,58 @@ async function initAreaFocusMenu() {
       container.appendChild(divider);
 
       const header = document.createElement('div');
-      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #64748b; padding: 6px 12px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
-      header.textContent = 'AREA FOCUS';
+      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
+      header.textContent = '📍 LOKASI FOKUS';
       container.appendChild(header);
 
-      displayLocations.forEach(loc => {
+      activeLocations.forEach(loc => {
         const a = document.createElement('a');
         a.href = `/properties/${loc.slug}`;
         a.className = 'mobile-drawer-link';
-        a.textContent = loc.name;
+        a.textContent = `${loc.name} Properties`;
         container.appendChild(a);
       });
     });
+  }
 
+  // 1. Synchronous initial render from window.LOCATIONS_CONFIG or localStorage
+  try {
+    let initialList = [];
+    if (window.LOCATIONS_CONFIG && typeof window.LOCATIONS_CONFIG === 'object') {
+      initialList = Object.values(window.LOCATIONS_CONFIG);
+    }
+    const stored = localStorage.getItem('ZAIM_ROSLI_LOCATIONS');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) initialList = parsed;
+        else if (parsed && typeof parsed === 'object') initialList = Object.values(parsed);
+      } catch (e) {}
+    }
+    if (initialList.length > 0) {
+      renderMenu(initialList);
+    }
+  } catch (e) {}
+
+  // 2. Background live sync from Cloudflare Worker KV
+  try {
+    const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now(), {
+      signal: AbortSignal.timeout(4000)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      let locations = [];
+      if (Array.isArray(data)) {
+        locations = data;
+      } else if (data && typeof data === 'object' && !data.message) {
+        locations = Object.values(data);
+      }
+      if (locations.length > 0) {
+        localStorage.setItem('ZAIM_ROSLI_LOCATIONS', JSON.stringify(locations));
+        renderMenu(locations);
+      }
+    }
   } catch (err) {
-    // Graceful fallback — no error displayed, core navigation unaffected
+    // Graceful fallback — core navigation remains intact
   }
 }
