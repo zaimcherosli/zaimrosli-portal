@@ -83,7 +83,9 @@ export async function onRequest(context) {
   let config = LOCATIONS_CONFIG[targetLocSlug] || null;
 
   try {
-    const locApiRes = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations?t=' + Date.now(), {
+    const locApiUrl = new URL('/api/locations', url.origin);
+    locApiUrl.searchParams.set('t', Date.now().toString());
+    const locApiRes = await fetch(locApiUrl.toString(), {
       headers: { 'Cache-Control': 'no-cache' }
     });
     if (locApiRes.ok) {
