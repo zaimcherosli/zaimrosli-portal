@@ -1664,7 +1664,9 @@
 
     function editProperty(propIdOrIdx) {
       let p = null;
-      if (typeof propIdOrIdx === 'number') {
+      if (typeof propIdOrIdx === 'object' && propIdOrIdx !== null) {
+        p = propIdOrIdx;
+      } else if (typeof propIdOrIdx === 'number') {
         p = currentProperties[propIdOrIdx];
       } else if (typeof propIdOrIdx === 'string') {
         p = currentProperties.find(item => item.id === propIdOrIdx || item.slug === propIdOrIdx);
@@ -2675,8 +2677,11 @@
         }
         if (!listing || !listing.title) return;
 
-        // Clean query param from URL bar
+        // Clean query param from URL bar without page reload
         window.history.replaceState({}, document.title, window.location.pathname);
+
+        // Instantly open the modal with the imported listing data!
+        editProperty(listing);
 
         // Always fetch freshest data from KV to ensure no listings are lost
         try {
@@ -2693,7 +2698,7 @@
           await loadPropertiesList();
         }
 
-        // Check if listing already exists by exact title or exact slug (DO NOT match by refUrl because all feed items share search URL)
+        // Check if listing already exists by exact title or exact slug
         const existingIdx = currentProperties.findIndex(p => (listing.id && p.id === listing.id) || (p.slug === listing.slug && p.title.toLowerCase().trim() === listing.title.toLowerCase().trim()));
         if (existingIdx >= 0) {
           currentProperties[existingIdx] = { ...currentProperties[existingIdx], ...listing };
@@ -2752,20 +2757,16 @@
           }
         }, 5000);
 
-        // Open the newly imported listing in Edit Modal by its unique ID
-        setTimeout(() => {
-          editProperty(listing.id || listing.slug);
-        }, 400);
-
       } catch (err) {
         console.error('Error importing auto_sync listing:', err);
       }
     }
 
-    // Call after DOM loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(handleAutoSyncImport, 600);
-    });
+    // Call immediately & also on load
+    handleAutoSyncImport();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', handleAutoSyncImport);
+    }
 </script>
 </body>
 </html>
