@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=32">
+  <link rel="stylesheet" href="/styles.css?v=33">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -730,7 +730,365 @@
         border-radius: 16px !important;
       }
     }
-  </style>
+  
+  /* === RENHUB PROPERTY CRM MODERN STYLES (ZERO TEXT ICONS) === */
+  .renhub-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .renhub-metric-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .renhub-metric-card:hover {
+    box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+  }
+  .renhub-metric-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .renhub-metric-value {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.1;
+  }
+  .renhub-metric-card.metric-alert {
+    border-color: #fca5a5;
+    background: #fffbfb;
+  }
+  .renhub-metric-card.metric-alert .renhub-metric-value {
+    color: #dc2626;
+  }
+  .renhub-metric-card.metric-success {
+    border-color: #86efac;
+    background: #f0fdf4;
+  }
+  .renhub-metric-card.metric-success .renhub-metric-value {
+    color: #15803d;
+  }
+
+  /* RenHUB 3-Category Pills Bar */
+  .renhub-category-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .renhub-cat-btn {
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #475569;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .renhub-cat-btn .pill-count {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  /* Tab 1: All */
+  .renhub-cat-btn.tab-all {
+    border-color: #cbd5e1;
+  }
+  .renhub-cat-btn.tab-all .pill-count {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+  .renhub-cat-btn.tab-all.active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .renhub-cat-btn.tab-all.active .pill-count {
+    background: rgba(255,255,255,0.25);
+    color: #ffffff;
+  }
+
+  /* Tab 2: My Listing (Blue) */
+  .renhub-cat-btn.tab-my {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+  .renhub-cat-btn.tab-my .pill-count {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  .renhub-cat-btn.tab-my.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+  }
+  .renhub-cat-btn.tab-my.active .pill-count {
+    background: #ffffff;
+    color: #1d4ed8;
+  }
+
+  /* Tab 3: COA Listing (Green) */
+  .renhub-cat-btn.tab-coa {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+  }
+  .renhub-cat-btn.tab-coa .pill-count {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .renhub-cat-btn.tab-coa.active {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+    box-shadow: 0 2px 8px rgba(22,163,74,0.25);
+  }
+  .renhub-cat-btn.tab-coa.active .pill-count {
+    background: #ffffff;
+    color: #15803d;
+  }
+
+  /* Tab 4: Undercon (Orange) */
+  .renhub-cat-btn.tab-undercon {
+    border-color: #fed7aa;
+    background: #fff7ed;
+    color: #c2410c;
+  }
+  .renhub-cat-btn.tab-undercon .pill-count {
+    background: #ffedd5;
+    color: #9a3412;
+  }
+  .renhub-cat-btn.tab-undercon.active {
+    background: #ea580c;
+    color: #ffffff;
+    border-color: #ea580c;
+    box-shadow: 0 2px 8px rgba(234,88,12,0.25);
+  }
+  .renhub-cat-btn.tab-undercon.active .pill-count {
+    background: #ffffff;
+    color: #c2410c;
+  }
+
+  /* Filter Bar (Search + State + District) */
+  .renhub-filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .renhub-filter-search {
+    flex: 2;
+    min-width: 220px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #cbd5e1;
+    font-size: 0.85rem;
+    color: #0f172a;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .renhub-filter-select {
+    flex: 1;
+    min-width: 160px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1.5px solid #cbd5e1;
+    font-size: 0.85rem;
+    color: #0f172a;
+    background: #ffffff;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  /* RenHUB Modern Listing Card */
+  .renhub-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+  }
+  .renhub-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+  }
+  .renhub-card-thumb-wrap {
+    width: 120px;
+    height: 95px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: #f1f5f9;
+  }
+  .renhub-card-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .renhub-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .renhub-card-badges {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .renhub-badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.70rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .badge-my { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+  .badge-coa { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+  .badge-undercon { background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
+  .badge-for-sale { background: #fef3c7; color: #92400e; }
+  .badge-for-rent { background: #e0e7ff; color: #3730a3; }
+  
+  .renhub-card-price {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #d97706;
+    margin-bottom: 2px;
+  }
+  .renhub-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .renhub-card-location {
+    font-size: 0.78rem;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .renhub-card-specs {
+    font-size: 0.76rem;
+    color: #475569;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .renhub-note-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  /* Right-hand Action Column */
+  .renhub-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+    min-width: 105px;
+  }
+  .renhub-action-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #334155;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .renhub-action-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .renhub-action-btn.btn-quick-view {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .renhub-action-btn.btn-quick-view:hover {
+    background: #1e293b;
+  }
+  .renhub-action-btn.btn-delete {
+    background: #fff;
+    color: #dc2626;
+    border-color: #fca5a5;
+  }
+  .renhub-action-btn.btn-delete:hover {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  @media (max-width: 860px) {
+    .renhub-metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .renhub-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .renhub-card-thumb-wrap {
+      width: 100%;
+      height: 160px;
+    }
+    .renhub-card-actions {
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .renhub-action-btn {
+      flex: 1;
+    }
+  }
+
+</style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -869,49 +1227,72 @@
             <!-- Active Listings Panel -->
       <div id="tab-panel-active" class="panel" style="display: block; background: transparent; border: none; box-shadow: none; padding: 0;">
         
-        <!-- Top Action Bar -->
-        <div class="admin-top-action-bar" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 14px;">
-          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 1; min-width: 0;">
-            <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Manage Listings</h2>
-            <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; flex-shrink: 0;" id="total-live-badge">21</span>
+        <!-- RenHUB Top Metric Counters Bar -->
+        <div class="renhub-metrics-grid">
+          <div class="renhub-metric-card">
+            <div class="renhub-metric-label">Total Listings</div>
+            <div class="renhub-metric-value" id="renhub-count-total">0</div>
           </div>
-          <div style="display: flex; gap: 6px; align-items: center; flex-shrink: 0;">
-            <button onclick="loadPropertiesList()" class="btn-icon-round" style="width: 36px; height: 36px; border-radius: 9px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);" title="Refresh Data">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-  </button>
-            <button onclick="openModal()" class="btn-add-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-weight: 800; font-size: 0.80rem; padding: 8px 12px; border-radius: 9px; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25); transition: all 0.2s; white-space: nowrap;">
-              <span>+ Add Property</span>
+          <div class="renhub-metric-card metric-success">
+            <div class="renhub-metric-label">Active Listings</div>
+            <div class="renhub-metric-value" id="renhub-count-active">0</div>
+          </div>
+          <div class="renhub-metric-card metric-alert">
+            <div class="renhub-metric-label">Expiring Soon</div>
+            <div class="renhub-metric-value" id="renhub-count-expiring">0</div>
+          </div>
+          <div class="renhub-metric-card">
+            <div class="renhub-metric-label">Expired / Hidden</div>
+            <div class="renhub-metric-value" id="renhub-count-expired">0</div>
+          </div>
+        </div>
+
+        <!-- Top Header Action Bar -->
+        <div class="admin-top-action-bar" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 16px;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0;">Manage Property Portfolio</h2>
+            <p style="font-size: 0.82rem; color: #64748b; margin: 2px 0 0;">Asingkan MyListing, COA Listing & Undercon dalam satu ruang kerja tersusun.</p>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button onclick="loadPropertiesList()" class="renhub-action-btn" style="padding: 9px 14px; font-weight: 800;" title="Refresh Data">Refresh</button>
+            <button onclick="openModal()" class="btn-add-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-weight: 800; font-size: 0.85rem; padding: 9px 18px; border-radius: 9px; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);">
+              + Add Property
             </button>
           </div>
         </div>
 
-        <!-- Sleek Segmented Category Tabs & Full-width Search Bar -->
-        <div class="admin-segmented-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
-          
-          <div class="admin-scroll-tabs" style="display: flex; width: 100%; background: #e2e8f0; padding: 3px; border-radius: 10px; box-sizing: border-box;">
-            <button id="admin-cat-all" onclick="setAdminCategoryFilter('all')" class="admin-tab-pill active" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: #0f172a; color: #ffffff; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
-              All <span class="badge-pill-count" style="background: rgba(255,255,255,0.25); padding: 1px 5px; border-radius: 6px; font-size: 0.68rem;" id="count-all">0</span>
-            </button>
-            <button id="admin-cat-residential" onclick="setAdminCategoryFilter('residential')" class="admin-tab-pill" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
-              Residential <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-res">0</span>
-            </button>
-            <button id="admin-cat-commercial" onclick="setAdminCategoryFilter('commercial')" class="admin-tab-pill" style="flex: 1; text-align: center; justify-content: center; padding: 7px 4px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; border: none; background: transparent; color: #475569; cursor: pointer; white-space: nowrap; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
-              Commercial & Land <span class="badge-pill-count" style="background: #cbd5e1; padding: 1px 5px; border-radius: 6px; font-size: 0.68rem; color: #0f172a;" id="count-comm">0</span>
-            </button>
-          </div>
-
-          <!-- Full Width Clean Search Bar -->
-          <div class="admin-search-wrapper" style="position: relative; width: 100%; box-sizing: border-box;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Search title or location..." style="width: 100%; padding: 8px 12px 8px 34px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-size: 0.82rem; background: #ffffff; color: #0f172a; outline: none; box-sizing: border-box;">
-          </div>
-
+        <!-- RenHUB 3-Category Color-Coded Tabs -->
+        <div class="renhub-category-tabs">
+          <button id="renhub-tab-all" onclick="setRenhubSourceFilter('all')" class="renhub-cat-btn tab-all active">
+            All Active <span class="pill-count" id="count-source-all">0</span>
+          </button>
+          <button id="renhub-tab-my" onclick="setRenhubSourceFilter('my_listing')" class="renhub-cat-btn tab-my">
+            My Listing <span class="pill-count" id="count-source-my">0</span>
+          </button>
+          <button id="renhub-tab-coa" onclick="setRenhubSourceFilter('coa')" class="renhub-cat-btn tab-coa">
+            COA Listing <span class="pill-count" id="count-source-coa">0</span>
+          </button>
+          <button id="renhub-tab-undercon" onclick="setRenhubSourceFilter('undercon')" class="renhub-cat-btn tab-undercon">
+            Undercon <span class="pill-count" id="count-source-undercon">0</span>
+          </button>
         </div>
 
-        <!-- Listings Grid Container -->
-        <div id="admin-listings-grid" class="listings-grid">
+        <!-- RenHUB Smart Filter Bar (Search + State + District) -->
+        <div class="renhub-filter-bar">
+          <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Search title, location, reference or agent..." class="renhub-filter-search">
+          <select id="admin-filter-state" onchange="handleStateFilterChange()" class="renhub-filter-select">
+            <option value="all">Select State (All)</option>
+          </select>
+          <select id="admin-filter-district" onchange="renderListingsGrid()" class="renhub-filter-select">
+            <option value="all">Select District (All)</option>
+          </select>
+        </div>
+
+        <!-- Listings Card Container -->
+        <div id="admin-listings-grid" style="display: flex; flex-direction: column; gap: 12px;">
           <!-- Rendered dynamically -->
         </div>
+
       </div>
 
       <!-- Past Deals Panel -->
@@ -1281,7 +1662,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=18"></script>
-  <script src="/app.js?v=32"></script>
+  <script src="/app.js?v=33"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -1335,7 +1716,8 @@
           if (Array.isArray(remoteData) && remoteData.length > 0) {
             currentProperties = remoteData.filter(p => p && p.id !== '__SYS_LOCATIONS_DATA__');
             localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
-            renderListingsGrid();
+            updateRenhubStateFilterOptions();
+      renderListingsGrid();
             return;
           }
         }
@@ -1421,226 +1803,288 @@
       renderListingsGrid();
     }
 
+    let currentRenhubSourceFilter = 'all'; // 'all', 'my_listing', 'coa', 'undercon'
+
+    function setRenhubSourceFilter(sourceKey) {
+      currentRenhubSourceFilter = sourceKey;
+      ['all', 'my', 'coa', 'undercon'].forEach(key => {
+        const btn = document.getElementById('renhub-tab-' + key);
+        if (btn) {
+          const targetKey = key === 'my' ? 'my_listing' : key;
+          if (targetKey === sourceKey) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+      renderListingsGrid();
+    }
+
+    function toggleRenhubFormFields() {
+      const source = document.getElementById('form-source')?.value || 'my_listing';
+      const coaRow = document.getElementById('row-coa-fields');
+      const underconRow = document.getElementById('row-undercon-fields');
+      const expiryGroup = document.getElementById('group-exclusive-expiry');
+
+      if (coaRow) coaRow.style.display = (source === 'coa') ? 'flex' : 'none';
+      if (underconRow) underconRow.style.display = (source === 'undercon') ? 'flex' : 'none';
+      if (expiryGroup) expiryGroup.style.display = (source === 'undercon') ? 'none' : 'block';
+    }
+
+    function updateRenhubStateFilterOptions() {
+      const stateSelect = document.getElementById('admin-filter-state');
+      if (!stateSelect) return;
+
+      const currentState = stateSelect.value;
+      const stateCounts = {};
+
+      currentProperties.forEach(p => {
+        const state = (p.region || 'Selangor').trim();
+        stateCounts[state] = (stateCounts[state] || 0) + 1;
+      });
+
+      let optionsHTML = '<option value="all">Select State (All)</option>';
+      Object.keys(stateCounts).sort().forEach(state => {
+        const count = stateCounts[state];
+        const selected = (currentState === state) ? 'selected' : '';
+        optionsHTML += `<option value="${state}" ${selected}>${state} (${count})</option>`;
+      });
+
+      stateSelect.innerHTML = optionsHTML;
+      updateRenhubDistrictFilterOptions();
+    }
+
+    function handleStateFilterChange() {
+      updateRenhubDistrictFilterOptions();
+      renderListingsGrid();
+    }
+
+    function updateRenhubDistrictFilterOptions() {
+      const stateSelect = document.getElementById('admin-filter-state');
+      const districtSelect = document.getElementById('admin-filter-district');
+      if (!districtSelect) return;
+
+      const selectedState = stateSelect ? stateSelect.value : 'all';
+      const districtCounts = {};
+
+      currentProperties.forEach(p => {
+        const pState = (p.region || 'Selangor').trim();
+        if (selectedState !== 'all' && pState.toLowerCase() !== selectedState.toLowerCase()) return;
+        
+        const loc = (p.location || '').trim();
+        const parts = loc.split(',').map(s => s.trim());
+        const dist = parts[0] || 'Lembah Klang';
+        districtCounts[dist] = (districtCounts[dist] || 0) + 1;
+      });
+
+      let optionsHTML = '<option value="all">Select District (All)</option>';
+      Object.keys(districtCounts).sort().forEach(dist => {
+        const count = districtCounts[dist];
+        optionsHTML += `<option value="${dist}">${dist} (${count})</option>`;
+      });
+
+      districtSelect.innerHTML = optionsHTML;
+    }
+
+    function updateRenhubTopMetrics() {
+      const total = currentProperties.length;
+      let active = 0;
+      let expired = 0;
+      let expiring = 0;
+      let countMy = 0;
+      let countCoa = 0;
+      let countUndercon = 0;
+
+      const now = new Date();
+
+      currentProperties.forEach(p => {
+        const isHidden = !!p.hidden;
+        if (!isHidden) active++;
+        else expired++;
+
+        const src = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
+        if (src === 'coa') countCoa++;
+        else if (src === 'undercon') countUndercon++;
+        else countMy++;
+
+        if (p.exclusiveExpiryDate) {
+          const exp = new Date(p.exclusiveExpiryDate);
+          const diffDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+          if (diffDays >= 0 && diffDays <= 30) {
+            expiring++;
+          }
+        }
+      });
+
+      const elTotal = document.getElementById('renhub-count-total');
+      const elActive = document.getElementById('renhub-count-active');
+      const elExpiring = document.getElementById('renhub-count-expiring');
+      const elExpired = document.getElementById('renhub-count-expired');
+
+      if (elTotal) elTotal.innerText = total;
+      if (elActive) elActive.innerText = active;
+      if (elExpiring) elExpiring.innerText = expiring;
+      if (elExpired) elExpired.innerText = expired;
+
+      const countAllEl = document.getElementById('count-source-all');
+      const countMyEl = document.getElementById('count-source-my');
+      const countCoaEl = document.getElementById('count-source-coa');
+      const countUnderconEl = document.getElementById('count-source-undercon');
+
+      if (countAllEl) countAllEl.innerText = active;
+      if (countMyEl) countMyEl.innerText = countMy;
+      if (countCoaEl) countCoaEl.innerText = countCoa;
+      if (countUnderconEl) countUnderconEl.innerText = countUndercon;
+    }
+
+    function copyListingShareLink(slugOrId) {
+      const url = `${window.location.origin}/property/${slugOrId}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Pautan listing telah disalin: ' + url);
+        }).catch(() => {
+          prompt('Salin pautan listing ini:', url);
+        });
+      } else {
+        prompt('Salin pautan listing ini:', url);
+      }
+    }
+
     function renderListingsGrid() {
       const grid = document.getElementById('admin-listings-grid');
-      const commTypes = ['Factory', 'Industrial Land', 'Commercial Land', 'Commercial Space', 'Office Space', 'Shop / Office', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat', 'Ruang Komersial', 'Tanah', 'Tanah Komersial'];
+      if (!grid) return;
 
-      const totalCount = currentProperties.length;
-      const resCount = currentProperties.filter(p => !commTypes.includes(p.type) && !(p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')))).length;
-      const commCount = totalCount - resCount;
+      updateRenhubTopMetrics();
 
-      const cAllEl = document.getElementById('count-all');
-      const cResEl = document.getElementById('count-res');
-      const cCommEl = document.getElementById('count-comm');
-      const liveBadge = document.getElementById('total-live-badge');
-      if (cAllEl) cAllEl.textContent = totalCount;
-      if (cResEl) cResEl.textContent = resCount;
-      if (cCommEl) cCommEl.textContent = commCount;
-      if (liveBadge) liveBadge.textContent = totalCount;
+      const searchInput = document.getElementById('admin-search-input');
+      const stateSelect = document.getElementById('admin-filter-state');
+      const districtSelect = document.getElementById('admin-filter-district');
 
-      const searchKeyword = (document.getElementById('admin-search-input')?.value || '').toLowerCase().trim();
+      const searchKeyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
+      const selectedState = stateSelect ? stateSelect.value : 'all';
+      const selectedDistrict = districtSelect ? districtSelect.value : 'all';
 
-      let displayList = currentProperties.map((p, originalIdx) => ({ property: p, originalIdx })).filter(({ property: p }) => {
-        const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')));
-        if (currentAdminCatFilter === 'residential' && isCommercial) return false;
-        if (currentAdminCatFilter === 'commercial' && !isCommercial) return false;
+      const indexedList = currentProperties.map((prop, idx) => ({ property: prop, originalIdx: idx }));
+
+      const displayList = indexedList.filter(({ property: p }) => {
+        // 1. Source filter (All, My Listing, COA, Undercon)
+        const src = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
+        if (currentRenhubSourceFilter !== 'all' && src !== currentRenhubSourceFilter) {
+          return false;
+        }
+
+        // 2. State filter
+        const pState = (p.region || 'Selangor').trim();
+        if (selectedState !== 'all' && pState.toLowerCase() !== selectedState.toLowerCase()) {
+          return false;
+        }
+
+        // 3. District filter
+        if (selectedDistrict !== 'all') {
+          const loc = (p.location || '').toLowerCase();
+          if (!loc.includes(selectedDistrict.toLowerCase())) {
+            return false;
+          }
+        }
+
+        // 4. Search keyword
         if (searchKeyword) {
           const matchTitle = (p.title || '').toLowerCase().includes(searchKeyword);
           const matchLoc = (p.location || '').toLowerCase().includes(searchKeyword);
           const matchType = (p.type || '').toLowerCase().includes(searchKeyword);
-          if (!matchTitle && !matchLoc && !matchType) return false;
+          const matchAgent = (p.coaAgentName || '').toLowerCase().includes(searchKeyword);
+          if (!matchTitle && !matchLoc && !matchType && !matchAgent) return false;
         }
+
         return true;
       });
 
       if (displayList.length === 0) {
         grid.innerHTML = `
-          <div style="grid-column: 1 / -1; background:#ffffff; border:1px dashed #cbd5e1; padding:40px 20px; text-align:center; border-radius:14px; color:#64748b;">
-            <p style="font-size:1.05rem; font-weight:700; margin-bottom:6px; color:#0f172a;">No properties found for this category.</p>
-            <p style="font-size:0.82rem;">Click "+ Add Property" to create a new listing.</p>
+          <div style="background:#ffffff; border:1px dashed #cbd5e1; padding:40px 20px; text-align:center; border-radius:14px; color:#64748b;">
+            <p style="font-size:1.05rem; font-weight:700; margin-bottom:6px; color:#0f172a;">No properties found matching your filter.</p>
+            <p style="font-size:0.82rem;">Try adjusting your search keyword, state, or category tabs.</p>
           </div>
         `;
         return;
       }
 
-      const typeMap = {
-        'Tanah': 'Land',
-        'Tanah Komersial': 'Commercial Land',
-        'Tanah Industri': 'Industrial Land',
-        'Kedai / Pejabat': 'Shop / Office',
-        'Ruang Komersial': 'Commercial Space',
-        'Ruang Pejabat': 'Office Space',
-        'Kilang': 'Factory',
-        'Banglo': 'Bungalow',
-        'Teres': 'Terrace House',
-        'Kondominium': 'Condominium',
-        'Kondominium / Pangsapuri': 'Condominium'
-      };
+      grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
+        const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
+        const isHidden = !!p.hidden;
+        const src = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
 
-      try {
-        grid.innerHTML = displayList.map(({ property: p, originalIdx: idx }) => {
-          const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
-          const badgeClass = p.status === 'sale' ? 'badge-sale-style' : 'badge-rent-style';
-          const badgeText = p.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
-          const categoryBadge = p.category ? `<span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #fde68a;">${p.category}</span>` : '';
-          const priceDisplay = (p.price != null && !isNaN(Number(p.price))) 
-            ? (p.status === 'sale' ? `RM ${Number(p.price).toLocaleString('en-US')}` : `RM ${Number(p.price).toLocaleString('en-US')} / month`) 
-            : (p.priceStr || 'RM 0');
-          
-          const rawType = p.type || (p.landSize && (!p.beds || p.beds === 0) ? 'Land' : '');
-          const displayType = typeMap[rawType] || rawType;
-          const typeBadge = displayType ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${displayType}</span>` : '';
-          const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">Referral Link (PropMall)</a>` : '';
+        let srcBadgeHTML = '';
+        if (src === 'coa') {
+          srcBadgeHTML = `<span class="renhub-badge badge-coa">COA Listing</span>`;
+        } else if (src === 'undercon') {
+          srcBadgeHTML = `<span class="renhub-badge badge-undercon">Undercon</span>`;
+        } else {
+          srcBadgeHTML = `<span class="renhub-badge badge-my">My Listing</span>`;
+        }
 
-          const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory') || p.type.toLowerCase().includes('kilang')));
-          const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(p.type) || ((!p.type || p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')) && (!p.size || p.size === 0 || p.size === '0') && (!p.beds || p.beds === 0));
+        const transBadge = p.status === 'sale' 
+          ? `<span class="renhub-badge badge-for-sale">For Sale</span>`
+          : `<span class="renhub-badge badge-for-rent">For Rent</span>`;
 
-          const roomLabel = isCommercial ? 'Rooms' : 'Beds';
-          const bedsVal = p.bedsPlus > 0 ? `${p.beds}+${p.bedsPlus}` : p.beds;
-          const bathsVal = p.bathsPlus > 0 ? `${p.baths}+${p.bathsPlus}` : p.baths;
+        const priceDisplay = (p.price != null && !isNaN(Number(p.price))) 
+          ? (p.status === 'sale' ? `RM ${Number(p.price).toLocaleString('en-US')}` : `RM ${Number(p.price).toLocaleString('en-US')} / mo`) 
+          : (p.priceStr || 'RM 0');
 
-          const cleanLandText = (p.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
-          const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
-          const hasSize = (p.size && parseFloat(p.size) > 0) && !isPureLand;
-          const hasBeds = !isPureLand && p.beds > 0;
-          const hasBaths = !isPureLand && p.baths > 0;
+        const specs = [];
+        if (p.beds > 0) specs.push(`BD ${p.beds}`);
+        if (p.baths > 0) specs.push(`BA ${p.baths}`);
+        if (p.size > 0) specs.push(`BU ${Number(p.size).toLocaleString('en-US')} sqft`);
+        if (p.landSize && p.landSize !== '-' && p.landSize !== '0') specs.push(`LS ${p.landSize}`);
+        const specsText = specs.length > 0 ? specs.join(' • ') : (p.type || 'Property Listing');
 
-          let adminSpecsHTML = '';
+        let noteHTML = '';
+        if (src === 'coa' && p.coaAgentName) {
+          noteHTML = `<div class="renhub-note-badge" style="background:#dcfce7; color:#166534; border:1px solid #bbf7d0;">COA from: ${p.coaAgentName} ${p.coaAgentPhone ? '(' + p.coaAgentPhone + ')' : ''}</div>`;
+        } else if (src === 'undercon' && p.completionDate) {
+          noteHTML = `<div class="renhub-note-badge" style="background:#ffedd5; color:#9a3412; border:1px solid #fed7aa;">Est. Completion: ${p.completionDate} ${p.developerPackage ? '— ' + p.developerPackage : ''}</div>`;
+        } else if (p.exclusiveExpiryDate) {
+          const expDate = new Date(p.exclusiveExpiryDate);
+          const diff = Math.ceil((expDate - new Date()) / (1000 * 60 * 60 * 24));
+          const colorStyle = diff <= 14 ? 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;' : 'background:#fef3c7; color:#92400e; border:1px solid #fde68a;';
+          noteHTML = `<div class="renhub-note-badge" style="${colorStyle}">Exclusive Listing — ${diff > 0 ? diff + ' days remaining' : 'Expired'}</div>`;
+        }
 
-          if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
-            adminSpecsHTML = `
-              <div class="admin-spec-banner spec-land-banner">
-                <span class="spec-banner-label">LAND AREA</span>
-                <span class="spec-banner-val">${cleanLandText || '-'}</span>
-              </div>
-            `;
-          } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
-            const formattedSize = (p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : (p.size || '-');
-            adminSpecsHTML = `
-              <div class="admin-spec-banner">
-                <span class="spec-banner-label">BUILT-UP AREA</span>
-                <span class="spec-banner-val">${formattedSize} sqft</span>
-              </div>
-            `;
-          } else if (isCommercial) {
-            const specItems = [];
-            const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
-            if (hasBeds) {
-              specItems.push(`
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">ROOMS</div>
-                  <div class="admin-spec-val">${bedsVal}</div>
-                </div>
-              `);
-            }
-            if (hasBaths) {
-              specItems.push(`
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">BATHS</div>
-                  <div class="admin-spec-val">${bathsVal}</div>
-                </div>
-              `);
-            }
-            if (formattedSize) {
-              specItems.push(`
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">BUILT-UP</div>
-                  <div class="admin-spec-val">${formattedSize} sqft</div>
-                </div>
-              `);
-            }
-            if (hasLand) {
-              specItems.push(`
-                <div class="admin-spec-box spec-land">
-                  <div class="admin-spec-top">LAND AREA</div>
-                  <div class="admin-spec-val">${cleanLandText}</div>
-                </div>
-              `);
-            }
-            const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
-            adminSpecsHTML = `
-              <div class="admin-specs-row ${gridClass}">
-                ${specItems.join('')}
-              </div>
-            `;
-          } else {
-            // 4. Uniform 4-box 2x2 grid for ALL Residential properties
-            const formattedSize = hasSize ? ((p.size != null && !isNaN(Number(p.size))) ? Number(p.size).toLocaleString('en-US') : p.size) : null;
-            const landClass = hasLand ? 'spec-land' : '';
+        const isCommercial = (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory')));
+        const liveUrl = `/properties/${isCommercial ? 'commercial' : 'residential'}/${p.slug || p.id}`;
 
-            adminSpecsHTML = `
-              <div class="admin-specs-row specs-grid-2x2">
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">BEDS</div>
-                  <div class="admin-spec-val">${hasBeds ? bedsVal : '-'}</div>
-                </div>
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">BATHS</div>
-                  <div class="admin-spec-val">${hasBaths ? bathsVal : '-'}</div>
-                </div>
-                <div class="admin-spec-box">
-                  <div class="admin-spec-top">BUILT-UP</div>
-                  <div class="admin-spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
-                </div>
-                <div class="admin-spec-box ${landClass}">
-                  <div class="admin-spec-top">LAND AREA</div>
-                  <div class="admin-spec-val">${hasLand ? cleanLandText : '-'}</div>
-                </div>
-              </div>
-            `;
-          }
-
-          const isHidden = !!p.hidden;
-          const cardStyle = isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : '';
-          const imgStyle = isHidden ? 'style="opacity: 0.5; filter: grayscale(50%);"' : '';
-
-          return `
-            <div class="listing-item" ${cardStyle}>
-              <img src="${mainImg}" class="listing-thumb" ${imgStyle} alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
-              <div class="listing-info">
-                <div class="listing-badges-row">
-                  <span class="badge-status ${badgeClass}">${badgeText}</span>
-                  ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">HIDDEN FROM MAIN PAGE</span>' : ''}
-                  ${categoryBadge}
-                  ${typeBadge}
-                </div>
-                <div style="font-size:1.15rem; font-weight:800; color:#d97706; margin-top:4px;">${priceDisplay}</div>
-                <h3 class="listing-title">${p.title}</h3>
-
-                <div style="font-size:0.8rem; font-weight:600; color:#64748b; margin: 4px 0 6px; display:flex; align-items:center; gap:4px;">
-                   <span>${(p.location || "").replace(/^\+\s*/, "")}</span>
-                </div>
-
-                <div class="admin-specs-grid">
-                  ${adminSpecsHTML}
-                </div>
-
-                ${refLinkHtml}
+        return `
+          <div class="renhub-card" ${isHidden ? 'style="border: 1.5px dashed #fca5a5; background: #fffbfb;"' : ''}>
+            <div class="renhub-card-thumb-wrap">
+              <img src="${mainImg}" class="renhub-card-thumb" alt="${p.title}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'">
+            </div>
+            
+            <div class="renhub-card-body">
+              <div class="renhub-card-badges">
+                ${srcBadgeHTML}
+                ${transBadge}
+                <span class="renhub-badge" style="background:#f1f5f9; color:#475569;">${p.type || 'Residential'}</span>
+                ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
               </div>
               
-              <div class="listing-actions-row">
-                <a href="/properties/${isCommercial ? 'commercial' : 'residential'}/${p.slug || p.id}" target="_blank" class="action-btn" title="View Live Page" style="display:flex; align-items:center; justify-content:center; text-decoration:none; color:#334155;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-                <button onclick="toggleHideProperty(event, ${idx})" class="action-btn ${isHidden ? 'hidden-btn' : ''}" title="${isHidden ? 'Click to Unhide (Show on Main Page)' : 'Click to Hide (Hide from Main Page)'}">
-                  ${isHidden 
-                    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
-                    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
-                  }
-                </button>
-                <button onclick="editProperty(${idx})" class="action-btn" title="Edit Property">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                </button>
-                <button onclick="deleteProperty(${idx})" class="action-btn delete" title="Delete Property">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                </button>
-              </div>
+              <div class="renhub-card-price">${priceDisplay}</div>
+              <h3 class="renhub-card-title">${p.title}</h3>
+              <div class="renhub-card-location">${p.location || 'Selangor'} • ${p.region || 'Selangor'}</div>
+              <div class="renhub-card-specs">${specsText}</div>
+              ${noteHTML}
             </div>
-          `;
-        }).join('');
-      } catch (renderErr) {
-        console.error('Grid render error:', renderErr);
-      }
+
+            <div class="renhub-card-actions">
+              <a href="${liveUrl}" target="_blank" class="renhub-action-btn btn-quick-view">Quick View</a>
+              <button onclick="editProperty(${idx})" class="renhub-action-btn">Edit</button>
+              <button onclick="copyListingShareLink('${p.slug || p.id}')" class="renhub-action-btn">Share</button>
+              <button onclick="toggleHideProperty(event, ${idx})" class="renhub-action-btn" style="font-size:0.72rem;">${isHidden ? 'Unhide' : 'Hide'}</button>
+              <button onclick="deleteProperty(${idx})" class="renhub-action-btn btn-delete">Delete</button>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function autoResizeDescription(el) {
@@ -1670,6 +2114,13 @@
       document.getElementById('form-category').value = 'Subsales';
       document.getElementById('form-landSize').value = '';
       document.getElementById('form-ref-url').value = '';
+      if (document.getElementById('form-source')) document.getElementById('form-source').value = 'my_listing';
+      if (document.getElementById('form-exclusive-expiry')) document.getElementById('form-exclusive-expiry').value = '';
+      if (document.getElementById('form-coa-agent')) document.getElementById('form-coa-agent').value = '';
+      if (document.getElementById('form-coa-phone')) document.getElementById('form-coa-phone').value = '';
+      if (document.getElementById('form-completion')) document.getElementById('form-completion').value = '';
+      if (document.getElementById('form-developer-package')) document.getElementById('form-developer-package').value = '';
+      toggleRenhubFormFields();
       document.getElementById('modal-title').textContent = 'Add New Property';
       uploadedImageUrls = [];
       rebuildImageThumbsGrid();
@@ -1718,6 +2169,13 @@
       document.getElementById('form-lotType').value = p.lotType || '-';
       document.getElementById('form-ref-url').value = p.refUrl || '';
       document.getElementById('form-description').value = p.description || '';
+      if (document.getElementById('form-source')) document.getElementById('form-source').value = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
+      if (document.getElementById('form-exclusive-expiry')) document.getElementById('form-exclusive-expiry').value = p.exclusiveExpiryDate || '';
+      if (document.getElementById('form-coa-agent')) document.getElementById('form-coa-agent').value = p.coaAgentName || '';
+      if (document.getElementById('form-coa-phone')) document.getElementById('form-coa-phone').value = p.coaAgentPhone || '';
+      if (document.getElementById('form-completion')) document.getElementById('form-completion').value = p.completionDate || '';
+      if (document.getElementById('form-developer-package')) document.getElementById('form-developer-package').value = p.developerPackage || '';
+      toggleRenhubFormFields();
       if (Array.isArray(p.images) && p.images.length > 0) {
         uploadedImageUrls = [...p.images];
       } else if (p.image) {
