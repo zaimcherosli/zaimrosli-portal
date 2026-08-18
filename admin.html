@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=33">
+  <link rel="stylesheet" href="/styles.css?v=34">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1499,7 +1499,49 @@
       </div>
 
       <form id="prop-form" onsubmit="saveProperty(event)">
-        <input type="hidden" id="form-id">
+        <input type="hidden" id="form-id"
+        <!-- === RENHUB SOURCE CATEGORY SELECTION === -->
+        <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
+          <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 10px;">
+            <div style="flex: 1.2;">
+              <label style="display: block; font-size: 0.76rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">LISTING SOURCE CATEGORY *</label>
+              <select id="form-source" class="form-select" onchange="toggleRenhubFormFields()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1.5px solid #94a3b8; font-weight: 800; background: #ffffff; color: #0f172a;">
+                <option value="my_listing" selected>My Listing (Direct Owner / Listing Sendiri)</option>
+                <option value="coa">COA Listing (Rakan Agensi / Co-Agency)</option>
+                <option value="undercon">Undercon (Projek Baru Pemaju)</option>
+              </select>
+            </div>
+            <div style="flex: 1;" id="group-exclusive-expiry">
+              <label style="display: block; font-size: 0.76rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">EXCLUSIVE EXPIRY DATE</label>
+              <input type="date" id="form-exclusive-expiry" class="form-input" style="width: 100%; padding: 9px; border-radius: 8px; border: 1.5px solid #cbd5e1;">
+            </div>
+          </div>
+
+          <!-- Extra COA Details -->
+          <div id="row-coa-fields" style="display: none; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #bbf7d0; background: #f0fdf4; padding: 10px; border-radius: 8px;">
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #166534; margin-bottom: 4px; text-transform: uppercase;">COA AGENT NAME & AGENCY</label>
+              <input type="text" id="form-coa-agent" class="form-input" placeholder="e.g. Sarah Property (IQI Realty)" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
+            </div>
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #166534; margin-bottom: 4px; text-transform: uppercase;">COA AGENT PHONE NUMBER</label>
+              <input type="text" id="form-coa-phone" class="form-input" placeholder="e.g. 012-3456789" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
+            </div>
+          </div>
+
+          <!-- Extra Undercon Details -->
+          <div id="row-undercon-fields" style="display: none; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #fed7aa; background: #fff7ed; padding: 10px; border-radius: 8px;">
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">ESTIMATED COMPLETION TIMELINE</label>
+              <input type="text" id="form-completion" class="form-input" placeholder="e.g. Q2 2027 / Siap 2026" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
+            </div>
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">DEVELOPER PACKAGE / REBATE</label>
+              <input type="text" id="form-developer-package" class="form-input" placeholder="e.g. Free SPA, MOT & Zero Downpayment" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
+            </div>
+          </div>
+        </div>
+>
 
         <div class="form-group" style="margin-bottom: 16px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PROPERTY TITLE</label>
@@ -1662,7 +1704,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=18"></script>
-  <script src="/app.js?v=33"></script>
+  <script src="/app.js?v=34"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -1951,6 +1993,33 @@
       }
     }
 
+    
+    async function quickChangeListingSource(event, idx, newSource) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const p = currentProperties[idx];
+      if (!p) return;
+
+      p.listingSource = newSource;
+      if (newSource === 'undercon' && !p.category) {
+        p.category = 'New Project';
+      }
+
+      // Save to localStorage & Cloudflare
+      try {
+        localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
+      } catch (e) {}
+
+      renderListingsGrid();
+
+      // Trigger background cloud sync
+      if (typeof saveToCloudflareR2Directly === 'function') {
+        saveToCloudflareR2Directly();
+      }
+    }
+
     function renderListingsGrid() {
       const grid = document.getElementById('admin-listings-grid');
       if (!grid) return;
@@ -2061,8 +2130,22 @@
             </div>
             
             <div class="renhub-card-body">
-              <div class="renhub-card-badges">
-                ${srcBadgeHTML}
+              <div class="renhub-card-badges" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
+                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                  ${srcBadgeHTML}
+                  ${transBadge}
+                  <span class="renhub-badge" style="background:#f1f5f9; color:#475569;">${p.type || 'Residential'}</span>
+                  ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
+                </div>
+                <div>
+                  <select onchange="quickChangeListingSource(event, ${idx}, this.value)" style="padding:3px 8px; border-radius:6px; border:1px solid #cbd5e1; font-size:0.72rem; font-weight:700; background:#f8fafc; color:#334155; cursor:pointer;" title="Pindahkan Kategori Listing Secara Pantas">
+                    <option value="my_listing" ${src === 'my_listing' ? 'selected' : ''}>Move to: My Listing</option>
+                    <option value="coa" ${src === 'coa' ? 'selected' : ''}>Move to: COA Listing</option>
+                    <option value="undercon" ${src === 'undercon' ? 'selected' : ''}>Move to: Undercon</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display:none;">
                 ${transBadge}
                 <span class="renhub-badge" style="background:#f1f5f9; color:#475569;">${p.type || 'Residential'}</span>
                 ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
