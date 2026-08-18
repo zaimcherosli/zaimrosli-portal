@@ -6,7 +6,7 @@
   <title>Hubungi Zaim Rosli - REN39575</title>
   <meta name="description" content="Book a real estate consultation or submit property inquiries to Zaim Rosli (REN39575).">
   <link rel="canonical" href="https://zaimrosli.my/contact">
-  <link rel="stylesheet" href="/styles.css?v=28">
+  <link rel="stylesheet" href="/styles.css?v=29">
   <style>
     .contact-grid {
       display: grid;
@@ -50,7 +50,7 @@
             <a href="/properties" class="dropdown-item">All Listings</a>
             <div class="area-focus-nav area-focus-desktop">
             <div style="margin: 6px 8px; border-top: 1px solid rgba(255,255,255,0.15);"></div>
-            <div class="dropdown-section-header" style="font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 4px 14px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
+            <div class="dropdown-section-header" style="font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 4px 14px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
             <a href="/properties/bangi" class="dropdown-item">Bangi Properties</a>
             <a href="/properties/nilai" class="dropdown-item">Nilai Properties</a>
             </div>
@@ -66,7 +66,7 @@
             <a href="/services#selling" class="dropdown-item">Property Selling Advisory</a>
             <a href="/services#valuation" class="dropdown-item">Free Market Valuation</a>
             <a href="/services#legal-loan" class="dropdown-item">Legal & Loan Assistance</a>
-            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">🌏 Foreign Buyer & Expat Advisory</a>
+            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">Foreign Buyer & Expat Advisory</a>
           </div>
         </li>
 
@@ -87,7 +87,7 @@
             Resources <span class="arrow">▾</span>
           </a>
           <div class="dropdown-menu">
-            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">🌏 Foreign Buyer Guide</a>
+            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">Foreign Buyer Guide</a>
             <a href="/blog" class="dropdown-item">Blog & Guides</a>
             <a href="/testimonials" class="dropdown-item">Client Reviews</a>
             <a href="/faq" class="dropdown-item">FAQ</a>
@@ -137,7 +137,7 @@
             <a href="/properties" class="mobile-drawer-link">All Listings</a>
             <div class="area-focus-nav area-focus-mobile">
             <div style="margin: 6px 12px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
+            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
             <a href="/properties/bangi" class="mobile-drawer-link">Bangi Properties</a>
             <a href="/properties/nilai" class="mobile-drawer-link">Nilai Properties</a>
             </div>
@@ -230,7 +230,7 @@
           <h3 style="font-size: 1.3rem; margin-bottom: 20px;">Send an Inquiry</h3>
 
           <div id="contact-success-msg" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #047857; padding: 14px; border-radius: var(--radius-sm); font-size: 0.95rem; margin-bottom: 20px;">
-            ✅ Thank you! Your inquiry has been submitted successfully. Zaim Rosli will contact you shortly.
+            Thank you! Your inquiry has been submitted successfully. Zaim Rosli will contact you shortly.
           </div>
 
           <form id="contact-form-el">
@@ -266,7 +266,7 @@
             </div>
 
             <button type="submit" class="btn btn-accent" style="width: 100%;">
-              📩 Submit Inquiry
+              Submit Inquiry
             </button>
           </form>
         </div>
@@ -287,7 +287,7 @@
   </footer>
 
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=28"></script>
+  <script src="/app.js?v=29"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('contact-form-el');
@@ -302,11 +302,11 @@
         const service = document.getElementById('c-service').value;
         const msg = document.getElementById('c-msg').value.trim();
 
-        const waText = `Hi Zaim Rosli (REN39575), saya ingin membuat pertanyaan hartanah:\n\n👤 Nama: ${name}\n📧 Email: ${email}\n📱 No Telefon: ${phone}\n🏷️ Perkhidmatan: ${service}\n💬 Mesej: ${msg}`;
+        const waText = `Hi Zaim Rosli (REN39575), saya ingin membuat pertanyaan hartanah:\n\nNama: ${name}\nEmail: ${email}\nNo Telefon: ${phone}\nPerkhidmatan: ${service}\nMesej: ${msg}`;
         const waUrl = `https://wa.me/60108118559?text=${encodeURIComponent(waText)}`;
 
         successMsg.style.display = 'block';
-        successMsg.innerHTML = `✅ Terima kasih ${name}! Mesej anda sedang dihantar terus ke WhatsApp Zaim Rosli...`;
+        successMsg.innerHTML = `Terima kasih ${name}! Mesej anda sedang dihantar terus ke WhatsApp Zaim Rosli...`;
         window.scrollTo({ top: successMsg.offsetTop - 120, behavior: 'smooth' });
 
         setTimeout(() => {

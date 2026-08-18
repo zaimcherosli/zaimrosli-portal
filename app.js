@@ -253,7 +253,7 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
     navigator.share(shareData).catch(err => console.log('Share dismissed or failed:', err));
   } else {
     navigator.clipboard.writeText(fullCopyText).then(() => {
-      alert('📋 Pautan hartanah telah disalin!');
+      alert('Pautan hartanah telah disalin!');
     }).catch(() => {
       prompt('Salin pautan me:', fullCopyText);
     });
@@ -402,7 +402,7 @@ async function initAreaFocusMenu() {
       const header = document.createElement('div');
       header.className = 'dropdown-section-header';
       header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 6px 14px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
-      header.textContent = '📍 LOKASI FOKUS';
+      header.textContent = 'LOKASI FOKUS';
       container.appendChild(header);
 
       activeLocations.forEach(loc => {
@@ -424,7 +424,7 @@ async function initAreaFocusMenu() {
 
       const header = document.createElement('div');
       header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
-      header.textContent = '📍 LOKASI FOKUS';
+      header.textContent = 'LOKASI FOKUS';
       container.appendChild(header);
 
       activeLocations.forEach(loc => {

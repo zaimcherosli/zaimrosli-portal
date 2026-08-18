@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+const fs = require('fs');
+
+const calcPageHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +8,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=29">
+  <link rel="stylesheet" href="/styles.css?v=26">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -253,7 +255,7 @@
             <a href="/properties" class="dropdown-item">All Listings</a>
             <div class="area-focus-nav area-focus-desktop">
             <div style="margin: 4px 8px; border-top: 1px solid rgba(255,255,255,0.15);"></div>
-            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 4px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
+            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 4px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
             <a href="/properties/bangi" class="dropdown-item">Bangi Properties</a>
             <a href="/properties/nilai" class="dropdown-item">Nilai Properties</a>
             </div>
@@ -286,7 +288,7 @@
             Resources <span class="arrow">▾</span>
           </a>
           <div class="dropdown-menu">
-            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">Foreign Buyer Guide</a>
+            <a href="/foreign-buyers" class="dropdown-item" style="color: #f59e0b; font-weight: 800;">🌏 Foreign Buyer Guide</a>
             <a href="/blog" class="dropdown-item">Blog & Guides</a>
             <a href="/testimonials" class="dropdown-item">Client Reviews</a>
             <a href="/faq" class="dropdown-item">FAQ</a>
@@ -336,7 +338,7 @@
             <a href="/properties" class="mobile-drawer-link">All Listings</a>
             <div class="area-focus-nav area-focus-mobile">
             <div style="margin: 6px 12px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
+            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
             <a href="/properties/bangi" class="mobile-drawer-link">Bangi Properties</a>
             <a href="/properties/nilai" class="mobile-drawer-link">Nilai Properties</a>
             </div>
@@ -447,7 +449,7 @@
             </div>
 
             <button type="button" id="calc-run-btn" class="btn btn-accent" style="width: 100%;">
-              Kira Pecahan Kewangan & Guaman
+              🧮 Kira Pecahan Kewangan & Guaman
             </button>
           </div>
 
@@ -568,7 +570,7 @@
             </div>
 
             <button type="button" id="dsr-run-btn" class="btn btn-accent" style="width: 100%; margin-top: 6px;">
-              Semak Kelayakan Nisbah Hutang (DSR)
+              📊 Semak Kelayakan Nisbah Hutang (DSR)
             </button>
           </div>
 
@@ -643,7 +645,7 @@
 
   <script src="/properties-data.js?v=17"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=29"></script>
+  <script src="/app.js?v=26"></script>
   <script>
     // Tab Switcher Handler
     function switchCalcTab(tabKey) {
@@ -711,12 +713,12 @@
       let remPrice = price;
       if (remPrice > 0) {
         const tier1 = Math.min(remPrice, 500000);
-        spaFee += tier1 * 0.0125;
+        spaFee += tier1 * 0.0125; // 1.25% for first 500k
         remPrice -= tier1;
       }
       if (remPrice > 0) {
         const tier2 = Math.min(remPrice, 7000000);
-        spaFee += tier2 * 0.01;
+        spaFee += tier2 * 0.01; // 1.0% next 7m
         remPrice -= tier2;
       }
       spaFee = Math.max(500, spaFee);
@@ -745,7 +747,7 @@
 
       // Loan Legal Fee & Stamp Duty
       const loanLegalFee = (loanAmount > 0) ? Math.max(500, loanAmount * 0.01) : 0;
-      const loanStampDuty = loanAmount * 0.005;
+      const loanStampDuty = loanAmount * 0.005; // 0.5%
       const valuationFee = (price > 0) ? Math.max(400, price * 0.0025) : 0;
 
       const totalCash = downpayment + spaFee + motDuty + loanLegalFee + loanStampDuty + valuationFee;
@@ -782,26 +784,26 @@
       const url = window.location.origin + '/calculator#legal';
 
       const shareText = 
-`*ANGGARAN YURAN & ANSURAN HARTANAH*
+`📊 *ANGGARAN YURAN & ANSURAN HARTANAH*
 ═════════════════
-*Harga Hartanah:* RM ` + numPrice.toLocaleString('en-US') + `
-*Deposit (` + down + `%)*: RM ` + depositVal + `
-*Pinjaman (` + (100 - numDown) + `%)*: ` + loan + `
-*Kadar Faedah:* ` + rate + `% (` + tenure + ` Tahun)
+🏠 *Harga Hartanah:* RM ${numPrice.toLocaleString('en-US')}
+💰 *Deposit (${down}%):* RM ${depositVal}
+🏦 *Pinjaman (${100 - numDown}%):* ${loan}
+📈 *Kadar Faedah:* ${rate}% (${tenure} Tahun)
 
-*Ansuran Bulanan:* ` + monthly + `
+💵 *Ansuran Bulanan:* ${monthly}
 
-*PECAHAN YURAN GUAMAN & STAMP DUTY:*
-• Yuran Guaman SPA: ` + spa + `
-• Duti Setem MOT: ` + mot + `
-• Yuran Guaman Pinjaman: ` + loanFee + `
-• Duti Setem Pinjaman: ` + loanDuty + `
-• Yuran Penilaian Hartanah: ` + valuation + `
+📋 *PECAHAN YURAN GUAMAN & STAMP DUTY:*
+• Yuran Guaman SPA: ${spa}
+• Duti Setem MOT: ${mot}
+• Yuran Guaman Pinjaman: ${loanFee}
+• Duti Setem Pinjaman: ${loanDuty}
+• Yuran Penilaian Hartanah: ${valuation}
 
-*JUMLAH TUNAI DIPERLUKAN:* ` + totalCash + `
+✨ *JUMLAH TUNAI DIPERLUKAN:* ${totalCash}
 ═════════════════
 _Zaim Rosli Real Estate (REN39575)_
-` + url;
+👉 ${url}`;
 
       if (navigator.share) {
         navigator.share({
@@ -811,7 +813,7 @@ _Zaim Rosli Real Estate (REN39575)_
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('Hasil lengkap kalkulator telah disalin!');
+          alert('📋 Hasil lengkap kalkulator telah disalin!');
         }).catch(() => {
           prompt('Salin maklumat kalkulator ini:', shareText);
         });
@@ -848,8 +850,9 @@ _Zaim Rosli Real Estate (REN39575)_
       if (maxHousingInstallment > 0) {
         const monthlyRate = (4.2 / 100) / 12;
         const totalMonths = 35 * 12;
+        // Present value formula PV = PMT * [(1 - (1+r)^-n) / r]
         const maxLoan = maxHousingInstallment * ((1 - Math.pow(1 + monthlyRate, -totalMonths)) / monthlyRate);
-        maxPropertyPrice = maxLoan / 0.90;
+        maxPropertyPrice = maxLoan / 0.90; // Assuming 90% financing
       }
 
       // Update UI elements
@@ -871,17 +874,17 @@ _Zaim Rosli Real Estate (REN39575)_
 
       if (dsrPct <= (maxBenchmark - 10)) {
         meterBox.classList.add('status-good');
-        badge.textContent = 'LULUS CEMERLANG (HIGH APPROVAL)';
+        badge.textContent = '🟢 LULUS CEMERLANG (HIGH APPROVAL)';
         title.textContent = 'Nisbah Hutang Sangat Sihat';
         desc.textContent = 'Profil kewangan anda berada dalam zon optimum bank. Kelulusan pinjaman perumahan mempunyai kebarangkalian sangat tinggi.';
       } else if (dsrPct <= maxBenchmark) {
         meterBox.classList.add('status-warn');
-        badge.textContent = 'SEDERHANA (MODERATE / BORDERLINE)';
+        badge.textContent = '🟡 SEDERHANA (MODERATE / BORDERLINE)';
         title.textContent = 'Nisbah Hutang Menghampiri Had Maksimum';
         desc.textContent = 'Permohonan boleh dipertimbangkan oleh bank tertentu tetapi memerlukan rekod skor kredit CCRIS/CTOS yang bersih dan dokumen pendapatan kukuh.';
       } else {
         meterBox.classList.add('status-danger');
-        badge.textContent = 'RISIKO TINGGI (EXCEEDS LIMIT)';
+        badge.textContent = '🔴 RISIKO TINGGI (EXCEEDS LIMIT)';
         title.textContent = 'Nisbah Hutang Melebihi Had DSR Bank';
         desc.textContent = 'Komitmen melebihi had nisbah hutang. Disarankan untuk memanjangkan tempoh pinjaman, kurangkan baki hutang lama, atau membuat permohonan bersama (Joint Applicant).';
       }
@@ -889,13 +892,14 @@ _Zaim Rosli Real Estate (REN39575)_
       // Update WhatsApp consult link
       const waBtn = document.getElementById('dsr-wa-consult-btn');
       if (waBtn) {
-        const waMsg = 'Hi Zaim, saya telah membuat semakan DSR di portal:\n' +
-          '- Gaji Bersih: RM ' + Math.round(totalIncome).toLocaleString('en-US') + '\n' +
-          '- Komitmen Semasa: RM ' + Math.round(existingCommitments).toLocaleString('en-US') + '\n' +
-          '- Ansuran Rumah Dicari: RM ' + Math.round(newLoan).toLocaleString('en-US') + '\n' +
-          '- Skor DSR: ' + dsrPct.toFixed(1) + '% (' + maxBenchmark + '% Had)\n\n' +
-          'Boleh bantu saya buat pra-semakan kelayakan bank & cadangan hartanah bersesuaian?';
-        waBtn.href = 'https://wa.me/60108118559?text=' + encodeURIComponent(waMsg);
+        const waMsg = \`Hi Zaim, saya telah membuat semakan DSR di portal:
+- Gaji Bersih: RM \${Math.round(totalIncome).toLocaleString('en-US')}
+- Komitmen Semasa: RM \${Math.round(existingCommitments).toLocaleString('en-US')}
+- Ansuran Rumah Dicari: RM \${Math.round(newLoan).toLocaleString('en-US')}
+- Skor DSR: \${dsrPct.toFixed(1)}% (\${maxBenchmark}% Had)
+
+Boleh bantu saya buat pra-semakan kelayakan bank & cadangan hartanah bersesuaian?\`;
+        waBtn.href = \`https://wa.me/60108118559?text=\${encodeURIComponent(waMsg)}\`;
       }
     }
 
@@ -912,20 +916,20 @@ _Zaim Rosli Real Estate (REN39575)_
       const url = window.location.origin + '/calculator#dsr';
 
       const shareText = 
-`*SEMAKAN KELAYAKAN PINJAMAN BANK (DSR)*
+\`🏦 *SEMAKAN KELAYAKAN PINJAMAN BANK (DSR)*
 ═════════════════
-*Pendapatan Bersih:* RM ` + Math.round(totalIncome).toLocaleString('en-US') + `
-*Komitmen Sedia Ada:* ` + existing + `
-*Komitmen Keseluruhan:* ` + totalComm + `
+💼 *Pendapatan Bersih:* RM \${Math.round(totalIncome).toLocaleString('en-US')}
+💳 *Komitmen Sedia Ada:* \${existing}
+📊 *Komitmen Keseluruhan:* \${totalComm}
 
-*Nisbah Hutang (DSR):* ` + dsrPct + `
-*Status Kelayakan:* ` + status + `
+📈 *Nisbah Hutang (DSR):* \${dsrPct}
+🎯 *Status Kelayakan:* \${status}
 
-*Maksimum Ansuran Dibenarkan:* ` + maxInstallment + `
-*Anggaran Harga Rumah Mampu Milik:* ` + maxPrice + `
+💵 *Maksimum Ansuran Dibenarkan:* \${maxInstallment}
+🏡 *Anggaran Harga Rumah Mampu Milik:* \${maxPrice}
 ═════════════════
 _Zaim Rosli Real Estate (REN39575)_
-` + url;
+👉 \${url}\`;
 
       if (navigator.share) {
         navigator.share({
@@ -935,7 +939,7 @@ _Zaim Rosli Real Estate (REN39575)_
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('Hasil semakan DSR telah disalin!');
+          alert('📋 Hasil semakan DSR telah disalin!');
         }).catch(() => {
           prompt('Salin maklumat DSR ini:', shareText);
         });
@@ -993,3 +997,7 @@ _Zaim Rosli Real Estate (REN39575)_
   <script src="/pwa.js"></script>
 </body>
 </html>
+`;
+
+fs.writeFileSync('calculator.html', calcPageHtml, 'utf8');
+console.log('Successfully built interactive Dual-Tab Calculator Hub in calculator.html');

@@ -6,7 +6,7 @@
   <title>Profil Zaim Rosli - Ejen Hartanah Berdaftar REN39575</title>
   <meta name="description" content="Learn about Zaim Rosli (REN39575), a licensed real estate negotiator specializing in Kuala Lumpur & Selangor residential properties.">
   <link rel="canonical" href="https://zaimrosli.my/about">
-  <link rel="stylesheet" href="/styles.css?v=28">
+  <link rel="stylesheet" href="/styles.css?v=29">
   <style>
     @media (max-width: 768px) {
       .about-hero-grid > div:last-child {
@@ -57,7 +57,7 @@
             <a href="/properties" class="dropdown-item">All Listings</a>
             <div class="area-focus-nav area-focus-desktop">
             <div style="margin: 6px 8px; border-top: 1px solid rgba(255,255,255,0.15);"></div>
-            <div class="dropdown-section-header" style="font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 4px 14px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
+            <div class="dropdown-section-header" style="font-size: 0.72rem; font-weight: 800; color: #fbbf24; padding: 4px 14px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
             <a href="/properties/bangi" class="dropdown-item">Bangi Properties</a>
             <a href="/properties/nilai" class="dropdown-item">Nilai Properties</a>
             </div>
@@ -142,7 +142,7 @@
             <a href="/properties" class="mobile-drawer-link">All Listings</a>
             <div class="area-focus-nav area-focus-mobile">
             <div style="margin: 6px 12px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">📍 LOKASI FOKUS</div>
+            <div style="font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 2px; text-transform: uppercase; letter-spacing: 0.8px;">LOKASI FOKUS</div>
             <a href="/properties/bangi" class="mobile-drawer-link">Bangi Properties</a>
             <a href="/properties/nilai" class="mobile-drawer-link">Nilai Properties</a>
             </div>
@@ -237,11 +237,11 @@
 
           <div class="about-badges-grid">
             <div style="background: var(--bg-alt); padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-gold);">
-              <h4 style="font-size: 1rem; margin-bottom: 4px;">📜 LPPEH Certified</h4>
+              <h4 style="font-size: 1rem; margin-bottom: 4px;">LPPEH Certified</h4>
               <p style="font-size: 0.88rem; color: var(--text-muted);">Fully licensed REN negotiator operating under official regulatory guidelines.</p>
             </div>
             <div style="background: var(--bg-alt); padding: 18px; border-radius: var(--radius-md); border-left: 4px solid var(--primary-navy);">
-              <h4 style="font-size: 1rem; margin-bottom: 4px;">💼 RM50M+ Transacted</h4>
+              <h4 style="font-size: 1rem; margin-bottom: 4px;">RM50M+ Transacted</h4>
               <p style="font-size: 0.88rem; color: var(--text-muted);">Proven track record of luxury condominium & landed home sales.</p>
             </div>
           </div>
@@ -277,7 +277,7 @@
   </footer>
 
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=28"></script>
+  <script src="/app.js?v=29"></script>
   <script>
     function shareAboutPage() {
       const url = window.location.origin + '/about.html';
@@ -287,7 +287,7 @@
         navigator.share({ title: title, text: text, url: url }).catch(() => {});
       } else {
         navigator.clipboard.writeText(url).then(() => {
-          alert('📋 Link profil Zaim Rosli telah disalin!');
+          alert('Link profil Zaim Rosli telah disalin!');
         }).catch(() => {
           prompt('Salin link profil ini:', url);
         });
@@ -327,7 +327,7 @@
         const badgeBg = isSold ? '#fef3c7' : '#e0f2fe';
         const badgeColor = isSold ? '#b45309' : '#0369a1';
         const badgeBorder = isSold ? '#fde68a' : '#bae6fd';
-        const labelText = isSold ? '🔥 TERJUAL' : '🔑 DISEWAKAN';
+        const labelText = isSold ? 'TERJUAL' : 'DISEWAKAN';
         const imgUrl = d.image || 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80';
 
         return `
@@ -344,7 +344,7 @@
             <div style="padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
               <div>
                 <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; line-height: 1.4;">${d.title}</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">📍 ${d.location}</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">${d.location}</p>
               </div>
               <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-gold); border-top: 1px dashed var(--border-color); padding-top: 10px; margin-top: 6px;">
                 ${d.price}

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=28">
+  <link rel="stylesheet" href="/styles.css?v=29">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -759,16 +759,16 @@
       <!-- Desktop Segmented Tab Control -->
       <div class="admin-desktop-tabs" style="background: #f1f5f9; padding: 4px; border-radius: 30px; border: 1px solid #e2e8f0; display: flex; gap: 4px; align-items: center;">
         <button id="tab-btn-active" onclick="switchAdminTab('active')" style="background: #0f172a; color: #ffffff; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(15,23,42,0.15);">
-          🏢 Active Listings
+          Active Listings
         </button>
         <button id="tab-btn-locations" onclick="switchAdminTab('locations')" style="background: transparent; color: #64748b; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
-          📍 Location SEO
+          Location SEO
         </button>
         <button id="tab-btn-past" onclick="switchAdminTab('past')" style="background: transparent; color: #64748b; border-radius: 24px; font-weight: 700; padding: 8px 18px; border: none; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
-          🤝 Past Deals
+          Past Deals
         </button>
         <a href="/propmall-sync.html" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: #f59e0b; border-radius: 24px; font-weight: 800; padding: 8px 16px; border: 1px solid #f59e0b; text-decoration: none; font-size: 0.82rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(245,158,11,0.2);">
-          ⚡ 1-Click PropMall Sync
+          PropMall Sync
         </a>
       </div>
 
@@ -822,33 +822,33 @@
         <div style="font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; padding-left: 4px;">LISTING MANAGEMENT</div>
 
         <button id="mobile-tab-btn-all" onclick="setAdminCategoryFilter('all'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #0f172a; color: #ffffff; border: none; box-shadow: 0 2px 6px rgba(15,23,42,0.15);">
-          🏢 All Active Listings
+          All Active Listings
         </button>
 
         <button id="mobile-tab-btn-res" onclick="setAdminCategoryFilter('residential'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
-          🏠 Residential Listings
+          Residential Listings
         </button>
 
         <button id="mobile-tab-btn-comm" onclick="setAdminCategoryFilter('commercial'); switchAdminTab('active'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
-          🏭 Commercial & Industrial
+          Commercial & Industrial
         </button>
 
         <div style="font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px; padding-left: 4px;">RECORDS & SHORTCUTS</div>
 
         <a href="/propmall-sync.html" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 800; font-size: 0.85rem; background: linear-gradient(135deg, #1e293b, #0f172a); color: #f59e0b; border: 1px solid #f59e0b; text-decoration: none; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);">
-          ⚡ 1-Click PropMall Sync Tool
+          PropMall Sync Tool
         </a>
 
         <button id="mobile-tab-btn-locations" onclick="switchAdminTab('locations'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
-          📍 Location SEO Hub
+          Location SEO Hub
         </button>
 
         <button id="mobile-tab-btn-past" onclick="switchAdminTab('past'); closeAdminMobileDrawer();" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1;">
-          🤝 Past Deals
+          Past Deals
         </button>
 
         <a href="/index.html" class="btn" style="width: 100%; justify-content: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: #ffffff; color: #334155; border: 1px solid #cbd5e1; text-decoration: none;">
-          🌐 View Public Website
+          View Public Website
         </a>
 
         <hr style="margin: 6px 0; border: none; border-top: 1px solid #f1f5f9;">
@@ -876,7 +876,9 @@
             <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; flex-shrink: 0;" id="total-live-badge">21</span>
           </div>
           <div style="display: flex; gap: 6px; align-items: center; flex-shrink: 0;">
-            <button onclick="loadPropertiesList()" class="btn-icon-round" style="width: 36px; height: 36px; border-radius: 9px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);" title="Refresh Data">🔄</button>
+            <button onclick="loadPropertiesList()" class="btn-icon-round" style="width: 36px; height: 36px; border-radius: 9px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);" title="Refresh Data">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+  </button>
             <button onclick="openModal()" class="btn-add-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-weight: 800; font-size: 0.80rem; padding: 8px 12px; border-radius: 9px; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25); transition: all 0.2s; white-space: nowrap;">
               <span>+ Add Property</span>
             </button>
@@ -917,7 +919,7 @@
         <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
           <h2>Rekod Transaksi Lalu (Past Deals)</h2>
           <div class="admin-btn-group" style="display:flex; gap:10px; align-items:center;">
-            <button onclick="loadPastDealsAdmin()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Past Deals">🔄 Refresh Past Deals</button>
+            <button onclick="loadPastDealsAdmin()" class="btn-add" style="background:#475569; color:#fff;" title="Muat Semula Past Deals">Refresh Past Deals</button>
             <button onclick="openPastDealModal()" class="btn-add" style="background: #d97706;">+ Add Past Deal</button>
           </div>
         </div>
@@ -932,7 +934,7 @@
         <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom: 20px;">
           <div>
             <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📍 Hub Pengurusan Lokasi SEO</span>
+              <span>Hub Pengurusan Lokasi SEO</span>
               <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;" id="total-locations-badge">1</span>
             </h2>
             <p style="font-size: 0.85rem; color: #64748b; margin: 4px 0 0 0;">
@@ -940,7 +942,7 @@
             </p>
           </div>
           <div class="admin-btn-group" style="display:flex; gap:8px; align-items:center;">
-            <button onclick="loadLocationsAdmin()" class="btn-add" style="background:#475569; color:#fff; font-size:0.82rem; padding:8px 14px;" title="Muat Semula Lokasi">🔄 Refresh</button>
+            <button onclick="loadLocationsAdmin()" class="btn-add" style="background:#475569; color:#fff; font-size:0.82rem; padding:8px 14px;" title="Muat Semula Lokasi">Refresh</button>
             <button onclick="openLocationModal()" class="btn-add" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-size:0.82rem; padding:8px 16px; border:none; box-shadow: 0 2px 6px rgba(217,119,6,0.25);">+ Add Location</button>
           </div>
         </div>
@@ -1101,7 +1103,7 @@
 
         <div class="modal-action-row" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; border-top:1px solid #e2e8f0; padding-top:16px;">
           <button type="button" onclick="closeLocationModal()" class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer;">Cancel</button>
-          <button type="submit" class="btn" style="background:#d97706; color:#ffffff; border:none; padding:10px 24px; border-radius:8px; font-weight:800; cursor:pointer;">💾 Save Location</button>
+          <button type="submit" class="btn" style="background:#d97706; color:#ffffff; border:none; padding:10px 24px; border-radius:8px; font-weight:800; cursor:pointer;">Save Location</button>
         </div>
       </form>
     </div>
@@ -1258,7 +1260,7 @@
             <!-- Rendered thumbs -->
           </div>
           <p style="font-size: 0.78rem; color: #64748b; margin-top: 6px;">
-            💡 Click & drag images to reorder. Image 1 will be used as the Cover Photo.
+            Click & drag images to reorder. Image 1 will be used as the Cover Photo.
           </p>
         </div>
 
@@ -1279,7 +1281,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=18"></script>
-  <script src="/app.js?v=28"></script>
+  <script src="/app.js?v=29"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -1488,7 +1490,7 @@
           const rawType = p.type || (p.landSize && (!p.beds || p.beds === 0) ? 'Land' : '');
           const displayType = typeMap[rawType] || rawType;
           const typeBadge = displayType ? `<span style="background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid #bae6fd;">${displayType}</span>` : '';
-          const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">🔗 Referral Link (PropMall)</a>` : '';
+          const refLinkHtml = p.refUrl ? `<a href="${p.refUrl}" target="_blank" class="btn-ref-link" style="display:inline-flex; align-items:center; gap:5px; background:#f8fafc; color:#0f172a; padding:4px 10px; border-radius:6px; font-size:0.75rem; text-decoration:none; font-weight:600; border:1px solid #cbd5e1; margin-top:4px; width:fit-content;">Referral Link (PropMall)</a>` : '';
 
           const isCommercial = commTypes.includes(p.type) || (p.type && (p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land') || p.type.toLowerCase().includes('shop') || p.type.toLowerCase().includes('office') || p.type.toLowerCase().includes('factory') || p.type.toLowerCase().includes('kilang')));
           const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(p.type) || ((!p.type || p.type.toLowerCase().includes('tanah') || p.type.toLowerCase().includes('land')) && (!p.size || p.size === 0 || p.size === '0') && (!p.beds || p.beds === 0));
@@ -1598,7 +1600,7 @@
               <div class="listing-info">
                 <div class="listing-badges-row">
                   <span class="badge-status ${badgeClass}">${badgeText}</span>
-                  ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">🙈 HIDDEN FROM MAIN PAGE</span>' : ''}
+                  ${isHidden ? '<span style="background:#dc2626; color:#ffffff; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">HIDDEN FROM MAIN PAGE</span>' : ''}
                   ${categoryBadge}
                   ${typeBadge}
                 </div>
@@ -1606,7 +1608,7 @@
                 <h3 class="listing-title">${p.title}</h3>
 
                 <div style="font-size:0.8rem; font-weight:600; color:#64748b; margin: 4px 0 6px; display:flex; align-items:center; gap:4px;">
-                  <span>📍</span> <span>${(p.location || "").replace(/^\+\s*/, "")}</span>
+                   <span>${(p.location || "").replace(/^\+\s*/, "")}</span>
                 </div>
 
                 <div class="admin-specs-grid">
@@ -1858,7 +1860,7 @@
 
         // Optimistically render UI and save to local storage immediately
         renderListingsGrid();
-        submitBtn.innerHTML = '✅ Saved!';
+        submitBtn.innerHTML = 'Saved!';
         
         // Asynchronous Cloud Sync with timeout (never blocks UI)
         saveToStorage();
@@ -1883,9 +1885,9 @@
       btn.disabled = true;
       await saveToStorage();
       setTimeout(() => {
-        btn.innerHTML = '✅ Saved to Cloudflare R2!';
+        btn.innerHTML = 'Saved to Cloudflare R2!';
         setTimeout(() => {
-          btn.innerHTML = '💾 Save to Cloudflare R2';
+          btn.innerHTML = 'Save to Cloudflare R2';
           btn.disabled = false;
         }, 2000);
       }, 800);
@@ -2265,7 +2267,7 @@
       container.innerHTML = locationsList.map(loc => {
         const isActive = loc.active !== false;
         const statusBadge = isActive
-          ? `<span style="background:#dcfce7; color:#15803d; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">✓ ACTIVE (INDEXED)</span>`
+          ? `<span style="background:#dcfce7; color:#15803d; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">ACTIVE (INDEXED)</span>`
           : `<span style="background:#fee2e2; color:#b91c1c; padding:3px 9px; border-radius:6px; font-size:0.7rem; font-weight:800; letter-spacing:0.5px;">⊘ INACTIVE (DRAFT)</span>`;
 
         const matchCount = getMatchedPropertyCount(loc);
@@ -2279,7 +2281,7 @@
               <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px;">
                 <div>
                   <h3 style="font-size:1.15rem; font-weight:800; color:#0f172a; margin:0 0 2px 0;">${loc.name}</h3>
-                  <span style="font-size:0.78rem; font-weight:600; color:#64748b;">📍 ${loc.state || 'Selangor'}</span>
+                  <span style="font-size:0.78rem; font-weight:600; color:#64748b;">${loc.state || 'Selangor'}</span>
                 </div>
                 ${statusBadge}
               </div>
@@ -2290,7 +2292,7 @@
               </div>
 
               <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
-                <span style="font-size:0.8rem; font-weight:700; color:#0f172a;">📊 Matching Listings:</span>
+                <span style="font-size:0.8rem; font-weight:700; color:#0f172a;">Matching Listings:</span>
                 <span style="background:${matchCount > 0 ? '#fef3c7' : '#f1f5f9'}; color:${matchCount > 0 ? '#b45309' : '#64748b'}; font-weight:800; font-size:0.75rem; padding:2px 8px; border-radius:10px;">${matchCount} Listing Live</span>
               </div>
 
@@ -2303,11 +2305,11 @@
             </div>
 
             <div style="display:flex; gap:6px; border-top:1px solid #f1f5f9; padding-top:12px; margin-top:8px;">
-              <button onclick="editLocation('${loc.slug}')" class="btn" style="flex:1; padding:7px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; font-size:0.78rem; font-weight:700; color:#334155; cursor:pointer;">✏️ Edit</button>
+              <button onclick="editLocation('${loc.slug}')" class="btn" style="flex:1; padding:7px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; font-size:0.78rem; font-weight:700; color:#334155; cursor:pointer;">Edit</button>
               <button onclick="toggleLocationActive('${loc.slug}')" class="btn" style="flex:1; padding:7px; background:${isActive ? '#fffbeb' : '#f0fdf4'}; border:1px solid ${isActive ? '#fde68a' : '#bbf7d0'}; color:${isActive ? '#b45309' : '#15803d'}; border-radius:8px; font-size:0.78rem; font-weight:700; cursor:pointer;">
                 ${isActive ? '⏸ Deactivate' : '▶ Publish'}
               </button>
-              <button onclick="deleteLocation('${loc.slug}')" class="btn" style="padding:7px 10px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:8px; font-size:0.78rem; font-weight:700; cursor:pointer;" title="Delete Location">🗑️</button>
+              <button onclick="deleteLocation('${loc.slug}')" class="btn" style="padding:7px 10px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:8px; font-size:0.78rem; font-weight:700; cursor:pointer;" title="Delete Location">Delete</button>
             </div>
           </div>
         `;
@@ -2561,7 +2563,7 @@
         const isSold = (item.category || '').toUpperCase().includes('JUAL') || (item.category || '').toUpperCase().includes('SOLD');
         const badgeBg = isSold ? '#fef3c7' : '#e0f2fe';
         const badgeColor = isSold ? '#b45309' : '#0369a1';
-        const labelText = isSold ? '🔥 SOLD' : '🔑 RENTED';
+        const labelText = isSold ? 'SOLD' : 'RENTED';
         const imgUrl = item.image || 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80';
 
         return `
@@ -2573,12 +2575,12 @@
             <div style="padding:14px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
                 <h4 style="font-size:0.98rem; font-weight:800; color:#0f172a; margin-bottom:4px;">${item.title}</h4>
-                <p style="font-size:0.82rem; color:#64748b; margin-bottom:8px;">📍 ${item.location}</p>
+                <p style="font-size:0.82rem; color:#64748b; margin-bottom:8px;">${item.location}</p>
                 <div style="font-size:1.05rem; font-weight:800; color:#d97706;">${item.price}</div>
               </div>
               <div style="display:flex; gap:8px; margin-top:12px; padding-top:8px; border-top:1px solid #f1f5f9;">
-                <button onclick="editPastDeal('${item.id}')" style="flex:1; padding:6px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">✏️ Edit</button>
-                <button onclick="deletePastDeal('${item.id}')" style="flex:1; padding:6px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">🗑️ Delete</button>
+                <button onclick="editPastDeal('${item.id}')" style="flex:1; padding:6px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">Edit</button>
+                <button onclick="deletePastDeal('${item.id}')" style="flex:1; padding:6px; background:#fef2f2; border:1px solid #fca5a5; color:#dc2626; border-radius:6px; font-weight:700; font-size:0.78rem; cursor:pointer;">Delete</button>
               </div>
             </div>
           </div>

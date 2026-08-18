@@ -316,7 +316,7 @@
         <div class="pwa-modal-content">
           <!-- 1-Click Direct Chrome Install Button -->
           <button class="pwa-direct-install-btn" id="pwa-direct-install-btn">
-            <span>⚡ Pasang Aplikasi Sekarang (1-Click)</span>
+            <span>Pasang Aplikasi Sekarang (1-Click)</span>
           </button>
 
           <!-- Android Guide -->
