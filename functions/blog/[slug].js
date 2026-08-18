@@ -1,4 +1,11 @@
 const BLOG_METADATA = {
+  "kenapa-rumah-sewa-pilihan-anak-muda-2026-vs-beli-rumah": {
+    title: "Kenapa Rumah Sewa Jadi Pilihan Anak Muda 2026 Berbanding Beli Rumah Sendiri? — Zaim Rosli (REN39575)",
+    description: "Analisis mendalam kenapa Generasi Z & Millennial di Malaysia memilih menyewa rumah berbanding membeli pada 2026 dari sudut mobiliti kerjaya, modal permulaan & kos tersembunyi.",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-18",
+    category: "Analisis Pasaran & Gaya Hidup"
+  },
   "panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement": {
     title: "Panduan Lengkap Rumah Sewa Di Malaysia 2026 (Deposit 2+1+0.5 & Hak Penyewa) — Zaim Rosli (REN39575)",
     description: "Ketahui pecahan formula deposit 2+1+0.5, kiraan duti setem STAMPS LHDN, dan hak undang-undang penyewa rumah di Selangor & Kuala Lumpur.",
