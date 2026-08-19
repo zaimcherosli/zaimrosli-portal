@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   highlightActiveNavLink();
   initMobileDrawerNav();
   initAreaFocusMenu();
+  initLivePropertiesSync();
 });
 
 // 1. Highlight Active Nav Link based on Current Page URL
@@ -430,5 +431,25 @@ async function initAreaFocusMenu() {
     }
   } catch (err) {
     // Graceful fallback — core navigation remains intact
+  }
+}
+
+
+// 6. Background live properties sync from Cloudflare Worker KV
+async function initLivePropertiesSync() {
+  try {
+    const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), {
+      signal: AbortSignal.timeout(4500)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        window.PROPERTIES_DATA = data;
+        localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
+        window.dispatchEvent(new Event('properties-updated'));
+      }
+    }
+  } catch (err) {
+    // Graceful fallback to properties-data.js
   }
 }
