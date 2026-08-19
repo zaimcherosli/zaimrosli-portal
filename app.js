@@ -73,6 +73,11 @@ function initMobileDrawerNav() {
 }
 
 // 3. Property Card Generator HTML String
+function toTitleCase(str) {
+  if (!str) return '';
+  return str.toLowerCase().replace(/(?:^|\s|\/|-)\S/g, function(a) { return a.toUpperCase(); });
+}
+
 function createPropertyCardHTML(item) {
   if (!item) return '';
   const badgeClass = item.status === 'sale' ? 'badge-sale' : 'badge-rent';
@@ -87,134 +92,83 @@ function createPropertyCardHTML(item) {
   const isCommercial = commTypes.includes(item.type) || (item.type && (item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land') || item.type.toLowerCase().includes('shop') || item.type.toLowerCase().includes('office') || item.type.toLowerCase().includes('factory') || item.type.toLowerCase().includes('kilang')));
   const isPureLand = ['Land', 'Commercial Land', 'Industrial Land', 'Tanah', 'Tanah Komersial', 'Tanah Industri', 'Tanah Lot', 'Pertanian', 'Agricultural Land'].includes(item.type) || ((!item.type || item.type.toLowerCase().includes('tanah') || item.type.toLowerCase().includes('land')) && (!item.size || item.size === 0 || item.size === '0') && (!item.beds || item.beds === 0));
 
-  const roomLabel = isCommercial ? 'Rooms' : 'Beds';
-
   const cleanLandText = (item.landSize || '').replace(/\s*\([^)]*\)/g, '').trim();
   const hasLand = cleanLandText && cleanLandText !== '-' && cleanLandText !== '0';
   const hasSize = (item.size && parseFloat(item.size) > 0) && !isPureLand;
   const hasBeds = !isPureLand && item.beds > 0;
   const hasBaths = !isPureLand && item.baths > 0;
 
+  const formattedSize = hasSize ? ((typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size) : null;
+
   let specsHTML = '';
 
-  // 1. Full-width horizontal bar for Land or single Land spec
   if (isPureLand || (hasLand && !hasBeds && !hasBaths && !hasSize)) {
     specsHTML = `
-      <div class="property-spec-banner spec-land-banner">
-        <span class="spec-banner-label">LAND AREA</span>
-        <span class="spec-banner-val">${cleanLandText || '-'}</span>
+      <div class="property-specs-pills">
+        <span class="spec-pill" style="font-weight: 800; color: #0f172a;">Land Area: ${cleanLandText || '-'}</span>
       </div>
     `;
   } else if (isCommercial && !hasLand && !hasBeds && !hasBaths && hasSize) {
-    // 2. Commercial / Retail with only Built-up size
-    const formattedSize = (typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size;
     specsHTML = `
-      <div class="property-spec-banner">
-        <span class="spec-banner-label">BUILT-UP AREA</span>
-        <span class="spec-banner-val">${formattedSize} sqft</span>
+      <div class="property-specs-pills">
+        <span class="spec-pill" style="font-weight: 800; color: #0f172a;">Built-up: ${formattedSize} sqft</span>
       </div>
     `;
   } else if (isCommercial) {
-    // 3. Commercial items with multiple specs (Shoplots, Offices, Factories)
-    const specItems = [];
-    const formattedSize = hasSize ? ((typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size) : null;
-    
-    if (hasBeds) {
-      specItems.push(`
-        <div class="property-spec-box">
-          <div class="spec-top">ROOMS</div>
-          <div class="spec-val">${bedsVal}</div>
-        </div>
-      `);
-    }
-    if (hasBaths) {
-      specItems.push(`
-        <div class="property-spec-box">
-          <div class="spec-top">BATHS</div>
-          <div class="spec-val">${bathsVal}</div>
-        </div>
-      `);
-    }
-    if (formattedSize) {
-      specItems.push(`
-        <div class="property-spec-box">
-          <div class="spec-top">BUILT-UP</div>
-          <div class="spec-val">${formattedSize} sqft</div>
-        </div>
-      `);
-    }
-    if (hasLand) {
-      specItems.push(`
-        <div class="property-spec-box spec-land">
-          <div class="spec-top">LAND AREA</div>
-          <div class="spec-val">${cleanLandText}</div>
-        </div>
-      `);
-    }
-
-    const gridClass = specItems.length >= 4 ? 'specs-grid-2x2' : 'specs-left-aligned';
+    const pills = [];
+    if (hasBeds) pills.push(`<span class="spec-pill">${bedsVal} Rooms</span>`);
+    if (hasBaths) pills.push(`<span class="spec-pill">${bathsVal} Baths</span>`);
+    if (formattedSize) pills.push(`<span class="spec-pill">BU ${formattedSize} sqft</span>`);
+    if (hasLand) pills.push(`<span class="spec-pill">LS ${cleanLandText}</span>`);
     specsHTML = `
-      <div class="property-specs-row ${gridClass}">
-        ${specItems.join('')}
+      <div class="property-specs-pills">
+        ${pills.join('<span class="spec-bullet">•</span>')}
       </div>
     `;
   } else {
-    // 4. Uniform 4-box 2x2 grid for ALL Residential properties (Condos, Terraces, Semi-D, Bungalows, Townhouses)
-    const formattedSize = hasSize ? ((typeof item.size === 'number') ? item.size.toLocaleString('en-US') : item.size) : null;
-    const landClass = hasLand ? 'spec-land' : '';
-
+    const pills = [];
+    if (hasBeds) pills.push(`<span class="spec-pill">${bedsVal} Beds</span>`);
+    if (hasBaths) pills.push(`<span class="spec-pill">${bathsVal} Baths</span>`);
+    if (formattedSize) pills.push(`<span class="spec-pill">${formattedSize} sqft</span>`);
+    if (hasLand) pills.push(`<span class="spec-pill">LS ${cleanLandText}</span>`);
     specsHTML = `
-      <div class="property-specs-row specs-grid-2x2">
-        <div class="property-spec-box">
-          <div class="spec-top">BEDS</div>
-          <div class="spec-val">${hasBeds ? bedsVal : '-'}</div>
-        </div>
-        <div class="property-spec-box">
-          <div class="spec-top">BATHS</div>
-          <div class="spec-val">${hasBaths ? bathsVal : '-'}</div>
-        </div>
-        <div class="property-spec-box">
-          <div class="spec-top">BUILT-UP</div>
-          <div class="spec-val">${formattedSize ? `${formattedSize} sqft` : '-'}</div>
-        </div>
-        <div class="property-spec-box ${landClass}">
-          <div class="spec-top">LAND AREA</div>
-          <div class="spec-val">${hasLand ? cleanLandText : '-'}</div>
-        </div>
+      <div class="property-specs-pills">
+        ${pills.length > 0 ? pills.join('<span class="spec-bullet">•</span>') : `<span class="spec-pill">${item.type || 'Residential'}</span>`}
       </div>
     `;
   }
 
   const detailUrl = `/property/${item.slug || item.id}`;
+  const cleanTitle = toTitleCase(item.title || 'Property Listing');
+  const priceDisplay = (item.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
 
   return `
     <div class="property-card">
-      <a href="${detailUrl}" class="property-thumb-wrap" aria-label="View details for ${item.title || 'Property'}">
-        <img src="${cardImg}" class="property-thumb" alt="${item.title || 'Property'}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'">
+      <a href="${detailUrl}" class="property-thumb-wrap" aria-label="View details for ${cleanTitle}">
+        <img src="${cardImg}" class="property-thumb" alt="${cleanTitle}" referrerpolicy="no-referrer" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80'">
         <span class="property-badge ${badgeClass}">${badgeLabel}</span>
         <span class="property-region-badge">${item.region || 'Selangor'}</span>
       </a>
       <div class="property-content">
-        <div class="property-price">${(item.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month')}</div>
-        <h3 class="property-title"><a href="${detailUrl}" style="color: inherit; text-decoration: none;">${item.title || ''}</a></h3>
+        <div class="property-price">${priceDisplay}</div>
+        <h3 class="property-title"><a href="${detailUrl}" style="color: inherit; text-decoration: none;">${cleanTitle}</a></h3>
         <div class="property-location">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${item.location || ''}
+          <span>${(item.location || '').replace(/^\+\s*/, '')}</span>
         </div>
         <div class="property-specs-container">
           ${specsHTML}
         </div>
         <div class="property-card-actions">
-          <a href="${detailUrl}" class="btn btn-outline btn-sm btn-details">View Details →</a>
-          <button onclick="shareProperty(event, '${item.slug || item.id}', '${(item.title || '').replace(/'/g, "\\'")}', '${item.image || ''}')" class="btn btn-outline btn-sm btn-share" title="Share Property" aria-label="Share Property">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+          <a href="${detailUrl}" class="btn-details">View Details →</a>
+          <button onclick="shareProperty(event, '${item.slug || item.id}', '${cleanTitle.replace(/'/g, "\\'")}', '${item.image || ''}')" class="btn-share" title="Share Property" aria-label="Share Property">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
           </button>
         </div>
       </div>
     </div>
   `;
 }
-
 window.createPropertyCardHTML = createPropertyCardHTML;
 window.initMobileDrawerNav = initMobileDrawerNav;
 
