@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=42">
+  <link rel="stylesheet" href="/styles.css?v=43">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1704,7 +1704,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=42"></script>
+  <script src="/app.js?v=43"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2003,21 +2003,15 @@
       if (!p) return;
 
       p.listingSource = newSource;
-      if (newSource === 'undercon' && !p.category) {
+      if (newSource === 'undercon' && (!p.category || p.category === 'Subsales')) {
         p.category = 'New Project';
       }
 
-      // Save to localStorage & Cloudflare
-      try {
-        localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
-      } catch (e) {}
-
+      // 1. Immediately update UI
       renderListingsGrid();
 
-      // Trigger background cloud sync
-      if (typeof saveToCloudflareR2Directly === 'function') {
-        saveToCloudflareR2Directly();
-      }
+      // 2. Persist to Cloudflare Worker KV & localStorage
+      await saveToStorage();
     }
 
     function renderListingsGrid() {
@@ -2326,9 +2320,9 @@
 
     async function saveProperty(e) {
       e.preventDefault();
-      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const submitBtn = document.getElementById('prop-submit-btn');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '⌛ Saving...';
+      submitBtn.innerHTML = 'Saving...';
       submitBtn.disabled = true;
 
       try {
@@ -2361,10 +2355,17 @@
 
         const slug = slugify(title) || `prop-${Date.now()}`;
 
-        // Find existing item by ID or Slug (Never rely on fragile array index!)
+        // Find existing item by ID or Slug
         const existingIdx = targetId ? currentProperties.findIndex(p => p.id === targetId || p.slug === targetId) : -1;
         const finalId = (existingIdx >= 0 && currentProperties[existingIdx].id) ? currentProperties[existingIdx].id : `prop-${Date.now()}`;
         const isHidden = (existingIdx >= 0 && currentProperties[existingIdx]) ? !!currentProperties[existingIdx].hidden : false;
+
+        const listingSourceVal = document.getElementById('form-source')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].listingSource : 'my_listing') || 'my_listing';
+        const exclusiveExpiryVal = document.getElementById('form-exclusive-expiry')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].exclusiveExpiryDate : '') || '';
+        const coaAgentNameVal = document.getElementById('form-coa-agent')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].coaAgentName : '') || '';
+        const coaAgentPhoneVal = document.getElementById('form-coa-phone')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].coaAgentPhone : '') || '';
+        const completionVal = document.getElementById('form-completion')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].completionDate : '') || '';
+        const developerPackageVal = document.getElementById('form-developer-package')?.value || (existingIdx >= 0 ? currentProperties[existingIdx].developerPackage : '') || '';
 
         const propData = {
           id: finalId,
@@ -2390,6 +2391,12 @@
           images: imagesArr,
           description: description,
           refUrl: refUrl,
+          listingSource: listingSourceVal,
+          exclusiveExpiryDate: exclusiveExpiryVal,
+          coaAgentName: coaAgentNameVal,
+          coaAgentPhone: coaAgentPhoneVal,
+          completionDate: completionVal,
+          developerPackage: developerPackageVal,
           hidden: isHidden
         };
 
@@ -2404,7 +2411,7 @@
         submitBtn.innerHTML = 'Saved!';
         
         // Asynchronous Cloud Sync with timeout (never blocks UI)
-        saveToStorage();
+        await saveToStorage();
 
         setTimeout(() => {
           submitBtn.innerHTML = originalText;
