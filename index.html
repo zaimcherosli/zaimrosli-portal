@@ -49,7 +49,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=36">
+  <link rel="stylesheet" href="/styles.css?v=37">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -242,14 +242,6 @@
           Expert real estate advisory for luxury residential, landed homes, and high-yielding property investments across Kuala Lumpur & Selangor.
         </p>
 
-        <!-- Quick Segmented Hero Tabs -->
-        <div class="hero-quick-tabs">
-          <button type="button" onclick="setHeroStatusFilter('')" class="hero-tab-pill active" id="hero-tab-all">All</button>
-          <button type="button" onclick="setHeroStatusFilter('sale')" class="hero-tab-pill" id="hero-tab-sale">For Sale</button>
-          <button type="button" onclick="setHeroStatusFilter('rent')" class="hero-tab-pill" id="hero-tab-rent">For Rent</button>
-          <button type="button" onclick="setHeroStatusFilter('commercial')" class="hero-tab-pill" id="hero-tab-comm">Commercial</button>
-        </div>
-
         <!-- Search Box Form -->
         <div class="hero-search-box">
           <form action="/properties" method="GET" class="hero-search-grid" id="hero-search-form">
@@ -339,55 +331,6 @@
     </div>
   </section>
 
-  <!-- Services Preview Section -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-subtitle">EXPERT SERVICES</span>
-        <h2 class="section-title">Comprehensive Real Estate Solutions</h2>
-        <p class="section-description">Tailored end-to-end guidance for buyers, sellers, and property investors.</p>
-      </div>
-
-      <div class="services-grid">
-        <div style="background: #ffffff; padding: 36px 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s;">
-          <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(245, 158, 11, 0.04)); border: 1.5px solid rgba(217, 119, 6, 0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-          </div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;">Property Acquisition</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Assisting home buyers in securing dream residential properties with transparent legal & valuation insights.</p>
-        </div>
-
-        <div style="background: #ffffff; padding: 36px 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s;">
-          <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(245, 158, 11, 0.04)); border: 1.5px solid rgba(217, 119, 6, 0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-              <path d="M4 8l5-5 5 5 6-6"></path>
-              <polyline points="15 2 20 2 20 7"></polyline>
-            </svg>
-          </div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;">Exclusive Seller Marketing</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">High-impact digital marketing campaigns and targeted exposure to close property sales at optimal prices.</p>
-        </div>
-
-        <div style="background: #ffffff; padding: 36px 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s;">
-          <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(245, 158, 11, 0.04)); border: 1.5px solid rgba(217, 119, 6, 0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <path d="M9 12l2 2 4-4"></path>
-            </svg>
-          </div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;">Loan & Legal Advisory</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Pre-screening bank loan eligibility and assisting with SPA, MOT stamp duty, and panel lawyer connections.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA Banner Section -->
   <section class="section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; text-align: center;">
     <div class="container">
@@ -436,11 +379,9 @@
         <div>
           <h4 class="footer-title">Contact</h4>
           <div class="footer-contact-item">
-            
             <span>Kuala Lumpur & Selangor, Malaysia</span>
           </div>
           <div class="footer-contact-item">
-            
             <span>+6010-811 8559</span>
           </div>
         </div>
@@ -453,9 +394,9 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=36"></script>
+  <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=36"></script>
+  <script src="/app.js?v=37"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       function renderHomeFeatured() {
@@ -473,28 +414,6 @@
     });
   </script>
   <script src="/pwa.js"></script>
-
-  <script>
-    function setHeroStatusFilter(statusVal) {
-      const hiddenInput = document.getElementById('hero-hidden-status');
-      if (hiddenInput) hiddenInput.value = (statusVal === 'commercial') ? '' : statusVal;
-      
-      const typeSelect = document.querySelector('.hero-search-field select[name="type"]');
-      if (statusVal === 'commercial' && typeSelect) {
-        typeSelect.value = 'Shop / Office';
-      }
-
-      ['all', 'sale', 'rent', 'comm'].forEach(key => {
-        const btn = document.getElementById('hero-tab-' + key);
-        if (btn) btn.classList.remove('active');
-      });
-
-      if (statusVal === 'sale') document.getElementById('hero-tab-sale')?.classList.add('active');
-      else if (statusVal === 'rent') document.getElementById('hero-tab-rent')?.classList.add('active');
-      else if (statusVal === 'commercial') document.getElementById('hero-tab-comm')?.classList.add('active');
-      else document.getElementById('hero-tab-all')?.classList.add('active');
-    }
-  </script>
 
 </body>
 </html>
