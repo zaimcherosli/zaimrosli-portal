@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=43">
+  <link rel="stylesheet" href="/styles.css?v=44">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1066,25 +1066,157 @@
     color: #ffffff;
   }
 
+  /* RenHUB Responsive Layout & Card Enhancements */
+  .renhub-card-badges-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .renhub-badges-left {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .renhub-move-select {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1.5px solid #cbd5e1;
+    font-size: 0.74rem;
+    font-weight: 800;
+    background: #f8fafc;
+    color: #0f172a;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .renhub-move-select:focus {
+    border-color: #d97706;
+    background: #ffffff;
+  }
+
   @media (max-width: 860px) {
+    .admin-wrapper {
+      padding-top: 70px !important;
+      padding-bottom: 40px !important;
+    }
+    .admin-container {
+      padding: 0 12px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+    .admin-top-action-bar {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 12px !important;
+    }
+    .admin-top-action-bar > div:last-child {
+      display: flex !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+    .admin-top-action-bar .renhub-action-btn,
+    .admin-top-action-bar .btn-add-primary {
+      flex: 1 !important;
+      justify-content: center !important;
+      padding: 10px 14px !important;
+      font-size: 0.85rem !important;
+    }
     .renhub-metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+    }
+    .renhub-metric-card {
+      padding: 12px 14px !important;
+    }
+    .renhub-metric-value {
+      font-size: 1.5rem !important;
+    }
+    .renhub-category-tabs {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+    }
+    .renhub-cat-btn {
+      width: 100% !important;
+      justify-content: space-between !important;
+      padding: 10px 14px !important;
+      font-size: 0.78rem !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-filter-bar {
+      flex-direction: column !important;
+      gap: 8px !important;
+      padding: 10px !important;
+    }
+    .renhub-filter-search, .renhub-filter-select {
+      width: 100% !important;
+      min-width: 100% !important;
+      box-sizing: border-box !important;
     }
     .renhub-card {
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      padding: 14px !important;
+      gap: 12px !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
     }
     .renhub-card-thumb-wrap {
-      width: 100%;
-      height: 160px;
+      width: 100% !important;
+      height: 190px !important;
+      border-radius: 10px !important;
+    }
+    .renhub-card-thumb {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    .renhub-card-body {
+      width: 100% !important;
+    }
+    .renhub-card-badges-row {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 8px !important;
+    }
+    .renhub-move-select {
+      width: 100% !important;
+      padding: 8px 10px !important;
+      font-size: 0.80rem !important;
+    }
+    .renhub-card-title {
+      white-space: normal !important;
+      font-size: 1.02rem !important;
+      line-height: 1.4 !important;
+      margin: 4px 0 6px !important;
     }
     .renhub-card-actions {
-      width: 100%;
-      flex-direction: row;
-      flex-wrap: wrap;
+      width: 100% !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+      margin-top: 10px !important;
+      padding-top: 10px !important;
+      border-top: 1px solid #f1f5f9 !important;
     }
     .renhub-action-btn {
-      flex: 1;
+      width: 100% !important;
+      padding: 9px 8px !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      min-height: 38px !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-action-btn.btn-delete {
+      grid-column: span 2 !important;
+      background: #fff5f5 !important;
+      border-color: #fca5a5 !important;
     }
   }
 
@@ -1704,7 +1836,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=43"></script>
+  <script src="/app.js?v=44"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2124,25 +2256,20 @@
             </div>
             
             <div class="renhub-card-body">
-              <div class="renhub-card-badges" style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
-                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+              <div class="renhub-card-badges-row">
+                <div class="renhub-badges-left">
                   ${srcBadgeHTML}
                   ${transBadge}
                   <span class="renhub-badge" style="background:#f1f5f9; color:#475569;">${p.type || 'Residential'}</span>
                   ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
                 </div>
-                <div>
-                  <select onchange="quickChangeListingSource(event, ${idx}, this.value)" style="padding:3px 8px; border-radius:6px; border:1px solid #cbd5e1; font-size:0.72rem; font-weight:700; background:#f8fafc; color:#334155; cursor:pointer;" title="Pindahkan Kategori Listing Secara Pantas">
+                <div class="renhub-move-select-wrap">
+                  <select onchange="quickChangeListingSource(event, ${idx}, this.value)" class="renhub-move-select" title="Pindahkan Kategori Listing Secara Pantas">
                     <option value="my_listing" ${src === 'my_listing' ? 'selected' : ''}>Move to: My Listing</option>
                     <option value="coa" ${src === 'coa' ? 'selected' : ''}>Move to: COA Listing</option>
                     <option value="undercon" ${src === 'undercon' ? 'selected' : ''}>Move to: Undercon</option>
                   </select>
                 </div>
-              </div>
-              <div style="display:none;">
-                ${transBadge}
-                <span class="renhub-badge" style="background:#f1f5f9; color:#475569;">${p.type || 'Residential'}</span>
-                ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
               </div>
               
               <div class="renhub-card-price">${priceDisplay}</div>
