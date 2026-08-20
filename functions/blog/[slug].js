@@ -2,7 +2,7 @@ const BLOG_METADATA = {
   "panduan-syarat-kelayakan-rumah-selangorku-rsku-residensi-wilayah-rumawip-2026": {
     title: "Panduan & Syarat Kelayakan Rumah Selangorku (RSKU) & Residensi Wilayah (RUMAWIP) 2026: Cara Permohonan, Had Gaji & Tips Lulus Pantas — Zaim Rosli (REN39575)",
     description: "Ketahui syarat kelayakan terkini Rumah Selangorku dan Residensi Wilayah 2026, had pendapatan isi rumah, dokumen permohonan & tips lulus pinjaman bank.",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1200&q=80",
     date: "2026-08-20",
     category: "Rumah Mampu Milik"
   },
