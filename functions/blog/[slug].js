@@ -1,4 +1,11 @@
 const BLOG_METADATA = {
+  "panduan-syarat-kelayakan-rumah-selangorku-rsku-residensi-wilayah-rumawip-2026": {
+    title: "Panduan & Syarat Kelayakan Rumah Selangorku (RSKU) & Residensi Wilayah (RUMAWIP) 2026: Cara Permohonan, Had Gaji & Tips Lulus Pantas — Zaim Rosli (REN39575)",
+    description: "Ketahui syarat kelayakan terkini Rumah Selangorku dan Residensi Wilayah 2026, had pendapatan isi rumah, dokumen permohonan & tips lulus pinjaman bank.",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-20",
+    category: "Rumah Mampu Milik"
+  },
   "kenapa-rumah-sewa-pilihan-anak-muda-2026-vs-beli-rumah": {
     title: "Kenapa Rumah Sewa Jadi Pilihan Anak Muda 2026 Berbanding Beli Rumah Sendiri? — Zaim Rosli (REN39575)",
     description: "Analisis mendalam kenapa Generasi Z & Millennial di Malaysia memilih menyewa rumah berbanding membeli pada 2026 dari sudut mobiliti kerjaya, modal permulaan & kos tersembunyi.",
