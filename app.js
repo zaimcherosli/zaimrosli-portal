@@ -232,10 +232,6 @@ window.generatePropertyShareSummary = function(prop, targetUrl) {
   if (prop.beds > 0) roomParts.push(`${prop.beds}${prop.bedsPlus > 0 ? '+' + prop.bedsPlus : ''} Bilik Tidur`);
   if (prop.baths > 0) roomParts.push(`${prop.baths}${prop.bathsPlus > 0 ? '+' + prop.bathsPlus : ''} Bilik Air`);
   if (roomParts.length > 0) details.push(`- Bilik: ${roomParts.join(' & ')}`);
-  
-  if (prop.parking && Number(prop.parking) > 0) {
-    details.push(`- Parkir: ${prop.parking} Petak Kereta`);
-  }
 
   if (prop.tenure && prop.tenure !== '-') {
     const lot = (prop.lotType && prop.lotType !== '-') ? ` (${prop.lotType === 'Rezab Melayu' ? 'Malay Reserve' : prop.lotType})` : '';
