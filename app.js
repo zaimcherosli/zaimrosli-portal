@@ -198,9 +198,12 @@ window.generatePropertyShareSummary = function(prop, targetUrl) {
   const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
   const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
   
-  const priceDisplay = (prop.price != null && !isNaN(Number(prop.price))) 
-    ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / bulan`) 
-    : (prop.priceStr || 'RM 0');
+  let priceDisplay = 'RM 0';
+  if (prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0) {
+    priceDisplay = isSale ? 'RM ' + Number(prop.price).toLocaleString('en-US') : 'RM ' + Number(prop.price).toLocaleString('en-US') + ' / bulan';
+  } else if (prop.priceStr) {
+    priceDisplay = prop.priceStr;
+  }
   
   const askingLine = isSale ? `*Harga Tawaran (Asking Price):* ${priceDisplay}` : `*Kadar Sewa (Rental Rate):* ${priceDisplay}`;
   const title = prop.title || 'Hartanah Pilihan';
@@ -209,18 +212,33 @@ window.generatePropertyShareSummary = function(prop, targetUrl) {
   const type = prop.type || prop.category || 'Kediaman';
   
   const details = [];
-  if (loc) details.push(`- Lokasi: ${loc} (${region})`);
-  if (type) details.push(`- Jenis: ${type}`);
-  if (prop.size && Number(prop.size) > 0) details.push(`- Saiz Binaan (Built-up): ${Number(prop.size).toLocaleString('en-US')} sqft`);
-  if (prop.landSize && prop.landSize !== '-' && prop.landSize !== '0') details.push(`- Saiz Tanah (Land Area): ${prop.landSize}`);
+  if (loc) {
+    const cleanLoc = loc.replace(/^\+\s*/, '').trim();
+    const locWithRegion = region && !cleanLoc.toLowerCase().includes(region.toLowerCase()) ? `${cleanLoc} (${region})` : cleanLoc;
+    details.push(`- Lokasi: ${locWithRegion}`);
+  }
+  if (type) {
+    const typeLabel = (prop.category && prop.category !== type && !type.includes(prop.category)) ? `${type} (${prop.category})` : type;
+    details.push(`- Jenis: ${typeLabel}`);
+  }
+  if (prop.size && Number(prop.size) > 0) {
+    details.push(`- Saiz Binaan (Built-up): ${Number(prop.size).toLocaleString('en-US')} sqft`);
+  }
+  if (prop.landSize && prop.landSize !== '-' && prop.landSize !== '0') {
+    details.push(`- Saiz Tanah (Land Area): ${prop.landSize}`);
+  }
   
   const roomParts = [];
-  if (prop.beds > 0) roomParts.push(`${prop.beds} Bilik`);
-  if (prop.baths > 0) roomParts.push(`${prop.baths} Bilik Air`);
+  if (prop.beds > 0) roomParts.push(`${prop.beds}${prop.bedsPlus > 0 ? '+' + prop.bedsPlus : ''} Bilik Tidur`);
+  if (prop.baths > 0) roomParts.push(`${prop.baths}${prop.bathsPlus > 0 ? '+' + prop.bathsPlus : ''} Bilik Air`);
   if (roomParts.length > 0) details.push(`- Bilik: ${roomParts.join(' & ')}`);
   
+  if (prop.parking && Number(prop.parking) > 0) {
+    details.push(`- Parkir: ${prop.parking} Petak Kereta`);
+  }
+
   if (prop.tenure && prop.tenure !== '-') {
-    const lot = (prop.lotType && prop.lotType !== '-') ? ` (${prop.lotType})` : '';
+    const lot = (prop.lotType && prop.lotType !== '-') ? ` (${prop.lotType === 'Rezab Melayu' ? 'Malay Reserve' : prop.lotType})` : '';
     details.push(`- Pegangan: ${prop.tenure}${lot}`);
   }
 
@@ -234,43 +252,60 @@ ${askingLine}
 *MAKLUMAT HARTANAH (PROPERTY DETAILS):*
 ${details.join('\n')}
 
-*Maklumat lanjut, gambar & temujanji:*
+*Maklumat lanjut, gambar penuh & temujanji:*
 ${url}`;
 };
 
 // Global Share Function with Canonical /property/{slug} URL & Rich Summary
-window.shareProperty = async function(e, slugOrId, title, imageUrl) {
+window.shareProperty = async function(e, propOrSlug, maybeTitle, maybeImageUrl) {
   if (e) {
     e.preventDefault();
     e.stopPropagation();
   }
 
-  const url = window.location.origin + '/property/' + slugOrId;
-
-  // Look up full property object from multiple sources
   let prop = null;
-  if (window.__PROP_MAP && window.__PROP_MAP[slugOrId]) {
-    prop = window.__PROP_MAP[slugOrId];
-  }
-  if (!prop && window.__CURRENT_DETAIL_PROP__) {
-    prop = window.__CURRENT_DETAIL_PROP__;
-  }
-  if (!prop && typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
-    prop = PROPERTIES_DATA.find(p => p.slug === slugOrId || p.id === slugOrId);
-  }
-  if (!prop && typeof currentProperties !== 'undefined' && Array.isArray(currentProperties)) {
-    prop = currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
-  }
-  if (!prop) {
-    prop = { slug: slugOrId, title: title, image: imageUrl };
+  let slugOrId = '';
+
+  if (propOrSlug && typeof propOrSlug === 'object') {
+    prop = propOrSlug;
+    slugOrId = prop.slug || prop.id;
+  } else if (typeof propOrSlug === 'string') {
+    slugOrId = propOrSlug;
+    if (window.__PROP_MAP && window.__PROP_MAP[slugOrId]) {
+      prop = window.__PROP_MAP[slugOrId];
+    }
+    if (!prop && window.__CURRENT_DETAIL_PROP__) {
+      prop = window.__CURRENT_DETAIL_PROP__;
+    }
+    if (!prop && typeof currentProperties !== 'undefined' && Array.isArray(currentProperties)) {
+      prop = currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
+    }
+    if (!prop && typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
+      prop = PROPERTIES_DATA.find(p => p.slug === slugOrId || p.id === slugOrId);
+    }
+    if (!prop) {
+      try {
+        const stored = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            prop = parsed.find(p => p.slug === slugOrId || p.id === slugOrId);
+          }
+        }
+      } catch(err) {}
+    }
   }
 
+  if (!prop) {
+    prop = { slug: slugOrId, title: maybeTitle, image: maybeImageUrl };
+  }
+
+  const url = window.location.origin + '/property/' + (prop.slug || prop.id || slugOrId);
   const shareText = window.generatePropertyShareSummary(prop, url);
 
-  // CRITICAL: We pass ONLY text to navigator.share so that Android WhatsApp does NOT drop the text in favour of a bare URL!
   if (navigator.share) {
     navigator.share({
-      title: title || prop.title || 'Property Listing',
+      title: prop.title || 'Property Listing',
       text: shareText
     }).catch((err) => {
       if (err && err.name !== 'AbortError') {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=48">
+  <link rel="stylesheet" href="/styles.css?v=49">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1836,7 +1836,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=48"></script>
+  <script src="/app.js?v=49"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2116,25 +2116,44 @@
       const url = `${window.location.origin}/property/${slugOrId}`;
       let prop = (typeof idx === 'number' && currentProperties[idx]) ? currentProperties[idx] : currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
       
-      let shareText = url;
+      if (!prop) {
+        try {
+          const stored = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) {
+              prop = parsed.find(p => p.slug === slugOrId || p.id === slugOrId);
+            }
+          }
+        } catch(e) {}
+      }
+
+      let shareText = '';
       if (typeof window.generatePropertyShareSummary === 'function' && prop) {
         shareText = window.generatePropertyShareSummary(prop, url);
       } else if (prop) {
         const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
         const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
-        const priceStr = (prop.price != null && !isNaN(Number(prop.price))) ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / bulan`) : (prop.priceStr || 'RM 0');
+        let priceDisplay = 'RM 0';
+        if (prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0) {
+          priceDisplay = isSale ? 'RM ' + Number(prop.price).toLocaleString('en-US') : 'RM ' + Number(prop.price).toLocaleString('en-US') + ' / bulan';
+        } else if (prop.priceStr) {
+          priceDisplay = prop.priceStr;
+        }
+        const askingLine = isSale ? `*Harga Tawaran (Asking Price):* ${priceDisplay}` : `*Kadar Sewa (Rental Rate):* ${priceDisplay}`;
         const details = [];
         if (prop.location) details.push(`- Lokasi: ${prop.location} (${prop.region || 'Selangor'})`);
-        if (prop.type) details.push(`- Jenis: ${prop.type}`);
+        if (prop.type) details.push(`- Jenis: ${prop.type}${prop.category && prop.category !== prop.type ? ' (' + prop.category + ')' : ''}`);
         if (prop.size && Number(prop.size) > 0) details.push(`- Saiz Binaan (Built-up): ${Number(prop.size).toLocaleString('en-US')} sqft`);
         if (prop.landSize && prop.landSize !== '-' && prop.landSize !== '0') details.push(`- Saiz Tanah (Land Area): ${prop.landSize}`);
         const roomParts = [];
-        if (prop.beds > 0) roomParts.push(`${prop.beds} Bilik`);
-        if (prop.baths > 0) roomParts.push(`${prop.baths} Bilik Air`);
+        if (prop.beds > 0) roomParts.push(`${prop.beds}${prop.bedsPlus > 0 ? '+' + prop.bedsPlus : ''} Bilik Tidur`);
+        if (prop.baths > 0) roomParts.push(`${prop.baths}${prop.bathsPlus > 0 ? '+' + prop.bathsPlus : ''} Bilik Air`);
         if (roomParts.length > 0) details.push(`- Bilik: ${roomParts.join(' & ')}`);
+        if (prop.parking && Number(prop.parking) > 0) details.push(`- Parkir: ${prop.parking} Petak Kereta`);
         if (prop.tenure && prop.tenure !== '-') details.push(`- Pegangan: ${prop.tenure}${prop.lotType && prop.lotType !== '-' ? ' (' + prop.lotType + ')' : ''}`);
         
-        shareText = `${statusHeader}\n*Harga / Asking Price:* ${priceStr}\n\n*${prop.title || 'Hartanah Pilihan'}*\n\n*MAKLUMAT HARTANAH (PROPERTY DETAILS):*\n${details.join('\n')}\n\n*Maklumat lanjut, gambar & temujanji:*\n${url}`;
+        shareText = `${statusHeader}\n${askingLine}\n\n*${prop.title || 'Hartanah Pilihan'}*\n\n*MAKLUMAT HARTANAH (PROPERTY DETAILS):*\n${details.join('\n')}\n\n*Maklumat lanjut, gambar penuh & temujanji:*\n${url}`;
       }
 
       if (navigator.share) {
