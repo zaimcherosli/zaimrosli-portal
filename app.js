@@ -29,26 +29,32 @@ function highlightActiveNavLink() {
   });
 }
 
-// 2. Mobile Drawer Navigation Toggle & Submenu Accordions
+// 2. Mobile Drawer Navigation Toggle & Submenu Accordions (PWA Native Style)
 function initMobileDrawerNav() {
-  const toggleBtn = document.querySelector('.mobile-nav-toggle');
+  const toggleBtns = document.querySelectorAll('.mobile-nav-toggle');
   const overlay = document.querySelector('.mobile-overlay');
-  const closeBtn = document.querySelector('.mobile-drawer-close');
+  const closeBtns = document.querySelectorAll('.mobile-drawer-close');
 
-  if (toggleBtn && overlay) {
-    toggleBtn.addEventListener('click', (e) => {
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
     });
-  }
+  });
 
-  if (closeBtn && overlay) {
-    closeBtn.addEventListener('click', () => {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
-  }
+  });
 
   if (overlay) {
     overlay.addEventListener('click', (e) => {
@@ -60,14 +66,22 @@ function initMobileDrawerNav() {
   }
 
   // Setup accordion toggle for mobile drawer dropdowns
-  document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
-    toggle.style.cursor = 'pointer';
-    toggle.addEventListener('click', (e) => {
+  document.querySelectorAll('.mobile-accordion-header, .mobile-dropdown-toggle').forEach(header => {
+    header.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const parent = toggle.closest('.mobile-item-dropdown');
+      const parent = header.closest('.mobile-accordion-item, .mobile-item-dropdown');
       if (parent) {
-        parent.classList.toggle('active');
+        const wasActive = parent.classList.contains('active');
+        // Close other accordions for sleek native feel
+        document.querySelectorAll('.mobile-accordion-item, .mobile-item-dropdown').forEach(item => {
+          if (item !== parent) item.classList.remove('active');
+        });
+        if (wasActive) {
+          parent.classList.remove('active');
+        } else {
+          parent.classList.add('active');
+        }
       }
     });
   });
