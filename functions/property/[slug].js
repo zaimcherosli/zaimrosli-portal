@@ -33,9 +33,8 @@ export async function onRequest(context) {
     const statusPrefix = isSale ? 'FOR SALE / UNTUK DIJUAL' : 'FOR RENT / UNTUK DISEWA';
     const statusTag = isSale ? '[UNTUK DIJUAL]' : '[UNTUK DISEWA]';
 
-    // Clean title for social preview (adds spacing and cleaner structure)
+    // Clean title for social preview
     let cleanTitle = rawTitle.replace(/^(WTS|WTL|FOR SALE|FOR RENT|UNTUK DIJUAL|UNTUK DISEWA)[\s\/:–-]*/i, '').trim();
-    // Fix concatenated words like TANAH UNTUK DIJUALBatu
     cleanTitle = cleanTitle.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/DIJUAL([A-Z])/i, 'DIJUAL $1').trim();
     if (!cleanTitle) cleanTitle = rawTitle;
 
@@ -129,7 +128,7 @@ export async function onRequest(context) {
       ]
     };
 
-    const seoTags = `
+    const dynamicSeoBlock = `<!-- SEO_BLOCK_START -->
   <title>${pageTitle}</title>
   <meta name="description" content="${desc}">
   <link rel="canonical" href="${canonicalUrl}">
@@ -142,28 +141,25 @@ export async function onRequest(context) {
   <meta property="og:image:secure_url" content="${img}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="${title}">
+  <meta property="og:image:alt" content="${rawTitle.replace(/"/g, '&quot;')}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${socialTitle}">
   <meta name="twitter:description" content="${desc}">
   <meta name="twitter:image" content="${img}">
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
   <script type="application/ld+json">${JSON.stringify(breadcrumbLd)}</script>
-`;
+  <!-- SEO_BLOCK_END -->`;
 
     let html = await response.text();
 
-    // Cleanly strip existing static fallback meta tags from property-detail.html so WhatsApp only sees dynamic tags
-    html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
-    html = html.replace(/<meta\s+name=["']description["'][\s\S]*?>/gi, '');
-    html = html.replace(/<link\s+rel=["']canonical["'][\s\S]*?>/gi, '');
-    html = html.replace(/<meta\s+property=["']og:[\s\S]*?>/gi, '');
-    html = html.replace(/<meta\s+name=["']twitter:[\s\S]*?>/gi, '');
-    html = html.replace(/<script\s+id=["']property-jsonld["'][\s\S]*?<\/script>/gi, '');
-    html = html.replace(/<script\s+id=["']breadcrumb-jsonld["'][\s\S]*?<\/script>/gi, '');
-
-    // Insert clean dynamic SEO tags
-    html = html.replace('<head>', '<head>' + seoTags);
+    if (html.includes('<!-- SEO_BLOCK_START -->') && html.includes('<!-- SEO_BLOCK_END -->')) {
+      const sIdx = html.indexOf('<!-- SEO_BLOCK_START -->');
+      const eIdx = html.indexOf('<!-- SEO_BLOCK_END -->') + '<!-- SEO_BLOCK_END -->'.length;
+      html = html.substring(0, sIdx) + dynamicSeoBlock + html.substring(eIdx);
+    } else {
+      // Fallback
+      html = html.replace('<head>', '<head>\n' + dynamicSeoBlock);
+    }
 
     return new Response(html, {
       status: response.status,
