@@ -27,7 +27,7 @@ export async function onRequest(context) {
       ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / month`)
       : (prop.priceStr || 'RM 0');
     
-    const priceStr = priceDisplay.replace(//s*bln\b/gi, '/ month').replace(//s*bulan\b/gi, '/ month').replace(/"/g, '&quot;');
+    const priceStr = priceDisplay.replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month').replace(/"/g, '&quot;');
     const loc = (prop.location || prop.region || 'Selangor').replace(/"/g, '&quot;');
     const region = (prop.region || 'Selangor').replace(/"/g, '&quot;');
     const type = (prop.type || prop.category || 'Property').replace(/"/g, '&quot;');
