@@ -383,23 +383,17 @@ async function initAreaFocusMenu() {
       });
     });
 
-    // Render Mobile Drawer Navigation
+    // Render Mobile Drawer Navigation (Stacked Clean Vertically)
     mobileContainers.forEach(container => {
       container.innerHTML = '';
-
-      const divider = document.createElement('div');
-      divider.style.cssText = 'margin: 6px 12px; border-top: 1px solid rgba(255,255,255,0.1);';
-      container.appendChild(divider);
-
-      const header = document.createElement('div');
-      header.style.cssText = 'font-size: 0.72rem; font-weight: 800; color: #d97706; padding: 6px 12px 4px; text-transform: uppercase; letter-spacing: 0.8px;';
-      header.textContent = 'LOKASI FOKUS';
-      container.appendChild(header);
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.width = '100%';
 
       activeLocations.forEach(loc => {
         const a = document.createElement('a');
         a.href = `/properties/${loc.slug}`;
-        a.className = 'mobile-drawer-link';
+        a.className = 'mobile-sublink';
         a.textContent = `${loc.name} Properties`;
         container.appendChild(a);
       });

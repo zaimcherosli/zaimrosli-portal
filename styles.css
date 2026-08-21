@@ -2136,3 +2136,11 @@ footer.site-footer {
   color: #ffffff !important;
   border-color: #0f172a !important;
 }
+
+
+.area-focus-mobile {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 2px !important;
+}
