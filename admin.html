@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=47">
+  <link rel="stylesheet" href="/styles.css?v=48">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1836,7 +1836,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=47"></script>
+  <script src="/app.js?v=48"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2123,16 +2123,28 @@
         const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
         const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
         const priceStr = (prop.price != null && !isNaN(Number(prop.price))) ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / bulan`) : (prop.priceStr || 'RM 0');
-        shareText = `${statusHeader}\n*Harga / Asking Price:* ${priceStr}\n\n*${prop.title || 'Hartanah'}*\n\n*PROPERTY DETAILS:*\n- Lokasi: ${prop.location || 'Selangor'} (${prop.region || 'Selangor'})\n- Jenis: ${prop.type || 'Kediaman'}\n- Saiz Binaan: ${prop.size ? prop.size + ' sqft' : '-'}\n- Bilik: ${prop.beds || 0} Bilik & ${prop.baths || 0} Bilik Air\n\n*Maklumat lanjut & gambar:*\n${url}`;
+        const details = [];
+        if (prop.location) details.push(`- Lokasi: ${prop.location} (${prop.region || 'Selangor'})`);
+        if (prop.type) details.push(`- Jenis: ${prop.type}`);
+        if (prop.size && Number(prop.size) > 0) details.push(`- Saiz Binaan (Built-up): ${Number(prop.size).toLocaleString('en-US')} sqft`);
+        if (prop.landSize && prop.landSize !== '-' && prop.landSize !== '0') details.push(`- Saiz Tanah (Land Area): ${prop.landSize}`);
+        const roomParts = [];
+        if (prop.beds > 0) roomParts.push(`${prop.beds} Bilik`);
+        if (prop.baths > 0) roomParts.push(`${prop.baths} Bilik Air`);
+        if (roomParts.length > 0) details.push(`- Bilik: ${roomParts.join(' & ')}`);
+        if (prop.tenure && prop.tenure !== '-') details.push(`- Pegangan: ${prop.tenure}${prop.lotType && prop.lotType !== '-' ? ' (' + prop.lotType + ')' : ''}`);
+        
+        shareText = `${statusHeader}\n*Harga / Asking Price:* ${priceStr}\n\n*${prop.title || 'Hartanah Pilihan'}*\n\n*MAKLUMAT HARTANAH (PROPERTY DETAILS):*\n${details.join('\n')}\n\n*Maklumat lanjut, gambar & temujanji:*\n${url}`;
       }
 
       if (navigator.share) {
         navigator.share({
           title: prop ? prop.title : 'Property Listing',
-          text: shareText,
-          url: url
-        }).catch(() => {
-          copyToClipboard(shareText);
+          text: shareText
+        }).catch((err) => {
+          if (err && err.name !== 'AbortError') {
+            copyToClipboard(shareText);
+          }
         });
       } else {
         copyToClipboard(shareText);
@@ -2141,7 +2153,7 @@
       function copyToClipboard(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(() => {
-            alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste ke WhatsApp.');
+            alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste terus ke WhatsApp.');
           }).catch(() => {
             prompt('Salin maklumat listing ini:', text);
           });

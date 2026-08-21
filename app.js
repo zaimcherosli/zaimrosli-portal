@@ -94,6 +94,10 @@ function toTitleCase(str) {
 }
 
 function createPropertyCardHTML(item) {
+  window.__PROP_MAP = window.__PROP_MAP || {};
+  if (item && (item.slug || item.id)) {
+    window.__PROP_MAP[item.slug || item.id] = item;
+  }
   if (!item) return '';
   const badgeClass = item.status === 'sale' ? 'badge-sale' : 'badge-rent';
   const badgeLabel = item.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
@@ -243,16 +247,19 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
 
   const url = window.location.origin + '/property/' + slugOrId;
 
-  // Look up full property object
+  // Look up full property object from multiple sources
   let prop = null;
-  if (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
+  if (window.__PROP_MAP && window.__PROP_MAP[slugOrId]) {
+    prop = window.__PROP_MAP[slugOrId];
+  }
+  if (!prop && window.__CURRENT_DETAIL_PROP__) {
+    prop = window.__CURRENT_DETAIL_PROP__;
+  }
+  if (!prop && typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
     prop = PROPERTIES_DATA.find(p => p.slug === slugOrId || p.id === slugOrId);
   }
   if (!prop && typeof currentProperties !== 'undefined' && Array.isArray(currentProperties)) {
     prop = currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
-  }
-  if (!prop && window.__CURRENT_DETAIL_PROP__) {
-    prop = window.__CURRENT_DETAIL_PROP__;
   }
   if (!prop) {
     prop = { slug: slugOrId, title: title, image: imageUrl };
@@ -260,16 +267,15 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
 
   const shareText = window.generatePropertyShareSummary(prop, url);
 
-  const shareData = {
-    title: title || prop.title || 'Property Listing',
-    text: shareText,
-    url: url
-  };
-
+  // CRITICAL: We pass ONLY text to navigator.share so that Android WhatsApp does NOT drop the text in favour of a bare URL!
   if (navigator.share) {
-    navigator.share(shareData).catch(() => {
-      // User cancelled or unsupported, fallback to clipboard
-      copyTextToClipboard(shareText);
+    navigator.share({
+      title: title || prop.title || 'Property Listing',
+      text: shareText
+    }).catch((err) => {
+      if (err && err.name !== 'AbortError') {
+        copyTextToClipboard(shareText);
+      }
     });
   } else {
     copyTextToClipboard(shareText);
@@ -278,7 +284,7 @@ window.shareProperty = async function(e, slugOrId, title, imageUrl) {
   function copyTextToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(() => {
-        alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste ke WhatsApp.');
+        alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste terus ke WhatsApp.');
       }).catch(() => {
         prompt('Salin maklumat listing ini:', text);
       });
