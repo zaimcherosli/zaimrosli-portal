@@ -187,45 +187,104 @@ function createPropertyCardHTML(item) {
 window.createPropertyCardHTML = createPropertyCardHTML;
 window.initMobileDrawerNav = initMobileDrawerNav;
 
-// Global Share Function with Canonical /property/{slug} URL
+// Global Malaysian REN Property Share Summary Generator
+window.generatePropertyShareSummary = function(prop, targetUrl) {
+  if (!prop) return '';
+
+  const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
+  const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
+  
+  const priceDisplay = (prop.price != null && !isNaN(Number(prop.price))) 
+    ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / bulan`) 
+    : (prop.priceStr || 'RM 0');
+  
+  const askingLine = isSale ? `*Harga Tawaran (Asking Price):* ${priceDisplay}` : `*Kadar Sewa (Rental Rate):* ${priceDisplay}`;
+  const title = prop.title || 'Hartanah Pilihan';
+  const loc = prop.location || prop.region || 'Selangor';
+  const region = prop.region || 'Selangor';
+  const type = prop.type || prop.category || 'Kediaman';
+  
+  const details = [];
+  if (loc) details.push(`- Lokasi: ${loc} (${region})`);
+  if (type) details.push(`- Jenis: ${type}`);
+  if (prop.size && Number(prop.size) > 0) details.push(`- Saiz Binaan (Built-up): ${Number(prop.size).toLocaleString('en-US')} sqft`);
+  if (prop.landSize && prop.landSize !== '-' && prop.landSize !== '0') details.push(`- Saiz Tanah (Land Area): ${prop.landSize}`);
+  
+  const roomParts = [];
+  if (prop.beds > 0) roomParts.push(`${prop.beds} Bilik`);
+  if (prop.baths > 0) roomParts.push(`${prop.baths} Bilik Air`);
+  if (roomParts.length > 0) details.push(`- Bilik: ${roomParts.join(' & ')}`);
+  
+  if (prop.tenure && prop.tenure !== '-') {
+    const lot = (prop.lotType && prop.lotType !== '-') ? ` (${prop.lotType})` : '';
+    details.push(`- Pegangan: ${prop.tenure}${lot}`);
+  }
+
+  const url = targetUrl || `https://zaimrosli.my/property/${prop.slug || prop.id}`;
+
+  return `${statusHeader}
+${askingLine}
+
+*${title}*
+
+*MAKLUMAT HARTANAH (PROPERTY DETAILS):*
+${details.join('\n')}
+
+*Maklumat lanjut, gambar & temujanji:*
+${url}`;
+};
+
+// Global Share Function with Canonical /property/{slug} URL & Rich Summary
 window.shareProperty = async function(e, slugOrId, title, imageUrl) {
   if (e) {
     e.preventDefault();
     e.stopPropagation();
   }
+
   const url = window.location.origin + '/property/' + slugOrId;
-  const shareText = title + ' — Zaim Rosli Real Estate';
-  const fullCopyText = shareText + '\n' + url;
+
+  // Look up full property object
+  let prop = null;
+  if (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) {
+    prop = PROPERTIES_DATA.find(p => p.slug === slugOrId || p.id === slugOrId);
+  }
+  if (!prop && typeof currentProperties !== 'undefined' && Array.isArray(currentProperties)) {
+    prop = currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
+  }
+  if (!prop && window.__CURRENT_DETAIL_PROP__) {
+    prop = window.__CURRENT_DETAIL_PROP__;
+  }
+  if (!prop) {
+    prop = { slug: slugOrId, title: title, image: imageUrl };
+  }
+
+  const shareText = window.generatePropertyShareSummary(prop, url);
 
   const shareData = {
-    title: title,
+    title: title || prop.title || 'Property Listing',
     text: shareText,
     url: url
   };
 
-  if (imageUrl && navigator.canShare) {
-    try {
-      const resp = await fetch(imageUrl, { mode: 'cors' });
-      if (resp.ok) {
-        const blob = await resp.blob();
-        const file = new File([blob], 'property.jpg', { type: blob.type || 'image/jpeg' });
-        if (navigator.canShare({ files: [file] })) {
-          shareData.files = [file];
-        }
-      }
-    } catch(err) {
-      console.log('Image fetch for share skipped:', err);
-    }
+  if (navigator.share) {
+    navigator.share(shareData).catch(() => {
+      // User cancelled or unsupported, fallback to clipboard
+      copyTextToClipboard(shareText);
+    });
+  } else {
+    copyTextToClipboard(shareText);
   }
 
-  if (navigator.share) {
-    navigator.share(shareData).catch(err => console.log('Share dismissed or failed:', err));
-  } else {
-    navigator.clipboard.writeText(fullCopyText).then(() => {
-      alert('Pautan hartanah telah disalin!');
-    }).catch(() => {
-      prompt('Salin pautan me:', fullCopyText);
-    });
+  function copyTextToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste ke WhatsApp.');
+      }).catch(() => {
+        prompt('Salin maklumat listing ini:', text);
+      });
+    } else {
+      prompt('Salin maklumat listing ini:', text);
+    }
   }
 };
 

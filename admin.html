@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=46">
+  <link rel="stylesheet" href="/styles.css?v=47">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1836,7 +1836,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=46"></script>
+  <script src="/app.js?v=47"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2112,16 +2112,42 @@
       if (countUnderconEl) countUnderconEl.innerText = countUndercon;
     }
 
-    function copyListingShareLink(slugOrId) {
+    function copyListingShareLink(slugOrId, idx) {
       const url = `${window.location.origin}/property/${slugOrId}`;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Pautan listing telah disalin: ' + url);
+      let prop = (typeof idx === 'number' && currentProperties[idx]) ? currentProperties[idx] : currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
+      
+      let shareText = url;
+      if (typeof window.generatePropertyShareSummary === 'function' && prop) {
+        shareText = window.generatePropertyShareSummary(prop, url);
+      } else if (prop) {
+        const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
+        const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
+        const priceStr = (prop.price != null && !isNaN(Number(prop.price))) ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / bulan`) : (prop.priceStr || 'RM 0');
+        shareText = `${statusHeader}\n*Harga / Asking Price:* ${priceStr}\n\n*${prop.title || 'Hartanah'}*\n\n*PROPERTY DETAILS:*\n- Lokasi: ${prop.location || 'Selangor'} (${prop.region || 'Selangor'})\n- Jenis: ${prop.type || 'Kediaman'}\n- Saiz Binaan: ${prop.size ? prop.size + ' sqft' : '-'}\n- Bilik: ${prop.beds || 0} Bilik & ${prop.baths || 0} Bilik Air\n\n*Maklumat lanjut & gambar:*\n${url}`;
+      }
+
+      if (navigator.share) {
+        navigator.share({
+          title: prop ? prop.title : 'Property Listing',
+          text: shareText,
+          url: url
         }).catch(() => {
-          prompt('Salin pautan listing ini:', url);
+          copyToClipboard(shareText);
         });
       } else {
-        prompt('Salin pautan listing ini:', url);
+        copyToClipboard(shareText);
+      }
+
+      function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste ke WhatsApp.');
+          }).catch(() => {
+            prompt('Salin maklumat listing ini:', text);
+          });
+        } else {
+          prompt('Salin maklumat listing ini:', text);
+        }
       }
     }
 
@@ -2282,7 +2308,7 @@
             <div class="renhub-card-actions">
               <a href="${liveUrl}" target="_blank" class="renhub-action-btn btn-quick-view">Quick View</a>
               <button onclick="editProperty(${idx})" class="renhub-action-btn">Edit</button>
-              <button onclick="copyListingShareLink('${p.slug || p.id}')" class="renhub-action-btn">Share</button>
+              <button onclick="copyListingShareLink('${p.slug || p.id}', ${idx})" class="renhub-action-btn">Share</button>
               <button onclick="toggleHideProperty(event, ${idx})" class="renhub-action-btn" style="font-size:0.72rem;">${isHidden ? 'Unhide' : 'Hide'}</button>
               <button onclick="deleteProperty(${idx})" class="renhub-action-btn btn-delete">Delete</button>
             </div>
