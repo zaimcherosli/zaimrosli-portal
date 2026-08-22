@@ -27,7 +27,7 @@
   <script id="breadcrumb-jsonld" type="application/ld+json">{}</script>
   <!-- SEO_BLOCK_END -->
 
-  <link rel="stylesheet" href="/styles.css?v=50">
+  <link rel="stylesheet" href="/styles.css?v=51">
   <style>
     .specs-grid {
       display: grid;
@@ -484,7 +484,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=50"></script>
+  <script src="/app.js?v=51"></script>
   <script>
     function slugify(text) {
       if (!text) return '';
@@ -661,6 +661,9 @@
           const mainImg = document.getElementById('d-main-img');
           if (mainImg) {
             mainImg.referrerPolicy = 'no-referrer';
+            mainImg.onerror = function() {
+              this.src = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80';
+            };
             mainImg.src = allImages[0];
             mainImg.alt = prop.title || 'Property Image';
             mainImg.style.transition = 'opacity 0.3s ease';
@@ -724,6 +727,9 @@
                 thumb.src = imgUrl;
                 thumb.alt = `${prop.title} Photo ${idx + 1}`;
                 thumb.referrerPolicy = 'no-referrer';
+                thumb.onerror = function() {
+                  this.style.display = 'none';
+                };
                 thumb.style.cssText = `width: 90px; height: 65px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid ${idx === 0 ? 'var(--accent-gold)' : '#e2e8f0'}; opacity: ${idx === 0 ? '1' : '0.65'}; transition: all 0.25s ease; flex-shrink: 0;`;
                 thumb.addEventListener('click', () => {
                   setActiveImage(idx);

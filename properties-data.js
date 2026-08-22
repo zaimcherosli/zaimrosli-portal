@@ -1,5 +1,64 @@
 const PROPERTIES_DATA = [
   {
+    "id": "prop-1787278697588",
+    "slug": "dekat-lrt-pangsapuri-sri-cahaya-ampang",
+    "title": "DEKAT LRT Pangsapuri Sri Cahaya Ampang",
+    "price": 200000,
+    "priceStr": "RM 200,000",
+    "category": "Subsales",
+    "location": "LRT Pangsapuri Sri Cahaya Ampang",
+    "region": "Selangor",
+    "type": "Apartment",
+    "status": "sale",
+    "beds": 3,
+    "bedsPlus": 0,
+    "baths": 1,
+    "bathsPlus": 1,
+    "parking": 0,
+    "size": 645,
+    "landSize": "-",
+    "tenure": "Leasehold",
+    "lotType": "Bumi Lot",
+    "image": "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390888005_c4tvm.jpg",
+    "images": [
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390888005_c4tvm.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390889392_ol77c.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390890271_raomf.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390891089_83dc7.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390891873_f92in.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390892682_kszth.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390893454_i6hd2.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390894270_5u2rs.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390895086_my3ys.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390895913_uwl37.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390896747_f03xy.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390897545_5bfpq.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390898344_wnxxt.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390899160_3e303.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390899987_ru28r.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390900815_hsih0.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390901604_ldei3.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390902378_0ymnh.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390903183_5k878.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390904010_hf8n7.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390904789_jz5ha.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390905610_vfbwn.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390906517_tm1h9.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390907317_p0l9e.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390908116_vknjk.jpg",
+      "https://zaimrosli-worker.huzaimrosli.workers.dev/image/prop_1787390908906_8oo29.jpg"
+    ],
+    "description": "WTS / FOR SALE\n\nDEKAT LRT Pangsapuri Sri Cahaya Ampang\n\nPROPERTY DETAILS:\n- Apartment Low Cost (With Lift)\n- Level 11\n- Size: 645 sqft\n- Leasehold Bumi Lot (expired 2097)\n- 3 bedrooms\n- 1 Bathroom & 1 Toilet (separated)\n- Table Top with Kitchen Cabinet\n- Maintenance Fee – RM69 include sinking fund\n- FACILITIES:\n- Mini Market\n- Surau\n- Tabika Kemas Sri Cahaya\n- AMENITIES:\n- Walking distance to LRT Taman Cahaya (200m)\n- Shoplot/Comercial Area\n- Restaurants\n- Minimarket\n- Klinik Kesihatan Ampang\n- ACCESSIBILITY:\n- MRR2 Highway\n- SUKE Highway\n- Jalan Ampang\n\n=========================\nAsking Price : RM 200,000,000\n=========================",
+    "refUrl": "https://t.me/zaimroslisting/2435",
+    "listingSource": "my_listing",
+    "exclusiveExpiryDate": "",
+    "coaAgentName": "",
+    "coaAgentPhone": "",
+    "completionDate": "",
+    "developerPackage": "",
+    "hidden": false
+  },
+  {
     "id": "prop-1787022227881",
     "slug": "tanah-lot-bungalow-kota-emerald-east-rawang",
     "title": "TANAH LOT BUNGALOW KOTA EMERALD EAST,  RAWANG",
@@ -2493,10 +2552,3 @@ const PROPERTIES_DATA = [
     "hidden": false
   }
 ];
-
-if (typeof window !== 'undefined') {
-  window.PROPERTIES_DATA = PROPERTIES_DATA;
-}
-if (typeof module !== 'undefined') {
-  module.exports = PROPERTIES_DATA;
-}
