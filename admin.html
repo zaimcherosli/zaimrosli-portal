@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=51">
+  <link rel="stylesheet" href="/styles.css?v=52">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1631,58 +1631,58 @@
       </div>
 
       <form id="prop-form" onsubmit="saveProperty(event)">
-        <input type="hidden" id="form-id"
+        <input type="hidden" id="form-id">
+
         <!-- === RENHUB SOURCE CATEGORY SELECTION === -->
         <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 14px; margin-bottom: 18px;">
-          <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 10px;">
-            <div style="flex: 1.2;">
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 6px;">
+            <div style="width: 100%;">
               <label style="display: block; font-size: 0.76rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">LISTING SOURCE CATEGORY *</label>
-              <select id="form-source" class="form-select" onchange="toggleRenhubFormFields()" style="width: 100%; padding: 10px; border-radius: 8px; border: 1.5px solid #94a3b8; font-weight: 800; background: #ffffff; color: #0f172a;">
+              <select id="form-source" class="form-select" onchange="toggleRenhubFormFields()" style="width: 100%; padding: 11px 12px; border-radius: 8px; border: 1.5px solid #94a3b8; font-weight: 800; background: #ffffff; color: #0f172a; font-size: 0.88rem;">
                 <option value="my_listing" selected>My Listing (Direct Owner / Listing Sendiri)</option>
                 <option value="coa">COA Listing (Rakan Agensi / Co-Agency)</option>
                 <option value="undercon">Undercon (Projek Baru Pemaju)</option>
               </select>
             </div>
-            <div style="flex: 1;" id="group-exclusive-expiry">
+            <div style="width: 100%;" id="group-exclusive-expiry">
               <label style="display: block; font-size: 0.76rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">EXCLUSIVE EXPIRY DATE</label>
-              <input type="date" id="form-exclusive-expiry" class="form-input" style="width: 100%; padding: 9px; border-radius: 8px; border: 1.5px solid #cbd5e1;">
+              <input type="date" id="form-exclusive-expiry" class="form-input" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; font-size: 0.88rem;">
             </div>
           </div>
 
           <!-- Extra COA Details -->
-          <div id="row-coa-fields" style="display: none; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #bbf7d0; background: #f0fdf4; padding: 10px; border-radius: 8px;">
-            <div style="flex: 1;">
+          <div id="row-coa-fields" style="display: none; flex-direction: column; gap: 10px; margin-top: 12px; padding: 12px; border: 1px solid #86efac; background: #f0fdf4; border-radius: 8px;">
+            <div style="width: 100%;">
               <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #166534; margin-bottom: 4px; text-transform: uppercase;">COA AGENT NAME & AGENCY</label>
-              <input type="text" id="form-coa-agent" class="form-input" placeholder="e.g. Sarah Property (IQI Realty)" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
+              <input type="text" id="form-coa-agent" class="form-input" placeholder="e.g. Sarah Property (IQI Realty)" style="width: 100%; padding: 9px 12px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
             </div>
-            <div style="flex: 1;">
+            <div style="width: 100%;">
               <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #166534; margin-bottom: 4px; text-transform: uppercase;">COA AGENT PHONE NUMBER</label>
-              <input type="text" id="form-coa-phone" class="form-input" placeholder="e.g. 012-3456789" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
+              <input type="text" id="form-coa-phone" class="form-input" placeholder="e.g. 012-3456789" style="width: 100%; padding: 9px 12px; border-radius: 6px; border: 1.5px solid #86efac; font-size: 0.85rem;">
             </div>
           </div>
 
           <!-- Extra Undercon Details -->
-          <div id="row-undercon-fields" style="display: none; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #fed7aa; background: #fff7ed; padding: 10px; border-radius: 8px;">
-            <div style="flex: 1;">
-              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">ESTIMATED COMPLETION TIMELINE</label>
-              <input type="text" id="form-completion" class="form-input" placeholder="e.g. Q2 2027 / Siap 2026" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
+          <div id="row-undercon-fields" style="display: none; flex-direction: column; gap: 10px; margin-top: 12px; padding: 12px; border: 1px solid #fdba74; background: #fff7ed; border-radius: 8px;">
+            <div style="width: 100%;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">TARGET COMPLETION DATE / YEAR</label>
+              <input type="text" id="form-completion" class="form-input" placeholder="e.g. Q4 2026 / 2027" style="width: 100%; padding: 9px 12px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
             </div>
-            <div style="flex: 1;">
-              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">DEVELOPER PACKAGE / REBATE</label>
-              <input type="text" id="form-developer-package" class="form-input" placeholder="e.g. Free SPA, MOT & Zero Downpayment" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
+            <div style="width: 100%;">
+              <label style="display: block; font-size: 0.72rem; font-weight: 800; color: #9a3412; margin-bottom: 4px; text-transform: uppercase;">DEVELOPER PACKAGE HIGHLIGHTS</label>
+              <input type="text" id="form-developer-package" class="form-input" placeholder="e.g. Free SPA Legal, Zero Downpayment" style="width: 100%; padding: 9px 12px; border-radius: 6px; border: 1.5px solid #fdba74; font-size: 0.85rem;">
             </div>
           </div>
         </div>
->
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PROPERTY TITLE</label>
-          <input type="text" id="form-title" class="form-input" placeholder="e.g. The Grand Pavilion Penthouse" required>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PROPERTY TITLE *</label>
+          <input type="text" id="form-title" class="form-input" placeholder="e.g. Banglo 2 Tingkat Seksyen 7 Bangi" required>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PRICE (RM)</label>
-          <input type="number" id="form-price" class="form-input" placeholder="1250000" required>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">PRICE (RM) *</label>
+          <input type="number" id="form-price" class="form-input" placeholder="e.g. 850000" required>
         </div>
 
         <div class="form-group" style="margin-bottom: 16px;">
@@ -1690,7 +1690,8 @@
           <select id="form-category" class="form-select" required>
             <option value="Subsales">Subsales (FOR SALE / WTS)</option>
             <option value="Rental">Rental (FOR RENT / WTL)</option>
-            <option value="New Project">New Project</option>
+            <option value="Undercon">Undercon (Projek Baru)</option>
+            <option value="Lelong">Lelong (Auction)</option>
           </select>
         </div>
 
@@ -1747,25 +1748,27 @@
           </select>
         </div>
 
-        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-          <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BEDROOMS / ROOMS (OPTIONAL)</label>
-            <input type="number" id="form-beds" class="form-input" placeholder="0">
+        <!-- BEDROOMS ROW (Clean Alignment) -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; margin-bottom: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <label style="display: flex; align-items: flex-end; min-height: 30px; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">BEDROOMS / ROOMS</label>
+            <input type="number" id="form-beds" class="form-input" placeholder="0" style="width: 100%;">
           </div>
-          <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">EXTRA ROOMS (+)</label>
-            <input type="number" id="form-beds-plus" class="form-input" placeholder="0">
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <label style="display: flex; align-items: flex-end; min-height: 30px; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">EXTRA ROOMS (+)</label>
+            <input type="number" id="form-beds-plus" class="form-input" placeholder="0" style="width: 100%;">
           </div>
         </div>
 
-        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-          <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">BATHROOMS (OPTIONAL)</label>
-            <input type="number" id="form-baths" class="form-input" placeholder="0">
+        <!-- BATHROOMS ROW (Clean Alignment) -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; margin-bottom: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <label style="display: flex; align-items: flex-end; min-height: 30px; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">BATHROOMS</label>
+            <input type="number" id="form-baths" class="form-input" placeholder="0" style="width: 100%;">
           </div>
-          <div class="form-group" style="flex: 1;">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:6px; text-transform:uppercase;">EXTRA BATHS (+)</label>
-            <input type="number" id="form-baths-plus" class="form-input" placeholder="0">
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <label style="display: flex; align-items: flex-end; min-height: 30px; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">EXTRA BATHS (+)</label>
+            <input type="number" id="form-baths-plus" class="form-input" placeholder="0" style="width: 100%;">
           </div>
         </div>
 
@@ -1836,7 +1839,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=51"></script>
+  <script src="/app.js?v=52"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
