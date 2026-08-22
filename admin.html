@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=52">
+  <link rel="stylesheet" href="/styles.css?v=53">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1447,15 +1447,15 @@
         <div class="listings-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom: 20px;">
           <div>
             <h2 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>Hub Pengurusan Lokasi SEO</span>
+              <span>SEO Location Management Hub</span>
               <span style="background: #e2e8f0; color: #0f172a; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px;" id="total-locations-badge">1</span>
             </h2>
             <p style="font-size: 0.85rem; color: #64748b; margin: 4px 0 0 0;">
-              Urus halaman pendaratan kawasan (cth: /properties/bangi, /properties/nilai) secara berpusat dengan padanan inventori automatik.
+              Centrally manage location landing pages (e.g. /properties/bangi, /properties/nilai) with automated inventory matching.
             </p>
           </div>
           <div class="admin-btn-group" style="display:flex; gap:8px; align-items:center;">
-            <button onclick="loadLocationsAdmin()" class="btn-add" style="background:#475569; color:#fff; font-size:0.82rem; padding:8px 14px;" title="Muat Semula Lokasi">Refresh</button>
+            <button onclick="loadLocationsAdmin()" class="btn-add" style="background:#475569; color:#fff; font-size:0.82rem; padding:8px 14px;" title="Refresh Locations">Refresh</button>
             <button onclick="openLocationModal()" class="btn-add" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-size:0.82rem; padding:8px 16px; border:none; box-shadow: 0 2px 6px rgba(217,119,6,0.25);">+ Add Location</button>
           </div>
         </div>
@@ -1548,7 +1548,7 @@
 
         <div class="loc-form-grid">
           <div class="form-group">
-            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">STATE / NEGERI</label>
+            <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">STATE / REGION</label>
             <select id="loc-form-state" class="form-input" style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.9rem; box-sizing:border-box; background-color:#ffffff; cursor:pointer;">
               <option value="Selangor">Selangor</option>
               <option value="Kuala Lumpur">Kuala Lumpur</option>
@@ -1590,7 +1590,7 @@
             <label style="font-size:0.75rem; font-weight:700; color:#475569; text-transform:uppercase;">SEO META DESCRIPTION</label>
             <span id="loc-desc-count" style="font-size:0.72rem; color:#64748b;">0 / 160</span>
           </div>
-          <textarea id="loc-form-seo-desc" rows="2" class="form-input" placeholder="Cari rumah sewa, teres, semi-d &amp; ruang komersial untuk dijual di Nilai. Khidmat ejen hartanah berdaftar REN39575." oninput="updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160)" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
+          <textarea id="loc-form-seo-desc" rows="2" class="form-input" placeholder="Search rental homes, terraces, semi-d & commercial spaces for sale in this area. Professional REN39575 real estate services." oninput="updateCharCount('loc-form-seo-desc', 'loc-desc-count', 160)" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
         </div>
 
         <div class="form-group" style="margin-bottom: 14px;">
@@ -1600,17 +1600,17 @@
 
         <div class="form-group" style="margin-bottom: 14px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">INTRO CONTENT</label>
-          <textarea id="loc-form-intro" rows="3" class="form-input" placeholder="Penerangan ringkas mengenai pasaran hartanah kawasan ini..." style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
+          <textarea id="loc-form-intro" rows="3" class="form-input" placeholder="Brief summary of the local property market and connectivity..." style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;"></textarea>
         </div>
 
         <div class="form-group" style="margin-bottom: 14px;">
           <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">FILTER KEYWORDS (PISAHKAN DENGAN KOMA)</label>
           <input type="text" id="loc-form-keywords" class="form-input" placeholder="nilai, bandar baru nilai, nilai impian, mesa mall" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
-          <small style="color:#64748b; font-size:0.72rem;">Listing yang mengandungi kata kunci ini pada tajuk/lokasi/penerangan akan dipadankan secara automatik.</small>
+          <small style="color:#64748b; font-size:0.72rem;">Listings containing these keywords in title, location, or description will be automatically matched.</small>
         </div>
 
         <div class="form-group" style="margin-bottom: 14px;">
-          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">SUBAREAS / KAWASAN SEKITAR (PISAHKAN DENGAN KOMA)</label>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:4px; text-transform:uppercase;">SUBAREAS / SURROUNDING AREAS (COMMA SEPARATED)</label>
           <input type="text" id="loc-form-subareas" class="form-input" placeholder="Nilai Impian, Bandar Enstek, Kota Seriemas, Desa Palma" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
         </div>
 
@@ -1639,9 +1639,9 @@
             <div style="width: 100%;">
               <label style="display: block; font-size: 0.76rem; font-weight: 800; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">LISTING SOURCE CATEGORY *</label>
               <select id="form-source" class="form-select" onchange="toggleRenhubFormFields()" style="width: 100%; padding: 11px 12px; border-radius: 8px; border: 1.5px solid #94a3b8; font-weight: 800; background: #ffffff; color: #0f172a; font-size: 0.88rem;">
-                <option value="my_listing" selected>My Listing (Direct Owner / Listing Sendiri)</option>
-                <option value="coa">COA Listing (Rakan Agensi / Co-Agency)</option>
-                <option value="undercon">Undercon (Projek Baru Pemaju)</option>
+                <option value="my_listing" selected>My Listing (Direct Owner / In-House)</option>
+                <option value="coa">COA Listing (Co-Agency / External Agent)</option>
+                <option value="undercon">Undercon (New Developer Project)</option>
               </select>
             </div>
             <div style="width: 100%;" id="group-exclusive-expiry">
@@ -1690,7 +1690,7 @@
           <select id="form-category" class="form-select" required>
             <option value="Subsales">Subsales (FOR SALE / WTS)</option>
             <option value="Rental">Rental (FOR RENT / WTL)</option>
-            <option value="Undercon">Undercon (Projek Baru)</option>
+            <option value="Undercon">Undercon (New Project)</option>
             <option value="Lelong">Lelong (Auction)</option>
           </select>
         </div>
@@ -1839,7 +1839,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=52"></script>
+  <script src="/app.js?v=53"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2174,9 +2174,9 @@
       function copyToClipboard(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(() => {
-            alert('Maklumat & pautan listing lengkap telah disalin ke clipboard! Sedia untuk dipaste terus ke WhatsApp.');
+            alert('Complete listing summary & share link copied to clipboard! Ready to paste into WhatsApp.');
           }).catch(() => {
-            prompt('Salin maklumat listing ini:', text);
+            prompt('Copy listing summary:', text);
           });
         } else {
           prompt('Salin maklumat listing ini:', text);
@@ -2323,7 +2323,7 @@
                   ${isHidden ? '<span class="renhub-badge" style="background:#dc2626; color:#ffffff;">Hidden</span>' : ''}
                 </div>
                 <div class="renhub-move-select-wrap">
-                  <select onchange="quickChangeListingSource(event, ${idx}, this.value)" class="renhub-move-select" title="Pindahkan Kategori Listing Secara Pantas">
+                  <select onchange="quickChangeListingSource(event, ${idx}, this.value)" class="renhub-move-select" title="Quick Move Listing Category">
                     <option value="my_listing" ${src === 'my_listing' ? 'selected' : ''}>Move to: My Listing</option>
                     <option value="coa" ${src === 'coa' ? 'selected' : ''}>Move to: COA Listing</option>
                     <option value="undercon" ${src === 'undercon' ? 'selected' : ''}>Move to: Undercon</option>
@@ -2991,7 +2991,7 @@
       if (locationsList.length === 0) {
         container.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 12px;">
-            <p style="color: #64748b; font-weight: 600;">Tiada lokasi didaftarkan lagi.</p>
+            <p style="color: #64748b; font-weight: 600;">No locations registered yet.</p>
             <button onclick="openLocationModal()" class="btn" style="background:#d97706; color:#ffffff; font-weight:700; margin-top:8px;">+ Add First Location</button>
           </div>
         `;
@@ -3007,7 +3007,7 @@
         const matchCount = getMatchedPropertyCount(loc);
         const subareasList = Array.isArray(loc.subareas) ? loc.subareas : [];
         const subareasPills = subareasList.slice(0, 4).map(s => `<span style="background:#f1f5f9; color:#475569; padding:2px 8px; border-radius:12px; font-size:0.72rem; font-weight:600;">${s}</span>`).join('');
-        const moreSubareas = subareasList.length > 4 ? `<span style="font-size:0.72rem; color:#94a3b8;">+${subareasList.length - 4} lagi</span>` : '';
+        const moreSubareas = subareasList.length > 4 ? `<span style="font-size:0.72rem; color:#94a3b8;">+${subareasList.length - 4} more</span>` : '';
 
         return `
           <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.02); transition:all 0.2s;">
@@ -3027,7 +3027,7 @@
 
               <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
                 <span style="font-size:0.8rem; font-weight:700; color:#0f172a;">Matching Listings:</span>
-                <span style="background:${matchCount > 0 ? '#fef3c7' : '#f1f5f9'}; color:${matchCount > 0 ? '#b45309' : '#64748b'}; font-weight:800; font-size:0.75rem; padding:2px 8px; border-radius:10px;">${matchCount} Listing Live</span>
+                <span style="background:${matchCount > 0 ? '#fef3c7' : '#f1f5f9'}; color:${matchCount > 0 ? '#b45309' : '#64748b'}; font-weight:800; font-size:0.75rem; padding:2px 8px; border-radius:10px;">${matchCount} Live ${matchCount === 1 ? 'Listing' : 'Listings'}</span>
               </div>
 
               ${subareasList.length > 0 ? `
@@ -3125,7 +3125,7 @@
         .replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 
       if (!name || !slug) {
-        alert('Sila lengkapkan Nama Lokasi dan URL Slug.');
+        alert('Please fill in Location Name and URL Slug.');
         return;
       }
 
@@ -3136,7 +3136,7 @@
       }
 
       if (!isEdit && locationsList.some(l => l.slug.toLowerCase() === slug)) {
-        alert(`Slug '${slug}' telah digunakan. Sila gunakan slug lain.`);
+        alert(`Slug '${slug}' is already in use. Please choose another slug.`);
         return;
       }
 
@@ -3188,14 +3188,14 @@
       }
 
       if (!saveResult.success) {
-        alert(`Gagal menyimpan lokasi ke server: ${saveResult.error || 'Sila cuba lagi'}.\n\nPerubahan belum disimpan ke Cloudflare KV.`);
+        alert(`Failed to save location to server: ${saveResult.error || 'Please try again'}.\n\nChanges not saved to Cloudflare KV.`);
         return;
       }
 
       locationsList = updatedList;
       closeLocationModal();
       await loadLocationsAdmin();
-      alert(`Lokasi '${name}' (${slug}) BERJAYA disimpan ke server Cloudflare KV!`);
+      alert(`Location '${name}' (${slug}) successfully saved to Cloudflare KV server!`);
     }
 
     async function toggleLocationActive(slug) {
@@ -3207,15 +3207,15 @@
         locationsList = updatedList;
         renderLocationsAdmin();
       } else {
-        alert(`Gagal mengemaskini status: ${res.error}`);
+        alert(`Failed to update status: ${res.error}`);
       }
     }
 
     async function deleteLocation(slug) {
       if (slug.toLowerCase() === 'bangi') {
-        if (!confirm("AMARAN: 'bangi' adalah lokasi produksi utama. Adakah anda pasti ingin memadamkannya?")) return;
+        if (!confirm("WARNING: 'bangi' is a primary production location. Are you sure you want to delete it?")) return;
       } else {
-        if (!confirm(`Adakah anda pasti ingin memadamkan lokasi '${slug}'?`)) return;
+        if (!confirm(`Are you sure you want to delete location '${slug}'?`)) return;
       }
 
       const updatedList = locationsList.filter(l => l.slug.toLowerCase() !== slug.toLowerCase());
@@ -3224,7 +3224,7 @@
         locationsList = updatedList;
         renderLocationsAdmin();
       } else {
-        alert(`Gagal memadam lokasi di server: ${res.error}`);
+        alert(`Failed to delete location on server: ${res.error}`);
       }
     }
 
