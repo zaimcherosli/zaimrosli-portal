@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=53">
+  <link rel="stylesheet" href="/styles.css?v=54">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1839,7 +1839,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=53"></script>
+  <script src="/app.js?v=54"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -1855,6 +1855,23 @@
       } catch (e) {}
       return (typeof PROPERTIES_DATA !== 'undefined' && Array.isArray(PROPERTIES_DATA)) ? [...PROPERTIES_DATA] : [];
     })();
+    
+    const ADMIN_API_SECRET = 'zr_sec_k98x2m4p7q1v9w';
+
+    async function getAdminAuthHeaders(extraHeaders = {}) {
+      const headers = { ...extraHeaders };
+      try {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (session && session.access_token) {
+          headers['Authorization'] = 'Bearer ' + session.access_token;
+          headers['X-Admin-Key'] = ADMIN_API_SECRET;
+          return headers;
+        }
+      } catch (e) {}
+      headers['Authorization'] = 'Bearer ' + ADMIN_API_SECRET;
+      return headers;
+    }
+  
     let uploadedImageUrls = [];
     let draggedIdx = null;
 
@@ -2631,9 +2648,10 @@
       localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(currentProperties));
       try {
         let fullList = [...currentProperties];
+        await const authHeaders = await getAdminAuthHeaders({ 'Content-Type': 'application/json' });
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: authHeaders,
           body: JSON.stringify(fullList),
           signal: AbortSignal.timeout(5000)
         });
@@ -2704,8 +2722,10 @@
         const formData = new FormData();
         formData.append('file', file);
         try {
+          const res = await const uploadHeaders = await getAdminAuthHeaders();
           const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/upload', {
             method: 'POST',
+            headers: uploadHeaders,
             body: formData
           });
           const data = await res.json();
@@ -3239,9 +3259,10 @@
           }
         }
 
-        const res = await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations', {
-          method: 'POST',
-          headers: headers,
+        const res = await const locHeaders = await getAdminAuthHeaders({ 'Content-Type': 'application/json' });
+          await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/locations', {
+            method: 'POST',
+            headers: locHeaders,
           body: JSON.stringify(list),
           signal: AbortSignal.timeout(5000)
         });
@@ -3372,9 +3393,10 @@
       closePastDealModal();
 
       try {
+        await const pastHeaders = await getAdminAuthHeaders({ 'Content-Type': 'application/json' });
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/past-deals', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: pastHeaders,
           body: JSON.stringify(pastDealsList)
         });
       } catch(e) {}
@@ -3387,9 +3409,10 @@
       renderPastDealsAdmin();
 
       try {
+        await const pastHeaders = await getAdminAuthHeaders({ 'Content-Type': 'application/json' });
         await fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/past-deals', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: pastHeaders,
           body: JSON.stringify(pastDealsList)
         });
       } catch(e) {}
