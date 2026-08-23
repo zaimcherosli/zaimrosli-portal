@@ -7,7 +7,7 @@
   <meta name="description" content="Panduan lengkap rumah sewa di Malaysia, kiraan deposit 2+1, duti setem tenancy agreement, panduan pembeli rumah pertama, DSR, dan strategi pelaburan hartanah 2026.">
   <meta name="keywords" content="rumah sewa, rumah sewa malaysia, panduan sewa rumah, tenancy agreement malaysia, deposit rumah sewa, duti setem sewa lhdn, sewa rumah selangor, sewa rumah kl, blog hartanah malaysia, zaim rosli">
   <link rel="canonical" href="https://zaimrosli.my/blog">
-  <link rel="stylesheet" href="/styles.css?v=61">
+  <link rel="stylesheet" href="/styles.css?v=62">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,16 +17,23 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
   <link rel="shortcut icon" href="/favicon.ico">
   <style>
-    /<strong> Custom Styling for Interactive Blog Modal and Enhanced Cards </strong>/
+    /* Custom Styling for Interactive Blog Modal and Enhanced Cards */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
     .blog-card {
       background: var(--bg-surface);
-      border-radius: var(--radius-lg);
       border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .blog-card:hover {
       transform: translateY(-4px);
@@ -35,8 +42,9 @@
     .blog-thumb-wrap {
       position: relative;
       width: 100%;
-      height: 220px;
+      height: 200px;
       overflow: hidden;
+      background: #0f172a;
     }
     .blog-thumb-wrap img {
       width: 100%;
@@ -51,18 +59,18 @@
       position: absolute;
       top: 14px;
       left: 14px;
-      background: var(--primary-navy);
-      color: #ffffff;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding: 5px 12px;
-      border-radius: var(--radius-full);
-      box-shadow: var(--shadow-sm);
+      letter-spacing: 0.6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #ffffff;
+      background: var(--primary-navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
     .blog-card-body {
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -70,72 +78,103 @@
     .blog-meta-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.82rem;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
       color: var(--text-muted);
+      font-weight: 600;
       margin-bottom: 12px;
-    }
-    .blog-meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
     }
     .blog-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 12px;
-      line-height: 1.35;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      line-height: 1.4;
+      margin-bottom: 10px;
+      font-family: var(--font-heading);
     }
     .blog-excerpt {
+      font-size: 0.88rem;
       color: var(--text-muted);
-      font-size: 0.92rem;
       line-height: 1.6;
-      margin-bottom: 20px;
-      flex: 1;
+      margin-bottom: 18px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .btn-read-article {
-      display: inline-flex;
+    .blog-card-actions {
+      display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      background: var(--accent-gold-light);
-      border: 1px solid rgba(217, 119, 6, 0.25);
-      padding: 10px 18px;
-      border-radius: var(--radius-md);
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+    .btn-read-article {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #d97706, #b45309) !important;
+      border: none !important;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: var(--transition);
-      width: fit-content;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
     }
     .btn-read-article:hover {
-      background: var(--accent-gold);
-      color: #ffffff;
-      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+    }
+    .btn-card-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 14px;
+      background: #f8fafc !important;
+      color: #334155 !important;
+      border: 1px solid #cbd5e1 !important;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-card-share:hover {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
     }
 
-    /<strong> Modal Overlay Styles </strong>/
+    /* Modal Overlay Styles */
     .blog-modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.8);
       backdrop-filter: blur(6px);
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
       transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
     }
     .blog-modal-overlay.active {
       opacity: 1;
       visibility: visible;
+      pointer-events: auto;
     }
     .blog-modal-card {
       background: var(--bg-surface);
@@ -144,371 +183,104 @@
       max-height: 90vh;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-xl);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transform: translateY(20px) scale(0.98);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .blog-modal-overlay.active .blog-modal-card {
-      transform: translateY(0) scale(1);
+    @keyframes modalSlideUp {
+      from { transform: translateY(30px) scale(0.97); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
     }
     .blog-modal-header {
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      background: #ffffff;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-surface);
       position: sticky;
       top: 0;
-      z-index: 20;
-      border-top-left-radius: var(--radius-lg);
-      border-top-right-radius: var(--radius-lg);
-    }
-    .blog-modal-header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: nowrap;
-      min-width: 0;
-      overflow: hidden;
+      z-index: 10;
     }
     .blog-modal-badge {
-      background: rgba(217, 119, 6, 0.12);
+      font-size: 0.75rem;
+      font-weight: 800;
       color: #d97706;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
       padding: 4px 10px;
       border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 800;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      white-space: nowrap;
     }
     .btn-lang-toggle {
-      background: #f1f5f9;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: all 0.2s;
-      white-space: nowrap;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
     .btn-lang-toggle:hover {
-      background: #d97706;
-      color: #ffffff;
-      border-color: #d97706;
+      background: #e2e8f0;
     }
     .blog-modal-close-btn {
-      background: #f1f5f9;
-      border: none;
       width: 34px;
       height: 34px;
-      border-radius: 50%;
-      font-size: 1.3rem;
-      line-height: 1;
-      color: #0f172a;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.2s;
+      border-radius: 50%;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1;
     }
     .blog-modal-close-btn:hover {
-      background: #d97706;
-      color: #ffffff;
-    }
-    .blog-article-meta-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #64748b;
-      margin-bottom: 12px;
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
     }
     .blog-modal-body {
-      padding: 28px 32px;
+      padding: 24px 28px 40px;
       overflow-y: auto;
-      font-size: 1.02rem;
-      line-height: 1.75;
+      font-size: 0.98rem;
+      line-height: 1.8;
       color: var(--text-main);
-    }
-    .blog-modal-body h2, .blog-modal-body h3 {
-      color: var(--primary-navy);
-      margin: 24px 0 12px 0;
-      font-weight: 700;
+      -webkit-overflow-scrolling: touch;
     }
     .blog-modal-body h2 {
-      font-size: 1.45rem;
-      border-bottom: 2px solid var(--accent-gold-light);
-      padding-bottom: 6px;
-    }
-    .blog-modal-body h3 {
-      font-size: 1.2rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      margin: 28px 0 14px;
+      line-height: 1.35;
+      font-family: var(--font-heading);
     }
     .blog-modal-body p {
       margin-bottom: 16px;
-      color: #334155;
     }
     .blog-modal-body ul, .blog-modal-body ol {
-      margin: 0 0 20px 24px;
-      color: #334155;
+      margin-bottom: 20px;
+      padding-left: 24px;
     }
     .blog-modal-body li {
       margin-bottom: 8px;
     }
-    .blog-highlight-box {
-      background: var(--accent-gold-light);
-      border-left: 4px solid var(--accent-gold);
-      padding: 16px 20px;
-      border-radius: var(--radius-sm);
-      margin: 24px 0;
-      font-size: 0.98rem;
-    }
-    .blog-modal-cta {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #ffffff;
-      padding: 28px 20px;
-      border-radius: 16px;
-      margin-top: 32px;
-      text-align: center;
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
-    }
-    .blog-modal-cta h4 {
-      color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.35;
-    }
-    .blog-modal-cta p {
-      color: #cbd5e1;
-      font-size: 0.9rem;
-      line-height: 1.55;
-      margin-bottom: 16px;
-    }
-    .btn-modal-wa {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      height: 50px;
-      padding: 0 16px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: #ffffff !important;
-      font-weight: 800;
-      font-size: 0.92rem;
-      text-decoration: none !important;
-      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-    }
-    .btn-modal-wa:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
-    }
 
-    @media (max-width: 768px) {
-      .blog-modal-card {
-        width: 100% !important;
-        height: 100% !important;
-        max-height: 100% !important;
-        border-radius: 0 !important;
-      }
-      .blog-modal-header {
-        border-radius: 0 !important;
-        padding: 12px 16px !important;
-      }
-      .blog-modal-body {
-        padding: 20px 16px !important;
-      }
-    }
-  
-    /<strong> Share Buttons & Card Styling </strong>/
-    .blog-share-section {
-      background: linear-gradient(145deg, #f8fafc, #f1f5f9);
-      border: 1.5px solid #e2e8f0;
-      border-radius: 18px;
-      padding: 24px 20px;
-      margin: 32px 0 24px 0;
-      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-      position: relative;
-    }
-    .blog-share-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .blog-share-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--primary-navy);
-      font-family: var(--font-heading);
-      margin: 0;
-    }
-    .blog-share-desc {
-      font-size: 0.88rem;
-      color: #64748b;
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-    .btn-share-wa {
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: #ffffff !important;
-    }
-    .btn-share-wa:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
-    }
-.blog-share-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    .btn-share-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 8px;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-      text-decoration: none !important;
-      box-sizing: border-box;
-      white-space: nowrap;
-    }
-    .btn-share-item:hover {
-      transform: translateY(-2px);
-    }
-    .btn-share-native {
-      background: #0f172a;
-      color: #ffffff !important;
-    }
-    .btn-share-native:hover {
-      background: #1e293b;
-    }
-    .btn-share-tg {
-      background: #229ed9;
-      color: #ffffff !important;
-    }
-    .btn-share-tg:hover {
-      background: #1d87ba;
-    }
-    .btn-share-fb {
-      background: #1877f2;
-      color: #ffffff !important;
-    }
-    .btn-share-fb:hover {
-      background: #1565d8;
-    }
-    .btn-share-copy {
-      background: #ffffff;
-      color: #334155 !important;
-      border-color: #cbd5e1;
-    }
-    .btn-share-copy:hover {
-      background: #f8fafc;
-      border-color: #94a3b8;
-    }
-
-    /<strong> Quick Card Share Button on Grid </strong>/
-    .btn-card-share {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      background: #f1f5f9;
-      color: #334155;
-      font-size: 0.84rem;
-      font-weight: 700;
-      border: 1px solid #e2e8f0;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-    .btn-card-share:hover {
-      background: #d97706;
-      color: #ffffff;
-      border-color: #d97706;
-    }
-
-    /<strong> Header Share Icon inside Modal </strong>/
-    .blog-modal-header-share-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      background: #fef3c7;
-      color: #b45309;
-      font-size: 0.82rem;
-      font-weight: 800;
-      border: 1px solid #fde68a;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .blog-modal-header-share-btn:hover {
-      background: #f59e0b;
-      color: #ffffff;
-      border-color: #f59e0b;
-    }
-
-    /<strong> Mobile Sticky Bottom Bar </strong>/
-    /<strong> Toast Notification </strong>/
-    .blog-toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #0f172a;
-      color: #ffffff;
-      padding: 12px 22px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-      border: 1px solid #d97706;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 99999;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .blog-toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    @media (max-width: 768px) {
-      .blog-share-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-      }
-
-  </style>
+</style>
 </head>
 <body>
 
@@ -769,24 +541,24 @@
       
       <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px;">
         <!-- Can Foreigners Buy Detached Factories in Selangor -->
-        <article class="blog-card" style="border: 2px solid #f59e0b; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12);">
+        <article class="blog-card" onclick="openBlogModal('can-foreigners-buy-detached-factories-selangor-malaysia-guidelines', 'en')">
           <div class="blog-thumb-wrap">
             <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80" alt="Can Foreigners Buy Detached Factories in Selangor, Malaysia? Guidelines & Requirements" loading="lazy">
-            <span class="blog-category-badge" style="background:#1e293b; color:#f59e0b; border: 1px solid #f59e0b;">INDUSTRIAL & FOREIGN INVESTMENT</span>
+            <span class="blog-category-badge" style="background:#0f172a; color:#fbbf24; border: 1px solid rgba(251,191,36,0.4);">INDUSTRIAL & FOREIGN INVESTMENT</span>
           </div>
           <div class="blog-card-body">
             <div class="blog-meta-row">
-              <span class="blog-meta-item">23 Aug 2026</span>
+              <span>23 Aug 2026</span>
               <span>•</span>
-              <span class="blog-meta-item">6 Min Read</span>
-              <span style="margin-left: auto; background: #fef3c7; color: #b45309; font-weight: 800; font-size: 0.7rem; padding: 2px 8px; border-radius: 6px;">FEATURED GUIDE</span>
+              <span>6 Min Read</span>
+              <span style="margin-left: auto; background: #fef3c7; color: #b45309; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 6px;">FEATURED GUIDE</span>
             </div>
             <h3 class="blog-title">Can Foreigners Buy Detached Factories in Selangor, Malaysia? (2026 Guidelines, RM3M Threshold & Essential Checklist)</h3>
             <p class="blog-excerpt">
               Comprehensive regulatory guide on foreign industrial acquisitions in Selangor: RM3,000,000 threshold, State Consent (Sec 433B), MITI/MIDA manufacturing licenses, CCC compliance, and strategic developer opportunities...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
-              <button class="btn-read-article" style="flex: 1; background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff;" onclick="event.stopPropagation(); openBlogModal('can-foreigners-buy-detached-factories-selangor-malaysia-guidelines', 'en')">Read Full Article →</button>
+            <div class="blog-card-actions">
+              <button class="btn-read-article" onclick="event.stopPropagation(); openBlogModal('can-foreigners-buy-detached-factories-selangor-malaysia-guidelines', 'en')">Read Full Article →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'can-foreigners-buy-detached-factories-selangor-malaysia-guidelines')" title="Share Article" aria-label="Share Article">
                 <span>Share</span>
               </button>
@@ -810,7 +582,7 @@
             <p class="blog-excerpt">
               Inisiatif Rumah Mampu Milik Kerajaan di Lembah Klang 2026 Memiliki kediaman pertama di kawasan bandar seperti Kuala Lumpur dan Selangor sering dilihat mencabar ...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('panduan-syarat-kelayakan-rumah-selangorku-rsku-residensi-wilayah-rumawip-2026', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'panduan-syarat-kelayakan-rumah-selangorku-rsku-residensi-wilayah-rumawip-2026')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -835,7 +607,7 @@
             <p class="blog-excerpt">
               Dalam tempoh sedekad yang lalu, naratif masyarakat sering menganggap bahawa membeli rumah sebelum umur 30 tahun adalah kayu pengukur kejayaan hidup. Namun pada ...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('kenapa-rumah-sewa-pilihan-anak-muda-2026-vs-beli-rumah', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'kenapa-rumah-sewa-pilihan-anak-muda-2026-vs-beli-rumah')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -860,7 +632,7 @@
             <p class="blog-excerpt">
               Mencari dan menyewa rumah di Malaysia pada tahun 2026 memerlukan perancangan teliti, terutamanya bagi golongan muda, profesional yang baru berpindah kerja ke Le...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'panduan-lengkap-sewa-rumah-malaysia-deposit-tenancy-agreement')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -885,7 +657,7 @@
             <p class="blog-excerpt">
               Membeli rumah pertama di Malaysia pada tahun 2026 merupakan salah satu langkah kewangan terbesar dalam hidup anda. Namun begitu, ramai pembeli terkejut apabila ...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('panduan-lengkap-pembeli-rumah-pertama-2026', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'panduan-lengkap-pembeli-rumah-pertama-2026')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -910,7 +682,7 @@
             <p class="blog-excerpt">
               Persoalan paling kerap ditanya oleh pembeli dan pelabur hartanah di Lembah Klang: "Adakah wajar saya membeli rumah status Leasehold, atau haruskah saya hanya fo...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('freehold-vs-leasehold-pelaburan-hartanah-malaysia', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'freehold-vs-leasehold-pelaburan-hartanah-malaysia')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -935,7 +707,7 @@
             <p class="blog-excerpt">
               Pembangunan Berasaskan Transit atau Transit-Oriented Development (TOD) merupakan trend hartanah paling pesat di Kuala Lumpur dan Selangor. Projek TOD menggabung...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'pembangunan-berasaskan-transit-tod-mrt-lrt-kuala-lumpur')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -960,7 +732,7 @@
             <p class="blog-excerpt">
               Setiap pembeli hartanah akan berhadapan dengan keputusan kritikal: Adakah lebih baik membeli rumah subsale (pasaran kedua) yang sedia ada, atau rumah dalam pemb...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('rumah-subsale-vs-undercon-pemaju-mana-berbaloi', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'rumah-subsale-vs-undercon-pemaju-mana-berbaloi')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -985,7 +757,7 @@
             <p class="blog-excerpt">
               Menjual rumah merupakan satu proses perniagaan hartanah yang memerlukan strategi berasaskan data pasaran. Rumah yang diletakkan pada harga yang salah atau tanpa...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('panduan-menjual-rumah-cepat-terjual-harga-pasaran', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'panduan-menjual-rumah-cepat-terjual-harga-pasaran')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -1010,7 +782,7 @@
             <p class="blog-excerpt">
               Jika anda telah memiliki rumah selama beberapa tahun, nilai hartanah tersebut berkemungkinan besar telah meningkat. Refinancing (Pembiayaan Semula Rumah) ialah ...
             </p>
-            <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 14px;">
+            <div class="blog-card-actions">
               <button class="btn-read-article" style="flex: 1;" onclick="event.stopPropagation(); openBlogModal('refinance-rumah-cash-out-kurangkan-ansuran', 'ms')">Baca Artikel Penuh →</button>
               <button type="button" class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'refinance-rumah-cash-out-kurangkan-ansuran')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <span>Kongsi</span>
@@ -1058,7 +830,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=61"></script>
+  <script src="/app.js?v=62"></script>
 
   <script>
     // Data Lengkap 7 Artikel Hartanah Berkualiti Tinggi (Sokongan Dwi-Bahasa BM & EN)
