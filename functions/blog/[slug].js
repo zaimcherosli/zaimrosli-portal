@@ -1,4 +1,11 @@
 const BLOG_METADATA = {
+  "can-foreigners-buy-detached-factories-selangor-malaysia-guidelines": {
+    title: "Can Foreigners Buy Detached Factories in Selangor, Malaysia? (2026 Guidelines & Checklist) — Zaim Rosli (REN39575)",
+    description: "Complete guide on foreign industrial property acquisitions in Selangor: RM3,000,000 threshold, State Consent (Sec 433B), MITI/MIDA licenses, CCC compliance, and developer opportunities.",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-23",
+    category: "Industrial & Foreign Investment"
+  },
   "panduan-syarat-kelayakan-rumah-selangorku-rsku-residensi-wilayah-rumawip-2026": {
     title: "Panduan & Syarat Kelayakan Rumah Selangorku (RSKU) & Residensi Wilayah (RUMAWIP) 2026: Cara Permohonan, Had Gaji & Tips Lulus Pantas — Zaim Rosli (REN39575)",
     description: "Ketahui syarat kelayakan terkini Rumah Selangorku dan Residensi Wilayah 2026, had pendapatan isi rumah, dokumen permohonan & tips lulus pinjaman bank.",
