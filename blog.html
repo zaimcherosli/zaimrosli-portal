@@ -7,7 +7,7 @@
   <meta name="description" content="Panduan lengkap rumah sewa di Malaysia, kiraan deposit 2+1, duti setem tenancy agreement, panduan pembeli rumah pertama, DSR, dan strategi pelaburan hartanah 2026.">
   <meta name="keywords" content="rumah sewa, rumah sewa malaysia, panduan sewa rumah, tenancy agreement malaysia, deposit rumah sewa, duti setem sewa lhdn, sewa rumah selangor, sewa rumah kl, blog hartanah malaysia, zaim rosli">
   <link rel="canonical" href="https://zaimrosli.my/blog">
-  <link rel="stylesheet" href="/styles.css?v=60">
+  <link rel="stylesheet" href="/styles.css?v=61">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -727,6 +727,40 @@
       <h1 style="margin-top: 10px;">Blog Hartanah <span>& Panduan Pasaran</span></h1>
       <p>Koleksi panduan mendalam, analisis pasaran, dan strategi hartanah Malaysia untuk pembeli rumah pertama, pelabur, dan pemilik rumah.</p>
     </div>
+  
+    <!-- Bulletproof Card & Button Event Dispatcher -->
+    <script>
+      (function() {
+        function attachBlogClickHandlers() {
+          var cards = document.querySelectorAll('.blog-card');
+          cards.forEach(function(card) {
+            var btn = card.querySelector('.btn-read-article');
+            if (btn && !card.dataset.attached) {
+              card.dataset.attached = 'true';
+              card.style.cursor = 'pointer';
+              
+              var clickHandler = function(e) {
+                if (e.target.closest('.btn-card-share')) return;
+                var onclickAttr = btn.getAttribute('onclick') || '';
+                var match = onclickAttr.match(/openBlogModal\(['"]([^'"]+)['"]/);
+                if (match && window.openBlogModal) {
+                  window.openBlogModal(match[1]);
+                }
+              };
+              
+              card.addEventListener('click', clickHandler);
+            }
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', attachBlogClickHandlers);
+        } else {
+          attachBlogClickHandlers();
+        }
+        window.addEventListener('load', attachBlogClickHandlers);
+      })();
+    </script>
+
   </section>
 
   <!-- Articles Grid -->
@@ -1024,7 +1058,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=60"></script>
+  <script src="/app.js?v=61"></script>
 
   <script>
     // Data Lengkap 7 Artikel Hartanah Berkualiti Tinggi (Sokongan Dwi-Bahasa BM & EN)
