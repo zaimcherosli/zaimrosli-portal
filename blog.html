@@ -7,7 +7,7 @@
   <meta name="description" content="Panduan lengkap rumah sewa di Malaysia, kiraan deposit 2+1, duti setem tenancy agreement, panduan pembeli rumah pertama, DSR, dan strategi pelaburan hartanah 2026.">
   <meta name="keywords" content="rumah sewa, rumah sewa malaysia, panduan sewa rumah, tenancy agreement malaysia, deposit rumah sewa, duti setem sewa lhdn, sewa rumah selangor, sewa rumah kl, blog hartanah malaysia, zaim rosli">
   <link rel="canonical" href="https://zaimrosli.my/blog">
-  <link rel="stylesheet" href="/styles.css?v=63">
+  <link rel="stylesheet" href="/styles.css?v=64">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -197,7 +197,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
+      gap: 10px;
+      padding: 12px 18px;
       border-bottom: 1px solid var(--border-color);
       background: var(--bg-surface);
       position: sticky;
@@ -205,7 +206,8 @@
       z-index: 10;
     }
     .blog-modal-badge {
-      font-size: 0.75rem;
+      display: inline-block;
+      font-size: 0.72rem;
       font-weight: 800;
       color: #d97706;
       background: #fef3c7;
@@ -214,6 +216,11 @@
       border-radius: 20px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 170px;
+      line-height: 1.2;
     }
     .btn-lang-toggle {
       display: inline-flex;
@@ -375,6 +382,31 @@
     .btn-share-copy:hover {
       background: #e2e8f0 !important;
       color: #0f172a !important;
+    }
+
+  
+    /* Unified WhatsApp Zaim Article CTA Button */
+    .btn-article-whatsapp-cta {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      background: #22c55e !important;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+      font-size: 0.95rem !important;
+      padding: 12px 28px !important;
+      border-radius: 10px !important;
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35) !important;
+      transition: all 0.2s ease !important;
+      cursor: pointer !important;
+      text-align: center !important;
+    }
+    .btn-article-whatsapp-cta:hover {
+      background: #16a34a !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45) !important;
     }
 
   </style>
@@ -580,7 +612,7 @@
 
       <div class="mobile-drawer-footer">
         <a href="https://wa.me/60183863488?text=Salam%20Zaim,%20saya%20ingin%20berunding%20mengenai%20hartanah" target="_blank" rel="noopener" class="mobile-drawer-btn btn-wa-drawer">
-          WhatsApp Zaim (REN39575)
+          WhatsApp Zaim
         </a>
         <a href="/contact" class="mobile-drawer-btn btn-appointment-drawer">
           Appointment / Temu Janji
@@ -641,7 +673,7 @@
         <article class="blog-card" onclick="openBlogModal('can-foreigners-buy-detached-factories-selangor-malaysia-guidelines', 'en')">
           <div class="blog-thumb-wrap">
             <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80" alt="Can Foreigners Buy Detached Factories in Selangor, Malaysia? Guidelines & Requirements" loading="lazy">
-            <span class="blog-category-badge" style="background:#0f172a; color:#fbbf24; border: 1px solid rgba(251,191,36,0.4);">INDUSTRIAL & FOREIGN INVESTMENT</span>
+            <span class="blog-category-badge" style="background:#0f172a; color:#fbbf24; border: 1px solid rgba(251,191,36,0.4);">INDUSTRIAL</span>
           </div>
           <div class="blog-card-body">
             <div class="blog-meta-row">
@@ -927,7 +959,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=63"></script>
+  <script src="/app.js?v=64"></script>
 
   <script>
     // Data Lengkap 7 Artikel Hartanah Berkualiti Tinggi (Sokongan Dwi-Bahasa BM & EN)
@@ -935,8 +967,9 @@
     {
         "id": 10,
         "slug": "can-foreigners-buy-detached-factories-selangor-malaysia-guidelines",
-        "category": "HARTANAH INDUSTRI & PELABUR ASING",
-        "categoryEn": "INDUSTRIAL & FOREIGN INVESTMENT",
+        "category": "HARTANAH INDUSTRI",
+        "categoryEn": "INDUSTRIAL",
+
         "title": "Bolehkah Warga Asing Membeli Kilang 'Detached' di Selangor, Malaysia? (Garis Panduan 2026, Had Minima RM3 Juta, Kebenaran Negeri & Senarai Semak Penuh)",
         "titleEn": "Can Foreigners Buy Detached Factories in Selangor, Malaysia? (2026 Guidelines, RM3M Threshold, State Consent & Essential Compliance Checklist)",
         "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
@@ -1052,7 +1085,9 @@
 <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color:#ffffff; padding:24px; border-radius:12px; margin-top:30px; text-align:center;">
   <h3 style="color:#ffffff; margin-top:0;">Perlukan Semakan Kelayakan Percuma Untuk Projek Mampu Milik?</h3>
   <p style="color:#cbd5e1; font-size:0.95rem; margin-bottom:18px;">Sebagai Perunding Hartanah Berdaftar (REN39575), saya sedia membantu menyemak kelayakan DSR, menyusun dokumen bank, dan mencadangkan projek Residensi Wilayah & RSKU terbaik di kawasan tumpuan anda.</p>
-  <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20nak%20semak%20kelayakan%20Rumah%20Selangorku%20/%20Residensi%20Wilayah." target="_blank" style="display:inline-block; background:#25d366; color:#ffffff; font-weight:800; padding:12px 24px; border-radius:8px; text-decoration:none;">WhatsApp Zaim Rosli (Semakan Percuma)</a>
+  <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20nak%20semak%20kelayakan%20Rumah%20Selangorku%20/%20Residensi%20Wilayah." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
 </div>`,
     contentEn: `<h2>Affordable Housing Initiatives in the Greater Klang Valley 2026</h2>
 <p>Securing a first home in urban hubs like Kuala Lumpur and Selangor can be demanding due to rising open-market commercial property prices. However, government subsidized homeownership schemes such as <strong>Rumah Selangorku (RSKU)</strong> in Selangor and <strong>Residensi Wilayah (formerly RUMAWIP)</strong> in the Federal Territory of Kuala Lumpur & Putrajaya offer a prime opportunity for B40 and M40 households to own high-quality homes with price caps ranging between RM42,000 to RM300,000.</p>
@@ -1149,7 +1184,9 @@
 <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color:#ffffff; padding:24px; border-radius:12px; margin-top:30px; text-align:center;">
   <h3 style="color:#ffffff; margin-top:0;">Need Free Eligibility Pre-Checking for Affordable Projects?</h3>
   <p style="color:#cbd5e1; font-size:0.95rem; margin-bottom:18px;">As a Registered Real Estate Negotiator (REN39575), I provide comprehensive DSR pre-assessments, banking document structuring, and curated project recommendations across prime locations.</p>
-  <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20would%20like%20to%20check%20my%20eligibility%20for%20Rumah%20Selangorku%20/%20Residensi%20Wilayah." target="_blank" style="display:inline-block; background:#25d366; color:#ffffff; font-weight:800; padding:12px 24px; border-radius:8px; text-decoration:none;">WhatsApp Zaim Rosli (Free Assessment)</a>
+  <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20would%20like%20to%20check%20my%20eligibility%20for%20Rumah%20Selangorku%20/%20Residensi%20Wilayah." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
 </div>`
   },
       {
@@ -1214,7 +1251,9 @@
           <div class="blog-modal-cta">
             <h4>Perlukan Khidmat Nasihat Hartanah Peribadi?</h4>
             <p>Sama ada anda sedang mencari rumah sewa strategik berhampiran pengangkutan awam atau merancang strategi simpanan untuk membeli rumah pertama pada masa depan, hubungi saya untuk perbincangan profesional.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20tertarik%20dengan%20artikel%20analisis%20rumah%20sewa%20vs%20beli%20rumah%202026.%20Boleh%20saya%20dapatkan%20pandangan%20anda?" target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Hubungi Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20tertarik%20dengan%20artikel%20analisis%20rumah%20sewa%20vs%20beli%20rumah%202026.%20Boleh%20saya%20dapatkan%20pandangan%20anda?" target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1267,7 +1306,9 @@
           <div class="blog-modal-cta">
             <h4>Need Professional Real Estate Advice?</h4>
             <p>Whether you are searching for strategically located rental units near transit corridors or formulating an acquisition roadmap for your first home, connect with Zaim Rosli for tailored advisory.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20read%20your%20article%20on%20renting%20vs%20buying%20in%202026.%20I%20would%20like%20to%20consult%20with%20you." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Contact Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20read%20your%20article%20on%20renting%20vs%20buying%20in%202026.%20I%20would%20like%20to%20consult%20with%20you." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1325,7 +1366,9 @@
           <div class="blog-modal-cta">
             <h4>Sedang Mencari Rumah Sewa di Kuala Lumpur & Selangor?</h4>
             <p>Saya menyediakan senarai kondominium dan rumah sewa yang disahkan selamat, bersih, dan berpatutan dengan proses perjanjian sewa yang telus.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20sedang%20mencari%20rumah%20sewa%20di%20KL/Selangor." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Hubungi Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20saya%20sedang%20mencari%20rumah%20sewa%20di%20KL/Selangor." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1369,7 +1412,9 @@
           <div class="blog-modal-cta">
             <h4>Looking for Verified Rental Homes in KL & Selangor?</h4>
             <p>I assist tenants in finding clean, high-quality, and strategic rental properties with transparent tenancy agreements and fast handover.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20am%20looking%20for%20rental%20properties%20in%20KL/Selangor." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Contact Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20am%20looking%20for%20rental%20properties%20in%20KL/Selangor." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1419,7 +1464,9 @@
           <div class="blog-modal-cta">
             <h4>Ingin Semak Kelayakan DSR & Loan Anda Secara Percuma?</h4>
             <p>Saya sedia membantu anda membuat semakan profil kewangan dan memilih projek perumahan terbaik mengikut bajet anda.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20semak%20kelayakan%20loan%20rumah%20pertama." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Hubungi Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20semak%20kelayakan%20loan%20rumah%20pertama." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1456,7 +1503,9 @@
           <div class="blog-modal-cta">
             <h4>Want a Free DSR & Loan Eligibility Assessment?</h4>
             <p>I am ready to help you analyze your financial profile and recommend the best residential developments tailored to your budget.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20would%20like%20a%20free%20loan%20eligibility%20check%20for%20my%20first%20home." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Contact Zaim Rosli via WhatsApp</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20would%20like%20a%20free%20loan%20eligibility%20check%20for%20my%20first%20home." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1501,7 +1550,9 @@
           <div class="blog-modal-cta">
             <h4>Perlukan Nasihat Portfolio Pelaburan Hartanah?</h4>
             <p>Dapatkan pandangan pakar pasaran sebelum membuat pelaburan bernilai ratusan ribu ringgit.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20dapatkan%20nasihat%20Freehold%20vs%20Leasehold." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Bincang Bersama Zaim Rosli</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20dapatkan%20nasihat%20Freehold%20vs%20Leasehold." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1533,7 +1584,9 @@
           <div class="blog-modal-cta">
             <h4>Need Property Investment Portfolio Advice?</h4>
             <p>Get expert market insights before committing to a multi-hundred-thousand ringgit investment.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20need%20advice%20on%20Freehold%20vs%20Leasehold%20properties." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Discuss with Zaim Rosli</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20need%20advice%20on%20Freehold%20vs%20Leasehold%20properties." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1576,7 +1629,9 @@
           <div class="blog-modal-cta">
             <h4>Berminat Mencari Projek TOD Berpotensi Tinggi?</h4>
             <p>Saya mempunyai senarai projek TOD subsale & undercon eksklusif di Kuala Lumpur & Selangor.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20berminat%20dengan%20senarai%20projek%20TOD." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Dapatkan Senarai Projek TOD</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20berminat%20dengan%20senarai%20projek%20TOD." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1606,7 +1661,9 @@
           <div class="blog-modal-cta">
             <h4>Looking for High-Yield TOD Projects?</h4>
             <p>I maintain an exclusive curated list of prime subsale & undercon TOD developments in Kuala Lumpur & Selangor.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20am%20interested%20in%20your%20TOD%20project%20listings." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Get TOD Project List</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20am%20interested%20in%20your%20TOD%20project%20listings." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1650,7 +1707,9 @@
           <div class="blog-modal-cta">
             <h4>Bandingkan Unit Subsale & Undercon Bersama Zaim</h4>
             <p>Dapatkan pandangan telus mengenai perbandingan nilai pasaran kawasan sasaran anda.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20tolong%20bantu%20saya%20bandingkan%20subsale%20dan%20undercon." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Konsultasi Percuma Hari Ini</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20tolong%20bantu%20saya%20bandingkan%20subsale%20dan%20undercon." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1681,7 +1740,9 @@
           <div class="blog-modal-cta">
             <h4>Compare Subsale & Undercon Options with Zaim</h4>
             <p>Receive transparent comparative market analysis tailored to your target location.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20please%20help%20me%20compare%20subsale%20vs%20undercon%20options." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Free Consultation Today</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20please%20help%20me%20compare%20subsale%20vs%20undercon%20options." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1730,7 +1791,9 @@
           <div class="blog-modal-cta">
             <h4>Hasrat Menjual Rumah Anda Pada Harga Pasaran Terbaik?</h4>
             <p>Saya menyediakan perkhidmatan semakan valuation percuma dan pelan pemasaran hartanah lengkap.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20jual%20rumah%20saya.%20Boleh%20bantu%20semak%20valuation?" target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Semak Valuation Rumah Percuma</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20jual%20rumah%20saya.%20Boleh%20bantu%20semak%20valuation?" target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1766,7 +1829,9 @@
           <div class="blog-modal-cta">
             <h4>Looking to Sell Your Property at Peak Valuation?</h4>
             <p>I provide free bank valuation checks and a comprehensive property marketing plan.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20want%20to%20sell%20my%20property.%20Can%20you%20help%20check%20valuation?" target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Free Valuation Check</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20want%20to%20sell%20my%20property.%20Can%20you%20help%20check%20valuation?" target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       },
@@ -1813,7 +1878,9 @@
           <div class="blog-modal-cta">
             <h4>Berminat Untuk Mengira Potensi Cash Out Refinance Anda?</h4>
             <p>Dapatkan bantuan analisis pembiayaan semula hartanah secara khusus dan profesional.</p>
-            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20kira%20potensi%20Refinance%20rumah%20saya." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Kira Potensi Cash Out Refinance</a>
+            <a href="https://wa.me/60108118559?text=Halo%20Zaim,%20saya%20nak%20kira%20potensi%20Refinance%20rumah%20saya." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `,
         contentEn: `
@@ -1847,7 +1914,9 @@
           <div class="blog-modal-cta">
             <h4>Interested in Calculating Your Refinance Cash Out Potential?</h4>
             <p>Get personalized, professional mortgage refinancing analysis and tailored bank options.</p>
-            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20want%20to%20calculate%20my%20home%20refinancing%20cash-out%20potential." target="_blank" class="btn-modal-wa"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg> Calculate Refinance Cash Out</a>
+            <a href="https://wa.me/60108118559?text=Hi%20Zaim,%20I%20want%20to%20calculate%20my%20home%20refinancing%20cash-out%20potential." target="_blank" rel="noopener" class="btn-article-whatsapp-cta">
+              <span>WhatsApp Zaim</span>
+            </a>
           </div>
         `
       }
