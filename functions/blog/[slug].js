@@ -1,4 +1,11 @@
 const BLOG_METADATA = {
+  "panduan-beli-rumah-tanpa-slip-gaji-sjkp-2026-gig-worker-peniaga": {
+    title: "Panduan Beli Rumah Tanpa Slip Gaji 2026 (Skim SJKP Madani, Peniaga Online, Freelancer & Gig Workers) — Zaim Rosli (REN39575)",
+    description: "Ketahui cara membeli rumah pertama tanpa slip gaji tetap melalui Skim Jaminan Kredit Perumahan (SJKP Madani 2026). Panduan penuh pembiayaan 120%, syarat kelayakan peniaga online, freelancer, pemandu Grab, dan dokumen wajib untuk kelulusan bank pantas.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-26",
+    category: "Skim Rumah Pertama"
+  },
   "can-foreigners-buy-detached-factories-selangor-malaysia-guidelines": {
     title: "Can Foreigners Buy Detached Factories in Selangor, Malaysia? (2026 Guidelines & Checklist) — Zaim Rosli (REN39575)",
     description: "Complete guide on foreign industrial property acquisitions in Selangor: RM3,000,000 threshold, State Consent (Sec 433B), MITI/MIDA licenses, CCC compliance, and developer opportunities.",
