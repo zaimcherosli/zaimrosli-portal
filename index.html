@@ -31,25 +31,50 @@
   {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    "@id": "https://zaimrosli.my/#agent",
-    "name": "Zaim Rosli Real Estate",
-    "legalName": "Zaim Rosli (REN39575)",
-    "telephone": "+60108118559",
+    "name": "Zaim Rosli Real Estate Portal",
+    "alternateName": "Zaim Rosli (REN39575)",
+    "description": "Registered Real Estate Negotiator (REN39575) specializing in residential, commercial, and industrial property sales, rentals, and investment advisory in Bangi, Kajang, Nilai, and Selangor.",
     "url": "https://zaimrosli.my",
-    "image": "https://zaimrosli.my/icons/og-share.jpg",
+    "logo": "https://zaimrosli.my/icons/icon-512.png",
+    "image": "https://zaimrosli.my/icons/icon-512.png",
+    "telephone": "+60108118559",
+    "priceRange": "RM 200,000 - RM 15,000,000",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bandar Baru Bangi",
+      "addressRegion": "Selangor",
+      "postalCode": "43650",
+      "addressCountry": "MY"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 2.9288,
+      "longitude": 101.7801
+    },
+    "hasMap": "https://maps.google.com/?q=Bangi+Selangor",
     "areaServed": [
-      {"@type": "AdministrativeArea", "name": "Kuala Lumpur"},
-      {"@type": "AdministrativeArea", "name": "Selangor"},
-      {"@type": "AdministrativeArea", "name": "Cyberjaya"},
-      {"@type": "AdministrativeArea", "name": "Bangi"},
-      {"@type": "Country", "name": "Malaysia"}
+      { "@type": "AdministrativeArea", "name": "Bangi" },
+      { "@type": "AdministrativeArea", "name": "Kajang" },
+      { "@type": "AdministrativeArea", "name": "Nilai" },
+      { "@type": "AdministrativeArea", "name": "Semenyih" },
+      { "@type": "AdministrativeArea", "name": "Sepang" },
+      { "@type": "AdministrativeArea", "name": "Shah Alam" },
+      { "@type": "AdministrativeArea", "name": "Cyberjaya" },
+      { "@type": "AdministrativeArea", "name": "Kuala Lumpur" },
+      { "@type": "AdministrativeArea", "name": "Selangor" }
     ],
-    "currenciesAccepted": "MYR, USD, SGD",
-    "priceRange": "RM 300,000 - RM 50,000,000"
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "08:00",
+        "closes": "22:00"
+      }
+    ]
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=70">
+  <link rel="stylesheet" href="/styles.css?v=71">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -444,7 +469,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=70"></script>
+  <script src="/app.js?v=71"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       function renderHomeFeatured() {
