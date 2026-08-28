@@ -1,4 +1,11 @@
 const BLOG_METADATA = {
+  "panduan-pengeluaran-kwsp-beli-rumah-2026-akaun-sejahtera-fleksibel": {
+    title: "Panduan Lengkap Pengeluaran KWSP Beli Rumah 2026 (Akaun Sejahtera & Fleksibel) — Zaim Rosli (REN39575)",
+    description: "Ketahui cara mengeluarkan simpanan KWSP Akaun Sejahtera (Akaun 2) dan Akaun Fleksibel untuk membeli rumah pertama, bayar deposit, yuran guaman atau kurangkan baki ansuran bulanan bank secara online melalui i-Akaun.",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-28",
+    category: "Panduan Pembeli & KWSP"
+  },
   "panduan-beli-rumah-tanpa-slip-gaji-sjkp-2026-gig-worker-peniaga": {
     title: "Panduan Beli Rumah Tanpa Slip Gaji 2026 (Skim SJKP Madani, Peniaga Online, Freelancer & Gig Workers) — Zaim Rosli (REN39575)",
     description: "Ketahui cara membeli rumah pertama tanpa slip gaji tetap melalui Skim Jaminan Kredit Perumahan (SJKP Madani 2026). Panduan penuh pembiayaan 120%, syarat kelayakan peniaga online, freelancer, pemandu Grab, dan dokumen wajib untuk kelulusan bank pantas.",
