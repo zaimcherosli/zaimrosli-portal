@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=74">
+  <link rel="stylesheet" href="/styles.css?v=75">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -218,6 +218,108 @@
         font-size: 0.95rem !important;
       }
     }
+  
+    /* Sleek Toggle Switches for Legal Fees */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: 0.25s ease;
+      border-radius: 22px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.25s ease;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: #f59e0b; /* Primary Accent Gold */
+    }
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(16px);
+    }
+    .result-row-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+    }
+    .result-row-toggle.is-disabled {
+      opacity: 0.65;
+    }
+    .result-row-toggle .row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .result-row-toggle .row-left span {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .badge-free {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border: 1px solid #bbf7d0;
+    }
+    .calc-presets-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .calc-preset-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .calc-preset-btn:hover, .calc-preset-btn.active {
+      background: #0f172a;
+      color: #fbbf24;
+      border-color: #0f172a;
+    }
+
   </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
@@ -522,9 +624,19 @@
             </button>
           </div>
 
-          <!-- Output Results Card -->
+                    <!-- Output Results Card -->
           <div class="calc-card" style="background: var(--bg-alt);">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Anggaran Pecahan Kos Lengkap</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin: 0;">Anggaran Pecahan Kos Lengkap</h3>
+              <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">(Toggle hidup/padam kos berkaitan)</span>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="calc-presets-bar">
+              <button type="button" class="calc-preset-btn active" id="preset-subsale" onclick="applyFeePreset('subsale')">Subsale (Semua Kos)</button>
+              <button type="button" class="calc-preset-btn" id="preset-undercon" onclick="applyFeePreset('undercon')">Rumah Baru (Free SPA & Loan)</button>
+              <button type="button" class="calc-preset-btn" id="preset-firsthome" onclick="applyFeePreset('firsthome')">Rumah Pertama (Pengecualian MOT)</button>
+            </div>
             
             <div style="background: #ffffff; padding: 20px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 20px; text-align: center;">
               <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">ANGGARAN ANSURAN BULANAN (MONTHLY PMT)</div>
@@ -537,24 +649,64 @@
               <span>Jumlah Pinjaman Bank (90%):</span>
               <strong id="res-loan">RM 0</strong>
             </div>
-            <div class="result-row">
-              <span>Yuran Guaman SPA (Sale & Purchase):</span>
+
+            <!-- Toggle 1: SPA Legal Fee -->
+            <div class="result-row-toggle" id="row-spa">
+              <div class="row-left">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-spa" checked onchange="calculateLegal()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span>Yuran Guaman SPA (Sale & Purchase):</span>
+              </div>
               <strong id="res-spa">RM 0</strong>
             </div>
-            <div class="result-row">
-              <span>Duti Setem MOT (Pindah Milik):</span>
+
+            <!-- Toggle 2: MOT Stamp Duty -->
+            <div class="result-row-toggle" id="row-mot">
+              <div class="row-left">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-mot" checked onchange="calculateLegal()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span>Duti Setem MOT (Pindah Milik):</span>
+              </div>
               <strong id="res-mot">RM 0</strong>
             </div>
-            <div class="result-row">
-              <span>Yuran Guaman Pinjaman (Loan Agreement):</span>
+
+            <!-- Toggle 3: Loan Legal Fee -->
+            <div class="result-row-toggle" id="row-loan-fee">
+              <div class="row-left">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-loan-fee" checked onchange="calculateLegal()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span>Yuran Guaman Pinjaman (Loan Agreement):</span>
+              </div>
               <strong id="res-loan-fee">RM 0</strong>
             </div>
-            <div class="result-row">
-              <span>Duti Setem Perjanjian Pinjaman:</span>
+
+            <!-- Toggle 4: Loan Stamp Duty -->
+            <div class="result-row-toggle" id="row-loan-duty">
+              <div class="row-left">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-loan-duty" checked onchange="calculateLegal()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span>Duti Setem Perjanjian Pinjaman:</span>
+              </div>
               <strong id="res-loan-duty">RM 0</strong>
             </div>
-            <div class="result-row">
-              <span>Yuran Penilaian Bank (Valuation):</span>
+
+            <!-- Toggle 5: Valuation Fee -->
+            <div class="result-row-toggle" id="row-valuation">
+              <div class="row-left">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-valuation" checked onchange="calculateLegal()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span>Yuran Penilaian Bank (Valuation):</span>
+              </div>
               <strong id="res-valuation">RM 0</strong>
             </div>
 
@@ -570,9 +722,6 @@
               </button>
             </div>
           </div>
-
-        </div>
-      </div>
 
       <!-- TAB 2: DSR (DEBT SERVICE RATIO) CALCULATOR -->
       <div id="panel-dsr" class="calc-view-panel">
@@ -714,7 +863,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=74"></script>
+  <script src="/app.js?v=75"></script>
   <script>
     // Tab Switcher Handler
     function switchCalcTab(tabKey) {
@@ -752,6 +901,41 @@
       }
     }
 
+        // Preset Handlers for Fee Scenarios
+    function applyFeePreset(preset) {
+      document.querySelectorAll('.calc-preset-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('preset-' + preset);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const tSpa = document.getElementById('toggle-spa');
+      const tMot = document.getElementById('toggle-mot');
+      const tLoanFee = document.getElementById('toggle-loan-fee');
+      const tLoanDuty = document.getElementById('toggle-loan-duty');
+      const tValuation = document.getElementById('toggle-valuation');
+
+      if (preset === 'subsale') {
+        if (tSpa) tSpa.checked = true;
+        if (tMot) tMot.checked = true;
+        if (tLoanFee) tLoanFee.checked = true;
+        if (tLoanDuty) tLoanDuty.checked = true;
+        if (tValuation) tValuation.checked = true;
+      } else if (preset === 'undercon') {
+        if (tSpa) tSpa.checked = false;      // Free SPA Legal Fee
+        if (tMot) tMot.checked = true;       // MOT Paid on Title Issuance
+        if (tLoanFee) tLoanFee.checked = false;  // Free Loan Legal Fee
+        if (tLoanDuty) tLoanDuty.checked = false;// Free Loan Stamp Duty
+        if (tValuation) tValuation.checked = false; // Free Valuation
+      } else if (preset === 'firsthome') {
+        if (tSpa) tSpa.checked = true;
+        if (tMot) tMot.checked = false;      // 100% MOT Stamp Duty Exemption (<=RM500k)
+        if (tLoanFee) tLoanFee.checked = true;
+        if (tLoanDuty) tLoanDuty.checked = false;// 100% Loan Stamp Duty Exemption
+        if (tValuation) tValuation.checked = true;
+      }
+
+      calculateLegal();
+    }
+
     // --- TAB 1: LEGAL & MORTGAGE CALCULATION LOGIC ---
     function calculateLegal() {
       const priceIn = document.getElementById('calc-price');
@@ -777,58 +961,119 @@
         monthlyPMT = loanAmount / totalPayments;
       }
 
+      // Read Toggles
+      const isSpaEnabled = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
+      const isMotEnabled = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
+      const isLoanFeeEnabled = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
+      const isLoanDutyEnabled = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
+      const isValuationEnabled = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
+
       // SPA Legal Fees Scale (Malaysia Solicitors' Remuneration Order SRO 2023)
-      let spaFee = 0;
+      let rawSpaFee = 0;
       let remPrice = price;
       if (remPrice > 0) {
         const tier1 = Math.min(remPrice, 500000);
-        spaFee += tier1 * 0.0125;
+        rawSpaFee += tier1 * 0.0125;
         remPrice -= tier1;
       }
       if (remPrice > 0) {
         const tier2 = Math.min(remPrice, 7000000);
-        spaFee += tier2 * 0.01;
+        rawSpaFee += tier2 * 0.01;
         remPrice -= tier2;
       }
-      spaFee = Math.max(500, spaFee);
+      rawSpaFee = Math.max(500, rawSpaFee);
+      const effectiveSpaFee = isSpaEnabled ? rawSpaFee : 0;
 
       // MOT Stamp Duty Scale
-      let motDuty = 0;
+      let rawMotDuty = 0;
       let remMot = price;
       if (remMot > 0) {
         const t1 = Math.min(remMot, 100000);
-        motDuty += t1 * 0.01;
+        rawMotDuty += t1 * 0.01;
         remMot -= t1;
       }
       if (remMot > 0) {
         const t2 = Math.min(remMot, 400000);
-        motDuty += t2 * 0.02;
+        rawMotDuty += t2 * 0.02;
         remMot -= t2;
       }
       if (remMot > 0) {
         const t3 = Math.min(remMot, 500000);
-        motDuty += t3 * 0.03;
+        rawMotDuty += t3 * 0.03;
         remMot -= t3;
       }
       if (remMot > 0) {
-        motDuty += remMot * 0.04;
+        rawMotDuty += remMot * 0.04;
       }
+      const effectiveMotDuty = isMotEnabled ? rawMotDuty : 0;
 
-      // Loan Legal Fee & Stamp Duty
-      const loanLegalFee = (loanAmount > 0) ? Math.max(500, loanAmount * 0.01) : 0;
-      const loanStampDuty = loanAmount * 0.005;
-      const valuationFee = (price > 0) ? Math.max(400, price * 0.0025) : 0;
+      // Loan Legal Fee & Stamp Duty & Valuation
+      const rawLoanFee = (loanAmount > 0) ? Math.max(500, loanAmount * 0.01) : 0;
+      const effectiveLoanFee = isLoanFeeEnabled ? rawLoanFee : 0;
 
-      const totalCash = downpayment + spaFee + motDuty + loanLegalFee + loanStampDuty + valuationFee;
+      const rawLoanDuty = loanAmount * 0.005;
+      const effectiveLoanDuty = isLoanDutyEnabled ? rawLoanDuty : 0;
 
-      // Update UI
+      const rawValuation = (price > 0) ? Math.max(400, price * 0.0025) : 0;
+      const effectiveValuation = isValuationEnabled ? rawValuation : 0;
+
+      const totalCash = downpayment + effectiveSpaFee + effectiveMotDuty + effectiveLoanFee + effectiveLoanDuty + effectiveValuation;
+
+      // Update UI with Strike-through & Badges when toggled OFF
       document.getElementById('res-monthly').textContent = 'RM ' + Math.round(monthlyPMT).toLocaleString('en-US') + ' / mo';
       document.getElementById('res-loan').textContent = 'RM ' + Math.round(loanAmount).toLocaleString('en-US');
-      document.getElementById('res-spa').textContent = 'RM ' + Math.round(spaFee).toLocaleString('en-US');
-      document.getElementById('res-mot').textContent = 'RM ' + Math.round(motDuty).toLocaleString('en-US');
-      document.getElementById('res-loan-fee').textContent = 'RM ' + Math.round(loanLegalFee).toLocaleString('en-US');
-      document.getElementById('res-loan-duty').textContent = 'RM ' + Math.round(loanStampDuty).toLocaleString('en-US');
-      document.getElementById('res-valuation').textContent = 'RM ' + Math.round(valuationFee).toLocaleString('en-US');
+
+      // SPA Fee UI
+      const rowSpa = document.getElementById('row-spa');
+      if (isSpaEnabled) {
+        if (rowSpa) rowSpa.classList.remove('is-disabled');
+        document.getElementById('res-spa').innerHTML = 'RM ' + Math.round(rawSpaFee).toLocaleString('en-US');
+      } else {
+        if (rowSpa) rowSpa.classList.add('is-disabled');
+        document.getElementById('res-spa').innerHTML = '<s style="color:#94a3b8; font-size:0.82rem; font-weight:normal; margin-right:4px;">RM ' + Math.round(rawSpaFee).toLocaleString('en-US') + '</s> <span class="badge-free">Percuma</span>';
+      }
+
+      // MOT Duty UI
+      const rowMot = document.getElementById('row-mot');
+      if (isMotEnabled) {
+        if (rowMot) rowMot.classList.remove('is-disabled');
+        document.getElementById('res-mot').innerHTML = 'RM ' + Math.round(rawMotDuty).toLocaleString('en-US');
+      } else {
+        if (rowMot) rowMot.classList.add('is-disabled');
+        document.getElementById('res-mot').innerHTML = '<s style="color:#94a3b8; font-size:0.82rem; font-weight:normal; margin-right:4px;">RM ' + Math.round(rawMotDuty).toLocaleString('en-US') + '</s> <span class="badge-free">Dikecualikan</span>';
+      }
+
+      // Loan Fee UI
+      const rowLoanFee = document.getElementById('row-loan-fee');
+      if (isLoanFeeEnabled) {
+        if (rowLoanFee) rowLoanFee.classList.remove('is-disabled');
+        document.getElementById('res-loan-fee').innerHTML = 'RM ' + Math.round(rawLoanFee).toLocaleString('en-US');
+      } else {
+        if (rowLoanFee) rowLoanFee.classList.add('is-disabled');
+        document.getElementById('res-loan-fee').innerHTML = '<s style="color:#94a3b8; font-size:0.82rem; font-weight:normal; margin-right:4px;">RM ' + Math.round(rawLoanFee).toLocaleString('en-US') + '</s> <span class="badge-free">Percuma</span>';
+      }
+
+      // Loan Duty UI
+      const rowLoanDuty = document.getElementById('row-loan-duty');
+      if (isLoanDutyEnabled) {
+        if (rowLoanDuty) rowLoanDuty.classList.remove('is-disabled');
+        document.getElementById('res-loan-duty').innerHTML = 'RM ' + Math.round(rawLoanDuty).toLocaleString('en-US');
+      } else {
+        if (rowLoanDuty) rowLoanDuty.classList.add('is-disabled');
+        document.getElementById('res-loan-duty').innerHTML = '<s style="color:#94a3b8; font-size:0.82rem; font-weight:normal; margin-right:4px;">RM ' + Math.round(rawLoanDuty).toLocaleString('en-US') + '</s> <span class="badge-free">Dikecualikan</span>';
+      }
+
+      // Valuation UI
+      const rowValuation = document.getElementById('row-valuation');
+      if (isValuationEnabled) {
+        if (rowValuation) rowValuation.classList.remove('is-disabled');
+        document.getElementById('res-valuation').innerHTML = 'RM ' + Math.round(rawValuation).toLocaleString('en-US');
+      } else {
+        if (rowValuation) rowValuation.classList.add('is-disabled');
+        document.getElementById('res-valuation').innerHTML = '<s style="color:#94a3b8; font-size:0.82rem; font-weight:normal; margin-right:4px;">RM ' + Math.round(rawValuation).toLocaleString('en-US') + '</s> <span class="badge-free">Dikecualikan</span>';
+      }
+
+      // Total Cash
       document.getElementById('res-total-cash').textContent = 'RM ' + Math.round(totalCash).toLocaleString('en-US');
     }
 
@@ -840,11 +1085,18 @@
 
       const monthly = document.getElementById('res-monthly').textContent.trim();
       const loan = document.getElementById('res-loan').textContent.trim();
-      const spa = document.getElementById('res-spa').textContent.trim();
-      const mot = document.getElementById('res-mot').textContent.trim();
-      const loanFee = document.getElementById('res-loan-fee').textContent.trim();
-      const loanDuty = document.getElementById('res-loan-duty').textContent.trim();
-      const valuation = document.getElementById('res-valuation').textContent.trim();
+      
+      const isSpa = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
+      const isMot = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
+      const isLoanFee = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
+      const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
+      const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
+
+      const spa = isSpa ? document.getElementById('res-spa').textContent.trim() : 'RM 0 [PERCUMA PEMAJU]';
+      const mot = isMot ? document.getElementById('res-mot').textContent.trim() : 'RM 0 [PENGECUALIAN MOT]';
+      const loanFee = isLoanFee ? document.getElementById('res-loan-fee').textContent.trim() : 'RM 0 [PERCUMA PAKEJ BANK]';
+      const loanDuty = isLoanDuty ? document.getElementById('res-loan-duty').textContent.trim() : 'RM 0 [PENGECUALIAN DUTI SETEM]';
+      const valuation = isValuation ? document.getElementById('res-valuation').textContent.trim() : 'RM 0 [DIKECUALIKAN]';
       const totalCash = document.getElementById('res-total-cash').textContent.trim();
       
       const numPrice = parseFloat(price) || 0;
