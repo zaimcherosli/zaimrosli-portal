@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=82">
+  <link rel="stylesheet" href="/styles.css?v=83">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -925,6 +925,7 @@
   }
 
   /* RenHUB Modern Listing Card */
+  /* === RENHUB MODERN CARD STYLES (COMPLETE & LUXURY) === */
   .renhub-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -932,7 +933,7 @@
     padding: 16px;
     display: flex;
     gap: 16px;
-    align-items: flex-start;
+    align-items: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     transition: all 0.2s ease;
     margin-bottom: 12px;
@@ -948,7 +949,6 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    margin-top: 2px;
   }
   .renhub-card-thumb {
     width: 100%;
@@ -972,13 +972,49 @@
     gap: 6px;
     align-items: center;
     flex-wrap: wrap;
-    padding-top: 2px;
   }
+  
+  /* RenHUB Badges */
+  .renhub-badge {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.70rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: inline-block;
+  }
+  .renhub-badge.badge-my {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+  .renhub-badge.badge-coa {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+  .renhub-badge.badge-undercon {
+    background: #ffedd5;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+  }
+  .renhub-badge.badge-for-sale {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+  .renhub-badge.badge-for-rent {
+    background: #f3e8ff;
+    color: #7e22ce;
+    border: 1px solid #e9d5ff;
+  }
+
   .renhub-move-ref-col {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: 4px;
     flex-shrink: 0;
   }
   .renhub-move-select {
@@ -992,36 +1028,32 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s;
-    height: 30px;
-    box-sizing: border-box;
   }
   .renhub-move-select:focus, .renhub-move-select:hover {
     border-color: #d97706;
     background: #ffffff;
   }
+
   .renhub-ref-link {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     background: #eff6ff;
     color: #1d4ed8;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.72rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.70rem;
     text-decoration: none;
     font-weight: 700;
     border: 1px solid #bfdbfe;
     transition: all 0.2s ease;
     white-space: nowrap;
-    box-sizing: border-box;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
   .renhub-ref-link:hover {
     background: #dbeafe;
     color: #1e40af;
     border-color: #93c5fd;
-    transform: translateY(-1px);
   }
   .renhub-ref-link-empty {
     background: #f8fafc;
@@ -1033,6 +1065,92 @@
     background: #f1f5f9;
     color: #475569;
     border-color: #94a3b8;
+  }
+
+  .renhub-card-price {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #d97706;
+    margin-bottom: 2px;
+  }
+  .renhub-card-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    line-height: 1.35;
+  }
+  .renhub-card-location {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-bottom: 4px;
+  }
+  .renhub-card-specs {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #334155;
+    background: #f8fafc;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #f1f5f9;
+  }
+  .renhub-note-badge {
+    margin-top: 6px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.70rem;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  /* Right column action buttons (Vertical Column Stack) */
+  .renhub-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+    width: 80px;
+  }
+  .renhub-action-btn {
+    width: 100%;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .renhub-action-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .renhub-action-btn.btn-quick-view {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .renhub-action-btn.btn-quick-view:hover {
+    background: #1e293b;
+  }
+  .renhub-action-btn.btn-delete {
+    background: #fff;
+    color: #dc2626;
+    border-color: #fca5a5;
+  }
+  .renhub-action-btn.btn-delete:hover {
+    background: #dc2626;
+    color: #ffffff;
   }
 
   @media (max-width: 860px) {
@@ -2010,7 +2128,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=82"></script>
+  <script src="/app.js?v=83"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
