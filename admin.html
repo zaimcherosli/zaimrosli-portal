@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=83">
+  <link rel="stylesheet" href="/styles.css?v=84">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -925,7 +925,7 @@
   }
 
   /* RenHUB Modern Listing Card */
-  /* === RENHUB MODERN CARD STYLES (COMPLETE & LUXURY) === */
+  /* === RENHUB MODERN DESKTOP & RESPONSIVE CARD STYLES === */
   .renhub-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -933,7 +933,7 @@
     padding: 16px;
     display: flex;
     gap: 16px;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     transition: all 0.2s ease;
     margin-bottom: 12px;
@@ -949,6 +949,7 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    margin-top: 0;
   }
   .renhub-card-thumb {
     width: 100%;
@@ -958,13 +959,14 @@
   .renhub-card-body {
     flex: 1;
     min-width: 0;
+    margin-top: 0;
   }
   .renhub-card-badges-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     gap: 12px;
   }
   .renhub-badges-left {
@@ -972,9 +974,10 @@
     gap: 6px;
     align-items: center;
     flex-wrap: wrap;
+    padding-top: 2px;
   }
-  
-  /* RenHUB Badges */
+
+  /* RenHUB Colored Badges */
   .renhub-badge {
     padding: 3px 8px;
     border-radius: 6px;
@@ -1010,15 +1013,16 @@
     border: 1px solid #e9d5ff;
   }
 
+  /* Move to Dropdown & Referral Link Column */
   .renhub-move-ref-col {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 4px;
+    gap: 5px;
     flex-shrink: 0;
   }
   .renhub-move-select {
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 6px;
     border: 1.5px solid #cbd5e1;
     font-size: 0.74rem;
@@ -1028,6 +1032,8 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s;
+    height: 28px;
+    box-sizing: border-box;
   }
   .renhub-move-select:focus, .renhub-move-select:hover {
     border-color: #d97706;
@@ -1049,6 +1055,7 @@
     transition: all 0.2s ease;
     white-space: nowrap;
     cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
   .renhub-ref-link:hover {
     background: #dbeafe;
@@ -1111,10 +1118,15 @@
     gap: 6px;
     flex-shrink: 0;
     width: 80px;
+    margin-top: 0;
   }
   .renhub-action-btn {
     width: 100%;
-    padding: 5px 0;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -1125,9 +1137,6 @@
     text-align: center;
     text-decoration: none;
     transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     box-sizing: border-box;
   }
   .renhub-action-btn:hover {
@@ -2128,7 +2137,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=83"></script>
+  <script src="/app.js?v=84"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
