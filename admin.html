@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=87">
+  <link rel="stylesheet" href="/styles.css?v=88">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1173,6 +1173,74 @@
 
   /* Dedicated Mobile Responsive Styles (< 860px) */
   @media (max-width: 860px) {
+    .admin-wrapper {
+      padding-top: 70px !important;
+      padding-bottom: 40px !important;
+    }
+    .admin-container {
+      padding: 0 12px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+    .admin-top-action-bar {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 12px !important;
+    }
+    .admin-top-action-bar > div:last-child {
+      display: flex !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+    .admin-top-action-bar .renhub-action-btn,
+    .admin-top-action-bar .btn-add-primary {
+      flex: 1 !important;
+      justify-content: center !important;
+      padding: 10px 14px !important;
+      font-size: 0.85rem !important;
+    }
+    .renhub-metrics-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-metric-card {
+      padding: 12px 14px !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-metric-value {
+      font-size: 1.5rem !important;
+    }
+    .renhub-category-tabs {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-cat-btn {
+      width: 100% !important;
+      justify-content: space-between !important;
+      padding: 10px 14px !important;
+      font-size: 0.78rem !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-filter-bar {
+      flex-direction: column !important;
+      gap: 8px !important;
+      padding: 10px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .renhub-filter-search, .renhub-filter-select {
+      width: 100% !important;
+      min-width: 100% !important;
+      box-sizing: border-box !important;
+    }
     .renhub-card {
       flex-direction: column !important;
       align-items: stretch !important;
@@ -1264,7 +1332,7 @@
     }
   }
 
-  /* ==========================================================================
+/* ==========================================================================
        MODERN SAAS LEFT SIDEBAR & RESPONSIVE DESKTOP/MOBILE LAYOUT
        ========================================================================== */
     @media (min-width: 992px) {
@@ -2117,7 +2185,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=87"></script>
+  <script src="/app.js?v=88"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
