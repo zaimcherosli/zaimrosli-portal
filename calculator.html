@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=77">
+  <link rel="stylesheet" href="/styles.css?v=78">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -579,8 +579,8 @@
               </span>
             </div>
             <div class="mobile-accordion-content">
-              <a href="/calculator#legal" class="mobile-sublink">Legal Fee & Stamp Duty (MOT)</a>
-              <a href="/calculator#dsr" class="mobile-sublink">Bank Loan DSR Check</a>
+              <a href="/calculator#legal" class="mobile-sublink" onclick="switchCalcTab('legal')">Legal Fees & Stamp Duty (MOT)</a>
+              <a href="/calculator#dsr" class="mobile-sublink" onclick="switchCalcTab('dsr')">Bank Loan DSR Check</a>
             </div>
           </li>
 
@@ -946,9 +946,10 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=77"></script>
+  <script src="/app.js?v=78"></script>
   <script>
     // Tab Switcher Handler
+    window.switchCalcTab = switchCalcTab;
     function switchCalcTab(tabKey) {
       const isDsr = (tabKey === 'dsr');
       

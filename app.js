@@ -36,6 +36,13 @@ function initMobileDrawerNav() {
   const overlay = document.querySelector('.mobile-overlay');
   const closeBtns = document.querySelectorAll('.mobile-drawer-close');
 
+  function closeDrawer() {
+    if (overlay) {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
   toggleBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -50,18 +57,14 @@ function initMobileDrawerNav() {
   closeBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+      closeDrawer();
     });
   });
 
   if (overlay) {
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        closeDrawer();
       }
     });
   }
@@ -82,6 +85,29 @@ function initMobileDrawerNav() {
           parent.classList.remove('active');
         } else {
           parent.classList.add('active');
+        }
+      }
+    });
+  });
+
+  // Automatically close mobile drawer when any link is clicked & handle same-page hash changes
+  document.querySelectorAll('.mobile-drawer a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      closeDrawer();
+
+      // If user is already on /calculator and clicks /calculator#dsr or /calculator#legal
+      if (window.location.pathname.includes('calculator') && href.includes('#')) {
+        const targetHash = href.split('#')[1];
+        if (targetHash && typeof window.switchCalcTab === 'function') {
+          e.preventDefault();
+          window.switchCalcTab(targetHash);
+          const targetSection = document.querySelector('.calc-tabs-wrapper') || document.getElementById('panel-' + targetHash);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
       }
     });
