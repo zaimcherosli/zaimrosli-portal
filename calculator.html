@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=76">
+  <link rel="stylesheet" href="/styles.css?v=77">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -402,11 +402,11 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Kalkulator Kelayakan Pinjaman Rumah & Yuran Guaman Hartanah Malaysia",
+    "name": "Malaysian Real Estate Mortgage & Legal Fee Calculator",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "All",
     "url": "https://zaimrosli.my/calculator",
-    "description": "Kalkulator interaktif percuma untuk menyemak kelayakan pinjaman perumahan bank (DSR & NDI), anggaran ansuran bulanan, yuran guaman SPA/Loan, dan duti setem MOT Malaysia.",
+    "description": "Free interactive mortgage calculator to assess commercial bank loan eligibility (DSR), monthly installments, SPA & Loan legal fees, and MOT stamp duty in Malaysia.",
     "author": {
       "@type": "Person",
       "name": "Zaim Rosli (REN39575)",
@@ -642,13 +642,13 @@
         <div class="calc-tabs" role="tablist">
           <button type="button" id="tab-btn-legal" class="calc-tab-btn active" onclick="switchCalcTab('legal')" role="tab" aria-selected="true">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            <span>Yuran Guaman & Pinjaman</span>
+            <span>Legal Fees & Stamp Duty</span>
             <span class="tab-badge-accent">Legal & Stamp</span>
           </button>
           
           <button type="button" id="tab-btn-dsr" class="calc-tab-btn" onclick="switchCalcTab('dsr')" role="tab" aria-selected="false">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-            <span>Semakan Kelayakan Bank (DSR)</span>
+            <span>Bank Eligibility Check (DSR)</span>
             <span class="tab-badge-accent">DSR Loan Check</span>
           </button>
         </div>
@@ -660,10 +660,10 @@
           
           <!-- Input Form -->
           <div class="calc-card">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Financial Inputs (Pembelian Rumah)</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Financial Inputs (Home Purchase)</h3>
             
             <div class="calc-input-group">
-              <label>PROPERTY PRICE / HARGA RUMAH (RM)</label>
+              <label>PROPERTY PURCHASE PRICE (RM)</label>
               <input type="number" id="calc-price" value="650000">
             </div>
 
@@ -673,51 +673,51 @@
                 <input type="number" id="calc-down" value="10">
               </div>
               <div class="calc-input-group">
-                <label>KADAR FAEDAH BANK (%)</label>
+                <label>BANK INTEREST RATE (%)</label>
                 <input type="number" step="0.1" id="calc-rate" value="4.2">
               </div>
             </div>
 
             <div class="calc-input-group" style="margin-bottom: 24px;">
-              <label>TEMPOH PINJAMAN (TAHUN)</label>
+              <label>LOAN TENURE (YEARS)</label>
               <select id="calc-tenure">
-                <option value="35" selected>35 Tahun (Maksimum)</option>
-                <option value="30">30 Tahun</option>
-                <option value="25">25 Tahun</option>
-                <option value="20">20 Tahun</option>
+                <option value="35" selected>35 Years (Maximum)</option>
+                <option value="30">30 Years</option>
+                <option value="25">25 Years</option>
+                <option value="20">20 Years</option>
               </select>
             </div>
 
             <button type="button" id="calc-run-btn" class="btn btn-accent" style="width: 100%;">
-              Kira Pecahan Kewangan & Guaman
+              Calculate Financial & Legal Breakdown
             </button>
           </div>
 
                               <!-- Output Results Card -->
           <div class="calc-card" style="background: var(--bg-alt);">
             <div style="margin-bottom: 12px;">
-              <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin: 0 0 4px;">Anggaran Pecahan Kos Lengkap</h3>
-              <p style="font-size: 0.78rem; color: #64748b; margin: 0; line-height: 1.4;">Pilih pakej belian atau hidup/padamkan suis kos mengikut situasi anda.</p>
+              <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin: 0 0 4px;">Complete Cost Breakdown Estimate</h3>
+              <p style="font-size: 0.78rem; color: #64748b; margin: 0; line-height: 1.4;">Select a purchase package or toggle individual costs according to your scenario.</p>
             </div>
 
             <!-- Quick Presets Segmented Bar -->
             <div class="calc-presets-wrapper">
               <div class="calc-presets-bar" role="group" aria-label="Pakej Pembelian Hartanah">
-                <button type="button" class="calc-preset-btn active" id="preset-subsale" onclick="applyFeePreset('subsale')">Subsale (Semua Kos)</button>
-                <button type="button" class="calc-preset-btn" id="preset-undercon" onclick="applyFeePreset('undercon')">Rumah Baru (Free SPA & Loan)</button>
-                <button type="button" class="calc-preset-btn" id="preset-firsthome" onclick="applyFeePreset('firsthome')">Rumah Pertama (Pengecualian MOT)</button>
+                <button type="button" class="calc-preset-btn active" id="preset-subsale" onclick="applyFeePreset('subsale')">Subsale (All Costs)</button>
+                <button type="button" class="calc-preset-btn" id="preset-undercon" onclick="applyFeePreset('undercon')">New Project (Free SPA & Loan)</button>
+                <button type="button" class="calc-preset-btn" id="preset-firsthome" onclick="applyFeePreset('firsthome')">First Home (MOT Exemption)</button>
               </div>
             </div>
             
             <div style="background: #ffffff; padding: 18px 14px; border-radius: var(--radius-md); border: 1.5px solid var(--border-color); margin-bottom: 18px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
-              <div style="font-size: 0.74rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">ANGGARAN ANSURAN BULANAN (MONTHLY PMT)</div>
+              <div style="font-size: 0.74rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">ESTIMATED MONTHLY INSTALLMENT (MONTHLY PMT)</div>
               <div id="res-monthly" style="font-family: var(--font-heading); font-size: clamp(1.4rem, 5.5vw, 2.2rem); font-weight: 800; color: var(--accent-gold); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                 RM 0 / mo
               </div>
             </div>
 
             <div class="result-row">
-              <span>Jumlah Pinjaman Bank (90%):</span>
+              <span>Bank Loan Amount (90%):</span>
               <strong id="res-loan">RM 0</strong>
             </div>
 
@@ -728,7 +728,7 @@
                   <input type="checkbox" id="toggle-spa" checked onchange="calculateLegal()">
                   <span class="toggle-slider"></span>
                 </label>
-                <span>Yuran Guaman SPA (Sale & Purchase):</span>
+                <span>SPA Legal Fees (Sale & Purchase):</span>
               </div>
               <div class="row-right" id="res-spa-wrap">
                 <strong id="res-spa">RM 0</strong>
@@ -742,7 +742,7 @@
                   <input type="checkbox" id="toggle-mot" checked onchange="calculateLegal()">
                   <span class="toggle-slider"></span>
                 </label>
-                <span>Duti Setem MOT (Pindah Milik):</span>
+                <span>MOT Stamp Duty (Transfer of Title):</span>
               </div>
               <div class="row-right" id="res-mot-wrap">
                 <strong id="res-mot">RM 0</strong>
@@ -756,7 +756,7 @@
                   <input type="checkbox" id="toggle-loan-fee" checked onchange="calculateLegal()">
                   <span class="toggle-slider"></span>
                 </label>
-                <span>Yuran Guaman Pinjaman (Loan Agreement):</span>
+                <span>Loan Agreement Legal Fees:</span>
               </div>
               <div class="row-right" id="res-loan-fee-wrap">
                 <strong id="res-loan-fee">RM 0</strong>
@@ -770,7 +770,7 @@
                   <input type="checkbox" id="toggle-loan-duty" checked onchange="calculateLegal()">
                   <span class="toggle-slider"></span>
                 </label>
-                <span>Duti Setem Perjanjian Pinjaman:</span>
+                <span>Loan Agreement Stamp Duty:</span>
               </div>
               <div class="row-right" id="res-loan-duty-wrap">
                 <strong id="res-loan-duty">RM 0</strong>
@@ -784,7 +784,7 @@
                   <input type="checkbox" id="toggle-valuation" checked onchange="calculateLegal()">
                   <span class="toggle-slider"></span>
                 </label>
-                <span>Yuran Penilaian Bank (Valuation):</span>
+                <span>Bank Property Valuation Fee:</span>
               </div>
               <div class="row-right" id="res-valuation-wrap">
                 <strong id="res-valuation">RM 0</strong>
@@ -792,14 +792,14 @@
             </div>
 
             <div class="result-row-total">
-              <span>Anggaran Tunai Permulaan (Entry Cost):</span>
+              <span>Estimated Total Entry Cash Required:</span>
               <strong id="res-total-cash">RM 0</strong>
             </div>
 
             <div style="margin-top: 18px;">
               <button id="calc-share-btn" onclick="shareCalculatorResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                Kongsikan Hasil Kalkulator
+                Share Calculator Results
               </button>
             </div>
           </div>
@@ -812,72 +812,72 @@
           
           <!-- DSR Input Form -->
           <div class="calc-card">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Profil Pendapatan & Komitmen (DSR)</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Income & Commitment Profile (DSR)</h3>
             
             <div class="calc-form-row">
               <div class="calc-input-group">
-                <label>GAJI BERSIH BULANAN (NET SALARY) (RM)</label>
-                <input type="number" id="dsr-salary" value="5500" placeholder="Contoh: 5500">
+                <label>NET MONTHLY SALARY (RM)</label>
+                <input type="number" id="dsr-salary" value="5500" placeholder="e.g. 5500">
               </div>
               <div class="calc-input-group">
-                <label>PENDAPATAN TAMBAHAN / ELAUN (RM)</label>
-                <input type="number" id="dsr-other-income" value="500" placeholder="Contoh: 500">
+                <label>ADDITIONAL INCOME / ALLOWANCE (RM)</label>
+                <input type="number" id="dsr-other-income" value="500" placeholder="e.g. 500">
               </div>
             </div>
 
             <div style="margin: 14px 0 10px; font-size: 0.8rem; font-weight: 800; color: var(--primary-navy); text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
-              Komitmen Hutang Bank Sedia Ada (CCRIS/CTOS)
+              Existing Bank Debt Commitments (CCRIS / CTOS)
             </div>
 
             <div class="calc-form-row">
               <div class="calc-input-group">
-                <label>ANSURAN KERETA (CAR LOAN) (RM)</label>
+                <label>CAR LOAN INSTALLMENT (RM)</label>
                 <input type="number" id="dsr-car" value="650" placeholder="0">
               </div>
               <div class="calc-input-group">
-                <label>PINJAMAN PERIBADI (PERSONAL LOAN) (RM)</label>
+                <label>PERSONAL LOAN INSTALLMENT (RM)</label>
                 <input type="number" id="dsr-personal" value="0" placeholder="0">
               </div>
             </div>
 
             <div class="calc-form-row">
               <div class="calc-input-group">
-                <label>KAD KREDIT (5% BAKI MINIMUM) (RM)</label>
+                <label>CREDIT CARD (5% MINIMUM BALANCE) (RM)</label>
                 <input type="number" id="dsr-card" value="150" placeholder="0">
               </div>
               <div class="calc-input-group">
-                <label>PTPTN & LAIN-LAIN (RM)</label>
+                <label>PTPTN & OTHER COMMITMENTS (RM)</label>
                 <input type="number" id="dsr-ptptn" value="100" placeholder="0">
               </div>
             </div>
 
             <div style="margin: 14px 0 10px; font-size: 0.8rem; font-weight: 800; color: var(--primary-navy); text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
-              Pinjaman Rumah Yang Dimohon
+              Proposed Housing Financing
             </div>
 
             <div class="calc-form-row">
               <div class="calc-input-group">
-                <label>ANGGARAN ANSURAN RUMAH BARU (RM)</label>
-                <input type="number" id="dsr-new-loan" value="1850" placeholder="Contoh: 1850">
+                <label>ESTIMATED NEW HOUSING INSTALLMENT (RM)</label>
+                <input type="number" id="dsr-new-loan" value="1850" placeholder="e.g. 1850">
               </div>
               <div class="calc-input-group">
-                <label>HAD MAKSIMUM DSR BANK</label>
+                <label>MAXIMUM DSR BANK BENCHMARK</label>
                 <select id="dsr-max-benchmark">
-                  <option value="60">60% (Gaji Bawah RM3,000)</option>
-                  <option value="70" selected>70% (Gaji RM3,000 - RM8,000)</option>
-                  <option value="80">80% (Gaji Lebih RM8,000)</option>
+                  <option value="60">60% (Net Income Below RM3,000)</option>
+                  <option value="70" selected>70% (Net Income RM3,000 - RM8,000)</option>
+                  <option value="80">80% (Net Income Above RM8,000)</option>
                 </select>
               </div>
             </div>
 
             <button type="button" id="dsr-run-btn" class="btn btn-accent" style="width: 100%; margin-top: 6px;">
-              Semak Kelayakan Nisbah Hutang (DSR)
+              Check Debt Service Ratio (DSR Eligibility)
             </button>
           </div>
 
           <!-- DSR Output Card -->
           <div class="calc-card" style="background: var(--bg-alt);">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Keputusan Kelayakan Pinjaman</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;">Loan Eligibility Assessment</h3>
             
             <div id="dsr-meter-box" class="dsr-meter-box status-good">
               <span id="dsr-status-badge" class="dsr-pill-badge">LULUS CEMERLANG</span>
@@ -889,41 +889,41 @@
             </div>
 
             <div class="result-row">
-              <span>Jumlah Pendapatan Bersih:</span>
+              <span>Total Net Income:</span>
               <strong id="dsr-res-income">RM 0</strong>
             </div>
             <div class="result-row">
-              <span>Komitmen Hutang Sedia Ada:</span>
+              <span>Existing Debt Commitments:</span>
               <strong id="dsr-res-existing">RM 0</strong>
             </div>
             <div class="result-row">
-              <span>Komitmen Keseluruhan (+ Rumah Baru):</span>
+              <span>Total Commitments (+ New Home):</span>
               <strong id="dsr-res-total">RM 0</strong>
             </div>
             <div class="result-row">
-              <span>Had Maksimum DSR Bank Dipilih:</span>
+              <span>Selected Bank DSR Benchmark:</span>
               <strong id="dsr-res-benchmark">70%</strong>
             </div>
 
             <div class="result-row-total" style="margin-top: 14px; border-color: #cbd5e1;">
-              <span>Maksimum Ansuran Dibenarkan:</span>
+              <span>Maximum Allowable Monthly Installment:</span>
               <strong id="dsr-res-max-installment" style="color: #059669;">RM 0 / mo</strong>
             </div>
 
             <div class="result-row" style="border-bottom: none; padding-top: 8px;">
-              <span>Anggaran Harga Rumah Maksimum:</span>
+              <span>Estimated Maximum Affordable Property:</span>
               <strong id="dsr-res-max-price" style="color: var(--primary-navy); font-size: 1.05rem;">RM 0</strong>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
               <button type="button" onclick="shareDsrResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                Kongsikan Hasil DSR
+                Share DSR Assessment
               </button>
 
               <a id="dsr-wa-consult-btn" href="https://wa.me/60108118559" target="_blank" class="btn btn-whatsapp" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px; text-decoration: none;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                Semak Pre-Approval dengan Zaim Rosli
+                Consult Zaim Rosli for Bank Pre-Approval
               </a>
             </div>
           </div>
@@ -946,7 +946,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=76"></script>
+  <script src="/app.js?v=77"></script>
   <script>
     // Tab Switcher Handler
     function switchCalcTab(tabKey) {
@@ -967,7 +967,7 @@
         panelLegal.classList.remove('active');
         panelDsr.classList.add('active');
         heroTitle.innerHTML = 'Bank Loan <span>DSR Calculator</span>';
-        heroDesc.innerText = 'Semak nisbah hutang (Debt Service Ratio), kelayakan permohonan pinjaman perumahan bank, dan had maksimum ansuran yang dibenarkan.';
+        heroDesc.innerText = 'Check your Debt Service Ratio (DSR), bank housing loan eligibility, and maximum allowable monthly installment limits.';
         calculateDSR();
         if (history.replaceState) history.replaceState(null, null, '#dsr');
       } else {
@@ -978,7 +978,7 @@
         panelDsr.classList.remove('active');
         panelLegal.classList.add('active');
         heroTitle.innerHTML = 'Mortgage & <span>Legal Fee Calculator</span>';
-        heroDesc.innerText = 'Kira anggaran ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta kos kemasukan tunai yang diperlukan.';
+        heroDesc.innerText = 'Calculate estimated monthly loan installments, SPA legal fees, MOT stamp duty, and total entry cash required.';
         calculateLegal();
         if (history.replaceState) history.replaceState(null, null, '#legal');
       }
@@ -1121,11 +1121,11 @@
         }
       }
 
-      updateRow('row-spa', 'res-spa-wrap', rawSpaFee, isSpaEnabled, 'Percuma');
-      updateRow('row-mot', 'res-mot-wrap', rawMotDuty, isMotEnabled, 'Dikecualikan');
-      updateRow('row-loan-fee', 'res-loan-fee-wrap', rawLoanFee, isLoanFeeEnabled, 'Percuma');
-      updateRow('row-loan-duty', 'res-loan-duty-wrap', rawLoanDuty, isLoanDutyEnabled, 'Dikecualikan');
-      updateRow('row-valuation', 'res-valuation-wrap', rawValuation, isValuationEnabled, 'Dikecualikan');
+      updateRow('row-spa', 'res-spa-wrap', rawSpaFee, isSpaEnabled, 'Free');
+      updateRow('row-mot', 'res-mot-wrap', rawMotDuty, isMotEnabled, 'Exempted');
+      updateRow('row-loan-fee', 'res-loan-fee-wrap', rawLoanFee, isLoanFeeEnabled, 'Free');
+      updateRow('row-loan-duty', 'res-loan-duty-wrap', rawLoanDuty, isLoanDutyEnabled, 'Exempted');
+      updateRow('row-valuation', 'res-valuation-wrap', rawValuation, isValuationEnabled, 'Exempted');
 
       // Total Cash
       document.getElementById('res-total-cash').textContent = 'RM ' + Math.round(totalCash).toLocaleString('en-US');
@@ -1146,11 +1146,11 @@
       const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
       const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
 
-      const spa = isSpa ? 'RM ' + Math.round(parseFloat(price) * 0.0125).toLocaleString() : 'RM 0 [PERCUMA PEMAJU]';
-      const mot = isMot ? 'RM ' + Math.round(parseFloat(price) * 0.02).toLocaleString() : 'RM 0 [PENGECUALIAN MOT]';
-      const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString() : 'RM 0 [PERCUMA PAKEJ BANK]';
-      const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString() : 'RM 0 [PENGECUALIAN DUTI SETEM]';
-      const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString() : 'RM 0 [DIKECUALIKAN]';
+      const spa = isSpa ? 'RM ' + Math.round(parseFloat(price) * 0.0125).toLocaleString() : 'RM 0 [FREE DEVELOPER PACKAGE]';
+      const mot = isMot ? 'RM ' + Math.round(parseFloat(price) * 0.02).toLocaleString() : 'RM 0 [MOT STAMP DUTY EXEMPTION]';
+      const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString() : 'RM 0 [FREE BANK PACKAGE]';
+      const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString() : 'RM 0 [STAMP DUTY EXEMPTION]';
+      const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString() : 'RM 0 [EXEMPTED]';
       const totalCash = document.getElementById('res-total-cash').textContent.trim();
       
       const numPrice = parseFloat(price) || 0;
@@ -1159,23 +1159,23 @@
       const url = window.location.origin + '/calculator#legal';
 
       const shareText = 
-`*ANGGARAN YURAN & ANSURAN HARTANAH*
+`*ESTIMATED PROPERTY FEES & INSTALLMENTS*
 ═════════════════
-*Harga Hartanah:* RM ` + numPrice.toLocaleString('en-US') + `
-*Deposit (` + down + `%)*: RM ` + depositVal + `
-*Pinjaman (` + (100 - numDown) + `%)*: ` + loan + `
-*Kadar Faedah:* ` + rate + `% (` + tenure + ` Tahun)
+*Property Price:* RM ` + numPrice.toLocaleString('en-US') + `
+*Downpayment (` + down + `%)*: RM ` + depositVal + `
+*Loan Amount (` + (100 - numDown) + `%)*: ` + loan + `
+*Interest Rate:* ` + rate + `% (` + tenure + ` Tahun)
 
-*Ansuran Bulanan:* ` + monthly + `
+*Monthly Installment:* ` + monthly + `
 
-*PECAHAN YURAN GUAMAN & STAMP DUTY:*
-• Yuran Guaman SPA: ` + spa + `
-• Duti Setem MOT: ` + mot + `
-• Yuran Guaman Pinjaman: ` + loanFee + `
-• Duti Setem Pinjaman: ` + loanDuty + `
-• Yuran Penilaian Hartanah: ` + valuation + `
+*LEGAL FEES & STAMP DUTY BREAKDOWN:*
+• SPA Legal Fees: ` + spa + `
+• MOT Stamp Duty: ` + mot + `
+• Loan Legal Fees: ` + loanFee + `
+• Loan Stamp Duty: ` + loanDuty + `
+• Property Valuation Fee: ` + valuation + `
 
-*JUMLAH TUNAI DIPERLUKAN:* ` + totalCash + `
+*TOTAL ENTRY CASH REQUIRED:* ` + totalCash + `
 ═════════════════
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
@@ -1188,7 +1188,7 @@ _Zaim Rosli Real Estate (REN39575)_
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('Hasil lengkap kalkulator telah disalin!');
+          alert('Complete calculator results have been copied to clipboard!');
         }).catch(() => {
           prompt('Salin maklumat kalkulator ini:', shareText);
         });
@@ -1248,30 +1248,30 @@ _Zaim Rosli Real Estate (REN39575)_
 
       if (dsrPct <= (maxBenchmark - 10)) {
         meterBox.classList.add('status-good');
-        badge.textContent = 'LULUS CEMERLANG (HIGH APPROVAL)';
-        title.textContent = 'Nisbah Hutang Sangat Sihat';
-        desc.textContent = 'Profil kewangan anda berada dalam zon optimum bank. Kelulusan pinjaman perumahan mempunyai kebarangkalian sangat tinggi.';
+        badge.textContent = 'EXCELLENT (HIGH APPROVAL PROBABILITY)';
+        title.textContent = 'Debt Ratio Within Healthy Zone';
+        desc.textContent = 'Your financial profile is in the optimal bank lending zone. Commercial bank mortgage approval probability is exceptionally high.';
       } else if (dsrPct <= maxBenchmark) {
         meterBox.classList.add('status-warn');
-        badge.textContent = 'SEDERHANA (MODERATE / BORDERLINE)';
-        title.textContent = 'Nisbah Hutang Menghampiri Had Maksimum';
-        desc.textContent = 'Permohonan boleh dipertimbangkan oleh bank tertentu tetapi memerlukan rekod skor kredit CCRIS/CTOS yang bersih dan dokumen pendapatan kukuh.';
+        badge.textContent = 'MODERATE (BORDERLINE APPROVAL)';
+        title.textContent = 'Debt Ratio Near Maximum Limit';
+        desc.textContent = 'Application may be considered by selected banks but requires a clean CCRIS/CTOS credit history and strong income documentation.';
       } else {
         meterBox.classList.add('status-danger');
-        badge.textContent = 'RISIKO TINGGI (EXCEEDS LIMIT)';
-        title.textContent = 'Nisbah Hutang Melebihi Had DSR Bank';
-        desc.textContent = 'Komitmen melebihi had nisbah hutang. Disarankan untuk memanjangkan tempoh pinjaman, kurangkan baki hutang lama, atau membuat permohonan bersama (Joint Applicant).';
+        badge.textContent = 'HIGH RISK (EXCEEDS BANK DSR LIMIT)';
+        title.textContent = 'Debt Ratio Exceeds Bank Benchmark';
+        desc.textContent = 'Commitments exceed the bank DSR threshold. It is recommended to extend the loan tenure, clear older debts, or apply with a joint applicant.';
       }
 
       // Update WhatsApp consult link
       const waBtn = document.getElementById('dsr-wa-consult-btn');
       if (waBtn) {
-        const waMsg = 'Hi Zaim, saya telah membuat semakan DSR di portal:\n' +
-          '- Gaji Bersih: RM ' + Math.round(totalIncome).toLocaleString('en-US') + '\n' +
-          '- Komitmen Semasa: RM ' + Math.round(existingCommitments).toLocaleString('en-US') + '\n' +
-          '- Ansuran Rumah Dicari: RM ' + Math.round(newLoan).toLocaleString('en-US') + '\n' +
-          '- Skor DSR: ' + dsrPct.toFixed(1) + '% (' + maxBenchmark + '% Had)\n\n' +
-          'Boleh bantu saya buat pra-semakan kelayakan bank & cadangan hartanah bersesuaian?';
+        const waMsg = 'Hi Zaim, I have completed a DSR bank eligibility check on your portal:\n' +
+          '- Net Monthly Income: RM ' + Math.round(totalIncome).toLocaleString('en-US') + '\n' +
+          '- Existing Commitments: RM ' + Math.round(existingCommitments).toLocaleString('en-US') + '\n' +
+          '- Proposed Home Installment: RM ' + Math.round(newLoan).toLocaleString('en-US') + '\n' +
+          '- DSR Score: ' + dsrPct.toFixed(1) + '% (' + maxBenchmark + '% Max Limit)\n\n' +
+          'Could you assist with mortgage pre-approval and recommend matching properties?';
         waBtn.href = 'https://wa.me/60108118559?text=' + encodeURIComponent(waMsg);
       }
     }
@@ -1289,17 +1289,17 @@ _Zaim Rosli Real Estate (REN39575)_
       const url = window.location.origin + '/calculator#dsr';
 
       const shareText = 
-`*SEMAKAN KELAYAKAN PINJAMAN BANK (DSR)*
+`*BANK LOAN ELIGIBILITY ASSESSMENT (DSR)*
 ═════════════════
-*Pendapatan Bersih:* RM ` + Math.round(totalIncome).toLocaleString('en-US') + `
-*Komitmen Sedia Ada:* ` + existing + `
-*Komitmen Keseluruhan:* ` + totalComm + `
+*Net Income:* RM ` + Math.round(totalIncome).toLocaleString('en-US') + `
+*Existing Commitments:* ` + existing + `
+*Total Commitments:* ` + totalComm + `
 
-*Nisbah Hutang (DSR):* ` + dsrPct + `
-*Status Kelayakan:* ` + status + `
+*Debt Service Ratio (DSR):* ` + dsrPct + `
+*Eligibility Status:* ` + status + `
 
-*Maksimum Ansuran Dibenarkan:* ` + maxInstallment + `
-*Anggaran Harga Rumah Mampu Milik:* ` + maxPrice + `
+*Max Allowable Installment:* ` + maxInstallment + `
+*Estimated Affordable Property Price:* ` + maxPrice + `
 ═════════════════
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
@@ -1312,7 +1312,7 @@ _Zaim Rosli Real Estate (REN39575)_
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('Hasil semakan DSR telah disalin!');
+          alert('DSR assessment results have been copied to clipboard!');
         }).catch(() => {
           prompt('Salin maklumat DSR ini:', shareText);
         });
