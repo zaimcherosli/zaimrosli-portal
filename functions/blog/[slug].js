@@ -1,4 +1,12 @@
 const BLOG_METADATA = {
+  "panduan-pinjaman-perumahan-lppsa-2026-penjawat-awam-vs-bank": {
+    title: "Panduan Pinjaman Perumahan LPPSA 2026 (Kadar 4.0% Tetap, Kelayakan Gaji SSPA, Pinjaman Kedua & Perbandingan Bank) — Zaim Rosli (REN39575)",
+    description: "Panduan lengkap pembiayaan perumahan LPPSA untuk penjawat awam persekutuan, negeri, dan badan berkanun. Ketahui jadual kelayakan mengikut skim gaji SSPA 2026, kelebihan kadar faedah 4.0% tetap, syarat pinjaman kedua, pinjaman bersama suami isteri, dan perbandingan kritikal dengan loan bank.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+    date: "2026-08-29",
+    category: "Pinjaman Kerajaan & LPPSA"
+  },
+
   "panduan-pengeluaran-kwsp-beli-rumah-2026-akaun-sejahtera-fleksibel": {
     title: "Panduan Lengkap Pengeluaran KWSP Beli Rumah 2026 (Akaun Sejahtera & Fleksibel) — Zaim Rosli (REN39575)",
     description: "Ketahui cara mengeluarkan simpanan KWSP Akaun Sejahtera (Akaun 2) dan Akaun Fleksibel untuk membeli rumah pertama, bayar deposit, yuran guaman atau kurangkan baki ansuran bulanan bank secara online melalui i-Akaun.",
