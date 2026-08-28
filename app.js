@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDrawerNav();
   initAreaFocusMenu();
   initLivePropertiesSync();
+  initCountUpAnimations();
 });
 
 // 1. Highlight Active Nav Link based on Current Page URL
@@ -556,4 +557,48 @@ async function initLivePropertiesSync() {
   } catch (err) {
     // Graceful fallback to properties-data.js
   }
+}
+
+// 7. Interactive Number Count-Up Animation on Scroll (IntersectionObserver)
+function initCountUpAnimations() {
+  const statElements = document.querySelectorAll('.stat-number.count-up');
+  if (!statElements.length) return;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        obs.unobserve(el);
+
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
+        const prefix = el.getAttribute('data-prefix') || '';
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1800; // 1.8 seconds smooth animation
+        const startTime = performance.now();
+
+        // Initial zero state
+        el.textContent = `${prefix}0${suffix}`;
+
+        function updateCount(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic: 1 - (1 - t)^3
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.round(easeOut * target);
+
+          el.textContent = `${prefix}${currentVal.toLocaleString()}${suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            el.textContent = `${prefix}${target.toLocaleString()}${suffix}`;
+          }
+        }
+
+        requestAnimationFrame(updateCount);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  statElements.forEach(el => observer.observe(el));
 }
