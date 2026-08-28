@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=84">
+  <link rel="stylesheet" href="/styles.css?v=85">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -1013,17 +1013,19 @@
     border: 1px solid #e9d5ff;
   }
 
-  /* Move to Dropdown & Referral Link Column */
+  /* Move to Dropdown & Referral Link Column (Symmetrical & Equal Sizing) */
   .renhub-move-ref-col {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+    align-items: stretch;
+    gap: 6px;
     flex-shrink: 0;
+    width: 145px;
   }
   .renhub-move-select {
-    padding: 4px 8px;
-    border-radius: 6px;
+    width: 100%;
+    padding: 5px 8px;
+    border-radius: 7px;
     border: 1.5px solid #cbd5e1;
     font-size: 0.74rem;
     font-weight: 800;
@@ -1032,8 +1034,10 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s;
-    height: 28px;
+    height: 30px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
   }
   .renhub-move-select:focus, .renhub-move-select:hover {
     border-color: #d97706;
@@ -1041,32 +1045,37 @@
   }
 
   .renhub-ref-link {
+    width: 100%;
+    height: 30px;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    gap: 6px;
     background: #eff6ff;
     color: #1d4ed8;
-    padding: 3px 8px;
-    border-radius: 5px;
-    font-size: 0.70rem;
+    padding: 0 8px;
+    border-radius: 7px;
+    font-size: 0.74rem;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 800;
     border: 1px solid #bfdbfe;
     transition: all 0.2s ease;
     white-space: nowrap;
     cursor: pointer;
+    box-sizing: border-box;
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
   .renhub-ref-link:hover {
     background: #dbeafe;
     color: #1e40af;
     border-color: #93c5fd;
+    transform: translateY(-1px);
   }
   .renhub-ref-link-empty {
     background: #f8fafc;
     color: #94a3b8;
     border: 1px dashed #cbd5e1;
-    font-weight: 600;
+    font-weight: 700;
   }
   .renhub-ref-link-empty:hover {
     background: #f1f5f9;
@@ -2137,7 +2146,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=37"></script>
-  <script src="/app.js?v=84"></script>
+  <script src="/app.js?v=85"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2642,12 +2651,12 @@
                   ${p.refUrl && p.refUrl.trim() ? `
                     <a href="${p.refUrl.trim()}" target="_blank" class="renhub-ref-link" title="${p.refUrl.trim()}">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                      <span>${p.refUrl.toLowerCase().includes('propmall') ? '🔗 Pautan PropMall' : '🔗 Pautan Rujukan'}</span>
+                      <span>Link Referral</span>
                     </a>
                   ` : `
                     <button type="button" onclick="editProperty(${idx})" class="renhub-ref-link renhub-ref-link-empty" title="Klik untuk tambah pautan rujukan / PropMall">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                      <span>+ Pautan Rujukan</span>
+                      <span>+ Link Referral</span>
                     </button>
                   `}
                 </div>
