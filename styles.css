@@ -1374,7 +1374,7 @@ footer.site-footer {
 
   /* Hero Section on Homepage */
   .hero-section {
-    padding: 85px 0 35px !important;
+    padding: 36px 0 32px !important;
   }
 
   .hero-title {
@@ -1789,7 +1789,7 @@ footer.site-footer {
 /* Hero Section Enhancement */
 .hero-section {
   position: relative;
-  padding: 160px 0 75px !important;
+  padding: 110px 0 65px !important;
   background: linear-gradient(180deg, rgba(11, 19, 41, 0.85) 0%, rgba(15, 23, 42, 0.96) 100%), 
               url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat !important;
   color: #ffffff;
