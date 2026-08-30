@@ -13,7 +13,7 @@
   <meta property="og:url" id="ssr-og-url" content="https://zaimrosli.my/properties">
   <meta property="og:image" content="https://zaimrosli.my/icons/og-share.jpg">
 
-  <link rel="stylesheet" href="/styles.css?v=94">
+  <link rel="stylesheet" href="/styles.css?v=95">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
@@ -191,7 +191,7 @@
       }
     }
   </style>
-  <script src="/analytics.js?v=94" defer></script>
+  <script src="/analytics.js?v=95" defer></script>
 </head>
 <body>
 
@@ -498,7 +498,7 @@
   <!-- Scripts -->
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=94"></script>
+  <script src="/app.js?v=95"></script>
 
   <script>
     let locationProperties = [];
@@ -560,69 +560,136 @@
       });
     }
 
+    const ITEMS_PER_PAGE_LOC = 12;
+    let currentLocPage = 1;
+
+    window.goToLocPage = function(pageNumber) {
+      currentLocPage = pageNumber;
+      renderLocationListings();
+      const target = document.getElementById('location-listings-grid');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    function renderLocPaginationControls(totalItems, totalPages) {
+      const paginationEl = document.getElementById('location-pagination');
+      if (!paginationEl) return;
+      if (totalPages <= 1) {
+        paginationEl.innerHTML = '';
+        return;
+      }
+
+      let pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        if (currentLocPage <= 4) {
+          pages = [1, 2, 3, 4, 5, '...', totalPages];
+        } else if (currentLocPage >= totalPages - 3) {
+          pages = [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+        } else {
+          pages = [1, '...', currentLocPage - 1, currentLocPage, currentLocPage + 1, '...', totalPages];
+        }
+      }
+
+      let html = '';
+      const isFirst = currentLocPage === 1;
+      html += `<button type="button" onclick="goToLocPage(${currentLocPage - 1})" ${isFirst ? 'disabled style="padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid #e2e8f0; background: #f8fafc; color: #cbd5e1; cursor: not-allowed;"' : 'style="padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer; transition: all 0.2s;"'}>&laquo; Prev</button>`;
+
+      pages.forEach(p => {
+        if (p === '...') {
+          html += `<span style="padding: 8px 6px; color: #94a3b8; font-weight: 700; font-size: 0.85rem;">&hellip;</span>`;
+        } else {
+          const isActive = p === currentLocPage;
+          const btnStyle = isActive
+            ? 'padding: 8px 16px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; border: 1px solid #0f172a; background: #0f172a; color: #ffffff; box-shadow: 0 2px 6px rgba(15,23,42,0.25); cursor: default;'
+            : 'padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer; transition: all 0.2s;';
+          html += `<button type="button" onclick="goToLocPage(${p})" style="${btnStyle}">${p}</button>`;
+        }
+      });
+
+      const isLast = currentLocPage === totalPages;
+      html += `<button type="button" onclick="goToLocPage(${currentLocPage + 1})" ${isLast ? 'disabled style="padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid #e2e8f0; background: #f8fafc; color: #cbd5e1; cursor: not-allowed;"' : 'style="padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: 1px solid #cbd5e1; background: #ffffff; color: #0f172a; cursor: pointer; transition: all 0.2s;"'}>Next &raquo;</button>`;
+
+      paginationEl.innerHTML = html;
+    }
+
     function renderLocationListings() {
       const grid = document.getElementById('location-listings-grid');
-      const emptyState = document.getElementById('location-empty-state');
+      const paginationEl = document.getElementById('location-pagination');
       if (!grid) return;
 
       const saleCount = locationProperties.filter(p => p.status === 'sale').length;
       const rentCount = locationProperties.filter(p => p.status === 'rent').length;
-      const resCount = locationProperties.filter(p => p.category === 'Residential' || ['Terrace House', 'Bungalow', 'Semi-D House', 'Condominium'].includes(p.type)).length;
-      const commCount = locationProperties.filter(p => p.category === 'Commercial' || ['Shop / Office', 'Commercial Space', 'Land', 'Factory'].includes(p.type)).length;
+      const resCount = locationProperties.filter(p => p.category === 'Residential' || ['Terrace House', 'Bungalow', 'Semi-D', 'Apartment', 'Condominium', 'Townhouse', 'Rumah Teres', 'Kondominium'].includes(p.type)).length;
+      const commCount = locationProperties.filter(p => p.category === 'Commercial' || ['Shop / Office', 'Commercial Space', 'Factory', 'Industrial Land', 'Office Space', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat'].includes(p.type)).length;
 
-      // Update Counts
-      document.getElementById('stat-total').textContent = locationProperties.length;
-      document.getElementById('stat-sale').textContent = saleCount;
-      document.getElementById('stat-rent').textContent = rentCount;
-      document.getElementById('count-all').textContent = locationProperties.length;
-      document.getElementById('count-sale').textContent = saleCount;
-      document.getElementById('count-rent').textContent = rentCount;
-      document.getElementById('count-res').textContent = resCount;
-      document.getElementById('count-comm').textContent = commCount;
+      const badgeSale = document.getElementById('tab-sale-count');
+      const badgeRent = document.getElementById('tab-rent-count');
+      const badgeRes = document.getElementById('tab-res-count');
+      const badgeComm = document.getElementById('tab-comm-count');
 
-      // Price range calculation
+      if (badgeSale) badgeSale.innerText = saleCount;
+      if (badgeRent) badgeRent.innerText = rentCount;
+      if (badgeRes) badgeRes.innerText = resCount;
+      if (badgeComm) badgeComm.innerText = commCount;
+
       const prices = locationProperties.map(p => p.price).filter(Boolean);
       if (prices.length > 0) {
-        const minP = Math.min(...prices);
-        const maxP = Math.max(...prices);
-        const formatP = (n) => n >= 1000000 ? `RM ${(n/1000000).toFixed(1)}M` : (n >= 1000 ? `RM ${(n/1000).toFixed(0)}k` : `RM ${n}`);
-        document.getElementById('stat-price-range').textContent = (minP === maxP) ? formatP(minP) : `${formatP(minP)} – ${formatP(maxP)}`;
+        const numPrices = prices.map(pr => {
+          const match = pr.toString().replace(/,/g, '').match(/\d+/);
+          return match ? parseInt(match[0], 10) : 0;
+        }).filter(n => n > 0);
+        if (numPrices.length > 0) {
+          const minP = Math.min(...numPrices);
+          const maxP = Math.max(...numPrices);
+          const statPriceEl = document.getElementById('loc-stat-price');
+          if (statPriceEl) statPriceEl.innerText = 'RM ' + minP.toLocaleString() + (minP !== maxP ? ' - ' + maxP.toLocaleString() : '');
+        }
       }
 
-      // Hide tab buttons if 0 listings
-      const tabSale = document.getElementById('tab-sale');
-      const tabRent = document.getElementById('tab-rent');
-      if (tabSale && saleCount === 0) tabSale.style.display = 'none';
-      if (tabRent && rentCount === 0) tabRent.style.display = 'none';
-
-      // Filter active set
       let filtered = locationProperties;
       if (currentActiveFilter === 'sale') {
         filtered = locationProperties.filter(p => p.status === 'sale');
       } else if (currentActiveFilter === 'rent') {
         filtered = locationProperties.filter(p => p.status === 'rent');
       } else if (currentActiveFilter === 'Residential') {
-        filtered = locationProperties.filter(p => p.category === 'Residential' || ['Terrace House', 'Bungalow', 'Semi-D House', 'Condominium'].includes(p.type));
+        filtered = locationProperties.filter(p => p.category === 'Residential' || ['Terrace House', 'Bungalow', 'Semi-D', 'Apartment', 'Condominium', 'Townhouse', 'Rumah Teres', 'Kondominium'].includes(p.type));
       } else if (currentActiveFilter === 'Commercial') {
-        filtered = locationProperties.filter(p => p.category === 'Commercial' || ['Shop / Office', 'Commercial Space', 'Land', 'Factory'].includes(p.type));
+        filtered = locationProperties.filter(p => p.category === 'Commercial' || ['Shop / Office', 'Commercial Space', 'Factory', 'Industrial Land', 'Office Space', 'Land', 'Kilang', 'Tanah Industri', 'Kedai / Pejabat'].includes(p.type));
       }
+
+      const totalItems = filtered.length;
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE_LOC) || 1;
+      if (currentLocPage > totalPages) currentLocPage = totalPages;
+      if (currentLocPage < 1) currentLocPage = 1;
+
+      const startIdx = (currentLocPage - 1) * ITEMS_PER_PAGE_LOC;
+      const endIdx = startIdx + ITEMS_PER_PAGE_LOC;
+      const pageItems = filtered.slice(startIdx, endIdx);
 
       if (filtered.length === 0) {
         grid.style.display = 'none';
+        const emptyState = document.getElementById('location-empty-state');
         if (emptyState) emptyState.style.display = 'block';
+        if (paginationEl) paginationEl.innerHTML = '';
       } else {
         grid.style.display = 'grid';
+        const emptyState = document.getElementById('location-empty-state');
         if (emptyState) emptyState.style.display = 'none';
-        grid.innerHTML = filtered.map(item => {
-          if (typeof window.createPropertyCardHTML === 'function') {
-            return window.createPropertyCardHTML(item);
+        grid.innerHTML = pageItems.map(item => {
+          if (typeof createPropertyCardHTML === 'function') {
+            return createPropertyCardHTML(item);
           }
-          return `<div class="property-card"><a href="/property/${item.slug || item.id}">${item.title}</a></div>`;
+          return '<div style="padding:20px; background:#fff; border-radius:12px; border:1px solid #e2e8f0;">' + item.title + '</div>';
         }).join('');
+        renderLocPaginationControls(totalItems, totalPages);
       }
     }
 
     function filterLocationListings(filterType) {
+      currentLocPage = 1;
       currentActiveFilter = filterType;
       document.querySelectorAll('.loc-tab-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.filter === filterType);
