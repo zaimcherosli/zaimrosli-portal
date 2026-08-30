@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zaimrosli-pwa-v113';
+const CACHE_NAME = 'zaimrosli-pwa-v114';
 
 // Install Event — Skip waiting immediately so new SW activates fast
 self.addEventListener('install', (event) => {
