@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=102">
+  <link rel="stylesheet" href="/styles.css?v=103">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -888,6 +888,58 @@
     color: #c2410c;
   }
 
+  /* Status Filter Tabs (Semua / Jual / Sewa) */
+  .renhub-status-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .renhub-status-btn {
+    padding: 7px 16px;
+    border-radius: 99px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .renhub-status-btn:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+  }
+  .renhub-status-btn.active {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #0f172a !important;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+  }
+  .renhub-status-btn.active .pill-count {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+  }
+  .renhub-status-btn.tab-sale.active {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    border-color: #b45309 !important;
+  }
+  .renhub-status-btn.tab-rent.active {
+    background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+    border-color: #0369a1 !important;
+  }
+  .renhub-status-btn .pill-count {
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #475569;
+  }
+
   /* Filter Bar (Search + State + District) */
   .renhub-filter-bar {
     display: flex;
@@ -1760,9 +1812,27 @@
           </button>
         </div>
 
-        <!-- RenHUB Smart Filter Bar (Search + State + District) -->
+        <!-- Status Filter Tabs (Semua / Jual / Sewa) -->
+        <div class="renhub-status-tabs">
+          <button id="status-tab-all" onclick="setRenhubStatusFilter('all')" class="renhub-status-btn active">
+            Semua Status <span class="pill-count" id="count-status-all">0</span>
+          </button>
+          <button id="status-tab-sale" onclick="setRenhubStatusFilter('sale')" class="renhub-status-btn tab-sale">
+            🏷️ Untuk Jual <span class="pill-count" id="count-status-sale">0</span>
+          </button>
+          <button id="status-tab-rent" onclick="setRenhubStatusFilter('rent')" class="renhub-status-btn tab-rent">
+            🔑 Untuk Sewa <span class="pill-count" id="count-status-rent">0</span>
+          </button>
+        </div>
+
+        <!-- RenHUB Smart Filter Bar (Search + Status Dropdown + State + District) -->
         <div class="renhub-filter-bar">
-          <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Search title, location, reference or agent..." class="renhub-filter-search">
+          <input type="text" id="admin-search-input" oninput="renderListingsGrid()" placeholder="Cari tajuk, lokasi, rujukan, sewa, jual, ejen..." class="renhub-filter-search">
+          <select id="admin-filter-status" onchange="setRenhubStatusFilter(this.value)" class="renhub-filter-select" style="font-weight: 700;">
+            <option value="all">Status: Semua (Jual &amp; Sewa)</option>
+            <option value="sale">🏷️ Untuk Dijual (For Sale)</option>
+            <option value="rent">🔑 Untuk Disewa (For Rent)</option>
+          </select>
           <select id="admin-filter-state" onchange="handleStateFilterChange()" class="renhub-filter-select">
             <option value="all">Select State (All)</option>
           </select>
@@ -2213,7 +2283,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=102"></script>
-  <script src="/app.js?v=102"></script>
+  <script src="/app.js?v=103"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2368,6 +2438,28 @@
     }
 
     let currentRenhubSourceFilter = 'all'; // 'all', 'my_listing', 'coa', 'undercon'
+    let currentRenhubStatusFilter = 'all'; // 'all', 'sale', 'rent'
+
+    function setRenhubStatusFilter(statusKey) {
+      currentRenhubStatusFilter = statusKey;
+      
+      // Sync pill buttons
+      ['all', 'sale', 'rent'].forEach(key => {
+        const btn = document.getElementById('status-tab-' + key);
+        if (btn) {
+          if (key === statusKey) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+
+      // Sync dropdown select
+      const statusSelect = document.getElementById('admin-filter-status');
+      if (statusSelect && statusSelect.value !== statusKey) {
+        statusSelect.value = statusKey;
+      }
+
+      renderListingsGrid();
+    } // 'all', 'my_listing', 'coa', 'undercon'
 
     function setRenhubSourceFilter(sourceKey) {
       currentRenhubSourceFilter = sourceKey;
@@ -2500,6 +2592,14 @@
       if (countMyEl) countMyEl.innerText = countMy;
       if (countCoaEl) countCoaEl.innerText = countCoa;
       if (countUnderconEl) countUnderconEl.innerText = countUndercon;
+
+      const countStatusAllEl = document.getElementById('count-status-all');
+      const countStatusSaleEl = document.getElementById('count-status-sale');
+      const countStatusRentEl = document.getElementById('count-status-rent');
+
+      if (countStatusAllEl) countStatusAllEl.innerText = active;
+      if (countStatusSaleEl) countStatusSaleEl.innerText = countSale;
+      if (countStatusRentEl) countStatusRentEl.innerText = countRent;
     }
 
     function copyListingShareLink(slugOrId, idx) {
@@ -2613,6 +2713,19 @@
         const src = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
         if (currentRenhubSourceFilter !== 'all' && src !== currentRenhubSourceFilter) {
           return false;
+        }
+
+        // 1.5 Status filter (Sale vs Rent)
+        if (currentRenhubStatusFilter !== 'all') {
+          const pStatus = (p.status || '').toLowerCase();
+          const pCat = (p.category || '').toLowerCase();
+          if (currentRenhubStatusFilter === 'sale') {
+            const isSale = pStatus === 'sale' || pCat.includes('jual') || pCat.includes('sale');
+            if (!isSale) return false;
+          } else if (currentRenhubStatusFilter === 'rent') {
+            const isRent = pStatus === 'rent' || pCat.includes('sewa') || pCat.includes('rent');
+            if (!isRent) return false;
+          }
         }
 
         // 2. State filter
