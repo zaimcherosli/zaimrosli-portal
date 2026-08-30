@@ -7,7 +7,7 @@
   <meta name="description" content="Panduan lengkap rumah sewa di Malaysia, kiraan deposit 2+1, duti setem tenancy agreement, panduan pembeli rumah pertama, DSR, dan strategi pelaburan hartanah 2026.">
   <meta name="keywords" content="rumah sewa, rumah sewa malaysia, panduan sewa rumah, tenancy agreement malaysia, deposit rumah sewa, duti setem sewa lhdn, sewa rumah selangor, sewa rumah kl, blog hartanah malaysia, zaim rosli">
   <link rel="canonical" href="https://zaimrosli.my/blog">
-  <link rel="stylesheet" href="/styles.css?v=89">
+  <link rel="stylesheet" href="/styles.css?v=90">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -898,7 +898,7 @@
             </p>
             <div class="blog-card-actions">
               <button class="btn-read-article" onclick="event.stopPropagation(); openBlogModal('panduan-pinjaman-perumahan-lppsa-2026-penjawat-awam-vs-bank', 'ms')">Baca Artikel Penuh</button>
-              <button class="btn-card-share" onclick="event.stopPropagation(); shareArticleDirectly('panduan-pinjaman-perumahan-lppsa-2026-penjawat-awam-vs-bank')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
+              <button class="btn-card-share" onclick="event.stopPropagation(); shareArticleFromCard(event, 'panduan-pinjaman-perumahan-lppsa-2026-penjawat-awam-vs-bank')" title="Kongsikan Artikel" aria-label="Kongsikan Artikel">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="18" cy="5" r="3"></circle>
                   <circle cx="6" cy="12" r="3"></circle>
@@ -1230,7 +1230,7 @@
 
   <script src="/properties-data.js?v=37"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=89"></script>
+  <script src="/app.js?v=90"></script>
 
   <script>
     // Data Lengkap 7 Artikel Hartanah Berkualiti Tinggi (Sokongan Dwi-Bahasa BM & EN)
@@ -3112,7 +3112,7 @@
       }
     }
 
-    // 5. Kongsi Asal Peranti Mudah Alih (Native Web Share API)
+    // 5. Kongsi Pintar & Fleksibel (Smart Native Web Share + Instant Fallback)
     async function shareViaNative(targetSlug) {
       const slug = targetSlug || (currentOpenArticle ? currentOpenArticle.slug : null);
       const article = BLOG_ARTICLES.find(a => a.slug === slug) || currentOpenArticle;
@@ -3120,7 +3120,9 @@
 
       const payload = getArticleSharePayload(article, currentBlogLang);
 
-      if (navigator.share) {
+      // On Mobile devices supporting navigator.share
+      const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      if (isMobile && navigator.share) {
         try {
           await navigator.share({
             title: payload.title,
@@ -3129,12 +3131,22 @@
           });
           return;
         } catch (err) {
-          if (err.name === 'AbortError') return; // User canceled
+          if (err && err.name === 'AbortError') return; // User closed share sheet
         }
       }
-      
-      // Fallback if Web Share API is cancelled or not available
-      shareToWhatsApp(slug);
+
+      // On Desktop or Fallback: Copy to clipboard & open WhatsApp sharing
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(payload.shareText);
+        }
+      } catch (e) {}
+
+      // Open WhatsApp directly
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(payload.shareText)}`;
+      window.open(waUrl, '_blank');
+
+      showBlogToast(currentBlogLang === 'en' ? 'Link & summary copied! Opening WhatsApp...' : 'Pautan & ringkasan disalin! Membuka WhatsApp...');
     }
 
     // Shortcut untuk perkongsian dari Header / Sticky Footer Modal
@@ -3147,6 +3159,11 @@
     // Shortcut untuk butang Kongsi pada Grid Card
     function shareArticleFromCard(e, slug) {
       if (e && e.stopPropagation) e.stopPropagation();
+      if (e && e.preventDefault) e.preventDefault();
+      shareViaNative(slug);
+    }
+
+    function shareArticleDirectly(slug) {
       shareViaNative(slug);
     }
 
@@ -3229,6 +3246,7 @@
     window.closeBlogModal = closeBlogModal;
     window.toggleBlogModalLang = toggleBlogModalLang;
     window.shareArticleFromCard = shareArticleFromCard;
+    window.shareArticleDirectly = shareArticleDirectly;
     window.copyArticleShareText = copyArticleShareText;
     window.shareViaNative = shareViaNative;
     window.shareToWhatsApp = shareToWhatsApp;
