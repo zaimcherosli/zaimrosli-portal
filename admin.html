@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=108">
+  <link rel="stylesheet" href="/styles.css?v=109">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -861,16 +861,27 @@
       display: grid !important;
       grid-template-columns: repeat(2, 1fr) !important;
       gap: 8px !important;
+      margin-bottom: 12px !important;
       width: 100% !important;
       box-sizing: border-box !important;
     }
     .renhub-cat-btn {
-      width: 100% !important;
-      justify-content: space-between !important;
-      padding: 9px 10px !important;
-      font-size: 0.76rem !important;
-      box-sizing: border-box !important;
-    }
+    padding: 10px 16px;
+    border-radius: 99px !important;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #ffffff;
+    color: #475569;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    box-sizing: border-box;
+  }
   .renhub-cat-btn .pill-count {
     padding: 2px 8px;
     border-radius: 12px;
@@ -1295,8 +1306,9 @@
     .renhub-cat-btn {
       width: 100% !important;
       justify-content: space-between !important;
-      padding: 10px 14px !important;
+      padding: 9px 12px !important;
       font-size: 0.78rem !important;
+      border-radius: 99px !important;
       box-sizing: border-box !important;
     }
     .renhub-filter-bar {
@@ -2285,7 +2297,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/properties-data.js?v=102"></script>
-  <script src="/app.js?v=108"></script>
+  <script src="/app.js?v=109"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
