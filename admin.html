@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=116">
+  <link rel="stylesheet" href="/styles.css?v=117">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -2365,8 +2365,8 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/properties-data.js?v=116"></script>
-  <script src="/app.js?v=116"></script>
+  <script src="/properties-data.js?v=117"></script>
+  <script src="/app.js?v=117"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2634,8 +2634,6 @@
 
       currentProperties.forEach(p => {
         const isHidden = !!p.hidden;
-        const imgIdMatch = (p.image || '').match(/list-(\d+)/);
-        const propmallId = imgIdMatch ? imgIdMatch[1] : '';
         if (!isHidden) {
           active++;
           const pStatus = (p.status || '').toLowerCase();
@@ -2866,6 +2864,8 @@
       grid.innerHTML = pagedList.map(({ property: p, originalIdx: idx }) => {
         const mainImg = p.image ? p.image.split(',')[0].trim() : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80';
         const isHidden = !!p.hidden;
+        const imgIdMatch = (p.image || '').match(/list-(\d+)/);
+        const propmallId = imgIdMatch ? imgIdMatch[1] : '';
         const src = p.listingSource || ((p.category && p.category.toLowerCase().includes('undercon')) ? 'undercon' : 'my_listing');
 
         let srcBadgeHTML = '';
