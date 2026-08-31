@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=114">
+  <link rel="stylesheet" href="/styles.css?v=115">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -2365,8 +2365,8 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/properties-data.js?v=102"></script>
-  <script src="/app.js?v=114"></script>
+  <script src="/properties-data.js?v=115"></script>
+  <script src="/app.js?v=115"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2925,7 +2925,7 @@
                     <option value="coa" ${src === 'coa' ? 'selected' : ''}>Move to: COA Listing</option>
                     <option value="undercon" ${src === 'undercon' ? 'selected' : ''}>Move to: Undercon</option>
                   </select>
-                  ${p.refUrl && p.refUrl.trim() ? `
+                  ${(p.refUrl && p.refUrl.trim() && !p.refUrl.includes("/listing?") && p.refUrl !== "https://propmall.co/listing") ? `
                     <a href="${p.refUrl.trim()}" target="_blank" class="renhub-ref-link" title="${p.refUrl.trim()}">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                       <span>Link Referral</span>
