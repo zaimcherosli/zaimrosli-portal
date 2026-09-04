@@ -398,32 +398,40 @@ window.calcValuationFee = calcValuationFee;
 // Live Cloudflare KV Synchronizer for All Public Pages (Real-Time Mobile & Desktop Sync)
 (function initLivePropertiesSync() {
   function syncFromStorage() {
-    try {
-      const local = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
-      if (local) {
-        const parsed = JSON.parse(local);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          window.PROPERTIES_DATA = parsed;
-          window.dispatchEvent(new CustomEvent('properties-updated'));
-        }
+  try {
+    const local = localStorage.getItem('ZAIM_ROSLI_PROPERTIES');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        window.PROPERTIES_DATA = parsed;
       }
-    } catch(e) {}
+    }
+  } catch (e) {}
+
+  const endpoints = [
+    '/api/properties?t=' + Date.now(),
+    'https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now()
+  ];
+
+  async function fetchLiveKV() {
+    for (const ep of endpoints) {
+      try {
+        const res = await fetch(ep, { cache: 'no-store', signal: AbortSignal.timeout(12000) });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            window.PROPERTIES_DATA = data;
+            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
+            window.dispatchEvent(new CustomEvent('properties-updated'));
+            return;
+          }
+        }
+      } catch(e) {}
+    }
   }
 
-  function fetchLiveKV() {
-    fetch('https://zaimrosli-worker.huzaimrosli.workers.dev/api/properties?t=' + Date.now(), { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          window.PROPERTIES_DATA = data;
-          try {
-            localStorage.setItem('ZAIM_ROSLI_PROPERTIES', JSON.stringify(data));
-          } catch(e) {}
-          window.dispatchEvent(new CustomEvent('properties-updated'));
-        }
-      })
-      .catch(err => console.log('Live KV sync skipped:', err));
-  }
+  fetchLiveKV().catch(err => console.log('Live KV sync skipped:', err));
+}
 
   // 1. Initial fast local load + network fetch
   syncFromStorage();
