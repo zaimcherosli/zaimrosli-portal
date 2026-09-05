@@ -185,8 +185,16 @@ function createPropertyCardHTML(item) {
   }
 
   const detailUrl = `/property/${item.slug || item.id}`;
-  const cleanTitle = toTitleCase(item.title || 'Property Listing');
-  const priceDisplay = (item.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+  const isSale = (item.status || 'sale').toLowerCase() === 'sale';
+  let priceDisplay = item.priceStr;
+  if (!priceDisplay && item.price != null && !isNaN(Number(item.price)) && Number(item.price) > 0) {
+    priceDisplay = isSale ? `RM ${Number(item.price).toLocaleString('en-US')}` : `RM ${Number(item.price).toLocaleString('en-US')} / month`;
+  }
+  priceDisplay = (priceDisplay || (item.price ? `RM ${Number(item.price).toLocaleString('en-US')}` : 'RM 0'))
+    .replace(/\/\s*(mo|month|bln|bulan|mth)\b/gi, '/ month');
+  if (!isSale && !/\/\s*month\b/i.test(priceDisplay) && priceDisplay !== 'RM 0' && priceDisplay !== '-') {
+    priceDisplay += ' / month';
+  }
 
   return `
     <div class="property-card">
@@ -257,11 +265,14 @@ window.generatePropertyShareSummary = function(prop, targetUrl) {
   const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
   const statusHeader = isSale ? '*WTS / UNTUK DIJUAL (FOR SALE)*' : '*WTL / UNTUK DISEWA (FOR RENT)*';
   
-  let priceDisplay = 'RM 0';
-  if (prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0) {
-    priceDisplay = isSale ? 'RM ' + Number(prop.price).toLocaleString('en-US') : 'RM ' + Number(prop.price).toLocaleString('en-US') + ' / bulan';
-  } else if (prop.priceStr) {
-    priceDisplay = prop.priceStr;
+  let priceDisplay = prop.priceStr;
+  if (!priceDisplay && prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0) {
+    priceDisplay = isSale ? 'RM ' + Number(prop.price).toLocaleString('en-US') : 'RM ' + Number(prop.price).toLocaleString('en-US') + ' / month';
+  }
+  priceDisplay = (priceDisplay || (prop.price ? 'RM ' + Number(prop.price).toLocaleString('en-US') : 'RM 0'))
+    .replace(/\/\s*(mo|month|bln|bulan|mth)\b/gi, '/ month');
+  if (!isSale && !/\/\s*month\b/i.test(priceDisplay) && priceDisplay !== 'RM 0' && priceDisplay !== '-') {
+    priceDisplay += ' / month';
   }
   
   const askingLine = isSale ? `*Harga Tawaran (Asking Price):* ${priceDisplay}` : `*Kadar Sewa (Rental Rate):* ${priceDisplay}`;

@@ -22,11 +22,16 @@ export async function onRequest(context) {
 
     const rawTitle = prop.title || 'Property Listing';
     const isSale = (prop.status || 'sale').toLowerCase() === 'sale';
-    const priceDisplay = (prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0)
-      ? (isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / month`)
-      : (prop.priceStr || 'RM 0');
-    
-    const priceStr = priceDisplay.replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month').replace(/"/g, '&quot;');
+    let priceDisplay = prop.priceStr;
+    if (!priceDisplay && prop.price != null && !isNaN(Number(prop.price)) && Number(prop.price) > 0) {
+      priceDisplay = isSale ? `RM ${Number(prop.price).toLocaleString('en-US')}` : `RM ${Number(prop.price).toLocaleString('en-US')} / month`;
+    }
+    priceDisplay = (priceDisplay || (prop.price ? `RM ${Number(prop.price).toLocaleString('en-US')}` : 'RM 0'))
+      .replace(/\/\s*(mo|month|bln|bulan|mth)\b/gi, '/ month');
+    if (!isSale && !/\/\s*month\b/i.test(priceDisplay) && priceDisplay !== 'RM 0' && priceDisplay !== '-') {
+      priceDisplay += ' / month';
+    }
+    const priceStr = priceDisplay.replace(/"/g, '&quot;');
     const loc = (prop.location || prop.region || 'Selangor').replace(/^\+\s*/, '').replace(/"/g, '&quot;');
     const region = (prop.region || 'Selangor').replace(/"/g, '&quot;');
     const type = (prop.type || prop.category || 'Property').replace(/"/g, '&quot;');

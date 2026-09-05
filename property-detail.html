@@ -608,14 +608,25 @@
           // 1. Basic Content Setup
           document.getElementById('d-title').textContent = prop.title;
           document.getElementById('d-location').innerHTML = `${prop.location}`;
-          document.getElementById('d-price').textContent = (prop.priceStr || '').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+
+          const isRentalProp = (prop.status || 'sale').toLowerCase() === 'rent';
+          let detailPrice = prop.priceStr;
+          if (!detailPrice && prop.price != null && !isNaN(Number(prop.price))) {
+            detailPrice = isRentalProp ? `RM ${Number(prop.price).toLocaleString('en-US')} / month` : `RM ${Number(prop.price).toLocaleString('en-US')}`;
+          }
+          detailPrice = (detailPrice || (prop.price ? `RM ${Number(prop.price).toLocaleString('en-US')}` : 'RM 0'))
+            .replace(/\/\s*(mo|month|bln|bulan|mth)\b/gi, '/ month');
+          if (isRentalProp && !/\/\s*month\b/i.test(detailPrice) && detailPrice !== 'RM 0' && detailPrice !== '-') {
+            detailPrice += ' / month';
+          }
+          document.getElementById('d-price').textContent = detailPrice;
 
           const breadcrumbTitle = document.getElementById('d-breadcrumb-title');
           if (breadcrumbTitle) breadcrumbTitle.textContent = prop.title;
 
           // 2. Canonical URL & Meta Tags Injection
           const canonicalUrl = `https://zaimrosli.my/property/${prop.slug || targetSlug}`;
-          const rawPriceStr = (prop.priceStr || 'RM 0').replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+          const rawPriceStr = detailPrice;
           const pageTitle = `${prop.title} — Zaim Rosli (REN39575)`;
           const pageDesc = `${rawPriceStr} • ${prop.location} • ${prop.type || 'Property'} — Verified property listing by Zaim Rosli (REN39575). View specifications, photos, and contact agent.`;
 

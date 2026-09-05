@@ -59,7 +59,16 @@ function renderServerPropertyCard(item) {
   const badgeLabel = item.status === 'sale' ? 'FOR SALE' : 'FOR RENT';
   const cardImg = Array.isArray(item.images) && item.images.length > 0 ? item.images[0] : (item.image || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80');
   const detailUrl = `/property/${item.slug || item.id}`;
-  const priceDisplay = (item.priceStr || (item.price ? `RM ${item.price.toLocaleString('en-US')}` : 'RM 0')).replace(/\/\s*bln\b/gi, '/ month').replace(/\/\s*bulan\b/gi, '/ month');
+  const isSale = (item.status || 'sale').toLowerCase() === 'sale';
+  let priceDisplay = item.priceStr;
+  if (!priceDisplay && item.price != null && !isNaN(Number(item.price)) && Number(item.price) > 0) {
+    priceDisplay = isSale ? `RM ${Number(item.price).toLocaleString('en-US')}` : `RM ${Number(item.price).toLocaleString('en-US')} / month`;
+  }
+  priceDisplay = (priceDisplay || (item.price ? `RM ${Number(item.price).toLocaleString('en-US')}` : 'RM 0'))
+    .replace(/\/\s*(mo|month|bln|bulan|mth)\b/gi, '/ month');
+  if (!isSale && !/\/\s*month\b/i.test(priceDisplay) && priceDisplay !== 'RM 0' && priceDisplay !== '-') {
+    priceDisplay += ' / month';
+  }
 
   const bedsVal = item.bedsPlus > 0 ? `${item.beds}+${item.bedsPlus}` : (item.beds || '-');
   const bathsVal = item.bathsPlus > 0 ? `${item.baths}+${item.bathsPlus}` : (item.baths || '-');
