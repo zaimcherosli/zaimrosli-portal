@@ -1060,17 +1060,17 @@
       calculateLegal();
     }
 
-    // --- TAB 1: LEGAL & MORTGAGE CALCULATION LOGIC ---
-    function calculateLegal() {
+    // --- CENTRALIZED LEGAL & ENTRY COST BREAKDOWN COMPUTATION ---
+    function computeLegalBreakdown() {
       const priceIn = document.getElementById('calc-price');
       const downIn = document.getElementById('calc-down');
       const rateIn = document.getElementById('calc-rate');
       const tenureIn = document.getElementById('calc-tenure');
 
-      const price = parseFloat(priceIn.value) || 0;
-      const downPct = parseFloat(downIn.value) || 0;
-      const annualRate = parseFloat(rateIn.value) || 0;
-      const tenureYears = parseInt(tenureIn.value) || 35;
+      const price = (priceIn && parseFloat(priceIn.value)) || 0;
+      const downPct = (downIn && parseFloat(downIn.value)) || 0;
+      const annualRate = (rateIn && parseFloat(rateIn.value)) || 0;
+      const tenureYears = (tenureIn && parseInt(tenureIn.value)) || 35;
 
       const downpayment = price * (downPct / 100);
       const loanAmount = Math.max(0, price - downpayment);
@@ -1085,12 +1085,12 @@
         monthlyPMT = loanAmount / totalPayments;
       }
 
-      // Read Toggles
-      const isSpaEnabled = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
-      const isMotEnabled = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
-      const isLoanFeeEnabled = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
-      const isLoanDutyEnabled = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
-      const isValuationEnabled = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
+      // Read Toggles directly from input checkbox states
+      const isSpa = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
+      const isMot = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
+      const isLoanFee = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
+      const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
+      const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
 
       // SPA Legal Fees Scale (Malaysia Solicitors' Remuneration Order SRO 2023)
       let rawSpaFee = 0;
@@ -1106,7 +1106,7 @@
         remPrice -= tier2;
       }
       rawSpaFee = Math.max(500, rawSpaFee);
-      const effectiveSpaFee = isSpaEnabled ? rawSpaFee : 0;
+      const effectiveSpaFee = isSpa ? rawSpaFee : 0;
 
       // MOT Stamp Duty Scale
       let rawMotDuty = 0;
@@ -1129,47 +1129,84 @@
       if (remMot > 0) {
         rawMotDuty += remMot * 0.04;
       }
-      const effectiveMotDuty = isMotEnabled ? rawMotDuty : 0;
+      const effectiveMotDuty = isMot ? rawMotDuty : 0;
 
       // Loan Legal Fee & Stamp Duty & Valuation
       const rawLoanFee = (loanAmount > 0) ? Math.max(500, loanAmount * 0.01) : 0;
-      const effectiveLoanFee = isLoanFeeEnabled ? rawLoanFee : 0;
+      const effectiveLoanFee = isLoanFee ? rawLoanFee : 0;
 
       const rawLoanDuty = loanAmount * 0.005;
-      const effectiveLoanDuty = isLoanDutyEnabled ? rawLoanDuty : 0;
+      const effectiveLoanDuty = isLoanDuty ? rawLoanDuty : 0;
 
       const rawValuation = (price > 0) ? Math.max(400, price * 0.0025) : 0;
-      const effectiveValuation = isValuationEnabled ? rawValuation : 0;
+      const effectiveValuation = isValuation ? rawValuation : 0;
 
       const totalCash = downpayment + effectiveSpaFee + effectiveMotDuty + effectiveLoanFee + effectiveLoanDuty + effectiveValuation;
 
-      // Update UI with Clean Stacked Badges & Formatted Currency
-      document.getElementById('res-monthly').textContent = 'RM ' + Math.round(monthlyPMT).toLocaleString('en-US') + ' / mo';
-      document.getElementById('res-loan').textContent = 'RM ' + Math.round(loanAmount).toLocaleString('en-US');
+      return {
+        price,
+        downPct,
+        annualRate,
+        tenureYears,
+        downpayment,
+        loanAmount,
+        monthlyPMT,
+        isSpa,
+        isMot,
+        isLoanFee,
+        isLoanDuty,
+        isValuation,
+        rawSpaFee,
+        rawMotDuty,
+        rawLoanFee,
+        rawLoanDuty,
+        rawValuation,
+        effectiveSpaFee,
+        effectiveMotDuty,
+        effectiveLoanFee,
+        effectiveLoanDuty,
+        effectiveValuation,
+        totalCash
+      };
+    }
 
-      // Helper function to update toggle row output
-      function updateRow(rowId, wrapId, rawAmount, isEnabled, freeLabel) {
+    // --- TAB 1: LEGAL & MORTGAGE CALCULATION LOGIC ---
+    function calculateLegal() {
+      const d = computeLegalBreakdown();
+
+      // Update UI with Formatted Currency
+      if (document.getElementById('res-monthly')) {
+        document.getElementById('res-monthly').textContent = 'RM ' + Math.round(d.monthlyPMT).toLocaleString('en-US') + ' / mo';
+      }
+      if (document.getElementById('res-loan')) {
+        document.getElementById('res-loan').textContent = 'RM ' + Math.round(d.loanAmount).toLocaleString('en-US');
+      }
+
+      // Helper function to update toggle row output while preserving inner IDs
+      function updateRow(rowId, wrapId, spanId, rawAmount, isEnabled, freeLabel) {
         const rowEl = document.getElementById(rowId);
         const wrapEl = document.getElementById(wrapId);
         if (!wrapEl) return;
 
         if (isEnabled) {
           if (rowEl) rowEl.classList.remove('is-disabled');
-          wrapEl.innerHTML = '<strong style="font-size:0.95rem; font-weight:800; color:var(--text-main);">RM ' + Math.round(rawAmount).toLocaleString('en-US') + '</strong>';
+          wrapEl.innerHTML = '<strong id="' + spanId + '" style="font-size:0.95rem; font-weight:800; color:var(--text-main);">RM ' + Math.round(rawAmount).toLocaleString('en-US') + '</strong>';
         } else {
           if (rowEl) rowEl.classList.add('is-disabled');
-          wrapEl.innerHTML = '<span class="old-price-strike">RM ' + Math.round(rawAmount).toLocaleString('en-US') + '</span><span class="badge-free">' + freeLabel + '</span>';
+          wrapEl.innerHTML = '<span id="' + spanId + '" class="old-price-strike">RM ' + Math.round(rawAmount).toLocaleString('en-US') + '</span><span class="badge-free">' + freeLabel + '</span>';
         }
       }
 
-      updateRow('row-spa', 'res-spa-wrap', rawSpaFee, isSpaEnabled, 'Free');
-      updateRow('row-mot', 'res-mot-wrap', rawMotDuty, isMotEnabled, 'Exempted');
-      updateRow('row-loan-fee', 'res-loan-fee-wrap', rawLoanFee, isLoanFeeEnabled, 'Free');
-      updateRow('row-loan-duty', 'res-loan-duty-wrap', rawLoanDuty, isLoanDutyEnabled, 'Exempted');
-      updateRow('row-valuation', 'res-valuation-wrap', rawValuation, isValuationEnabled, 'Exempted');
+      updateRow('row-spa', 'res-spa-wrap', 'res-spa', d.rawSpaFee, d.isSpa, 'Free');
+      updateRow('row-mot', 'res-mot-wrap', 'res-mot', d.rawMotDuty, d.isMot, 'Exempted');
+      updateRow('row-loan-fee', 'res-loan-fee-wrap', 'res-loan-fee', d.rawLoanFee, d.isLoanFee, 'Free');
+      updateRow('row-loan-duty', 'res-loan-duty-wrap', 'res-loan-duty', d.rawLoanDuty, d.isLoanDuty, 'Exempted');
+      updateRow('row-valuation', 'res-valuation-wrap', 'res-valuation', d.rawValuation, d.isValuation, 'Exempted');
 
       // Total Cash
-      document.getElementById('res-total-cash').textContent = 'RM ' + Math.round(totalCash).toLocaleString('en-US');
+      if (document.getElementById('res-total-cash')) {
+        document.getElementById('res-total-cash').textContent = 'RM ' + Math.round(d.totalCash).toLocaleString('en-US');
+      }
     }
 
     // --- UNIVERSAL TEXT FORMATTING (NATIVE BOLD & ITALIC FOR WHATSAPP, TELEGRAM, SMS, ETC.) ---
@@ -1273,49 +1310,38 @@
     }
 
     function shareCalculatorResults() {
-      const price = (document.getElementById('calc-price') && document.getElementById('calc-price').value) || '650000';
-      const down = (document.getElementById('calc-down') && document.getElementById('calc-down').value) || '10';
-      const rate = (document.getElementById('calc-rate') && document.getElementById('calc-rate').value) || '4.2';
-      const tenure = (document.getElementById('calc-tenure') && document.getElementById('calc-tenure').value) || '35';
-      
-      const isSpa = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
-      const isMot = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
-      const isLoanFee = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
-      const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
-      const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
-      
-      const monthly = document.getElementById('res-monthly') ? document.getElementById('res-monthly').textContent.trim() : 'RM 0 / mo';
-      const loan = document.getElementById('res-loan') ? document.getElementById('res-loan').textContent.trim() : 'RM 0';
-      const spa = isSpa && document.getElementById('res-spa') ? document.getElementById('res-spa').textContent.trim() : 'RM 0 [EXCLUDED]';
-      const mot = isMot && document.getElementById('res-mot') ? document.getElementById('res-mot').textContent.trim() : 'RM 0 [EXEMPTED / EXCLUDED]';
-      const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString('en-US') : 'RM 0 [FREE BANK PACKAGE]';
-      const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString('en-US') : 'RM 0 [STAMP DUTY EXEMPTION]';
-      const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString('en-US') : 'RM 0 [EXEMPTED]';
-      const totalCash = document.getElementById('res-total-cash') ? document.getElementById('res-total-cash').textContent.trim() : 'RM 0';
-      
-      const numPrice = parseFloat(price) || 0;
-      const numDown = parseFloat(down) || 0;
-      const depositVal = (numPrice * (numDown / 100)).toLocaleString('en-US');
+      const d = computeLegalBreakdown();
+      const depositVal = Math.round(d.downpayment).toLocaleString('en-US');
+      const loanStr = 'RM ' + Math.round(d.loanAmount).toLocaleString('en-US');
+      const monthlyStr = 'RM ' + Math.round(d.monthlyPMT).toLocaleString('en-US') + ' / mo';
+
+      const spaStr = d.isSpa ? ('RM ' + Math.round(d.rawSpaFee).toLocaleString('en-US')) : 'RM 0 [EXCLUDED]';
+      const motStr = d.isMot ? ('RM ' + Math.round(d.rawMotDuty).toLocaleString('en-US')) : 'RM 0 [EXEMPTED / EXCLUDED]';
+      const loanFeeStr = d.isLoanFee ? ('RM ' + Math.round(d.rawLoanFee).toLocaleString('en-US')) : 'RM 0 [FREE BANK PACKAGE]';
+      const loanDutyStr = d.isLoanDuty ? ('RM ' + Math.round(d.rawLoanDuty).toLocaleString('en-US')) : 'RM 0 [STAMP DUTY EXEMPTION]';
+      const valuationStr = d.isValuation ? ('RM ' + Math.round(d.rawValuation).toLocaleString('en-US')) : 'RM 0 [EXEMPTED]';
+      const totalCashStr = 'RM ' + Math.round(d.totalCash).toLocaleString('en-US');
+
       const url = window.location.origin + '/calculator#legal';
 
       const rawShareText = 
 `*ESTIMATED PROPERTY FEES & INSTALLMENTS*
 ═════════════════
-*Property Price:* RM ` + numPrice.toLocaleString('en-US') + `
-*Downpayment (` + down + `%):* RM ` + depositVal + `
-*Loan Amount (` + (100 - numDown) + `%):* ` + loan + `
-*Interest Rate:* ` + rate + `% (` + tenure + ` Tahun)
+*Property Price:* RM ` + Math.round(d.price).toLocaleString('en-US') + `
+*Downpayment (` + d.downPct + `%):* RM ` + depositVal + `
+*Loan Amount (` + (100 - d.downPct) + `%):* ` + loanStr + `
+*Interest Rate:* ` + d.annualRate + `% (` + d.tenureYears + ` Tahun)
 
-*Monthly Installment:* ` + monthly + `
+*Monthly Installment:* ` + monthlyStr + `
 
 *LEGAL FEES & STAMP DUTY BREAKDOWN:*
-• SPA Legal Fees: ` + spa + `
-• MOT Stamp Duty: ` + mot + `
-• Loan Legal Fees: ` + loanFee + `
-• Loan Stamp Duty: ` + loanDuty + `
-• Property Valuation Fee: ` + valuation + `
+• SPA Legal Fees: ` + spaStr + `
+• MOT Stamp Duty: ` + motStr + `
+• Loan Legal Fees: ` + loanFeeStr + `
+• Loan Stamp Duty: ` + loanDutyStr + `
+• Property Valuation Fee: ` + valuationStr + `
 
-*TOTAL ENTRY CASH REQUIRED:* ` + totalCash + `
+*TOTAL ENTRY CASH REQUIRED:* ` + totalCashStr + `
 ═════════════════
 _Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada sebut harga (quotation) sebenar daripada pihak peguam & bank._
 
@@ -1339,17 +1365,25 @@ _Zaim Rosli Real Estate (REN39575)_
       }
     }
 
-    // --- TAB 2: DSR (DEBT SERVICE RATIO) CALCULATION LOGIC ---
-    function calculateDSR() {
-      const salary = parseFloat(document.getElementById('dsr-salary').value) || 0;
-      const otherIncome = parseFloat(document.getElementById('dsr-other-income').value) || 0;
-      
-      const car = parseFloat(document.getElementById('dsr-car').value) || 0;
-      const personal = parseFloat(document.getElementById('dsr-personal').value) || 0;
-      const card = parseFloat(document.getElementById('dsr-card').value) || 0;
-      const ptptn = parseFloat(document.getElementById('dsr-ptptn').value) || 0;
-      const newLoan = parseFloat(document.getElementById('dsr-new-loan').value) || 0;
-      const maxBenchmark = parseFloat(document.getElementById('dsr-max-benchmark').value) || 70;
+    // --- TAB 2: CENTRALIZED DSR (DEBT SERVICE RATIO) CALCULATION LOGIC ---
+    function computeDsrBreakdown() {
+      const salaryIn = document.getElementById('dsr-salary');
+      const otherIncomeIn = document.getElementById('dsr-other-income');
+      const carIn = document.getElementById('dsr-car');
+      const personalIn = document.getElementById('dsr-personal');
+      const cardIn = document.getElementById('dsr-card');
+      const ptptnIn = document.getElementById('dsr-ptptn');
+      const newLoanIn = document.getElementById('dsr-new-loan');
+      const maxBenchmarkIn = document.getElementById('dsr-max-benchmark');
+
+      const salary = (salaryIn && parseFloat(salaryIn.value)) || 0;
+      const otherIncome = (otherIncomeIn && parseFloat(otherIncomeIn.value)) || 0;
+      const car = (carIn && parseFloat(carIn.value)) || 0;
+      const personal = (personalIn && parseFloat(personalIn.value)) || 0;
+      const card = (cardIn && parseFloat(cardIn.value)) || 0;
+      const ptptn = (ptptnIn && parseFloat(ptptnIn.value)) || 0;
+      const newLoan = (newLoanIn && parseFloat(newLoanIn.value)) || 0;
+      const maxBenchmark = (maxBenchmarkIn && parseFloat(maxBenchmarkIn.value)) || 70;
 
       const totalIncome = salary + otherIncome;
       const existingCommitments = car + personal + card + ptptn;
@@ -1373,14 +1407,75 @@ _Zaim Rosli Real Estate (REN39575)_
         maxPropertyPrice = maxLoan / 0.90;
       }
 
+      let meterClass = '';
+      let statusBadge = '';
+      let statusTitle = '';
+      let statusDesc = '';
+
+      if (dsrPct <= (maxBenchmark - 10)) {
+        meterClass = 'status-good';
+        statusBadge = 'EXCELLENT (HIGH APPROVAL PROBABILITY)';
+        statusTitle = 'Debt Ratio Within Healthy Zone';
+        statusDesc = 'Your financial profile is in the optimal bank lending zone. Commercial bank mortgage approval probability is exceptionally high.';
+      } else if (dsrPct <= maxBenchmark) {
+        meterClass = 'status-warn';
+        statusBadge = 'MODERATE (BORDERLINE APPROVAL)';
+        statusTitle = 'Debt Ratio Near Maximum Limit';
+        statusDesc = 'Application may be considered by selected banks but requires a clean CCRIS/CTOS credit history and strong income documentation.';
+      } else {
+        meterClass = 'status-danger';
+        statusBadge = 'HIGH RISK (EXCEEDS BANK DSR LIMIT)';
+        statusTitle = 'Debt Ratio Exceeds Bank Benchmark';
+        statusDesc = 'Commitments exceed the bank DSR threshold. It is recommended to extend the loan tenure, clear older debts, or apply with a joint applicant.';
+      }
+
+      return {
+        salary,
+        otherIncome,
+        totalIncome,
+        car,
+        personal,
+        card,
+        ptptn,
+        existingCommitments,
+        newLoan,
+        totalCommitments,
+        maxBenchmark,
+        dsrPct,
+        maxHousingInstallment,
+        maxPropertyPrice,
+        meterClass,
+        statusBadge,
+        statusTitle,
+        statusDesc
+      };
+    }
+
+    function calculateDSR() {
+      const d = computeDsrBreakdown();
+
       // Update UI elements
-      document.getElementById('dsr-pct-display').textContent = dsrPct.toFixed(1) + '%';
-      document.getElementById('dsr-res-income').textContent = 'RM ' + Math.round(totalIncome).toLocaleString('en-US');
-      document.getElementById('dsr-res-existing').textContent = 'RM ' + Math.round(existingCommitments).toLocaleString('en-US');
-      document.getElementById('dsr-res-total').textContent = 'RM ' + Math.round(totalCommitments).toLocaleString('en-US');
-      document.getElementById('dsr-res-benchmark').textContent = maxBenchmark + '%';
-      document.getElementById('dsr-res-max-installment').textContent = 'RM ' + Math.round(maxHousingInstallment).toLocaleString('en-US') + ' / mo';
-      document.getElementById('dsr-res-max-price').textContent = '~ RM ' + Math.round(maxPropertyPrice).toLocaleString('en-US');
+      if (document.getElementById('dsr-pct-display')) {
+        document.getElementById('dsr-pct-display').textContent = d.dsrPct.toFixed(1) + '%';
+      }
+      if (document.getElementById('dsr-res-income')) {
+        document.getElementById('dsr-res-income').textContent = 'RM ' + Math.round(d.totalIncome).toLocaleString('en-US');
+      }
+      if (document.getElementById('dsr-res-existing')) {
+        document.getElementById('dsr-res-existing').textContent = 'RM ' + Math.round(d.existingCommitments).toLocaleString('en-US');
+      }
+      if (document.getElementById('dsr-res-total')) {
+        document.getElementById('dsr-res-total').textContent = 'RM ' + Math.round(d.totalCommitments).toLocaleString('en-US');
+      }
+      if (document.getElementById('dsr-res-benchmark')) {
+        document.getElementById('dsr-res-benchmark').textContent = d.maxBenchmark + '%';
+      }
+      if (document.getElementById('dsr-res-max-installment')) {
+        document.getElementById('dsr-res-max-installment').textContent = 'RM ' + Math.round(d.maxHousingInstallment).toLocaleString('en-US') + ' / mo';
+      }
+      if (document.getElementById('dsr-res-max-price')) {
+        document.getElementById('dsr-res-max-price').textContent = '~ RM ' + Math.round(d.maxPropertyPrice).toLocaleString('en-US');
+      }
 
       // Update Status Meter
       const meterBox = document.getElementById('dsr-meter-box');
@@ -1388,64 +1483,49 @@ _Zaim Rosli Real Estate (REN39575)_
       const title = document.getElementById('dsr-status-title');
       const desc = document.getElementById('dsr-status-desc');
 
-      meterBox.classList.remove('status-good', 'status-warn', 'status-danger');
-
-      if (dsrPct <= (maxBenchmark - 10)) {
-        meterBox.classList.add('status-good');
-        badge.textContent = 'EXCELLENT (HIGH APPROVAL PROBABILITY)';
-        title.textContent = 'Debt Ratio Within Healthy Zone';
-        desc.textContent = 'Your financial profile is in the optimal bank lending zone. Commercial bank mortgage approval probability is exceptionally high.';
-      } else if (dsrPct <= maxBenchmark) {
-        meterBox.classList.add('status-warn');
-        badge.textContent = 'MODERATE (BORDERLINE APPROVAL)';
-        title.textContent = 'Debt Ratio Near Maximum Limit';
-        desc.textContent = 'Application may be considered by selected banks but requires a clean CCRIS/CTOS credit history and strong income documentation.';
-      } else {
-        meterBox.classList.add('status-danger');
-        badge.textContent = 'HIGH RISK (EXCEEDS BANK DSR LIMIT)';
-        title.textContent = 'Debt Ratio Exceeds Bank Benchmark';
-        desc.textContent = 'Commitments exceed the bank DSR threshold. It is recommended to extend the loan tenure, clear older debts, or apply with a joint applicant.';
+      if (meterBox) {
+        meterBox.classList.remove('status-good', 'status-warn', 'status-danger');
+        meterBox.classList.add(d.meterClass);
       }
+      if (badge) badge.textContent = d.statusBadge;
+      if (title) title.textContent = d.statusTitle;
+      if (desc) desc.textContent = d.statusDesc;
 
       // Update WhatsApp consult link
       const waBtn = document.getElementById('dsr-wa-consult-btn');
       if (waBtn) {
         const waMsg = 'Hi Zaim, I have completed a DSR bank eligibility check on your portal:\n' +
-          '- Net Monthly Income: RM ' + Math.round(totalIncome).toLocaleString('en-US') + '\n' +
-          '- Existing Commitments: RM ' + Math.round(existingCommitments).toLocaleString('en-US') + '\n' +
-          '- Proposed Home Installment: RM ' + Math.round(newLoan).toLocaleString('en-US') + '\n' +
-          '- DSR Score: ' + dsrPct.toFixed(1) + '% (' + maxBenchmark + '% Max Limit)\n\n' +
+          '- Net Monthly Income: RM ' + Math.round(d.totalIncome).toLocaleString('en-US') + '\n' +
+          '- Existing Commitments: RM ' + Math.round(d.existingCommitments).toLocaleString('en-US') + '\n' +
+          '- Proposed Home Installment: RM ' + Math.round(d.newLoan).toLocaleString('en-US') + '\n' +
+          '- DSR Score: ' + d.dsrPct.toFixed(1) + '% (' + d.maxBenchmark + '% Max Limit)\n\n' +
           'Could you assist with mortgage pre-approval and recommend matching properties?';
         waBtn.href = 'https://wa.me/60108118559?text=' + encodeURIComponent(waMsg);
       }
     }
 
     function shareDsrResults() {
-      const salary = (document.getElementById('dsr-salary') && parseFloat(document.getElementById('dsr-salary').value)) || 0;
-      const otherIncome = (document.getElementById('dsr-other-income') && parseFloat(document.getElementById('dsr-other-income').value)) || 0;
-      const totalIncome = salary + otherIncome;
-      
-      const incomeStr = document.getElementById('dsr-res-income') ? document.getElementById('dsr-res-income').textContent.trim() : ('RM ' + Math.round(totalIncome).toLocaleString('en-US'));
-      const existing = document.getElementById('dsr-res-existing') ? document.getElementById('dsr-res-existing').textContent.trim() : 'RM 0';
-      const totalComm = document.getElementById('dsr-res-total') ? document.getElementById('dsr-res-total').textContent.trim() : 'RM 0';
-      const dsrPct = document.getElementById('dsr-pct-display') ? document.getElementById('dsr-pct-display').textContent.trim() : '0%';
-      const status = document.getElementById('dsr-status-badge') ? document.getElementById('dsr-status-badge').textContent.trim() : 'DSR ASSESSMENT';
-      const maxInstallment = document.getElementById('dsr-res-max-installment') ? document.getElementById('dsr-res-max-installment').textContent.trim() : 'RM 0 / mo';
-      const maxPrice = document.getElementById('dsr-res-max-price') ? document.getElementById('dsr-res-max-price').textContent.trim() : 'RM 0';
+      const d = computeDsrBreakdown();
+      const incomeStr = 'RM ' + Math.round(d.totalIncome).toLocaleString('en-US');
+      const existingStr = 'RM ' + Math.round(d.existingCommitments).toLocaleString('en-US');
+      const totalCommStr = 'RM ' + Math.round(d.totalCommitments).toLocaleString('en-US');
+      const dsrPctStr = d.dsrPct.toFixed(1) + '%';
+      const maxInstallmentStr = 'RM ' + Math.round(d.maxHousingInstallment).toLocaleString('en-US') + ' / mo';
+      const maxPriceStr = '~ RM ' + Math.round(d.maxPropertyPrice).toLocaleString('en-US');
       const url = window.location.origin + '/calculator#dsr';
 
       const rawShareText = 
 `*BANK LOAN ELIGIBILITY ASSESSMENT (DSR)*
 ═════════════════
 *Net Income:* ` + incomeStr + `
-*Existing Commitments:* ` + existing + `
-*Total Commitments:* ` + totalComm + `
+*Existing Commitments:* ` + existingStr + `
+*Total Commitments:* ` + totalCommStr + `
 
-*Debt Service Ratio (DSR):* ` + dsrPct + `
-*Eligibility Status:* ` + status + `
+*Debt Service Ratio (DSR):* ` + dsrPctStr + `
+*Eligibility Status:* ` + d.statusBadge + `
 
-*Max Allowable Installment:* ` + maxInstallment + `
-*Estimated Affordable Property Price:* ` + maxPrice + `
+*Max Allowable Installment:* ` + maxInstallmentStr + `
+*Estimated Affordable Property Price:* ` + maxPriceStr + `
 ═════════════════
 _Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada semakan rasmi dan polisi kredit institusi perbankan (CCRIS / CTOS)._
 
