@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Zaim Rosli Portal</title>
-  <link rel="stylesheet" href="/styles.css?v=127">
+  <link rel="stylesheet" href="/styles.css?v=128">
   <style>
     html, body {
       background-color: #f8fafc;
@@ -2365,8 +2365,8 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/properties-data.js?v=127"></script>
-  <script src="/app.js?v=127"></script>
+  <script src="/properties-data.js?v=128"></script>
+  <script src="/app.js?v=128"></script>
   <script>
     const SUPABASE_URL = 'https://csrzhidtzqxfbapsenhu.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzcnpoaWR0enF4ZmJhcHNlbmh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0OTM3OTYsImV4cCI6MjEwMTA2OTc5Nn0.NnHFURbQTvsdgGbm1d_PC-hkOgQFQIHKTMQaS2n44SU';
@@ -2763,6 +2763,38 @@
       if (countStatusRentEl) countStatusRentEl.innerText = countRent;
     }
 
+    // --- UNIVERSAL TEXT FORMATTING (NATIVE BOLD & ITALIC FOR WHATSAPP, TELEGRAM, SMS, ETC.) ---
+    function toUnicodeBold(str) {
+      return Array.from(str).map(ch => {
+        const c = ch.codePointAt(0);
+        if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D5D4 + c - 65); // Sans-serif Bold A-Z
+        if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D5EE + c - 97); // Sans-serif Bold a-z
+        if (c >= 48 && c <= 57) return String.fromCodePoint(0x1D7EC + c - 48); // Sans-serif Bold 0-9
+        return ch;
+      }).join('');
+    }
+
+    function toUnicodeItalic(str) {
+      return Array.from(str).map(ch => {
+        const c = ch.codePointAt(0);
+        if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D608 + c - 65); // Sans-serif Italic A-Z
+        if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D622 + c - 97); // Sans-serif Italic a-z
+        return ch;
+      }).join('');
+    }
+
+    function toUnicodeUnderline(str) {
+      return Array.from(str).map(ch => (ch === '\n' || ch === ' ') ? ch : ch + '\u0332').join('');
+    }
+
+    function formatUniversalShareText(text) {
+      if (!text) return '';
+      let res = text.replace(/<u>([\s\S]*?)<\/u>/gi, (m, inner) => toUnicodeUnderline(inner));
+      res = res.replace(/(\*\*|\*)([^\*\n]+?)\1/g, (m, p1, inner) => toUnicodeBold(inner));
+      res = res.replace(/(_)([^_\n]+?)\1/g, (m, p1, inner) => toUnicodeItalic(inner));
+      return res;
+    }
+
     function copyListingShareLink(slugOrId, idx) {
       const url = `${window.location.origin}/property/${slugOrId}`;
       let prop = (typeof idx === 'number' && currentProperties[idx]) ? currentProperties[idx] : currentProperties.find(p => p.slug === slugOrId || p.id === slugOrId);
@@ -2805,6 +2837,8 @@
         
         shareText = `${statusHeader}\n${askingLine}\n\n*${prop.title || 'Hartanah Pilihan'}*\n\n*MAKLUMAT HARTANAH (PROPERTY DETAILS):*\n${details.join('\n')}\n\n*Maklumat lanjut, gambar penuh & temujanji:*\n${url}`;
       }
+
+      shareText = formatUniversalShareText(shareText);
 
       if (navigator.share) {
         navigator.share({

@@ -218,6 +218,38 @@ function createPropertyCardHTML(item) {
 window.createPropertyCardHTML = createPropertyCardHTML;
 window.initMobileDrawerNav = initMobileDrawerNav;
 
+// --- UNIVERSAL TEXT FORMATTING (NATIVE BOLD & ITALIC FOR WHATSAPP, TELEGRAM, SMS, ETC.) ---
+window.toUnicodeBold = function(str) {
+  return Array.from(str).map(ch => {
+    const c = ch.codePointAt(0);
+    if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D5D4 + c - 65); // Sans-serif Bold A-Z
+    if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D5EE + c - 97); // Sans-serif Bold a-z
+    if (c >= 48 && c <= 57) return String.fromCodePoint(0x1D7EC + c - 48); // Sans-serif Bold 0-9
+    return ch;
+  }).join('');
+};
+
+window.toUnicodeItalic = function(str) {
+  return Array.from(str).map(ch => {
+    const c = ch.codePointAt(0);
+    if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D608 + c - 65); // Sans-serif Italic A-Z
+    if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D622 + c - 97); // Sans-serif Italic a-z
+    return ch;
+  }).join('');
+};
+
+window.toUnicodeUnderline = function(str) {
+  return Array.from(str).map(ch => (ch === '\n' || ch === ' ') ? ch : ch + '\u0332').join('');
+};
+
+window.formatUniversalShareText = function(text) {
+  if (!text) return '';
+  let res = text.replace(/<u>([\s\S]*?)<\/u>/gi, (m, inner) => window.toUnicodeUnderline(inner));
+  res = res.replace(/(\*\*|\*)([^\*\n]+?)\1/g, (m, p1, inner) => window.toUnicodeBold(inner));
+  res = res.replace(/(_)([^_\n]+?)\1/g, (m, p1, inner) => window.toUnicodeItalic(inner));
+  return res;
+};
+
 // Global Malaysian REN Property Share Summary Generator
 window.generatePropertyShareSummary = function(prop, targetUrl) {
   if (!prop) return '';
@@ -267,7 +299,7 @@ window.generatePropertyShareSummary = function(prop, targetUrl) {
 
   const url = targetUrl || `https://zaimrosli.my/property/${prop.slug || prop.id}`;
 
-  return `${statusHeader}
+  const summary = `${statusHeader}
 ${askingLine}
 
 *${title}*
@@ -277,6 +309,8 @@ ${details.join('\n')}
 
 *Maklumat lanjut, gambar penuh & temujanji:*
 ${url}`;
+
+  return window.formatUniversalShareText(summary);
 };
 
 // Global Share Function with Canonical /property/{slug} URL & Rich Summary

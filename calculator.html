@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=127">
+  <link rel="stylesheet" href="/styles.css?v=128">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -446,7 +446,7 @@
     }
   }
   </script>
-  <script src="/analytics.js?v=127" defer></script>
+  <script src="/analytics.js?v=128" defer></script>
 </head>
 <body>
 
@@ -984,9 +984,9 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=127"></script>
+  <script src="/properties-data.js?v=128"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=127"></script>
+  <script src="/app.js?v=128"></script>
   <script>
     // Tab Switcher Handler
     window.switchCalcTab = switchCalcTab;
@@ -1172,6 +1172,38 @@
       document.getElementById('res-total-cash').textContent = 'RM ' + Math.round(totalCash).toLocaleString('en-US');
     }
 
+    // --- UNIVERSAL TEXT FORMATTING (NATIVE BOLD & ITALIC FOR WHATSAPP, TELEGRAM, SMS, ETC.) ---
+    function toUnicodeBold(str) {
+      return Array.from(str).map(ch => {
+        const c = ch.codePointAt(0);
+        if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D5D4 + c - 65); // Sans-serif Bold A-Z
+        if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D5EE + c - 97); // Sans-serif Bold a-z
+        if (c >= 48 && c <= 57) return String.fromCodePoint(0x1D7EC + c - 48); // Sans-serif Bold 0-9
+        return ch;
+      }).join('');
+    }
+
+    function toUnicodeItalic(str) {
+      return Array.from(str).map(ch => {
+        const c = ch.codePointAt(0);
+        if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D608 + c - 65); // Sans-serif Italic A-Z
+        if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D622 + c - 97); // Sans-serif Italic a-z
+        return ch;
+      }).join('');
+    }
+
+    function toUnicodeUnderline(str) {
+      return Array.from(str).map(ch => (ch === '\n' || ch === ' ') ? ch : ch + '\u0332').join('');
+    }
+
+    function formatUniversalShareText(text) {
+      if (!text) return '';
+      let res = text.replace(/<u>([\s\S]*?)<\/u>/gi, (m, inner) => toUnicodeUnderline(inner));
+      res = res.replace(/(\*\*|\*)([^\*\n]+?)\1/g, (m, p1, inner) => toUnicodeBold(inner));
+      res = res.replace(/(_)([^_\n]+?)\1/g, (m, p1, inner) => toUnicodeItalic(inner));
+      return res;
+    }
+
     function shareCalculatorResults() {
       const price = document.getElementById('calc-price').value;
       const down = document.getElementById('calc-down').value;
@@ -1199,12 +1231,12 @@
       const depositVal = (numPrice * (numDown / 100)).toLocaleString('en-US');
       const url = window.location.origin + '/calculator#legal';
 
-      const shareText = 
+      const rawShareText = 
 `*ESTIMATED PROPERTY FEES & INSTALLMENTS*
 ═════════════════
 *Property Price:* RM ` + numPrice.toLocaleString('en-US') + `
-*Downpayment (` + down + `%)*: RM ` + depositVal + `
-*Loan Amount (` + (100 - numDown) + `%)*: ` + loan + `
+*Downpayment (` + down + `%):* RM ` + depositVal + `
+*Loan Amount (` + (100 - numDown) + `%):* ` + loan + `
 *Interest Rate:* ` + rate + `% (` + tenure + ` Tahun)
 
 *Monthly Installment:* ` + monthly + `
@@ -1222,6 +1254,8 @@ _Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada sebut harga (quotatio
 
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
+
+      const shareText = formatUniversalShareText(rawShareText);
 
       if (navigator.share) {
         // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
@@ -1332,7 +1366,7 @@ _Zaim Rosli Real Estate (REN39575)_
       const maxPrice = document.getElementById('dsr-res-max-price').textContent.trim();
       const url = window.location.origin + '/calculator#dsr';
 
-      const shareText = 
+      const rawShareText = 
 `*BANK LOAN ELIGIBILITY ASSESSMENT (DSR)*
 ═════════════════
 *Net Income:* RM ` + Math.round(totalIncome).toLocaleString('en-US') + `
@@ -1349,6 +1383,8 @@ _Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada semakan rasmi dan pol
 
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
+
+      const shareText = formatUniversalShareText(rawShareText);
 
       if (navigator.share) {
         // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
