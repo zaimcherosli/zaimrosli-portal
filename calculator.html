@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=126">
+  <link rel="stylesheet" href="/styles.css?v=127">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -446,7 +446,7 @@
     }
   }
   </script>
-  <script src="/analytics.js?v=126" defer></script>
+  <script src="/analytics.js?v=127" defer></script>
 </head>
 <body>
 
@@ -824,6 +824,12 @@
               <strong id="res-total-cash">RM 0</strong>
             </div>
 
+            <!-- Disclaimer Note on Web -->
+            <div style="margin-top: 14px; padding: 10px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.8rem; color: #64748b; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 1rem; flex-shrink: 0; line-height: 1.2;">ℹ️</span>
+              <div><strong>Nota / Penafian:</strong> Ini adalah anggaran kiraan sahaja, tertakluk kepada sebut harga (quotation) sebenar daripada pihak peguam &amp; bank.</div>
+            </div>
+
             <div style="margin-top: 18px;">
               <button id="calc-share-btn" onclick="shareCalculatorResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
@@ -943,6 +949,12 @@
               <strong id="dsr-res-max-price" style="color: var(--primary-navy); font-size: 1.05rem;">RM 0</strong>
             </div>
 
+            <!-- Disclaimer Note on Web -->
+            <div style="margin-top: 14px; padding: 10px 14px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; font-size: 0.8rem; color: #64748b; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px;">
+              <span style="font-size: 1rem; flex-shrink: 0; line-height: 1.2;">ℹ️</span>
+              <div><strong>Nota / Penafian:</strong> Ini adalah anggaran kiraan kelayakan sahaja, tertakluk kepada semakan rasmi dan polisi kredit institusi perbankan (CCRIS / CTOS).</div>
+            </div>
+
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
               <button type="button" onclick="shareDsrResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
@@ -972,9 +984,9 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=126"></script>
+  <script src="/properties-data.js?v=127"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=126"></script>
+  <script src="/app.js?v=127"></script>
   <script>
     // Tab Switcher Handler
     window.switchCalcTab = switchCalcTab;
@@ -1161,22 +1173,22 @@
     }
 
     function shareCalculatorResults() {
-      const price = document.getElementById('calc-price').value || '0';
-      const down = document.getElementById('calc-down').value || '10';
-      const rate = document.getElementById('calc-rate').value || '4.2';
-      const tenure = document.getElementById('calc-tenure').value || '35';
-
+      const price = document.getElementById('calc-price').value;
+      const down = document.getElementById('calc-down').value;
+      const rate = document.getElementById('calc-rate').value;
+      const tenure = document.getElementById('calc-tenure').value;
+      const isFirstHome = document.getElementById('toggle-first-home').checked;
+      
+      const isSpa = document.getElementById('toggle-spa').checked;
+      const isMot = document.getElementById('toggle-mot').checked;
+      const isLoanFee = document.getElementById('toggle-loan-fee').checked;
+      const isLoanDuty = document.getElementById('toggle-loan-duty').checked;
+      const isValuation = document.getElementById('toggle-valuation').checked;
+      
       const monthly = document.getElementById('res-monthly').textContent.trim();
       const loan = document.getElementById('res-loan').textContent.trim();
-      
-      const isSpa = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
-      const isMot = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
-      const isLoanFee = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
-      const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
-      const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
-
-      const spa = isSpa ? 'RM ' + Math.round(parseFloat(price) * 0.0125).toLocaleString() : 'RM 0 [FREE DEVELOPER PACKAGE]';
-      const mot = isMot ? 'RM ' + Math.round(parseFloat(price) * 0.02).toLocaleString() : 'RM 0 [MOT STAMP DUTY EXEMPTION]';
+      const spa = isSpa ? document.getElementById('res-spa').textContent.trim() : 'RM 0 [EXCLUDED]';
+      const mot = isMot ? document.getElementById('res-mot').textContent.trim() : (isFirstHome ? 'RM 0 [100% FIRST HOME EXEMPTION]' : 'RM 0 [EXCLUDED]');
       const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString() : 'RM 0 [FREE BANK PACKAGE]';
       const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString() : 'RM 0 [STAMP DUTY EXEMPTION]';
       const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString() : 'RM 0 [EXEMPTED]';
@@ -1206,18 +1218,20 @@
 
 *TOTAL ENTRY CASH REQUIRED:* ` + totalCash + `
 ═════════════════
+_Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada sebut harga (quotation) sebenar daripada pihak peguam & bank._
+
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
 
       if (navigator.share) {
+        // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
         navigator.share({
           title: 'Kalkulator Yuran Hartanah — Zaim Rosli',
-          text: shareText,
-          url: url
+          text: shareText
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('Complete calculator results have been copied to clipboard!');
+          alert('Maklumat anggaran kalkulator & nota telah disalin!');
         }).catch(() => {
           prompt('Salin maklumat kalkulator ini:', shareText);
         });
@@ -1309,12 +1323,13 @@ _Zaim Rosli Real Estate (REN39575)_
       const salary = parseFloat(document.getElementById('dsr-salary').value) || 0;
       const otherIncome = parseFloat(document.getElementById('dsr-other-income').value) || 0;
       const totalIncome = salary + otherIncome;
+      
       const existing = document.getElementById('dsr-res-existing').textContent.trim();
-      const totalComm = document.getElementById('dsr-res-total').textContent.trim();
-      const dsrPct = document.getElementById('dsr-pct-display').textContent.trim();
+      const dsrPct = document.getElementById('dsr-res-ratio').textContent.trim();
+      const status = document.getElementById('dsr-res-status').textContent.trim();
+      const totalComm = document.getElementById('dsr-res-total-comm').textContent.trim();
       const maxInstallment = document.getElementById('dsr-res-max-installment').textContent.trim();
       const maxPrice = document.getElementById('dsr-res-max-price').textContent.trim();
-      const status = document.getElementById('dsr-status-badge').textContent.trim();
       const url = window.location.origin + '/calculator#dsr';
 
       const shareText = 
@@ -1330,18 +1345,20 @@ _Zaim Rosli Real Estate (REN39575)_
 *Max Allowable Installment:* ` + maxInstallment + `
 *Estimated Affordable Property Price:* ` + maxPrice + `
 ═════════════════
+_Nota: Ini adalah anggaran kiraan sahaja, tertakluk kepada semakan rasmi dan polisi kredit institusi perbankan (CCRIS / CTOS)._
+
 _Zaim Rosli Real Estate (REN39575)_
 ` + url;
 
       if (navigator.share) {
+        // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
         navigator.share({
           title: 'Semakan DSR Kelayakan Pinjaman — Zaim Rosli',
-          text: shareText,
-          url: url
+          text: shareText
         }).catch(err => console.log('Share dismissed:', err));
       } else {
         navigator.clipboard.writeText(shareText).then(() => {
-          alert('DSR assessment results have been copied to clipboard!');
+          alert('Maklumat semakan DSR & nota telah disalin!');
         }).catch(() => {
           prompt('Salin maklumat DSR ini:', shareText);
         });
