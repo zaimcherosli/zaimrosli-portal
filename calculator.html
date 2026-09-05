@@ -6,7 +6,7 @@
   <title>Kalkulator Hartanah & Kelayakan Loan (DSR) — Zaim Rosli (REN39575)</title>
   <meta name="description" content="Kalkulator komprehensif hartanah Malaysia: Kira ansuran pinjaman bulanan, yuran guaman SPA, duti setem MOT, serta semakan kelayakan pinjaman bank (DSR - Debt Service Ratio).">
   <link rel="canonical" href="https://zaimrosli.my/calculator">
-  <link rel="stylesheet" href="/styles.css?v=128">
+  <link rel="stylesheet" href="/styles.css?v=129">
   <style>
     /* Calculator Tab Switcher Styling */
     .calc-tabs-wrapper {
@@ -446,7 +446,7 @@
     }
   }
   </script>
-  <script src="/analytics.js?v=128" defer></script>
+  <script src="/analytics.js?v=129" defer></script>
 </head>
 <body>
 
@@ -956,7 +956,7 @@
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-              <button type="button" onclick="shareDsrResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
+              <button id="dsr-share-btn" type="button" onclick="shareDsrResults()" class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; height: 46px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                 Share DSR Assessment
               </button>
@@ -984,9 +984,9 @@
     </div>
   </footer>
 
-  <script src="/properties-data.js?v=128"></script>
+  <script src="/properties-data.js?v=129"></script>
   <script src="/locations-config.js?v=20"></script>
-  <script src="/app.js?v=128"></script>
+  <script src="/app.js?v=129"></script>
   <script>
     // Tab Switcher Handler
     window.switchCalcTab = switchCalcTab;
@@ -1204,27 +1204,94 @@
       return res;
     }
 
+    // Sleek Toast Notification for Calculator
+    function showCalcToast(msg) {
+      let toast = document.getElementById('calc-share-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'calc-share-toast';
+        toast.style.cssText = 'position:fixed; bottom:28px; left:50%; transform:translateX(-50%); background:#0f172a; color:#ffffff; padding:12px 24px; border-radius:30px; font-size:0.9rem; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,0.3); z-index:999999; display:flex; align-items:center; gap:10px; opacity:0; transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1); pointer-events:none; border:1px solid rgba(255,255,255,0.15); max-width:90vw; text-align:center;';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = '<span>📋</span> <span>' + msg + '</span>';
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(window.__calcToastTimer);
+      window.__calcToastTimer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(12px)';
+      }, 4000);
+    }
+
+    function copyToClipboardWithFeedback(text, btnId, successToast) {
+      const btn = document.getElementById(btnId);
+      const originalHtml = btn ? btn.innerHTML : '';
+
+      function onCopied() {
+        if (btn) {
+          btn.style.transition = 'all 0.25s ease';
+          btn.style.borderColor = '#10b981';
+          btn.style.background = '#ecfdf5';
+          btn.style.color = '#047857';
+          btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Disalin ke Clipboard! (Sedia Paste)</span>';
+          setTimeout(() => {
+            btn.innerHTML = originalHtml;
+            btn.style.borderColor = '';
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 3500);
+        }
+        showCalcToast(successToast || 'Maklumat pengiraan lengkap & nota telah disalin ke clipboard! Sedia dipaste (Ctrl+V) ke Telegram, WhatsApp atau Facebook.');
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onCopied).catch(() => {
+          fallbackCopy(text, onCopied);
+        });
+      } else {
+        fallbackCopy(text, onCopied);
+      }
+
+      function fallbackCopy(str, cb) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = str;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          ta.style.top = '-9999px';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (cb) cb();
+        } catch(e) {
+          prompt('Salin maklumat ini:', str);
+        }
+      }
+    }
+
     function shareCalculatorResults() {
-      const price = document.getElementById('calc-price').value;
-      const down = document.getElementById('calc-down').value;
-      const rate = document.getElementById('calc-rate').value;
-      const tenure = document.getElementById('calc-tenure').value;
-      const isFirstHome = document.getElementById('toggle-first-home').checked;
+      const price = (document.getElementById('calc-price') && document.getElementById('calc-price').value) || '650000';
+      const down = (document.getElementById('calc-down') && document.getElementById('calc-down').value) || '10';
+      const rate = (document.getElementById('calc-rate') && document.getElementById('calc-rate').value) || '4.2';
+      const tenure = (document.getElementById('calc-tenure') && document.getElementById('calc-tenure').value) || '35';
       
-      const isSpa = document.getElementById('toggle-spa').checked;
-      const isMot = document.getElementById('toggle-mot').checked;
-      const isLoanFee = document.getElementById('toggle-loan-fee').checked;
-      const isLoanDuty = document.getElementById('toggle-loan-duty').checked;
-      const isValuation = document.getElementById('toggle-valuation').checked;
+      const isSpa = document.getElementById('toggle-spa') ? document.getElementById('toggle-spa').checked : true;
+      const isMot = document.getElementById('toggle-mot') ? document.getElementById('toggle-mot').checked : true;
+      const isLoanFee = document.getElementById('toggle-loan-fee') ? document.getElementById('toggle-loan-fee').checked : true;
+      const isLoanDuty = document.getElementById('toggle-loan-duty') ? document.getElementById('toggle-loan-duty').checked : true;
+      const isValuation = document.getElementById('toggle-valuation') ? document.getElementById('toggle-valuation').checked : true;
       
-      const monthly = document.getElementById('res-monthly').textContent.trim();
-      const loan = document.getElementById('res-loan').textContent.trim();
-      const spa = isSpa ? document.getElementById('res-spa').textContent.trim() : 'RM 0 [EXCLUDED]';
-      const mot = isMot ? document.getElementById('res-mot').textContent.trim() : (isFirstHome ? 'RM 0 [100% FIRST HOME EXEMPTION]' : 'RM 0 [EXCLUDED]');
-      const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString() : 'RM 0 [FREE BANK PACKAGE]';
-      const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString() : 'RM 0 [STAMP DUTY EXEMPTION]';
-      const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString() : 'RM 0 [EXEMPTED]';
-      const totalCash = document.getElementById('res-total-cash').textContent.trim();
+      const monthly = document.getElementById('res-monthly') ? document.getElementById('res-monthly').textContent.trim() : 'RM 0 / mo';
+      const loan = document.getElementById('res-loan') ? document.getElementById('res-loan').textContent.trim() : 'RM 0';
+      const spa = isSpa && document.getElementById('res-spa') ? document.getElementById('res-spa').textContent.trim() : 'RM 0 [EXCLUDED]';
+      const mot = isMot && document.getElementById('res-mot') ? document.getElementById('res-mot').textContent.trim() : 'RM 0 [EXEMPTED / EXCLUDED]';
+      const loanFee = isLoanFee ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.01).toLocaleString('en-US') : 'RM 0 [FREE BANK PACKAGE]';
+      const loanDuty = isLoanDuty ? 'RM ' + Math.round(parseFloat(price) * 0.9 * 0.005).toLocaleString('en-US') : 'RM 0 [STAMP DUTY EXEMPTION]';
+      const valuation = isValuation ? 'RM ' + Math.round(parseFloat(price) * 0.0025).toLocaleString('en-US') : 'RM 0 [EXEMPTED]';
+      const totalCash = document.getElementById('res-total-cash') ? document.getElementById('res-total-cash').textContent.trim() : 'RM 0';
       
       const numPrice = parseFloat(price) || 0;
       const numDown = parseFloat(down) || 0;
@@ -1257,18 +1324,18 @@ _Zaim Rosli Real Estate (REN39575)_
 
       const shareText = formatUniversalShareText(rawShareText);
 
-      if (navigator.share) {
-        // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
+      const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      if (isMobile && navigator.share) {
         navigator.share({
           title: 'Kalkulator Yuran Hartanah — Zaim Rosli',
           text: shareText
-        }).catch(err => console.log('Share dismissed:', err));
-      } else {
-        navigator.clipboard.writeText(shareText).then(() => {
-          alert('Maklumat anggaran kalkulator & nota telah disalin!');
-        }).catch(() => {
-          prompt('Salin maklumat kalkulator ini:', shareText);
+        }).catch((err) => {
+          if (err && err.name !== 'AbortError') {
+            copyToClipboardWithFeedback(shareText, 'calc-share-btn');
+          }
         });
+      } else {
+        copyToClipboardWithFeedback(shareText, 'calc-share-btn');
       }
     }
 
@@ -1354,22 +1421,23 @@ _Zaim Rosli Real Estate (REN39575)_
     }
 
     function shareDsrResults() {
-      const salary = parseFloat(document.getElementById('dsr-salary').value) || 0;
-      const otherIncome = parseFloat(document.getElementById('dsr-other-income').value) || 0;
+      const salary = (document.getElementById('dsr-salary') && parseFloat(document.getElementById('dsr-salary').value)) || 0;
+      const otherIncome = (document.getElementById('dsr-other-income') && parseFloat(document.getElementById('dsr-other-income').value)) || 0;
       const totalIncome = salary + otherIncome;
       
-      const existing = document.getElementById('dsr-res-existing').textContent.trim();
-      const dsrPct = document.getElementById('dsr-res-ratio').textContent.trim();
-      const status = document.getElementById('dsr-res-status').textContent.trim();
-      const totalComm = document.getElementById('dsr-res-total-comm').textContent.trim();
-      const maxInstallment = document.getElementById('dsr-res-max-installment').textContent.trim();
-      const maxPrice = document.getElementById('dsr-res-max-price').textContent.trim();
+      const incomeStr = document.getElementById('dsr-res-income') ? document.getElementById('dsr-res-income').textContent.trim() : ('RM ' + Math.round(totalIncome).toLocaleString('en-US'));
+      const existing = document.getElementById('dsr-res-existing') ? document.getElementById('dsr-res-existing').textContent.trim() : 'RM 0';
+      const totalComm = document.getElementById('dsr-res-total') ? document.getElementById('dsr-res-total').textContent.trim() : 'RM 0';
+      const dsrPct = document.getElementById('dsr-pct-display') ? document.getElementById('dsr-pct-display').textContent.trim() : '0%';
+      const status = document.getElementById('dsr-status-badge') ? document.getElementById('dsr-status-badge').textContent.trim() : 'DSR ASSESSMENT';
+      const maxInstallment = document.getElementById('dsr-res-max-installment') ? document.getElementById('dsr-res-max-installment').textContent.trim() : 'RM 0 / mo';
+      const maxPrice = document.getElementById('dsr-res-max-price') ? document.getElementById('dsr-res-max-price').textContent.trim() : 'RM 0';
       const url = window.location.origin + '/calculator#dsr';
 
       const rawShareText = 
 `*BANK LOAN ELIGIBILITY ASSESSMENT (DSR)*
 ═════════════════
-*Net Income:* RM ` + Math.round(totalIncome).toLocaleString('en-US') + `
+*Net Income:* ` + incomeStr + `
 *Existing Commitments:* ` + existing + `
 *Total Commitments:* ` + totalComm + `
 
@@ -1386,18 +1454,18 @@ _Zaim Rosli Real Estate (REN39575)_
 
       const shareText = formatUniversalShareText(rawShareText);
 
-      if (navigator.share) {
-        // Pass shareText only without separate url parameter to prevent duplicate link in WhatsApp
+      const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      if (isMobile && navigator.share) {
         navigator.share({
           title: 'Semakan DSR Kelayakan Pinjaman — Zaim Rosli',
           text: shareText
-        }).catch(err => console.log('Share dismissed:', err));
-      } else {
-        navigator.clipboard.writeText(shareText).then(() => {
-          alert('Maklumat semakan DSR & nota telah disalin!');
-        }).catch(() => {
-          prompt('Salin maklumat DSR ini:', shareText);
+        }).catch((err) => {
+          if (err && err.name !== 'AbortError') {
+            copyToClipboardWithFeedback(shareText, 'dsr-share-btn');
+          }
         });
+      } else {
+        copyToClipboardWithFeedback(shareText, 'dsr-share-btn');
       }
     }
 
